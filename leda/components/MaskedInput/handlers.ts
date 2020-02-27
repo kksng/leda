@@ -126,6 +126,7 @@ export const createResetHandler = ({
       component: {
         name: props.name,
         value,
+        inputValue: value,
       },
     };
     props.onChange(customEvent);
