@@ -54,7 +54,7 @@ jobs:
           key: package-lock=${{ hashFiles('package-lock.json') }}
       - uses: cypress-io/github-action@v1
         with:
-          start: npm run start:cy
+          start: npm start
       - uses: actions/upload-artifact@v1
         if: ${{ job.status == 'failure' }}
         with:

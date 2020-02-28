@@ -1,5 +1,4 @@
 const path = require('path');
-const host = require('os').hostname().toLowerCase();
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 module.exports = {
@@ -39,7 +38,6 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    host,
     port: process.env.PORT || 9000,
     contentBase: path.resolve('public'),
     overlay: true,

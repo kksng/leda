@@ -7,7 +7,6 @@
   "sideEffects": false,
   "scripts": {
     "start": "npm run build:demo",
-    "start:cy": "npm run sass && webpack-dev-server --host 0.0.0.0",
     "test": "npm run jest",
     "build": "rimraf dist/ && npm run tsc && npm run sass:build",
     "build:demo": "npm run sass && webpack-dev-server --hot",
@@ -23,9 +22,7 @@
     "sass:build": "node-sass --output dist/styles styles",
     "jest": "jest --color",
     "cy:open": "cypress open",
-    "cy:test": "cypress run",
-    "cypress-local": "start-test start:cy :9000 cy:open",
-    "cypress-ci": "start-test start:cy :9000 cy:test"
+    "cy:test": "cypress run"
   },
   "license": "MIT",
   "dependencies": {
