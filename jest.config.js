@@ -1,25 +1,18 @@
 module.exports = {
+  bail: true,
   preset: 'ts-jest',
-  testEnvironment: 'jsdom',
+  testPathIgnorePatterns: [
+    '<rootDir>/dist/',
+  ],
+  moduleFileExtensions: ['ts', 'tsx', 'js'],
+  modulePathIgnorePatterns: [
+    '<rootDir>/\\.',
+  ],
+  setupFilesAfterEnv: [
+    '<rootDir>/jest.setup.ts',
+  ],
   snapshotSerializers: [
     'enzyme-to-json/serializer',
   ],
-  testPathIgnorePatterns: [
-    '/node_modules/',
-    '<rootDir>/dist/',
-    '/cypress/',
-  ],
-  testURL: 'http://localhost/',
-  setupFilesAfterEnv: ['<rootDir>/testsConfig.ts'],
-  setupFiles: [
-    'jest-date-mock',
-  ],
-  extraGlobals: [
-    'document',
-  ],
-  bail: true,
-  verbose: true,
-  testMatch: null,
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts)x?$',
+  testRegex: '\\.test\\.tsx$',
 };
