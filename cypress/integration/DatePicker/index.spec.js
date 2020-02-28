@@ -283,6 +283,7 @@ describe('DatePicker', () => {
         .blur()
         .should('have.attr', 'value', '04.05.2012')
         .focus()
+        .wait(200)
         .clear() // Последняя выбранная дата должна быть 04.05.2012
         .should('have.attr', 'value', '__.__.____')
         .parents('.datepicker-wrapper')
