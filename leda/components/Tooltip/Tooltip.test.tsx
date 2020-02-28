@@ -1,95 +1,105 @@
 import React from 'react';
-import toJson from 'enzyme-to-json';
-import { mount } from 'enzyme';
-import { Tooltip } from './index';
+import { render } from '@testing-library/react';
 import { I } from '../I';
+import { Tooltip } from './index';
 
 describe('Tooltip SNAPSHOTS', () => {
   it('should render', () => {
-    const wrapper = mount(<Tooltip title="Tips">Test</Tooltip>);
+    const wrapper = render((
+      <Tooltip title="test">test</Tooltip>
+    ));
 
-    expect(toJson(wrapper)).toMatchSnapshot();
-
-    wrapper.unmount();
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('should render isOpened state', () => {
-    const wrapper = mount(<Tooltip title="Tips" isOpen>Test</Tooltip>);
+    const wrapper = render((
+      <Tooltip title="test" isOpen>test</Tooltip>
+    ));
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('Tooltip ATTRIBUTES', () => {
   it('should accept jsx in title', () => {
-    const wrapper = mount(<Tooltip title={<span style={{ color: 'blue' }}>Test</span>} />);
-    expect(wrapper.find('span')).toHaveLength(1);
+    render((
+      <Tooltip title={<span style={{ color: 'blue' }}>test</span>} />
+    ));
+
+    expect(document.querySelectorAll('span')).toHaveLength(1);
   });
 
   describe('position prop', () => {
     it('should be top by default', () => {
-      const wrapper = mount(<Tooltip title="TIPS">Test</Tooltip>);
+      render((
+        <Tooltip title="test">Test</Tooltip>
+      ));
 
-      expect(wrapper.find('.tooltip').hasClass('top')).toBeTruthy();
+      expect(document.querySelector('.tooltip.top')).toBeInTheDocument();
     });
 
     it('should be right', () => {
-      const wrapper = mount(<Tooltip position="right" title="TIPS">Test</Tooltip>);
+      render((
+        <Tooltip title="test" position="right">test</Tooltip>
+      ));
 
-      expect(wrapper.find('.tooltip').hasClass('right')).toBeTruthy();
+      expect(document.querySelector('.tooltip.right')).toBeInTheDocument();
     });
 
     it('should be bottom', () => {
-      const wrapper = mount(<Tooltip position="bottom" title="TIPS">Test</Tooltip>);
+      render((
+        <Tooltip title="test" position="bottom">test</Tooltip>
+      ));
 
-      expect(wrapper.find('.tooltip').hasClass('bottom')).toBeTruthy();
+      expect(document.querySelector('.tooltip.bottom')).toBeInTheDocument();
     });
 
     it('should be left', () => {
-      const wrapper = mount(<Tooltip position="left" title="TIPS">Test</Tooltip>);
+      render((
+        <Tooltip title="test" position="left">test</Tooltip>
+      ));
 
-      expect(wrapper.find('.tooltip').hasClass('left')).toBeTruthy();
+      expect(document.querySelector('.tooltip.left')).toBeInTheDocument();
     });
   });
 
   it('should have children prop', () => {
-    const wrapper = mount(<Tooltip title="Tips"><div className="lvl1" style={{ float: 'right' }}><span className="lvl2">TEXT</span></div></Tooltip>);
+    render((
+      <Tooltip title="test">
+        <div className="level-0" style={{ float: 'right' }}>
+          <span className="level-1">test</span>
+        </div>
+      </Tooltip>
+    ));
 
-    const div = wrapper.props().children;
+    expect(document.querySelector('div.level-0')).toBeInTheDocument();
 
-    expect(div).toBeDefined();
+    expect(document.querySelector('div.level-0')).toHaveStyle('float: right');
 
-    expect(div.type).toEqual('div');
+    expect(document.querySelector('span.level-1')).toBeInTheDocument();
 
-    expect(div.props.style).toEqual({ float: 'right' });
-
-    expect(div.props.className).toEqual('lvl1');
-
-    const span = div.props.children;
-
-    expect(span.type).toEqual('span');
-
-    expect(span.props.className).toEqual('lvl2');
-
-    expect(span.props.children).toEqual('TEXT');
+    expect(document.querySelector('span.level-1')).toHaveTextContent('test');
   });
 
-  it('should no wrap element', () => {
-    const wrapper = mount(<Tooltip title="Test" position="top"><I _iSearch /></Tooltip>);
+  it('should wrap element', () => {
+    render((
+      <Tooltip title="test" position="top">
+        <I _iSearch />
+      </Tooltip>
+    ));
 
-    expect(wrapper.find('I').parents().children()).toHaveLength(4);
+    expect(document.querySelectorAll('i')).toHaveLength(1);
   });
 
   it('should wrap elements', () => {
-    const wrapper = mount(
-      <Tooltip title="Test" position="top">
+    render((
+      <Tooltip title="test" position="top">
         <I _iSearch />
         <I _iSearch />
-      </Tooltip>,
-    );
+      </Tooltip>
+    ));
 
-    expect(wrapper.find('Tooltip div').at(1).children()).toHaveLength(2);
-
-    expect(wrapper.find('Tooltip').children('div').last().children()).toHaveLength(2);
+    expect(document.querySelectorAll('i')).toHaveLength(2);
   });
 });
