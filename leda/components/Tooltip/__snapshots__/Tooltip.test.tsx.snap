@@ -20,9 +20,9 @@ exports[`Tooltip SNAPSHOTS should render 1`] = `
     position="top"
     style={
       Object {
-        "height": "0",
-        "left": "-99999px",
-        "opacity": "0",
+        "height": 0,
+        "left": -99999,
+        "opacity": 0,
         "whiteSpace": "nowrap",
       }
     }
@@ -55,9 +55,9 @@ exports[`Tooltip SNAPSHOTS should render 1`] = `
         className="tooltip top"
         style={
           Object {
-            "height": "0",
-            "left": "-99999px",
-            "opacity": "0",
+            "height": 0,
+            "left": -99999,
+            "opacity": 0,
             "whiteSpace": "nowrap",
           }
         }
