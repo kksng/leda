@@ -18,6 +18,14 @@ exports[`Tooltip SNAPSHOTS should render 1`] = `
   </div>
   <TooltipBody
     position="top"
+    style={
+      Object {
+        "height": "0",
+        "left": "-99999px",
+        "opacity": "0",
+        "whiteSpace": "nowrap",
+      }
+    }
     theme={
       Object {
         "bottom": "tooltip bottom",
@@ -34,7 +42,7 @@ exports[`Tooltip SNAPSHOTS should render 1`] = `
         <body>
           <div
             class="tooltip top"
-            style="opacity: 0; height: 0px; left: -99999px;"
+            style="height: 0px; opacity: 0; white-space: nowrap; left: -99999px;"
           >
             <div>
               Tips
@@ -45,6 +53,14 @@ exports[`Tooltip SNAPSHOTS should render 1`] = `
     >
       <div
         className="tooltip top"
+        style={
+          Object {
+            "height": "0",
+            "left": "-99999px",
+            "opacity": "0",
+            "whiteSpace": "nowrap",
+          }
+        }
       >
         <div>
           Tips
@@ -74,6 +90,13 @@ exports[`Tooltip SNAPSHOTS should render isOpened state 1`] = `
   </div>
   <TooltipBody
     position="top"
+    style={
+      Object {
+        "height": "auto",
+        "opacity": 1,
+        "whiteSpace": "nowrap",
+      }
+    }
     theme={
       Object {
         "bottom": "tooltip bottom",
@@ -90,6 +113,7 @@ exports[`Tooltip SNAPSHOTS should render isOpened state 1`] = `
         <body>
           <div
             class="tooltip top"
+            style="height: auto; opacity: 1; white-space: nowrap;"
           >
             <div>
               Tips
@@ -100,6 +124,13 @@ exports[`Tooltip SNAPSHOTS should render isOpened state 1`] = `
     >
       <div
         className="tooltip top"
+        style={
+          Object {
+            "height": "auto",
+            "opacity": 1,
+            "whiteSpace": "nowrap",
+          }
+        }
       >
         <div>
           Tips
