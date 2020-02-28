@@ -28,7 +28,20 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
 
   const [isHidden, setHidden] = React.useState<boolean>(false);
 
+  const [style, mergeStyle] = React.useReducer((
+    oldStyle: React.CSSProperties,
+    newStyle: React.CSSProperties,
+  ) => ({
+    ...oldStyle,
+    ...newStyle,
+  }), {
+    height: 'auto',
+    opacity: 1,
+    whiteSpace: 'nowrap',
+  });
+
   useTooltipEffects({
+    mergeStyle,
     invisibleElementRef,
     tooltipRef,
     isOpen,
@@ -58,6 +71,7 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
           : children
       }
       <TooltipBody
+        style={style}
         position={position}
         title={title}
         theme={theme}
