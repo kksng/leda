@@ -3,8 +3,7 @@ import { isNil } from 'lodash';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { SuggestionList } from '../../src/SuggestionList';
 import {
-  bindFunctionalRef,
-  mergeClassNames, mergeState, useTheme,
+  bindFunctionalRef, mergeClassNames, useTheme,
 } from '../../utils';
 import { Div } from '../Div';
 import { useValidation } from '../Validation';
@@ -75,7 +74,8 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     isOpen: false,
     value: defaultValue,
   });
-  // выибраем между контролируемым режимом и неконтролируемым
+
+  // выбираем между контролируемым режимом и неконтролируемым
   const { isFocused, highlightedSuggestion, selectedSuggestion } = state;
   const isOpen = isNil(isOpenProp) ? state.isOpen : isOpenProp;
   const value = valueProp === undefined ? state.value : valueProp;
@@ -83,11 +83,17 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.dropDownSelect);
 
+  const mergeState = (newState: Partial<DropDownSelectState>): void => {
+    setState({
+      ...state, ...newState,
+    });
+  };
+
   const {
     isValid, validateCurrent, InvalidMessage,
   } = useValidation(props, state, {
     reset: createResetHandler({
-      props, setState, value: defaultValue,
+      props, mergeState, value: defaultValue,
     }),
   });
 
@@ -102,7 +108,7 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
   });
 
   const handlerData = {
-    props, state, setState, inputRef, validate: validateCurrent, value,
+    props, state, mergeState, inputRef, validate: validateCurrent, value,
   };
 
   const handleChange = createChangeHandler(handlerData);
@@ -131,6 +137,16 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     ? filterData(data, filterValue, textField, filterRule)
     : data;
 
+  const handleInputClick = () => {
+    mergeState({
+      isOpen: true,
+    });
+  };
+
+  const handleIconMouseDown: React.MouseEventHandler = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <Wrapper
       className={wrapperClassNames}
@@ -150,7 +166,7 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
           name={name}
           onBlur={handleBlur}
           onChange={handleFilterChange}
-          onClick={() => setState(mergeState({ isOpen: true }))}
+          onClick={handleInputClick}
           onFocus={handleFocus}
           onKeyDown={handleKeyDown}
           placeholder={isNil(value) ? placeholder : ''}
@@ -164,7 +180,7 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
             onClick={handleClearIconClick}
           />
         )}
-        <Icon className={selectIconClassNames} onMouseDown={(ev) => ev.preventDefault()} onClick={handleIconClick} />
+        <Icon className={selectIconClassNames} onMouseDown={handleIconMouseDown} onClick={handleIconClick} />
       </Div>
       <SuggestionList
         boundingContainerRef={boundingContainerRef}
