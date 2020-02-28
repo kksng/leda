@@ -1,20 +1,20 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
-
+about: Propose a new feature
+title: "Feature: [FEATURE NAME]"
+labels: feature
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## Feature request
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+**Please describe a feature you are suggesting**
+A clear and concise description of what the feature is.
+E.g. I'd like AutoComplete component to have a new prop [...]
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+**Describe a step-by-step behavior of your feature**
+1. Step 1
+2. Step 2
+3. Step 3
 
 **Additional context**
 Add any other context or screenshots about the feature request here.
