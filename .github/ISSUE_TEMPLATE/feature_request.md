@@ -2,14 +2,14 @@
 name: Feature request
 about: Propose a new feature
 title: "Feature: [FEATURE NAME]"
-labels: feature
+labels: "feature"
 ---
 
 ## Feature request
 
 **Please describe a feature you are suggesting**
 A clear and concise description of what the feature is.
-E.g. I'd like AutoComplete component to have a new prop [...]
+E.g. I'd like AutoComplete component to have a new feature [...]
 
 **Describe a step-by-step behavior of your feature**
 1. Step 1
