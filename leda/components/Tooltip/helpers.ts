@@ -73,7 +73,7 @@ const updateTooltipPosition = (data: {
 };
 
 export const showTooltip: ShowTooltip = ({
-  invisibleElementRef, position, setPosition, tooltipRef,
+  mergeStyle, invisibleElementRef, position, setPosition, tooltipRef,
 }): void => {
   // вычисление координат тултипа на основе координат потомков тултипа
   const element = invisibleElementRef.current ? invisibleElementRef.current.nextElementSibling : null;
@@ -124,28 +124,24 @@ export const showTooltip: ShowTooltip = ({
     })(),
   } as const;
 
-  const setTooltipStyles = (topStyle: string, leftStyle: string): void => {
-    if (tooltipRef.current) {
-      tooltipRef.current.style.opacity = '1';
-      tooltipRef.current.style.height = 'auto';
-      tooltipRef.current.style.top = topStyle;
-      tooltipRef.current.style.left = leftStyle;
-    }
-  };
-
-  setTooltipStyles(newTooltipStyles.top, newTooltipStyles.left);
+  mergeStyle({
+    opacity: 1,
+    height: 'auto',
+    top: newTooltipStyles.top,
+    left: newTooltipStyles.left,
+  });
 };
 
 export const hideTooltip: HideTooltip = ({
-  isOpen, tooltipRef, positionProp, setPosition,
+  mergeStyle, isOpen, positionProp, setPosition,
 }): void => {
   if (isOpen) return;
 
-  if (tooltipRef.current) {
-    tooltipRef.current.style.opacity = '0';
-    tooltipRef.current.style.height = '0';
-    tooltipRef.current.style.left = '-99999px';
-  }
+  mergeStyle({
+    opacity: '0',
+    height: '0',
+    left: '-99999px',
+  });
 
   setPosition(positionProp);
 };

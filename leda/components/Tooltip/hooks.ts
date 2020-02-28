@@ -3,12 +3,12 @@ import { hideTooltip, showTooltip } from './helpers';
 import { UseTooltipEffects } from './types';
 
 export const useTooltipEffects: UseTooltipEffects = ({
-  invisibleElementRef, tooltipRef, isOpen, position, setPosition, setHidden, positionProp, children,
+  mergeStyle, invisibleElementRef, tooltipRef, isOpen, position, setPosition, setHidden, positionProp, children,
 }) => {
   // hide on mount and unmount
   React.useEffect(() => {
     const hide = (): void => hideTooltip({
-      isOpen, tooltipRef, positionProp, setPosition,
+      mergeStyle, isOpen, positionProp, setPosition,
     });
 
     hide();
@@ -21,10 +21,11 @@ export const useTooltipEffects: UseTooltipEffects = ({
     const element = invisibleElementRef.current;
 
     const hide = (): void => hideTooltip({
-      isOpen, tooltipRef, positionProp, setPosition,
+      mergeStyle, isOpen, positionProp, setPosition,
     });
 
     const show = (): void => showTooltip({
+      mergeStyle,
       invisibleElementRef,
       position,
       setPosition,
@@ -58,18 +59,19 @@ export const useTooltipEffects: UseTooltipEffects = ({
     }
 
     return undefined;
-  }, [invisibleElementRef, isOpen, position, positionProp, setHidden, setPosition, tooltipRef]);
+  }, [mergeStyle, invisibleElementRef, isOpen, position, positionProp, setHidden, setPosition, tooltipRef]);
 
   React.useEffect((): void => {
     if (isOpen) {
       setTimeout(() => showTooltip({
+        mergeStyle,
         invisibleElementRef,
         position,
         setPosition,
         tooltipRef,
       }), 500);
     }
-  }, [invisibleElementRef, isOpen, position, positionProp, setPosition, tooltipRef]);
+  }, [mergeStyle, invisibleElementRef, isOpen, position, positionProp, setPosition, tooltipRef]);
 
   // hide if child unmounts
   React.useEffect(() => {
@@ -77,11 +79,11 @@ export const useTooltipEffects: UseTooltipEffects = ({
 
     if (element && !element.nextElementSibling) {
       hideTooltip({
+        mergeStyle,
         setPosition,
         positionProp,
-        tooltipRef,
         isOpen,
       });
     }
-  }, [children, invisibleElementRef, isOpen, positionProp, setPosition, tooltipRef]);
+  }, [mergeStyle, children, invisibleElementRef, isOpen, positionProp, setPosition, tooltipRef]);
 };

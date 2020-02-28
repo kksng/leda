@@ -28,6 +28,7 @@ export interface TooltipStyles extends React.CSSProperties {
 export type TooltipPosition = 'top' | 'right' | 'bottom' | 'left';
 
 export interface TooltipBodyProps {
+  style: React.CSSProperties,
   position: TooltipPosition,
   title: React.ReactNode,
   ref?: React.Ref<HTMLDivElement>,
@@ -40,6 +41,7 @@ export interface TooltipRefCurrent {
 
 export interface ShowTooltip {
   (data: {
+    mergeStyle: React.Dispatch<React.CSSProperties>,
     invisibleElementRef: React.MutableRefObject<HTMLDivElement | null>,
     position: TooltipPosition,
     setPosition: SetState<TooltipPosition>,
@@ -49,8 +51,8 @@ export interface ShowTooltip {
 
 export interface HideTooltip {
   (data: {
+    mergeStyle: React.Dispatch<React.CSSProperties>,
     isOpen: boolean | undefined,
-    tooltipRef: React.MutableRefObject<HTMLDivElement | null>,
     setPosition: SetState<TooltipPosition>,
     positionProp: TooltipPosition,
   }): void,
@@ -58,6 +60,7 @@ export interface HideTooltip {
 
 export interface UseTooltipEffects {
   (data: {
+    mergeStyle: React.Dispatch<React.CSSProperties>,
     invisibleElementRef: React.MutableRefObject<HTMLDivElement | null>,
     tooltipRef: React.MutableRefObject<HTMLDivElement | null>,
     isOpen: boolean | undefined,

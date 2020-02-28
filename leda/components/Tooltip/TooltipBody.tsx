@@ -6,7 +6,7 @@ import { TooltipBodyProps } from './types';
 
 export const TooltipBody = React.forwardRef((props: TooltipBodyProps, ref?: React.Ref<HTMLDivElement>) => {
   const {
-    position = 'top', title, theme: themeProp,
+    style, position = 'top', title, theme: themeProp,
   } = props;
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.tooltip);
@@ -18,6 +18,7 @@ export const TooltipBody = React.forwardRef((props: TooltipBodyProps, ref?: Reac
   if (body !== null) {
     return ReactDOM.createPortal(
       <div
+        style={style}
         className={tooltipClassNames}
         ref={ref}
       >
