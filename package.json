@@ -26,6 +26,10 @@
     "cypress-local": "start-test :9000 cy:open",
     "cypress-ci": "start-test :9000 cy:test"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kksng/leda"
+  },
   "license": "MIT",
   "dependencies": {
     "attr-accept": "2.0.0",
