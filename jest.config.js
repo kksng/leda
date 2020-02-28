@@ -20,6 +20,6 @@ module.exports = {
   bail: true,
   verbose: true,
   testMatch: null,
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'node'],
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts)x?$',
 };
