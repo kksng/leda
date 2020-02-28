@@ -21,7 +21,7 @@ export const createChangeHandler = ({
   props, setState,
 }: HandlerCreatorData): ChangeHandler => (ev) => {
   const {
-    onChange, name, onFilterChange,
+    onChange, name, onFilterChange, textField,
   } = props;
 
   if (isFunction(onChange)) {
@@ -50,7 +50,7 @@ export const createChangeHandler = ({
     const customEvent = {
       ...ev,
       component: {
-        value: getText(ev.target.value),
+        value: getText(ev.target.value, textField),
       },
     };
 
