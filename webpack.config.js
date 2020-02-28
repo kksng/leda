@@ -1,5 +1,4 @@
 const path = require('path');
-const os = require('os');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 module.exports = {
@@ -39,15 +38,11 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    host: os.platform() === 'linux' ? '0.0.0.0' : 'localhost',
+    host: process.platform === 'linux' ? '0.0.0.0' : 'localhost',
     port: process.env.PORT || 9000,
     contentBase: path.resolve('public'),
     overlay: true,
     watchContentBase: true,
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000,
-    },
   },
   plugins: [
     new CircularDependencyPlugin({
