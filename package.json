@@ -34,7 +34,7 @@
     "element-scroll-polyfill": "1.0.1",
     "history": "4.10.1",
     "lodash": "4.17.15",
-    "react-dropzone": "10.1.8",
+    "react-dropzone": "10.2.1",
     "react-slider": "1.0.1",
     "svgxuse": "1.2.6"
   },
