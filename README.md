@@ -4,6 +4,8 @@ Reactive Leda is a customizable UI component library with built-in forms handlin
 
 Leda supports TypeScript and React@^16.8.0 (the one with hooks).
 
+![](https://github.com/kksng/leda/workflows/.github/workflows/ci.yml/badge.svg)
+
 ## Documentation
 
 All available features are documented in [Russian][1]. English version is on it's way. 
