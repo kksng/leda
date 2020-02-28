@@ -1,142 +1,175 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tooltip SNAPSHOTS should render 1`] = `
-<Tooltip
-  title="Tips"
->
-  <div
-    style={
-      Object {
-        "display": "none",
-      }
-    }
-  />
-  <div
-    className="tooltip-wrapper"
-  >
-    Test
-  </div>
-  <TooltipBody
-    position="top"
-    style={
-      Object {
-        "height": 0,
-        "left": -99999,
-        "opacity": 0,
-        "whiteSpace": "nowrap",
-      }
-    }
-    theme={
-      Object {
-        "bottom": "tooltip bottom",
-        "left": "tooltip left",
-        "right": "tooltip right",
-        "top": "tooltip top",
-        "wrapper": "tooltip-wrapper",
-      }
-    }
-    title="Tips"
-  >
-    <Portal
-      containerInfo={
-        <body>
-          <div
-            class="tooltip top"
-            style="height: 0px; opacity: 0; white-space: nowrap; left: -99999px;"
-          >
-            <div>
-              Tips
-            </div>
-          </div>
-        </body>
-      }
-    >
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
       <div
-        className="tooltip top"
-        style={
-          Object {
-            "height": 0,
-            "left": -99999,
-            "opacity": 0,
-            "whiteSpace": "nowrap",
-          }
-        }
+        style="display: none;"
+      />
+      <div
+        class="tooltip-wrapper"
       >
-        <div>
-          Tips
-        </div>
+        test
       </div>
-    </Portal>
-  </TooltipBody>
-</Tooltip>
+    </div>
+    <div
+      class="tooltip top"
+      style="height: 0px; opacity: 0; white-space: nowrap; left: -99999px;"
+    >
+      <div>
+        test
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      style="display: none;"
+    />
+    <div
+      class="tooltip-wrapper"
+    >
+      test
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
 exports[`Tooltip SNAPSHOTS should render isOpened state 1`] = `
-<Tooltip
-  isOpen={true}
-  title="Tips"
->
-  <div
-    style={
-      Object {
-        "display": "none",
-      }
-    }
-  />
-  <div
-    className="tooltip-wrapper"
-  >
-    Test
-  </div>
-  <TooltipBody
-    position="top"
-    style={
-      Object {
-        "height": "auto",
-        "opacity": 1,
-        "whiteSpace": "nowrap",
-      }
-    }
-    theme={
-      Object {
-        "bottom": "tooltip bottom",
-        "left": "tooltip left",
-        "right": "tooltip right",
-        "top": "tooltip top",
-        "wrapper": "tooltip-wrapper",
-      }
-    }
-    title="Tips"
-  >
-    <Portal
-      containerInfo={
-        <body>
-          <div
-            class="tooltip top"
-            style="height: auto; opacity: 1; white-space: nowrap;"
-          >
-            <div>
-              Tips
-            </div>
-          </div>
-        </body>
-      }
-    >
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
       <div
-        className="tooltip top"
-        style={
-          Object {
-            "height": "auto",
-            "opacity": 1,
-            "whiteSpace": "nowrap",
-          }
-        }
+        style="display: none;"
+      />
+      <div
+        class="tooltip-wrapper"
       >
-        <div>
-          Tips
-        </div>
+        test
       </div>
-    </Portal>
-  </TooltipBody>
-</Tooltip>
+    </div>
+    <div
+      class="tooltip top"
+      style="height: auto; opacity: 1; white-space: nowrap;"
+    >
+      <div>
+        test
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      style="display: none;"
+    />
+    <div
+      class="tooltip-wrapper"
+    >
+      test
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
