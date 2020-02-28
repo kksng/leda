@@ -75,7 +75,7 @@ export interface DropDownSelectProps<T extends Value = Value> extends Validation
   noSuggestionsRender?: SuggestionListProps['noSuggestionsRender'],
   onBlur?: CustomEventHandler<BlurEvent<T>>,
   onChange?: CustomEventHandler<ChangeEvent<T>>,
-  onFilterChange?: CustomEventHandler<ChangeEvent<T>>,
+  onFilterChange?: CustomEventHandler<ChangeEvent<string>>,
   onFocus?: CustomEventHandler<FocusEvent<T>>,
   placeholder?: string,
   ref?: React.Ref<DropDownSelectRefCurrent>,
