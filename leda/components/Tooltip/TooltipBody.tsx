@@ -6,31 +6,29 @@ import { TooltipBodyProps } from './types';
 
 export const TooltipBody = React.forwardRef((props: TooltipBodyProps, ref?: React.Ref<HTMLDivElement>) => {
   const {
-    style, position = 'top', title, theme: themeProp,
+    position = 'top',
+    style,
+    theme: themeProp,
+    title,
   } = props;
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.tooltip);
 
-  const body = document.querySelector('body');
-
   const tooltipClassNames = getClassNames([theme[position]]);
 
-  if (body !== null) {
-    return ReactDOM.createPortal(
-      <div
-        style={style}
-        className={tooltipClassNames}
-        ref={ref}
-      >
-        <div>
-          {title}
-        </div>
-      </div>,
-      body,
-    );
-  }
+  const tooltip = (
+    <div
+      className={tooltipClassNames}
+      ref={ref}
+      style={style}
+    >
+      <div>
+        {title}
+      </div>
+    </div>
+  );
 
-  return null;
+  return ReactDOM.createPortal(tooltip, document.body);
 }) as React.FC<TooltipBodyProps>;
 
 TooltipBody.displayName = 'TooltipBody';

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-multi-comp */
 import * as React from 'react';
 import isString from 'lodash/isString';
 import { COMPONENTS_NAMESPACES } from '../../constants';
@@ -6,16 +5,16 @@ import { bindFunctionalRef, useTheme } from '../../utils';
 import { useTooltipEffects } from './hooks';
 import { TooltipBody } from './TooltipBody';
 import {
-  TooltipPosition, TooltipProps, TooltipRefCurrent,
+  TooltipPosition, TooltipProps, TooltipRefCurrent, TooltipStyles,
 } from './types';
 
 export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<TooltipRefCurrent>): React.ReactElement => {
   const {
-    theme: themeProp,
-    isOpen,
     children,
-    title,
+    isOpen,
     position: positionProp = 'top',
+    theme: themeProp,
+    title,
   } = props;
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.tooltip);
@@ -41,15 +40,14 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
   });
 
   useTooltipEffects({
-    mergeStyle,
     invisibleElementRef,
     tooltipRef,
     isOpen,
-    setPosition,
-    position,
     positionProp,
+    position,
+    setPosition,
     setHidden,
-    children,
+    mergeStyle,
   });
 
   const shouldWrapChildren = isString(children)
@@ -62,19 +60,17 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
       <div ref={invisibleElementRef} style={{ display: 'none' }} />
       {/* Если потомков больше чем 1 или передана строка, добавляем враппер */}
       {
-        shouldWrapChildren
-          ? (
-            <div className={theme.wrapper}>
-              { children }
-            </div>
-          )
-          : children
+        shouldWrapChildren ? (
+          <div className={theme.wrapper}>
+            {children}
+          </div>
+        ) : children
       }
       <TooltipBody
-        style={style}
         position={position}
-        title={title}
+        style={style}
         theme={theme}
+        title={title}
         ref={(component) => {
           tooltipRef.current = component;
 
@@ -83,6 +79,7 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
               wrapper: component,
             });
           }
+
           return undefined;
         }}
       />

@@ -4,76 +4,69 @@ import {
 } from './types';
 import { SetState } from '../../commonTypes';
 
-const updateTooltipPosition = (data: {
+const getTooltipPosition = (data: {
   tooltipRef: React.MutableRefObject<HTMLDivElement | null>,
   target: Element,
   position: TooltipPosition,
   setPosition: SetState<TooltipPosition>,
 }): TooltipPosition => {
   const {
-    tooltipRef, position, setPosition, target,
+    tooltipRef, target, position, setPosition,
   } = data;
 
-  if (!tooltipRef || !tooltipRef.current) return 'top';
+  if (!tooltipRef.current) return 'top';
 
-  const element = tooltipRef.current;
-
-  const rect = element.getBoundingClientRect();
+  const rect = tooltipRef.current.getBoundingClientRect();
 
   const targetRect = target.getBoundingClientRect();
 
   const arrowSize = 10;
 
-  const handleTopPosition = () => {
-    if (targetRect.top - arrowSize - rect.height < 0 && position !== 'bottom') {
+  if (position === 'top') {
+    if (targetRect.top - rect.height < arrowSize) {
       setPosition('bottom');
 
       return 'bottom';
     }
 
     return 'top';
-  };
+  }
 
-  const handleLeftPosition = () => {
-    if (targetRect.left - arrowSize - rect.width < 0 && position !== 'right') {
+  if (position === 'left') {
+    if (targetRect.left - rect.width < arrowSize) {
       setPosition('right');
 
       return 'right';
     }
 
     return 'left';
-  };
+  }
 
-  const handleRightPosition = () => {
-    if (targetRect.right + arrowSize + rect.width > window.innerWidth && position !== 'left') {
+  if (position === 'right') {
+    if (window.innerWidth - rect.width - targetRect.right < arrowSize) {
       setPosition('left');
 
       return 'left';
     }
 
     return 'right';
-  };
+  }
 
-  const handleBottomPosition = () => {
-    if (targetRect.bottom + arrowSize + rect.height > window.innerHeight && position !== 'top') {
+  if (position === 'bottom') {
+    if (window.innerHeight - rect.height - targetRect.bottom < arrowSize) {
       setPosition('top');
 
       return 'top';
     }
 
     return 'bottom';
-  };
-
-  if (position === 'top') return handleTopPosition();
-  if (position === 'left') return handleLeftPosition();
-  if (position === 'right') return handleRightPosition();
-  if (position === 'bottom') return handleBottomPosition();
+  }
 
   return 'top';
 };
 
 export const showTooltip: ShowTooltip = ({
-  mergeStyle, invisibleElementRef, position, setPosition, tooltipRef,
+  invisibleElementRef, tooltipRef, position, setPosition, mergeStyle,
 }): void => {
   // вычисление координат тултипа на основе координат потомков тултипа
   const element = invisibleElementRef.current ? invisibleElementRef.current.nextElementSibling : null;
@@ -84,42 +77,40 @@ export const showTooltip: ShowTooltip = ({
     top, bottom, right, left, width, height,
   } = element.getBoundingClientRect();
 
-  if (tooltipRef.current) tooltipRef.current.style.height = 'auto';
-
-  const newPosition = updateTooltipPosition({
+  const newPosition = getTooltipPosition({
     tooltipRef,
     position,
     target: element,
     setPosition,
   });
 
-  const newTooltipStyles: { top: string, left: string } = {
+  const newTooltipStyles: React.CSSProperties = {
     top: (() => {
       switch (newPosition) {
         case 'top':
-          return `${top + window.pageYOffset}px`;
+          return window.pageYOffset + top;
         case 'right':
-          return `${top + window.pageYOffset + (height / 2)}px`;
+          return window.pageYOffset + top + height / 2;
         case 'left':
-          return `${top + window.pageYOffset + (height / 2)}px`;
+          return window.pageYOffset + top + height / 2;
         case 'bottom':
-          return `${bottom + window.pageYOffset}px`;
+          return window.pageYOffset + bottom;
         default:
-          return `${top + window.pageYOffset}px`;
+          return window.pageYOffset + top;
       }
     })(),
     left: (() => {
       switch (newPosition) {
         case 'top':
-          return `${left + window.pageXOffset + (width / 2)}px`;
+          return window.pageXOffset + left + width / 2;
         case 'right':
-          return `${right + window.pageXOffset}px`;
+          return window.pageXOffset + right;
         case 'left':
-          return `${left + window.pageXOffset}px`;
+          return window.pageXOffset + left;
         case 'bottom':
-          return `${left + window.pageXOffset + (width / 2)}px`;
+          return window.pageXOffset + left + width / 2;
         default:
-          return `${left + window.pageXOffset + (width / 2)}px`;
+          return window.pageXOffset + left + width / 2;
       }
     })(),
   } as const;
@@ -133,14 +124,14 @@ export const showTooltip: ShowTooltip = ({
 };
 
 export const hideTooltip: HideTooltip = ({
-  mergeStyle, isOpen, positionProp, setPosition,
+  isOpen, positionProp, setPosition, mergeStyle,
 }): void => {
   if (isOpen) return;
 
   mergeStyle({
-    opacity: '0',
-    height: '0',
-    left: '-99999px',
+    left: -99999,
+    height: 0,
+    opacity: 0,
   });
 
   setPosition(positionProp);
