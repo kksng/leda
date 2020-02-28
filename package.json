@@ -7,7 +7,7 @@
   "sideEffects": false,
   "scripts": {
     "start": "npm run build:demo",
-    "start:cy": "npm run sass && webpack-dev-server --hot --host 0.0.0.0",
+    "start:cy": "npm run sass && webpack-dev-server --host 0.0.0.0",
     "test": "npm run jest",
     "build": "rimraf dist/ && npm run tsc && npm run sass:build",
     "build:demo": "npm run sass && webpack-dev-server --hot",
