@@ -42,6 +42,17 @@
     overflow-y: auto;
   }
 
+  &-group-label {
+    color: $black-04;
+    background-color: $black-08;
+    padding: 0px;
+  }
+
+  &-group > .suggestion-item {
+    padding: 10px 10px 10px 20px;
+    margin: 5px;
+  }
+
   &-item {
     padding: 3px 10px 5px 10px;
     margin: 2px;
@@ -73,4 +84,9 @@
       background-color: $black-07;
     }
   }
+
+    &-item > .suggestion-checkBox {
+      padding: 10px 10px 10px 20px;
+      margin: 5px;
+    }
 }

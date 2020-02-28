@@ -1,4 +1,5 @@
 import * as React from 'react';
+import isString from 'lodash/isString';
 import { TagsContainerProps } from './types';
 import { Span } from '../Span';
 import { Div } from '../Div';
@@ -17,7 +18,7 @@ export const TagsContainer = (props: TagsContainerProps): React.ReactElement | n
       className={theme.tagsContainer}
       onMouseDown={onMouseDown}
     >
-      {(value as (string | number | SomeObject)[]).map((item, index) => React.cloneElement(children, {
+      { isString(value) ? value : (value as (string | number | SomeObject)[]).map((item, index) => React.cloneElement(children, {
         key: index.toString(),
         onIconClick: (ev: React.MouseEvent<HTMLElement>) => onTagClick({
           ...ev,

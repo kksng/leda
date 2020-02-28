@@ -24,6 +24,8 @@ import {
   DropDownSelectProps, DropDownSelectRefCurrent, DropDownSelectState, Value,
 } from './types';
 import { Span } from '../Span';
+import { GroupedSomeObject } from '../../src/SuggestionList/types';
+import { groupData } from '../MultiSelect/helpers';
 
 export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref: React.Ref<DropDownSelectRefCurrent>): React.ReactElement | null => {
   const {
@@ -75,6 +77,8 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     isOpen: false,
     value: defaultValue,
   });
+
+  const [resultedData, setResultedData] = React.useState<Value[] | GroupedSomeObject[]>([]);
   // выибраем между контролируемым режимом и неконтролируемым
   const { isFocused, highlightedSuggestion, selectedSuggestion } = state;
   const isOpen = isNil(isOpenProp) ? state.isOpen : isOpenProp;
@@ -131,6 +135,12 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     ? filterData(data, filterValue, textField, filterRule)
     : data;
 
+  // group suggestion list items if required
+  React.useEffect((): void => {
+    // grouping data
+    setResultedData(groupData(suggestionListData, groupBy));
+  }, [groupBy, suggestionListData]);
+
   return (
     <Wrapper
       className={wrapperClassNames}
@@ -170,7 +180,7 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
         boundingContainerRef={boundingContainerRef}
         compareObjectsBy={compareObjectsBy}
         data={suggestionListData}
-        groupBy={groupBy}
+        resultedData={resultedData}
         highlightedSuggestion={highlightedSuggestion}
         isLoading={isLoading}
         isOpen={isDisabled ? false : isOpen}

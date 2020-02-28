@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FILTER_RULES } from '../../utils';
 import { ValidationProps } from '../Validation/types';
-import { CustomRender, Values } from '../../commonTypes';
+import { CustomRender, Values, SomeObject } from '../../commonTypes';
 import { LiProps } from '../Li';
 import { SuggestionItemProps, SuggestionListProps } from '../../src/SuggestionList/types';
 import { UlProps } from '../Ul';
@@ -18,6 +18,8 @@ import { COMPONENTS_NAMESPACES } from '../../constants';
 export interface DataObject {
   [textField: string]: any,
 }
+
+export type Value = SomeObject | string | number | null;
 
 export type Suggestion = DataObject | string | number | null;
 

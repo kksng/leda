@@ -21,10 +21,13 @@ import { TagsContainer } from './TagsContainer';
 import { Div } from '../Div';
 import { LedaContext } from '../LedaProvider';
 import { Tag } from '../Tags';
-import { filterData, getValue } from './helpers';
+import { filterData, getValue, groupData } from './helpers';
+import { GroupedSomeObject } from '../../src/SuggestionList/types';
 
 export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React.Ref<MultiSelectRefCurrent>): React.ReactElement => {
   const {
+    canSelectAll,
+    canSelectGroup,
     className,
     compareObjectsBy,
     data,
@@ -36,6 +39,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     inputRender,
     invalidMessage,
     invalidMessageRender,
+    hasCheckBoxes,
     isDisabled,
     isLoading,
     isOpen,
@@ -44,6 +48,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     itemRender,
     listRender,
     maxSelected,
+    maxVisibleTags,
     name,
     noSuggestionsRender,
     onBlur,
@@ -52,7 +57,9 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     placeholder,
     requiredMessage,
     shouldValidateUnmounted,
+    shouldOpenWhenMaxSelectedReached,
     tagRender,
+    tagsContainerRender,
     textField,
     theme: themeProp,
     validator,
@@ -83,6 +90,8 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
 
   const [isFocused, setFocused] = React.useState<boolean>(false);
 
+  const [resultedData, setResultedData] = React.useState<Value[] | GroupedSomeObject[]>([]);
+
   const inputRef = React.useRef<HTMLInputElement | null>(null);
 
   const handleFocus = createFocusHandler(props, {
@@ -104,6 +113,20 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     setFilterValue,
   });
 
+  // group suggestion list items if required
+  React.useEffect((): void => {
+    const valueForFilterData = getValue(valueProp, valueState);
+    // grouping data
+    setResultedData(groupData(hasCheckBoxes ? data : filterData({
+      compareObjectsBy,
+      data,
+      filterRule,
+      filterValue,
+      textField,
+      value: valueForFilterData,
+    }), groupBy));
+  }, [data, groupBy, valueState, valueProp, hasCheckBoxes, compareObjectsBy, filterRule, filterValue, textField]);
+
   const handleKeyDown = createKeyDownHandler(props, {
     filterValue,
     highlightedSuggestion,
@@ -111,6 +134,9 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     setFocused,
     setHighlightedSuggestion,
     value,
+    resultedData,
+    canSelectAll,
+    hasCheckBoxes,
   });
 
   const handleClear = createClearHandler(props, {
@@ -162,7 +188,15 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     state,
   );
 
-  const filteredData = filterData({
+  const TagsContainerCustomization = useElement(
+    'TagsContainerCustomization',
+    TagsContainer,
+    tagsContainerRender || multiSelectRenders.tagsContainerRender,
+    props,
+    state,
+  );
+
+  const filteredData = hasCheckBoxes ? data : filterData({
     compareObjectsBy,
     data,
     filterRule,
@@ -171,7 +205,13 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     value,
   });
 
-  const isMaxItemsSelected = !isNil(maxSelected) && value.length === maxSelected;
+  const isMaxItemsSelected = !isNil(maxSelected) && value.length >= maxSelected;
+
+  React.useEffect((): void => {
+    if (maxSelected && (canSelectAll || canSelectGroup)) {
+      console.error("You can't set `maxSelected` and one of `canSelectAll` or `canSelectGroup` together");
+    }
+  }, [canSelectAll, canSelectGroup, maxSelected]);
 
   return (
     <Wrapper
@@ -185,7 +225,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
         className={inputWrapperClassNames}
         onMouseDown={handleMouseDown}
       >
-        <TagsContainer
+        <TagsContainerCustomization
           value={value}
           theme={theme}
           onTagClick={handleSelect}
@@ -195,7 +235,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
           hasClearButton={hasClearButton}
         >
           <TagItem />
-        </TagsContainer>
+        </TagsContainerCustomization>
         <Input
           {...restProps}
           className={theme.input}
@@ -223,12 +263,15 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
             : undefined}
         />
       </Div>
-      {!isMaxItemsSelected && (
+      {(!isMaxItemsSelected || shouldOpenWhenMaxSelectedReached) && (
         <SuggestionList
+          resultedData={resultedData}
           compareObjectsBy={compareObjectsBy}
           data={filteredData}
-          groupBy={groupBy}
+          hasCheckBoxes={hasCheckBoxes}
           highlightedSuggestion={highlightedSuggestion}
+          canSelectAll={canSelectAll}
+          canSelectGroup={canSelectGroup}
           isLoading={isLoading}
           isOpen={isNil(isOpen) ? isFocused : isOpen}
           onClick={handleSelect}

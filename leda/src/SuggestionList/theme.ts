@@ -1,4 +1,5 @@
 export const defaultSuggestionListTheme = {
+  checkBox: 'suggestion-checkBox',
   container: 'suggestion-wrapper',
   containerVisible: 'visible',
   containerTop: 'pos-top',

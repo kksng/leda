@@ -8,6 +8,7 @@ export const createClickHandler = (
 ): CustomEventHandler<React.MouseEvent<HTMLElement>> => (ev) => {
   const { onClick, item } = props;
 
+  ev.preventDefault();
   dispatchEvent(ev, onClick, {
     value: item as NonNullable<typeof item>,
   });

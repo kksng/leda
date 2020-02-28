@@ -15,7 +15,7 @@ import {
   Suggestion,
 } from './types';
 import { getText } from '../../src/SuggestionList/helpers';
-import { CustomEventHandler, SetState } from '../../commonTypes';
+import { CustomEventHandler, SetState, SomeObject } from '../../commonTypes';
 import { SuggestionTarget } from '../../src/SuggestionList/types';
 
 export const clearButtonClickHandlerCreator = ({
@@ -77,7 +77,7 @@ export const suggestionClickHandlerCreator = ({
   }
 
   const value = isObject(event.target.value)
-    ? event.target.value[textField as string] as string
+    ? (event.target.value as SomeObject)[textField as string] as string
     : event.target.value.toString();
 
   const suggestion = isObject(event.target.value)

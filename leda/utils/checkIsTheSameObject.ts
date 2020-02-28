@@ -1,5 +1,6 @@
 import { isFunction, isObject, isString } from 'lodash';
 import { SomeObject } from '../commonTypes';
+import { GroupedSomeObject } from '../src/SuggestionList/types';
 
 interface CompareObjectsParams {
   compareObjectsBy?: ((suggestionListItems: SomeObject) => any) | string,
@@ -14,6 +15,13 @@ export const checkIsTheSameObject = ({
   compareObjectsBy,
 }: CompareObjectsParams): boolean => {
   if (isObject(obj1) && isObject(obj2)) {
+    const objectWithKey1 = obj1 as GroupedSomeObject;
+    const objectWithKey2 = obj2 as GroupedSomeObject;
+
+    if (objectWithKey1.key && objectWithKey2.key) {
+      return objectWithKey1.key === objectWithKey2.key;
+    }
+
     if (isString(compareObjectsBy)) {
       if (!(compareObjectsBy in obj1)) return false; // do not compare by missing fields
 

@@ -30,7 +30,7 @@ export const CompareObjectsBy = (anyProps: any): React.ReactElement => {
           compareObjectsBy="id"
           minSearchLength={0}
           onChange={(event) => {
-            console.log('event.component.value', event.component.value, event.component.suggestion)
+            console.log('event.component.value', event.component.value, event.component.suggestion);
             setValue(event.component.value);
           }}
         />

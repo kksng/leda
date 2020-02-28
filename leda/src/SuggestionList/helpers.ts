@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { isObject } from 'lodash';
 import { SomeObject } from '../../commonTypes';
-import { GetSuggestionItemProps, SuggestionItemComputedProps } from './types';
+import { GetSuggestionItemProps, SuggestionItemComputedProps, GroupedSomeObject } from './types';
 import { checkIsTheSameObject } from '../../utils';
 
 export const getText = (suggestion?: string | number | SomeObject | null, textField?: string): string => {
@@ -44,8 +44,9 @@ export const getSuggestionItemProps = ({
   placeholder,
   highlightedSuggestion,
   selectedSuggestion,
+  isGroupLabel,
 }: GetSuggestionItemProps): SuggestionItemComputedProps => {
-  const text = getText(suggestion, textField);
+  const text = isGroupLabel ? getText((suggestion as GroupedSomeObject)?.key, textField) : getText(suggestion, textField);
 
   const isPlaceholder = text === placeholder;
   const isHighlighted = checkIsTheSameObject({

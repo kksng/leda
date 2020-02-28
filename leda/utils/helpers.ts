@@ -5,7 +5,7 @@ import { isFunction } from 'lodash';
 import { ClassValue } from 'classnames/types';
 import classnames from 'classnames';
 import classnamesDedupe from 'classnames/dedupe';
-import { SomeObject } from '../commonTypes';
+import { SomeObject, GetPluralFormParams } from '../commonTypes';
 
 export const getFileWordEnding = (number: number): string => {
   const beforeLast = number.toString().slice(-2, -1);
@@ -14,6 +14,37 @@ export const getFileWordEnding = (number: number): string => {
   if (last === '1' && beforeLast !== '1') return 'a';
 
   return 'ов';
+};
+
+/** Функция для подставления окончаний.
+ * Пример использования:
+ *  getPluralForm({
+      count: componentState.value.length,
+      one: 'значение',
+      two: 'значения',
+      five: 'значений',
+    })" */
+export const getPluralForm = ({
+  count, one, two, five,
+}: GetPluralFormParams): string => {
+  let n = Math.abs(count);
+  n %= 100;
+
+  if (n >= 5 && n <= 20) {
+    return five;
+  }
+
+  n %= 10;
+
+  if (n === 1) {
+    return one;
+  }
+
+  if (n >= 2 && n <= 4) {
+    return two;
+  }
+
+  return five;
 };
 
 const initRef = <T, C>(ref: React.Ref<T> | React.MutableRefObject<T>, current: C): void => {

@@ -6,7 +6,7 @@ import {
 } from '../../commonTypes';
 import { ValidationProps } from '../Validation/types';
 import { FilterRules } from '../DropDownSelect/types';
-import { SuggestionListProps, SuggestionTarget } from '../../src/SuggestionList/types';
+import { SuggestionListProps, SuggestionTarget, GroupedSomeObject } from '../../src/SuggestionList/types';
 import { DivProps } from '../Div';
 import { TagProps } from '../Tags/types';
 
@@ -76,6 +76,10 @@ export interface FocusEvent<T = Value> extends React.FocusEvent<HTMLInputElement
 export type ChangeEvent<T = Value> = MouseSelectEvent<T> | EnterSelectEvent<T> | ClearEvent<T> | ResetEvent<T>;
 
 export interface MultiSelectProps<T extends MultiSelectValue | null | undefined = MultiSelectValue | null | undefined> extends ValidationProps {
+  /** Есть ли кнопка "Выбрать все" */
+  canSelectAll?: boolean,
+  /** Кликабельны ли названия групп */
+  canSelectGroup?: boolean,
   /** Сравнение объектов по произвольному полю, а не по ссылке */
   compareObjectsBy?: T extends object ? ((suggestionListItems: SomeObject) => any) | string : never,
   /** Данные для отображения в списке.
@@ -90,6 +94,8 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   groupBy?: (option: Value) => string | undefined,
   /** Кнопка очистки данных в инпуте. Появляется только в непустом инпуте. */
   hasClearButton?: boolean,
+  /** Добавляются чекбоксы */
+  hasCheckBoxes?: boolean,
   /** Выключенное состояние инпута */
   isDisabled?: boolean,
   /** Состояние загрузки лоадера - вместо списка в момент загрузки будет отображаться лоадер */
@@ -102,6 +108,8 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   listRender?: SuggestionListProps['listRender'],
   /** Ограничение на количество выбранных элементов. После достижения лимита выпадающее окно перестает появляться */
   maxSelected?: number,
+  /** Ограничение на количество показанных тегов. После достижения лимита появляется только один тег с количеством выбранных тегов и текстом. */
+  maxVisibleTags?: number,
   /** Имя компонента */
   name?: string,
   /** Атрибут рендера выпадающего списка, если в data нет значений, равных содержимому инпута. Принимает JSX */
@@ -116,6 +124,8 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   onFocus?: (event: FocusEvent) => void,
   /** Плейсхолдер инпута */
   placeholder?: string,
+  /** Должен ли открыться выпадающий список, если достигнуто максимальное количество вариантов. По умолчанию - false */
+  shouldOpenWhenMaxSelectedReached?: boolean,
   /** Имя поля объекта, данные из которого будут рендериться в качестве элементов списка */
   textField?: T extends object ? string : never,
   /** Реф */
@@ -126,6 +136,8 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   value?: T,
   /** Кастомный рендер тегов */
   tagRender?: CustomRender<MultiSelectProps, MultiSelectState, TagProps>,
+  /** Кастомный рендер контейнера тегов */
+  tagsContainerRender?: CustomRender<MultiSelectProps, MultiSelectState, TagsContainerProps>,
   /** Кастомный рендер враппера */
   wrapperRender?: CustomRender<MultiSelectProps, MultiSelectState, DivProps>,
   /** Кастомный рендер инпута */
@@ -148,7 +160,7 @@ export interface TagsContainerProps {
   onTagClick: CustomEventHandler<React.MouseEvent<HTMLElement> & SuggestionTarget>,
   textField?: string,
   theme: GlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.multiSelect],
-  value: MultiSelectValue,
+  value: MultiSelectValue | string,
 }
 
 export interface MultiSelectRefCurrent {
@@ -200,4 +212,7 @@ export interface KeyDownData {
   setFocused: SetState<boolean>,
   setHighlightedSuggestion: SetState<Value>,
   value: MultiSelectValue,
+  resultedData: Value[] | GroupedSomeObject[],
+  canSelectAll: boolean | undefined,
+  hasCheckBoxes: boolean | undefined,
 }
