@@ -21,7 +21,7 @@ export const createChangeHandler = ({
   props, setState,
 }: HandlerCreatorData): ChangeHandler => (ev) => {
   const {
-    onChange, name, onFilterChange, textField,
+    name, onChange, onFilterChange, textField,
   } = props;
 
   if (isFunction(onChange)) {
@@ -32,33 +32,29 @@ export const createChangeHandler = ({
         name,
       },
     };
+
     onChange(changeEvent);
   }
-
-  // обновляем значение в стейте
-  setState(mergeState({ value: ev.target.value }));
-
-  setState(mergeState({
-    highlightedSuggestion: ev.target.value,
-    selectedSuggestion: ev.target.value,
-  }));
-
-  // после выбора значения закрываем список
-  setState(mergeState({ isOpen: false }));
 
   if (isFunction(onFilterChange)) {
     const customEvent = {
       ...ev,
       component: {
         value: getText(ev.target.value, textField),
+        name,
       },
     };
 
     onFilterChange(customEvent);
   }
 
-  // обновляем значение в стейте
-  setState(mergeState({ filterValue: null }));
+  setState(mergeState({
+    filterValue: null,
+    highlightedSuggestion: ev.target.value,
+    isOpen: false,
+    selectedSuggestion: ev.target.value,
+    value: ev.target.value,
+  }));
 };
 
 export const createBlurHandler = ({
@@ -68,15 +64,11 @@ export const createBlurHandler = ({
     onFilterChange, onBlur, name, textField,
   } = props;
 
-  const { highlightedSuggestion } = state;
+  const {
+    highlightedSuggestion,
+  } = state;
 
   const isValid = validate();
-  // убираем фокус
-  setState(mergeState({ isFocused: false }));
-  // закрываем список
-  setState(mergeState({ isOpen: false }));
-  // обновляем подсветку
-  setState(mergeState({ highlightedSuggestion }));
 
   if (isFunction(onFilterChange)) {
     const customEvent = {
@@ -103,14 +95,20 @@ export const createBlurHandler = ({
     onBlur(customEvent);
   }
 
-  // обновляем значение в стейте
-  setState(mergeState({ filterValue: null }));
+  setState(mergeState({
+    filterValue: null,
+    highlightedSuggestion,
+    isFocused: false,
+    isOpen: false,
+  }));
 };
 
 export const createFocusHandler = ({
   props, value, setState,
 }: HandlerCreatorData): FocusHandler => (ev) => {
-  const { onFocus, name } = props;
+  const {
+    onFocus, name,
+  } = props;
 
   if (isFunction(onFocus)) {
     const customEvent = {
@@ -133,13 +131,19 @@ export const createFocusHandler = ({
 export const createIconClickHandler = ({
   props, state, inputRef, setState,
 }: HandlerCreatorData): IconClickHandler => () => {
-  const { isDisabled = false } = props;
+  const {
+    isDisabled = false,
+  } = props;
 
   if (isDisabled) return;
+
   // фокусим инпут
   if (inputRef.current) inputRef.current.focus();
+
   // переключаем состояние списка (открыт/закрыт)
-  setState(mergeState({ isOpen: !state.isOpen }));
+  setState(mergeState({
+    isOpen: !state.isOpen,
+  }));
 };
 
 export const createKeyDownHandler = ({
@@ -157,7 +161,9 @@ export const createKeyDownHandler = ({
     filterRule,
   } = props;
 
-  const { isOpen, highlightedSuggestion } = state;
+  const {
+    isOpen, highlightedSuggestion,
+  } = state;
 
   if (!data) return;
 
@@ -175,13 +181,15 @@ export const createKeyDownHandler = ({
   if (ev.key === 'ArrowDown' || ev.key === 'Down') {
     // предотвращение прокрутки страницы
     ev.preventDefault();
+
     // механизм работает как барабан
     const nextIndex = (suggestionIndex + 1) % fullData.length;
-    // новое значение
+
     const nextSuggestion = fullData[nextIndex];
 
-    // обновляем значение в стейте
-    setState(mergeState({ highlightedSuggestion: nextSuggestion }));
+    setState(mergeState({
+      highlightedSuggestion: nextSuggestion,
+    }));
 
     return;
   }
@@ -189,17 +197,19 @@ export const createKeyDownHandler = ({
   if (ev.key === 'ArrowUp' || ev.key === 'Up') {
     // предотвращение прокрутки страницы
     ev.preventDefault();
+
     // механизм работает как барабан
     const nextIndex = (() => {
       if (suggestionIndex <= 0) return fullData.length - 1;
 
       return suggestionIndex - 1;
     })();
-    // новое значение
+
     const nextSuggestion = fullData[nextIndex];
 
-    // обновляем значение в стейте
-    setState(mergeState({ highlightedSuggestion: nextSuggestion }));
+    setState(mergeState({
+      highlightedSuggestion: nextSuggestion,
+    }));
 
     return;
   }
@@ -229,12 +239,16 @@ export const createKeyDownHandler = ({
           name,
         },
       };
+
       onChange(changeEvent);
     }
 
-    if (isOpen) setState(mergeState({ isOpen: false }));
+    if (isOpen) {
+      setState(mergeState({
+        isOpen: false,
+      }));
+    }
 
-    // обновляем значение в стейте
     setState(mergeState({
       filterValue: null,
       selectedSuggestion: highlightedSuggestion,
@@ -245,7 +259,9 @@ export const createKeyDownHandler = ({
   }
 
   if ((ev.key === 'Escape' || ev.key === 'Esc') && isOpen) {
-    setState(mergeState({ isOpen: false }));
+    setState(mergeState({
+      isOpen: false,
+    }));
 
     return;
   }
@@ -253,7 +269,9 @@ export const createKeyDownHandler = ({
   if (ev.keyCode === 32 && !shouldFilterValues) {
     ev.preventDefault();
 
-    setState(mergeState({ isOpen: true }));
+    setState(mergeState({
+      isOpen: true,
+    }));
   }
 };
 
@@ -276,11 +294,14 @@ export const createFilterChangeHandler = ({
     onFilterChange(customEvent);
   }
 
-  // обновляем значение в стейте
-  setState(mergeState({ filterValue: ev.target.value }));
+  setState(mergeState({
+    filterValue: ev.target.value,
+  }));
 
   if (ev.target.value && data && shouldFilterValues) {
-    setState(mergeState({ isOpen: true }));
+    setState(mergeState({
+      isOpen: true,
+    }));
   }
 };
 
@@ -288,7 +309,9 @@ export const createClearIconClickHandler = ({
   props,
   setState,
 }: HandlerCreatorData): ClearIconClickHandler => (ev) => {
-  const { onChange, name } = props;
+  const {
+    onChange, name,
+  } = props;
 
   if (isFunction(onChange)) {
     const changeEvent = {
@@ -321,6 +344,7 @@ export const createResetHandler = ({
   setState(mergeState({
     value,
   }));
+
   if (isFunction(props.onChange)) {
     const customEvent = {
       component: {
@@ -328,6 +352,7 @@ export const createResetHandler = ({
         value,
       },
     };
+
     props.onChange(customEvent);
   }
 };
