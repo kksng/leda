@@ -1,4 +1,5 @@
 /dist/
 /types/
 
+/jest.setup.ts
 /webpack.*.js

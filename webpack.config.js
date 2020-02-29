@@ -38,15 +38,11 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    host: '0.0.0.0',
+    host: process.platform === 'linux' ? '0.0.0.0' : 'localhost',
     port: process.env.PORT || 9000,
     contentBase: path.resolve('public'),
     overlay: true,
     watchContentBase: true,
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000,
-    },
   },
   plugins: [
     new CircularDependencyPlugin({
