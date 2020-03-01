@@ -30,8 +30,8 @@ export const SideNavigation = (props: SideNavigationProps): React.ReactElement =
         <L.H5 _title>
           {lang.sidebar.title}
         </L.H5>
-        <L.Div _storyList>
-          <L.Ul>
+        <L.Div _storyListContainer>
+          <L.Ul _storyList>
             {children}
           </L.Ul>
         </L.Div>
@@ -42,9 +42,9 @@ export const SideNavigation = (props: SideNavigationProps): React.ReactElement =
           _faGlobeAmericas
           _menuIcon
         />
-        <L.Ul>
-          <L.Li onClick={() => setCurrentLanguage(Langs.En)}>{lang.sidebar.langGlobe.en}</L.Li>
-          <L.Li onClick={() => setCurrentLanguage(Langs.Ru)}>{lang.sidebar.langGlobe.ru}</L.Li>
+        <L.Ul _langList>
+          <L.Li _langItem onClick={() => setCurrentLanguage(Langs.En)}>{lang.sidebar.langGlobe.en}</L.Li>
+          <L.Li _langItem onClick={() => setCurrentLanguage(Langs.Ru)}>{lang.sidebar.langGlobe.ru}</L.Li>
         </L.Ul>
       </L.DropDown>
     </L.Div>

@@ -24,7 +24,7 @@
     "cypress": "start-test wds 9000 cypress:test",
     "cypress:open": "cypress open",
     "cypress:test": "cypress run",
-    "copyFonts": "ncp ./styles/webfonts ./public/assets/css/webfonts",
+    "copyFonts": "mkdirp public/assets/css/webfonts && ncp ./styles/webfonts ./public/assets/css/webfonts",
     "sass": "npm run copyFonts && node-sass --output public/assets/css styles",
     "sass:build": "npm run copyFonts && node-sass --output dist/styles styles",
     "sass:watch": "npm run copyFonts && node-sass --output public/assets/css styles --watch",

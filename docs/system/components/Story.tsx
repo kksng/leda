@@ -17,14 +17,13 @@ export const Story = (props: StoryProps): React.ReactElement => {
   const { setStoryContext, lang } = React.useContext(MainContext);
 
   React.useEffect((): void => {
-    console.log('effect');
     setStoryContext(url, groupNames);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
 
   return (
-    <L.Li className={`level-${groupNames.length}`}>
-      <NavLink to={url} exact>
+    <L.Li className={`level-${groupNames.length} story-list-item`}>
+      <NavLink to={url} exact className="story-link">
         {name}
       </NavLink>
     </L.Li>
