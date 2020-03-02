@@ -36,7 +36,6 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
   }), {
     height: 'auto',
     opacity: 1,
-    whiteSpace: 'nowrap',
   });
 
   useTooltipEffects({

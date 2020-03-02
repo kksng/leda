@@ -22,7 +22,6 @@ export interface TooltipStyles extends React.CSSProperties {
   left?: number,
   height: 0 | 'auto',
   opacity: 0 | 1,
-  whiteSpace: 'nowrap',
 }
 
 export type TooltipPosition = 'top' | 'right' | 'bottom' | 'left';
