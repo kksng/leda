@@ -28,8 +28,8 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
   const [isHidden, setHidden] = React.useState<boolean>(false);
 
   const [style, mergeStyle] = React.useReducer((
-    oldStyle: React.CSSProperties,
-    newStyle: React.CSSProperties,
+    oldStyle: TooltipStyles,
+    newStyle: TooltipStyles,
   ) => ({
     ...oldStyle,
     ...newStyle,
@@ -39,19 +39,24 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
   });
 
   useTooltipEffects({
-    invisibleElementRef,
-    tooltipRef,
+    children,
     isOpen,
     positionProp,
+    invisibleElementRef,
+    tooltipRef,
     position,
     setPosition,
     setHidden,
     mergeStyle,
   });
 
-  const shouldWrapChildren = isString(children)
-    || (Array.isArray(children) && children.length > 1)
-    || isHidden;
+  const shouldWrapChildren = (() => {
+    if (Array.isArray(children) && children.length) {
+      return children.length === 1 || isString(children[0]);
+    }
+
+    return isString(children);
+  })() || isHidden;
 
   return (
     <>

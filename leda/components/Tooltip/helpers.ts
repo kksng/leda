@@ -1,29 +1,22 @@
-import * as React from 'react';
 import {
-  HideTooltip, ShowTooltip, TooltipPosition,
+  HideTooltip, ShowTooltip, TooltipPosition, TooltipStyles,
 } from './types';
 import { SetState } from '../../commonTypes';
 
-const getTooltipPosition = (data: {
-  tooltipRef: React.MutableRefObject<HTMLDivElement | null>,
-  target: Element,
+const updateTooltipPosition = (data: {
+  elementRect: DOMRect,
+  tooltipRect: DOMRect,
   position: TooltipPosition,
   setPosition: SetState<TooltipPosition>,
 }): TooltipPosition => {
   const {
-    tooltipRef, target, position, setPosition,
+    elementRect, tooltipRect, position, setPosition,
   } = data;
-
-  if (!tooltipRef.current) return 'top';
-
-  const rect = tooltipRef.current.getBoundingClientRect();
-
-  const targetRect = target.getBoundingClientRect();
 
   const arrowSize = 10;
 
   if (position === 'top') {
-    if (targetRect.top - rect.height < arrowSize) {
+    if (elementRect.top - tooltipRect.height < arrowSize) {
       setPosition('bottom');
 
       return 'bottom';
@@ -33,7 +26,7 @@ const getTooltipPosition = (data: {
   }
 
   if (position === 'left') {
-    if (targetRect.left - rect.width < arrowSize) {
+    if (elementRect.left - tooltipRect.width < arrowSize) {
       setPosition('right');
 
       return 'right';
@@ -43,7 +36,7 @@ const getTooltipPosition = (data: {
   }
 
   if (position === 'right') {
-    if (window.innerWidth - rect.width - targetRect.right < arrowSize) {
+    if (window.innerWidth - tooltipRect.width - elementRect.right < arrowSize) {
       setPosition('left');
 
       return 'left';
@@ -53,7 +46,7 @@ const getTooltipPosition = (data: {
   }
 
   if (position === 'bottom') {
-    if (window.innerHeight - rect.height - targetRect.bottom < arrowSize) {
+    if (window.innerHeight - tooltipRect.height - elementRect.bottom < arrowSize) {
       setPosition('top');
 
       return 'top';
@@ -69,51 +62,48 @@ export const showTooltip: ShowTooltip = ({
   invisibleElementRef, tooltipRef, position, setPosition, mergeStyle,
 }): void => {
   // вычисление координат тултипа на основе координат потомков тултипа
-  const element = invisibleElementRef.current ? invisibleElementRef.current.nextElementSibling : null;
+  const element = invisibleElementRef.current?.nextElementSibling;
+  const tooltip = tooltipRef.current;
 
   if (!element) return;
 
-  const {
-    top, bottom, right, left, width, height,
-  } = element.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
 
-  const newPosition = getTooltipPosition({
-    tooltipRef,
+  const newPosition = tooltip && updateTooltipPosition({
+    elementRect,
+    tooltipRect: tooltip.getBoundingClientRect(),
     position,
-    target: element,
     setPosition,
   });
 
-  const newTooltipStyles: React.CSSProperties = {
+  const newTooltipStyles: TooltipStyles = {
     top: (() => {
       switch (newPosition) {
-        case 'top':
-          return window.pageYOffset + top;
-        case 'right':
-          return window.pageYOffset + top + height / 2;
-        case 'left':
-          return window.pageYOffset + top + height / 2;
-        case 'bottom':
-          return window.pageYOffset + bottom;
         default:
-          return window.pageYOffset + top;
+        case 'top':
+          return window.pageYOffset + elementRect.top;
+        case 'right':
+          return window.pageYOffset + elementRect.top + elementRect.height / 2;
+        case 'left':
+          return window.pageYOffset + elementRect.top + elementRect.height / 2;
+        case 'bottom':
+          return window.pageYOffset + elementRect.bottom;
       }
     })(),
     left: (() => {
       switch (newPosition) {
-        case 'top':
-          return window.pageXOffset + left + width / 2;
-        case 'right':
-          return window.pageXOffset + right;
-        case 'left':
-          return window.pageXOffset + left;
-        case 'bottom':
-          return window.pageXOffset + left + width / 2;
         default:
-          return window.pageXOffset + left + width / 2;
+        case 'top':
+          return window.pageXOffset + elementRect.left + elementRect.width / 2;
+        case 'right':
+          return window.pageXOffset + elementRect.right;
+        case 'left':
+          return window.pageXOffset + elementRect.left;
+        case 'bottom':
+          return window.pageXOffset + elementRect.left + elementRect.width / 2;
       }
     })(),
-  } as const;
+  };
 
   mergeStyle({
     opacity: 1,

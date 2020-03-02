@@ -3,78 +3,57 @@ import { hideTooltip, showTooltip } from './helpers';
 import { UseTooltipEffects } from './types';
 
 export const useTooltipEffects: UseTooltipEffects = ({
-  mergeStyle, invisibleElementRef, tooltipRef, isOpen, position, setPosition, setHidden, positionProp,
+  isOpen, positionProp, children, invisibleElementRef, tooltipRef, position, setPosition, setHidden, mergeStyle,
 }) => {
-  // hide on mount and unmount
-  React.useEffect(() => {
-    const hide = (): void => hideTooltip({
+  const sibling = invisibleElementRef.current?.nextElementSibling;
+
+  const hide = React.useCallback(() => {
+    hideTooltip({
       isOpen, positionProp, setPosition, mergeStyle,
     });
+  }, [isOpen, positionProp, setPosition, mergeStyle]);
 
-    hide();
-
-    return () => hide();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  React.useEffect((): (() => void) | void => {
-    const element = invisibleElementRef.current;
-
-    const hide = (): void => hideTooltip({
-      isOpen, positionProp, setPosition, mergeStyle,
-    });
-
-    const show = (): void => showTooltip({
+  const show = React.useCallback(() => {
+    showTooltip({
       invisibleElementRef, tooltipRef, position, setPosition, mergeStyle,
     });
+  }, [invisibleElementRef, tooltipRef, position, setPosition, mergeStyle]);
 
-    const sibling = element?.nextElementSibling;
+  React.useEffect(() => {
+    hide();
+    setHidden(true);
 
+    return () => {
+      hide();
+      setHidden(false);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [children]);
+
+  React.useEffect(() => {
     if (sibling) {
-      // Проверка на видимость элемента в доме. При W и H === 0 eventListener не срабатывает.
-      // Проверка нужна для CheckBox и других невидимых элементов
-      if ((sibling as HTMLElement).offsetWidth === 0 && (sibling as HTMLElement).offsetHeight === 0) {
+      const element = sibling as HTMLElement;
+
+      if (element.offsetWidth === 0 && element.offsetHeight === 0) {
         setHidden(true);
-        sibling.addEventListener('pointerenter', show);
-        sibling.addEventListener('touchstart', show);
-        sibling.addEventListener('pointerleave', hide);
-        sibling.addEventListener('touchend', hide);
-      } else {
-        sibling.addEventListener('pointerenter', show);
-        sibling.addEventListener('touchstart', show);
-        sibling.addEventListener('pointerleave', hide);
-        sibling.addEventListener('touchend', hide);
       }
 
+      element.addEventListener('pointerenter', show);
+      element.addEventListener('pointerleave', hide);
+      element.addEventListener('touchstart', show);
+      element.addEventListener('touchend', hide);
+
       return () => {
-        if (element && sibling) {
-          sibling.removeEventListener('pointerenter', show);
-          sibling.removeEventListener('touchstart', show);
-          sibling.removeEventListener('pointerleave', hide);
-          sibling.removeEventListener('touchend', hide);
+        if (element) {
+          element.removeEventListener('pointerenter', show);
+          element.removeEventListener('pointerleave', hide);
+          element.removeEventListener('touchstart', show);
+          element.removeEventListener('touchend', hide);
         }
       };
     }
 
     return undefined;
-  }, [invisibleElementRef, tooltipRef, isOpen, positionProp, setPosition, mergeStyle, position, setHidden]);
-
-  React.useEffect((): void => {
-    if (isOpen) {
-      setTimeout(() => showTooltip({
-        mergeStyle, invisibleElementRef, position, setPosition, tooltipRef,
-      }), 500);
-    }
-  }, [invisibleElementRef, tooltipRef, isOpen, positionProp, setPosition, mergeStyle, position]);
-
-  // hide if child unmounts
-  React.useEffect(() => {
-    const element = invisibleElementRef.current;
-
-    if (element && !element.nextElementSibling) {
-      hideTooltip({
-        setPosition, positionProp, mergeStyle, isOpen,
-      });
-    }
-  }, [invisibleElementRef, tooltipRef, isOpen, positionProp, setPosition, mergeStyle]);
+  }, [sibling, hide, show, setHidden]);
 };

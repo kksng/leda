@@ -4,15 +4,15 @@ import { COMPONENTS_NAMESPACES } from '../../constants';
 import { GlobalDefaultTheme, PartialGlobalDefaultTheme } from '../../utils/useTheme';
 
 export interface TooltipProps {
-  /** Дочерние элементы */
-  children?: React.ReactNode,
+  ref?: React.Ref<TooltipRefCurrent>,
   /** Показан ли тултип (удобно для отладки) */
   isOpen?: boolean,
   /** Расположение тултипа, одно из: top, right, bottom, left. По-умолчанию - top */
   position?: TooltipPosition,
+  /** Дочерние элементы */
+  children?: React.ReactNode,
   /** Тема компонента */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.tooltip],
-  ref?: React.Ref<TooltipRefCurrent>,
   /** Заголовок принимается в виде строки, html, JSX */
   title: React.ReactNode,
 }
@@ -20,18 +20,18 @@ export interface TooltipProps {
 export interface TooltipStyles extends React.CSSProperties {
   top?: number,
   left?: number,
-  height: 0 | 'auto',
-  opacity: 0 | 1,
+  height?: 0 | 'auto',
+  opacity?: 0 | 1,
 }
 
 export type TooltipPosition = 'top' | 'right' | 'bottom' | 'left';
 
 export interface TooltipBodyProps {
+  ref?: React.Ref<HTMLDivElement>,
   position: TooltipPosition,
   style: React.CSSProperties,
   theme: GlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.tooltip],
   title: React.ReactNode,
-  ref?: React.Ref<HTMLDivElement>,
 }
 
 export interface TooltipRefCurrent {
@@ -44,7 +44,7 @@ export interface ShowTooltip {
     tooltipRef: React.MutableRefObject<HTMLDivElement | null>,
     position: TooltipPosition,
     setPosition: SetState<TooltipPosition>,
-    mergeStyle: React.Dispatch<React.CSSProperties>,
+    mergeStyle: React.Dispatch<TooltipStyles>,
   }): void,
 }
 
@@ -53,19 +53,20 @@ export interface HideTooltip {
     isOpen: boolean | undefined,
     positionProp: TooltipPosition,
     setPosition: SetState<TooltipPosition>,
-    mergeStyle: React.Dispatch<React.CSSProperties>,
+    mergeStyle: React.Dispatch<TooltipStyles>,
   }): void,
 }
 
 export interface UseTooltipEffects {
   (data: {
-    invisibleElementRef: React.MutableRefObject<HTMLDivElement | null>,
-    tooltipRef: React.MutableRefObject<HTMLDivElement | null>,
     isOpen: boolean | undefined,
     positionProp: TooltipPosition,
+    children?: React.ReactNode,
+    invisibleElementRef: React.MutableRefObject<HTMLDivElement | null>,
+    tooltipRef: React.MutableRefObject<HTMLDivElement | null>,
     position: TooltipPosition,
     setPosition: SetState<TooltipPosition>,
     setHidden: SetState<boolean>,
-    mergeStyle: React.Dispatch<React.CSSProperties>,
+    mergeStyle: React.Dispatch<TooltipStyles>,
   }): void,
 }
