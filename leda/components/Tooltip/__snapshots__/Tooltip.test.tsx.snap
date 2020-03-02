@@ -16,7 +16,7 @@ Object {
     </div>
     <div
       class="tooltip top"
-      style="height: 0px; opacity: 0; white-space: nowrap; left: -99999px;"
+      style="height: 0px; opacity: 0; left: -99999px;"
     >
       <div>
         test
@@ -103,7 +103,7 @@ Object {
     </div>
     <div
       class="tooltip top"
-      style="height: auto; opacity: 1; white-space: nowrap;"
+      style="height: auto; opacity: 1;"
     >
       <div>
         test
