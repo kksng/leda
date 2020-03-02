@@ -3,7 +3,7 @@ import { hideTooltip, showTooltip } from './helpers';
 import { UseTooltipEffects } from './types';
 
 export const useTooltipEffects: UseTooltipEffects = ({
-  isOpen, positionProp, children, invisibleElementRef, tooltipRef, position, setPosition, setHidden, mergeStyle,
+  isOpen, positionProp, children, invisibleElementRef, tooltipRef, position, setPosition, mergeStyle,
 }) => {
   const sibling = invisibleElementRef.current?.nextElementSibling;
 
@@ -21,12 +21,8 @@ export const useTooltipEffects: UseTooltipEffects = ({
 
   React.useEffect(() => {
     hide();
-    setHidden(true);
 
-    return () => {
-      hide();
-      setHidden(false);
-    };
+    return hide;
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [children]);
@@ -34,10 +30,6 @@ export const useTooltipEffects: UseTooltipEffects = ({
   React.useEffect(() => {
     if (sibling) {
       const element = sibling as HTMLElement;
-
-      if (element.offsetWidth === 0 && element.offsetHeight === 0) {
-        setHidden(true);
-      }
 
       element.addEventListener('pointerenter', show);
       element.addEventListener('pointerleave', hide);
@@ -55,5 +47,5 @@ export const useTooltipEffects: UseTooltipEffects = ({
     }
 
     return undefined;
-  }, [sibling, hide, show, setHidden]);
+  }, [sibling, hide, show]);
 };

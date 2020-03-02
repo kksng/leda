@@ -25,8 +25,6 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
 
   const [position, setPosition] = React.useState<TooltipPosition>(positionProp);
 
-  const [isHidden, setHidden] = React.useState<boolean>(false);
-
   const [style, mergeStyle] = React.useReducer((
     oldStyle: TooltipStyles,
     newStyle: TooltipStyles,
@@ -46,7 +44,6 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
     tooltipRef,
     position,
     setPosition,
-    setHidden,
     mergeStyle,
   });
 
@@ -56,7 +53,7 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
     }
 
     return isString(children);
-  })() || isHidden;
+  })();
 
   return (
     <>

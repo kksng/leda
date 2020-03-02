@@ -66,7 +66,6 @@ export interface UseTooltipEffects {
     tooltipRef: React.MutableRefObject<HTMLDivElement | null>,
     position: TooltipPosition,
     setPosition: SetState<TooltipPosition>,
-    setHidden: SetState<boolean>,
     mergeStyle: React.Dispatch<TooltipStyles>,
   }): void,
 }
