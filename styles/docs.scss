@@ -12,6 +12,20 @@ body {
   font-size: 30px;
 }
 
+.main-layout {
+  display: flex;
+}
+
+.bside-panel {
+  width: 70px;
+  position: relative;
+  transition: width 1s;
+
+  &.opened {
+    width: 400px;
+  }
+}
+
 .bside {
   background-color: #fff;
   box-shadow: 1px 1px 2px 2px #bdbdbd;
@@ -19,7 +33,7 @@ body {
   width: 400px;
   height: 100vh;
   top: 0;
-  right: -330px;
+  left: 0;
   position: absolute;
   z-index: 10;
   font-size: 16px;
@@ -29,14 +43,13 @@ body {
   .menu-icon {
     cursor: pointer;
     transition: transform 0.3s;
-    margin-right: 1rem;
     font-size: 30px;
     height: 30px;
   }
 
   .lang-drop-down {
-    margin-right: 1rem;
     height: 30px;
+    margin-bottom: 1rem;
 
     .lang-list > .lang-item {
       padding: 1rem;
@@ -48,10 +61,10 @@ body {
     }
   }
 
-  &.opened {
-    right: 0;
+  .story-menu {
+    margin-left: 1rem;
+    flex-grow: 1;
   }
-
 
   .story-list-container {
     .story-list {
@@ -105,10 +118,10 @@ body {
 
 .content {
   height: 100vh;
-  margin-right: 70px;
   padding: 2rem 4rem;
   background-color: rgba(230, 230, 230, 0.5);
   overflow: auto;
+  flex-grow: 1;
 
   .header {
     border-bottom: 1px solid #808080;
