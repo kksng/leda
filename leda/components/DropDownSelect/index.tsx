@@ -75,6 +75,10 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     value: defaultValue,
   });
 
+  const mergeState = React.useCallback((newState: Partial<DropDownSelectState>) => setState((oldState) => ({
+    ...oldState, ...newState,
+  })), []);
+
   // выбираем между контролируемым режимом и неконтролируемым
   const { isFocused, highlightedSuggestion, selectedSuggestion } = state;
   const isOpen = isNil(isOpenProp) ? state.isOpen : isOpenProp;
@@ -82,12 +86,6 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
   const filterValue = isNil(filterValueProp) ? state.filterValue : filterValueProp;
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.dropDownSelect);
-
-  const mergeState = (newState: Partial<DropDownSelectState>): void => {
-    setState({
-      ...state, ...newState,
-    });
-  };
 
   const {
     isValid, validateCurrent, InvalidMessage,
@@ -120,10 +118,12 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
   const handleClearIconClick = createClearIconClickHandler(handlerData);
 
   useSyncedHighlightedValue({
-    filterValue, shouldFilterValues, setState, data,
+    filterValue, shouldFilterValues, mergeState, data,
   });
 
-  useCorrectSuggestionsInControlledMode({ setState, valueProp });
+  useCorrectSuggestionsInControlledMode({
+    mergeState, valueProp,
+  });
 
   const {
     Wrapper,
