@@ -66,7 +66,9 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     ...restProps
   } = mergeClassNames<DropDownSelectProps>(props);
 
-  const [state, setState] = React.useState<DropDownSelectState>({
+  const [state, mergeState] = React.useReducer((oldState: DropDownSelectState, newState: Partial<DropDownSelectState>) => ({
+    ...oldState, ...newState,
+  }), {
     filterValue: null,
     highlightedSuggestion: defaultValue ?? null,
     selectedSuggestion: defaultValue ?? null,
@@ -74,10 +76,6 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     isOpen: false,
     value: defaultValue,
   });
-
-  const mergeState = React.useCallback((newState: Partial<DropDownSelectState>) => setState((oldState) => ({
-    ...oldState, ...newState,
-  })), []);
 
   // выбираем между контролируемым режимом и неконтролируемым
   const { isFocused, highlightedSuggestion, selectedSuggestion } = state;
