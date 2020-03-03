@@ -164,7 +164,7 @@ describe('DropDownSelect HANDLERS', () => {
     expect(onChangeHandler).lastCalledWith(eventMatcher);
   });
 
-  test.skip('should trigger onFilterChange', () => {
+  test('should trigger onFilterChange', () => {
     const onFilterChangeHandler = jest.fn();
     const name = 'name';
     const value = 'value';
@@ -183,14 +183,12 @@ describe('DropDownSelect HANDLERS', () => {
     });
 
     render((
-      <DropDownSelect hasFilter textField="value" name={name} isOpen onFilterChange={onFilterChangeHandler} data={data} />
+      <DropDownSelect textField="value" name={name} isOpen onFilterChange={onFilterChangeHandler} shouldFilterValues data={data} />
     ));
 
-    screen.getByRole('textbox').focus();
     userEvent.type(screen.getByRole('textbox'), value);
-    screen.getByRole('textbox').blur();
 
-    expect(onFilterChangeHandler).toBeCalledTimes(1);
+    expect(onFilterChangeHandler).toBeCalledTimes(value.length);
     expect(onFilterChangeHandler).lastCalledWith(eventMatcher);
   });
 });
