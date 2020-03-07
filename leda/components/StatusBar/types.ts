@@ -5,7 +5,7 @@ import { DATA_TYPES, STEP_POSITION } from './constants';
 import { CustomRender, CustomEventHandler } from '../../commonTypes';
 
 export interface StatusItem {
-  [x: string]: string,
+  [x: string]: any,
 }
 
 export interface ItemProps {

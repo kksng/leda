@@ -1,5 +1,8 @@
 const path = require('path');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
+const HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
@@ -57,6 +60,38 @@ module.exports = {
       allowAsyncCycles: true,
       // set the current working directory for displaying module paths
       cwd: process.cwd(),
+    }),
+    new HtmlWebpackPlugin({
+      template: 'public/index.html',
+      inject: 'head',
+      hash: true,
+      title: 'Leda Demo',
+    }),
+    new HtmlWebpackTagsPlugin({
+      links: [
+        {
+          path: 'favicon.jpg',
+          attributes: {
+            rel: 'icon',
+          },
+        },
+      ],
+      tags: [
+        'assets/css/reset.css',
+        'assets/css/helpers.css',
+        'assets/css/lists.css',
+        'assets/css/demo.css',
+        'assets/css/scrollbar.css',
+        'assets/css/fontawesome/brands.css',
+        'assets/css/fontawesome/fontawesome.css',
+        'assets/css/fontawesome/regular.css',
+        'assets/css/fontawesome/solid.css',
+        'assets/css/fontawesome/v4-shims.css',
+        'assets/css/themes/leda/styles.css',
+      ],
+    }),
+    new ScriptExtHtmlWebpackPlugin({
+      defaultAttribute: 'defer',
     }),
   ],
 };

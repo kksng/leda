@@ -1,8 +1,7 @@
 /* eslint-disable no-alert, no-console */
 import * as React from 'react';
 import * as L from '../../leda';
-import { StatusItem } from '../../leda/components/StatusBar/types';
-import { SetState, SomeObject } from '../../leda/commonTypes';
+import { SetState } from '../../leda/commonTypes';
 
 const data = [
   { labelText: 'Согласование' },
@@ -16,19 +15,19 @@ const data = [
 const customData = [
   {
     txt: 'Согласование',
-    type: 'success',
+    status: 'success',
   },
   {
     txt: 'Оформление',
-    type: 'danger',
+    status: 'danger',
   },
   {
     txt: 'Подписание',
-    type: 'success',
+    status: 'success',
   },
   {
     txt: 'Предоплата',
-    type: 'progress',
+    status: 'progress',
   },
   {
     txt: 'Доставка',
@@ -90,9 +89,9 @@ export const StatusBar = () => {
       <br />
       <L.Span>Custom step types:</L.Span>
       <L.StatusBar
-        data={customData as StatusItem[]}
+        data={customData as L.StatusBarTypes.StatusItem[]}
         textField="txt"
-        typeField="type"
+        typeField="status"
       />
       <br />
       <br />

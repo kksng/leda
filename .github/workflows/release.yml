@@ -1,0 +1,24 @@
+on:
+  release:
+    types: published
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        id: cache
+        with:
+          path: node_modules
+          key: package-lock=${{ hashFiles('package-lock.json') }}
+          restore-keys: package-lock=
+      - run: npm ci
+        if: steps.cache.outputs.cache-hit != 'true'
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}

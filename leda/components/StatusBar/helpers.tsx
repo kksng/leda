@@ -11,7 +11,7 @@ export const contains = (type: typeof DATA_TYPES[keyof typeof DATA_TYPES]) => (d
 };
 
 /** если в data объекты и хотя бы один из них содержит поле type - компонент является "кастомным" - тип шага задается пользователем через поле type */
-export const isCustom = (data: string[] | StatusItem[]): boolean => (data as StatusItem[]).some((item) => !!item.type);
+export const isCustom = (data: string[] | StatusItem[], typeField?: string): boolean => !!typeField && (data as StatusItem[]).some((item) => !!item[typeField]);
 
 export const getLabelText = (dataType: DataType, item: string | StatusItem, textField?: string): string => {
   if (dataType === DATA_TYPES.OBJECT) return textField ? (item as StatusItem)[textField] : '';

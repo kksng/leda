@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { SetState } from '../../commonTypes';
 import { getText } from '../../src/SuggestionList/helpers';
-import { mergeState, useElement } from '../../utils';
+import { useElement } from '../../utils';
 import { Div } from '../Div';
 import { Span } from '../Span';
 import { filterData } from './helpers';
@@ -12,21 +11,23 @@ import {
 export const useSyncedHighlightedValue = ({
   filterValue,
   shouldFilterValues,
-  setState,
+  mergeState,
   data,
 }: {
   filterValue: string | null,
   shouldFilterValues: boolean,
-  setState: SetState<DropDownSelectState>,
+  mergeState: React.Dispatch<Partial<DropDownSelectState>>,
   data: DropDownSelectProps['data'],
 }): void => {
   React.useEffect((): void => {
     if (shouldFilterValues && data && filterValue) {
       const filteredData = filterData(data, filterValue) || [];
       // обновляем highlighted value
-      setState((state) => ({ ...state, highlightedValue: getText(filteredData[0]) || null }));
+      mergeState({
+        highlightedSuggestion: getText(filteredData[0]) || null,
+      });
     }
-  }, [data, shouldFilterValues, filterValue, setState]);
+  }, [data, shouldFilterValues, filterValue, mergeState]);
 };
 
 export const useCustomElements = (props: DropDownSelectProps, state: DropDownSelectState): CustomElements => {
@@ -66,18 +67,18 @@ export const useCustomElements = (props: DropDownSelectProps, state: DropDownSel
 };
 
 export const useCorrectSuggestionsInControlledMode = ({
-  setState,
+  mergeState,
   valueProp,
 }: {
-  setState: SetState<DropDownSelectState>,
+  mergeState: React.Dispatch<Partial<DropDownSelectState>>,
   valueProp?: Value,
 }) => {
   React.useEffect(() => {
     if (valueProp !== undefined) {
-      setState(mergeState({
-        selectedSuggestion: valueProp,
+      mergeState({
         highlightedSuggestion: valueProp,
-      }));
+        selectedSuggestion: valueProp,
+      });
     }
-  }, [valueProp]);
+  }, [mergeState, valueProp]);
 };

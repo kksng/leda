@@ -30,7 +30,7 @@ export const StatusBar = React.forwardRef((props: StatusBarProps, ref?: React.Re
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.statusBar);
 
-  const isCustomChildren = isCustom(data);
+  const isCustomChildren = isCustom(data, typeField);
 
   const currentIndex = value && (data as (string | StatusItem)[]).indexOf(value);
 

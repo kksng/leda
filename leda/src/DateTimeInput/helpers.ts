@@ -72,26 +72,24 @@ export const stringToDate = (string: string | undefined, format: string | undefi
     );
 };
 
-export const withLeadingZero = (number: number): string => (number.toString().length === 1 ? `0${number}` : number.toString());
-
 export const formatDateTime = (date: Date | null, format: string): string => {
   if (!date) return '';
 
-  const dateDay = withLeadingZero(date.getDate());
-  const month = withLeadingZero(date.getMonth() + 1);
-  const year = date.getFullYear().toString().slice(0, 4);
-  const hours = withLeadingZero(date.getHours());
-  const minutes = withLeadingZero(date.getMinutes());
-  const seconds = withLeadingZero(date.getSeconds());
+  const dateTable = {
+    dd: date.getDate(),
+    MM: date.getMonth() + 1,
+    yyyy: date.getFullYear(),
+    yy: date.getFullYear(),
+    hh: date.getHours(),
+    mm: date.getMinutes(),
+    ss: date.getSeconds(),
+  };
 
-  return format
-    .replace('dd', dateDay)
-    .replace('MM', month)
-    .replace('yyyy', year)
-    .replace('yy', year.slice(-2))
-    .replace('hh', hours)
-    .replace('mm', minutes)
-    .replace('ss', seconds);
+  return Object.entries(dateTable).reduce((accumulator, [key, number]) => {
+    const limit = key.length;
+    const value = number.toString().padStart(limit, '0').slice(-limit);
+    return accumulator.split(key).join(value);
+  }, format);
 };
 
 export const getMonthNameOfDate = (month: number): string => {

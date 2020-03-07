@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { SomeObject } from '../../../leda/commonTypes';
 import * as L from '../../../leda';
+import { SomeObject } from '../../../leda/commonTypes';
 
+// eslint-disable-next-line
 export const BoundingElementRef = (args: SomeObject): React.ReactElement => {
   const [isOpen, setIsOpen] = React.useState<boolean | undefined>();
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
@@ -41,11 +42,11 @@ export const BoundingElementRef = (args: SomeObject): React.ReactElement => {
           isLoading={isLoading}
           isDisabled={isDisabled}
           value={value}
-          onChange={ev => {
+          onChange={(ev) => {
             console.log('ev.component', ev.component);
             setValue(ev.component.value);
           }}
-          onBlur={ev => {
+          onBlur={(ev) => {
             console.log('ev.component.value', ev.component.value);
           }}
         />
