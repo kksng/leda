@@ -1,26 +1,21 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { COMPONENTS_NAMESPACES } from '../../constants';
-import { getClassNames, useTheme } from '../../utils';
 import { TooltipBodyProps } from './types';
 
 export const TooltipBody = React.forwardRef((props: TooltipBodyProps, ref?: React.Ref<HTMLDivElement>) => {
   const {
-    position = 'top',
+    onTransitionEnd: handleTransitionEnd,
+    tooltipClassNames: className,
     style,
-    theme: themeProp,
     title,
   } = props;
 
-  const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.tooltip);
-
-  const tooltipClassNames = getClassNames([theme[position]]);
-
   const tooltip = (
     <div
-      className={tooltipClassNames}
+      className={className}
       ref={ref}
       style={style}
+      onTransitionEnd={handleTransitionEnd}
     >
       <div>
         {title}

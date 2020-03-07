@@ -1,83 +1,82 @@
 import * as React from 'react';
 import isString from 'lodash/isString';
 import { COMPONENTS_NAMESPACES } from '../../constants';
-import { bindFunctionalRef, useTheme } from '../../utils';
-import { useTooltipEffects } from './hooks';
+import { bindFunctionalRef, getClassNames, useTheme } from '../../utils';
 import { TooltipBody } from './TooltipBody';
+import { defaultArrowSize, defaultPosition, defaultTransitionTimeout } from './constants';
+import { useTooltip } from './hooks';
 import {
-  TooltipPosition, TooltipProps, TooltipRefCurrent, TooltipStyles,
+  TooltipProps, TooltipRefCurrent,
 } from './types';
 
 export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<TooltipRefCurrent>): React.ReactElement => {
   const {
-    children,
-    isOpen,
-    position: positionProp = 'top',
+    arrowSize = defaultArrowSize,
+    children: childrenProp,
+    isOpen: isOpenProp,
+    position: positionProp = defaultPosition,
     theme: themeProp,
     title,
+    transitionTimeout = defaultTransitionTimeout,
   } = props;
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.tooltip);
 
-  const invisibleElementRef = React.useRef<HTMLDivElement | null>(null);
+  const elementRef = React.useRef<Element | null>(null);
+  const tooltipRef = React.useRef<Element | null>(null);
 
-  const tooltipRef = React.useRef<HTMLDivElement | null>(null);
-
-  const [position, setPosition] = React.useState<TooltipPosition>(positionProp);
-
-  const [style, mergeStyle] = React.useReducer((
-    oldStyle: TooltipStyles,
-    newStyle: TooltipStyles,
-  ) => ({
-    ...oldStyle,
-    ...newStyle,
-  }), {
-    height: 'auto',
-    opacity: 1,
-  });
-
-  useTooltipEffects({
-    children,
-    isOpen,
-    positionProp,
-    invisibleElementRef,
-    tooltipRef,
+  const {
+    handleTransitionEnd,
     position,
-    setPosition,
-    mergeStyle,
+    style,
+  } = useTooltip({
+    arrowSize,
+    childrenProp,
+    isOpenProp,
+    positionProp,
+    transitionTimeout,
+    elementRef,
+    tooltipRef,
   });
 
-  const shouldWrapChildren = (() => {
-    if (Array.isArray(children) && children.length) {
-      return children.length === 1 || isString(children[0]);
+  const tooltipClassNames = getClassNames(position ? theme[position] : theme.tooltip);
+
+  const shouldWrapChildren = React.useMemo(() => {
+    if (Array.isArray(childrenProp) && childrenProp.length) {
+      return childrenProp.length === 1 || isString(childrenProp[0]);
     }
 
-    return isString(children);
-  })();
+    return !childrenProp || isString(childrenProp);
+  }, [childrenProp]);
 
+  // добавление враппера нужно если потомков несколько или передана строка
+  const children = shouldWrapChildren ? (
+    <div className={theme.wrapper}>
+      {childrenProp}
+    </div>
+  ) : childrenProp;
+
+  // невидимый элемент нужен для получения dom node у элемента children
   return (
     <>
-      {/* невидимый элемент, нужен для получения dom node у элемента children */}
-      <div ref={invisibleElementRef} style={{ display: 'none' }} />
-      {/* Если потомков больше чем 1 или передана строка, добавляем враппер */}
-      {
-        shouldWrapChildren ? (
-          <div className={theme.wrapper}>
-            {children}
-          </div>
-        ) : children
-      }
+      <div
+        style={{ display: 'none' }}
+        ref={(instance) => {
+          elementRef.current = instance?.nextElementSibling ?? null;
+        }}
+      />
+      {children}
       <TooltipBody
-        position={position}
+        onTransitionEnd={handleTransitionEnd}
+        tooltipClassNames={tooltipClassNames}
         style={style}
-        theme={theme}
         title={title}
-        ref={(component) => {
-          tooltipRef.current = component;
+        ref={(instance) => {
+          tooltipRef.current = instance;
 
           if (ref) {
-            return bindFunctionalRef(component, ref, component && {
-              wrapper: component,
+            return bindFunctionalRef(instance, ref, instance && {
+              wrapper: instance,
             });
           }
 

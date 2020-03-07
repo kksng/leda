@@ -1,36 +1,40 @@
 import React from 'react';
-import { SetState } from '../../commonTypes';
 import { COMPONENTS_NAMESPACES } from '../../constants';
-import { GlobalDefaultTheme, PartialGlobalDefaultTheme } from '../../utils/useTheme';
+import { PartialGlobalDefaultTheme } from '../../utils/useTheme';
 
 export interface TooltipProps {
   ref?: React.Ref<TooltipRefCurrent>,
+  /** Размер стрелки тултипа */
+  arrowSize?: number,
+  /** Дочерние элементы */
+  children?: React.ReactNode,
   /** Показан ли тултип (удобно для отладки) */
   isOpen?: boolean,
   /** Расположение тултипа, одно из: top, right, bottom, left. По-умолчанию - top */
   position?: TooltipPosition,
-  /** Дочерние элементы */
-  children?: React.ReactNode,
   /** Тема компонента */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.tooltip],
   /** Заголовок принимается в виде строки, html, JSX */
   title: React.ReactNode,
+  /** Максимальная продолжительность выполнения анимации */
+  transitionTimeout?: number,
 }
 
-export interface TooltipStyles extends React.CSSProperties {
+export interface TooltipStyle extends React.CSSProperties {
+  opacity?: 0 | 1,
+  pointerEvents?: 'none',
+  visibility?: 'hidden',
   top?: number,
   left?: number,
-  height?: 0 | 'auto',
-  opacity?: 0 | 1,
 }
 
-export type TooltipPosition = 'top' | 'right' | 'bottom' | 'left';
+export type TooltipPosition = 'top' | 'right' | 'bottom' | 'left' | undefined;
 
 export interface TooltipBodyProps {
   ref?: React.Ref<HTMLDivElement>,
-  position: TooltipPosition,
-  style: React.CSSProperties,
-  theme: GlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.tooltip],
+  onTransitionEnd: React.TransitionEventHandler,
+  tooltipClassNames?: string,
+  style: TooltipStyle,
   title: React.ReactNode,
 }
 
@@ -38,34 +42,37 @@ export interface TooltipRefCurrent {
   wrapper: HTMLDivElement | null,
 }
 
-export interface ShowTooltip {
+export interface GetTooltipPosition {
   (data: {
-    invisibleElementRef: React.MutableRefObject<HTMLDivElement | null>,
-    tooltipRef: React.MutableRefObject<HTMLDivElement | null>,
+    arrowSize: number,
     position: TooltipPosition,
-    setPosition: SetState<TooltipPosition>,
-    mergeStyle: React.Dispatch<TooltipStyles>,
-  }): void,
+    elementRect: DOMRect,
+    tooltipRect: DOMRect,
+  }): TooltipPosition,
 }
 
-export interface HideTooltip {
+export interface GetTooltipOffsets {
   (data: {
-    isOpen: boolean | undefined,
-    positionProp: TooltipPosition,
-    setPosition: SetState<TooltipPosition>,
-    mergeStyle: React.Dispatch<TooltipStyles>,
-  }): void,
+    elementRect: DOMRect,
+    position: TooltipPosition,
+  }): {
+    top?: number,
+    left?: number,
+  },
 }
 
-export interface UseTooltipEffects {
+export interface UseTooltip {
   (data: {
-    isOpen: boolean | undefined,
+    arrowSize: number,
+    childrenProp?: React.ReactNode,
+    isOpenProp?: boolean,
     positionProp: TooltipPosition,
-    children?: React.ReactNode,
-    invisibleElementRef: React.MutableRefObject<HTMLDivElement | null>,
-    tooltipRef: React.MutableRefObject<HTMLDivElement | null>,
+    transitionTimeout?: number,
+    elementRef: React.MutableRefObject<Element | null>,
+    tooltipRef: React.MutableRefObject<Element | null>,
+  }): {
+    handleTransitionEnd: React.TransitionEventHandler,
     position: TooltipPosition,
-    setPosition: SetState<TooltipPosition>,
-    mergeStyle: React.Dispatch<TooltipStyles>,
-  }): void,
+    style: TooltipStyle,
+  },
 }
