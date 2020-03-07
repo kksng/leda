@@ -3,6 +3,11 @@ import { render } from '@testing-library/react';
 import { I } from '../I';
 import { Tooltip } from './index';
 
+jest.mock('./constants', () => ({
+  ...jest.requireActual('./constants'),
+  defaultArrowSize: 0,
+}));
+
 describe('Tooltip SNAPSHOTS', () => {
   it('should render', () => {
     const wrapper = render((
@@ -30,18 +35,34 @@ describe('Tooltip ATTRIBUTES', () => {
     expect(document.querySelectorAll('span')).toHaveLength(1);
   });
 
-  describe('position prop', () => {
+  describe('position prop when open', () => {
     it('should be top by default', () => {
       render((
-        <Tooltip title="test">Test</Tooltip>
+        <Tooltip isOpen title="test">Test</Tooltip>
       ));
 
       expect(document.querySelector('.tooltip.top')).toBeInTheDocument();
     });
 
+    it('should be top', () => {
+      render((
+        <Tooltip isOpen title="test" position="top">test</Tooltip>
+      ));
+
+      expect(document.querySelector('.tooltip.top')).toBeInTheDocument();
+    });
+
+    it('should be left', () => {
+      render((
+        <Tooltip isOpen title="test" position="left">test</Tooltip>
+      ));
+
+      expect(document.querySelector('.tooltip.left')).toBeInTheDocument();
+    });
+
     it('should be right', () => {
       render((
-        <Tooltip title="test" position="right">test</Tooltip>
+        <Tooltip isOpen title="test" position="right">test</Tooltip>
       ));
 
       expect(document.querySelector('.tooltip.right')).toBeInTheDocument();
@@ -49,18 +70,10 @@ describe('Tooltip ATTRIBUTES', () => {
 
     it('should be bottom', () => {
       render((
-        <Tooltip title="test" position="bottom">test</Tooltip>
+        <Tooltip isOpen title="test" position="bottom">test</Tooltip>
       ));
 
       expect(document.querySelector('.tooltip.bottom')).toBeInTheDocument();
-    });
-
-    it('should be left', () => {
-      render((
-        <Tooltip title="test" position="left">test</Tooltip>
-      ));
-
-      expect(document.querySelector('.tooltip.left')).toBeInTheDocument();
     });
   });
 
