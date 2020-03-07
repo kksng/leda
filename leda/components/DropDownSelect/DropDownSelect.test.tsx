@@ -2,6 +2,7 @@ import React from 'react';
 import {
   getNodeText, render, screen,
 } from '@testing-library/react';
+import last from 'lodash/last';
 import userEvent from '@testing-library/user-event';
 import { DropDownSelect } from './index';
 
@@ -164,7 +165,7 @@ describe('DropDownSelect HANDLERS', () => {
     expect(onChangeHandler).lastCalledWith(eventMatcher);
   });
 
-  test('should trigger onFilterChange', () => {
+  test('should trigger onFilterChange by typing', () => {
     const onFilterChangeHandler = jest.fn();
     const name = 'name';
     const value = 'value';
@@ -189,6 +190,36 @@ describe('DropDownSelect HANDLERS', () => {
     userEvent.type(screen.getByRole('textbox'), value);
 
     expect(onFilterChangeHandler).toBeCalledTimes(value.length);
+    expect(onFilterChangeHandler).lastCalledWith(eventMatcher);
+  });
+
+  test('should trigger onFilterChange by suggestion click', () => {
+    const onFilterChangeHandler = jest.fn();
+    const name = 'name';
+    const value = 'value1';
+    const data = [
+      { id: 0, value: 'value0' },
+      { id: 1, value: 'value1' },
+    ];
+    const eventMatcher = expect.objectContaining({
+      component: expect.objectContaining({
+        name,
+        value,
+      }),
+    });
+
+    render((
+      <DropDownSelect textField="value" name={name} isOpen onFilterChange={onFilterChangeHandler} shouldFilterValues data={data} />
+    ));
+
+    screen.getByRole('textbox')?.focus();
+
+    const listItem = last(document.querySelectorAll('.suggestion-item'));
+
+    expect(listItem).toBeDefined();
+    userEvent.click(listItem as HTMLElement);
+
+    expect(onFilterChangeHandler).toBeCalledTimes(1);
     expect(onFilterChangeHandler).lastCalledWith(eventMatcher);
   });
 });
