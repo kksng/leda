@@ -6,7 +6,7 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   entry: {
     main: './demo/index.tsx',
   },
