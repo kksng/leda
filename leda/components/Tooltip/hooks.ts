@@ -17,7 +17,7 @@ export const useTooltip: UseTooltip = ({
   const [position, setPosition] = React.useState<TooltipPosition>();
 
   const [style, setStyle] = React.useState<TooltipStyle>({
-    opacity: 0, height: 0, overflow: 'hidden',
+    opacity: 0, top: 0, visibility: 'hidden',
   });
 
   const mergeStyle = React.useCallback((newStyle: Partial<TooltipStyle>) => {
@@ -60,7 +60,7 @@ export const useTooltip: UseTooltip = ({
     setPosition(undefined);
 
     setStyle({
-      opacity: 0, height: 0, overflow: 'hidden',
+      opacity: 0, top: 0, visibility: 'hidden',
     });
   }, []);
 
@@ -92,7 +92,7 @@ export const useTooltip: UseTooltip = ({
     setIsOpen(true);
 
     setStyle({
-      opacity: 1,
+      opacity: 1, top: 0,
     });
 
     updateTooltip();

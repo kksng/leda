@@ -37,7 +37,7 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
     tooltipRef,
   });
 
-  const tooltipClassNames = position && getClassNames(theme[position]);
+  const tooltipClassNames = getClassNames(position ? theme[position] : theme.tooltip);
 
   return (
     <>

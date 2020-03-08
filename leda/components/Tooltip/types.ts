@@ -22,10 +22,9 @@ export interface TooltipProps {
 
 export interface TooltipStyle extends React.CSSProperties {
   opacity: 0 | 1,
-  height?: 0,
-  overflow?: 'hidden',
-  top?: number,
+  top: number,
   left?: number,
+  visibility?: 'hidden',
 }
 
 export type TooltipPosition = 'top' | 'right' | 'bottom' | 'left' | undefined;
