@@ -21,8 +21,7 @@ export interface TooltipProps {
 }
 
 export interface TooltipStyle extends React.CSSProperties {
-  opacity?: 0 | 1,
-  pointerEvents?: 'none',
+  opacity: 0 | 1,
   visibility?: 'hidden',
   top?: number,
   left?: number,
@@ -44,7 +43,7 @@ export interface TooltipRefCurrent {
 
 export interface GetTooltipPosition {
   (data: {
-    arrowSize: number,
+    arrowSize?: number,
     position: TooltipPosition,
     elementRect: DOMRect,
     tooltipRect: DOMRect,
@@ -63,13 +62,12 @@ export interface GetTooltipOffsets {
 
 export interface UseTooltip {
   (data: {
-    arrowSize: number,
-    childrenProp?: React.ReactNode,
-    isOpenProp?: boolean,
-    positionProp: TooltipPosition,
+    arrowSize?: number,
     transitionTimeout?: number,
-    elementRef: React.MutableRefObject<Element | null>,
-    tooltipRef: React.MutableRefObject<Element | null>,
+    initialIsOpen?: boolean,
+    initialPosition: TooltipPosition,
+    element?: Element,
+    tooltip?: Element,
   }): {
     handleTransitionEnd: React.TransitionEventHandler,
     position: TooltipPosition,

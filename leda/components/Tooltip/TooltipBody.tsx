@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { TooltipBodyProps } from './types';
 
-export const TooltipBody = React.forwardRef((props: TooltipBodyProps, ref?: React.Ref<HTMLDivElement>) => {
+export const TooltipBody = React.forwardRef((props: TooltipBodyProps, ref?: React.Ref<HTMLDivElement>): React.ReactElement => {
   const {
     onTransitionEnd: handleTransitionEnd,
     tooltipClassNames: className,

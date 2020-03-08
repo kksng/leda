@@ -1,30 +1,65 @@
 import * as React from 'react';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
+import isMatch from 'lodash/isMatch';
 import { getTooltipPosition, getTooltipOffsets } from './helpers';
 import { TooltipPosition, TooltipStyle, UseTooltip } from './types';
 
 export const useTooltip: UseTooltip = ({
   arrowSize,
-  childrenProp,
-  isOpenProp,
-  positionProp,
   transitionTimeout,
-  elementRef,
-  tooltipRef,
+  initialIsOpen,
+  initialPosition,
+  element,
+  tooltip,
 }) => {
-  const [isOpen, setIsOpen] = React.useState<boolean | undefined>(isOpenProp ?? false);
+  const [isOpen, setIsOpen] = React.useState<boolean | undefined>(initialIsOpen ?? false);
 
   const [position, setPosition] = React.useState<TooltipPosition>();
 
   const [style, setStyle] = React.useState<TooltipStyle>({
-    opacity: isOpenProp ? 1 : 0, visibility: 'hidden',
+    opacity: 0, visibility: 'hidden',
   });
 
-  const mergeStyle = React.useCallback((newStyle: TooltipStyle) => {
-    setStyle((oldStyle) => ({
-      ...oldStyle, ...newStyle,
+  const mergeStyle = React.useCallback((newStyle: Partial<TooltipStyle>) => {
+    setStyle((oldStyle) => {
+      if (isMatch(oldStyle, newStyle)) {
+        return oldStyle;
+      }
+
+      return {
+        ...oldStyle,
+        ...newStyle,
+      };
+    });
+  }, []);
+
+  // sometimes update needed to wait for elements
+  const updateRender = React.useCallback(() => {
+    setStyle((object) => ({
+      ...object,
     }));
-  }, [setStyle]);
+  }, []);
+
+  const updateTooltip = React.useCallback(() => {
+    if (!element || !tooltip) {
+      return;
+    }
+
+    const elementRect = element.getBoundingClientRect();
+    const tooltipRect = tooltip.getBoundingClientRect();
+
+    const newPosition = getTooltipPosition({
+      position: initialPosition, elementRect, tooltipRect, arrowSize,
+    }) || initialPosition;
+
+    setPosition(newPosition);
+
+    const newOffsets = getTooltipOffsets({
+      position: newPosition, elementRect,
+    });
+
+    mergeStyle(newOffsets);
+  }, [element, tooltip, initialPosition, arrowSize, mergeStyle]);
 
   const closeTooltip = React.useCallback(() => {
     setIsOpen(false);
@@ -37,59 +72,42 @@ export const useTooltip: UseTooltip = ({
   }, []);
 
   const debounceCloseTooltip = React.useMemo(() => {
-    const close = (shouldResume: boolean) => {
-      if (!shouldResume) {
-        return;
-      }
-
+    const close = () => {
       closeTooltip();
     };
 
     return debounce(close, transitionTimeout);
-  }, [closeTooltip, transitionTimeout]);
 
-  const updateTooltip = React.useCallback(() => {
-    const elementRect = elementRef.current?.getBoundingClientRect();
-    const tooltipRect = tooltipRef.current?.getBoundingClientRect();
-
-    if (!elementRect || !tooltipRect) {
-      return;
-    }
-
-    const nextPosition = getTooltipPosition({
-      position: positionProp, elementRect, tooltipRect, arrowSize,
-    });
-
-    setPosition(nextPosition);
-
-    const newOffsets = getTooltipOffsets({
-      position: nextPosition, elementRect,
-    });
-
-    mergeStyle(newOffsets);
-  }, [arrowSize, mergeStyle, elementRef, tooltipRef, positionProp]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [closeTooltip]);
 
   const hideTooltip = React.useCallback(() => {
+    setIsOpen(undefined);
+
     mergeStyle({
       opacity: 0,
     });
 
-    setIsOpen(undefined);
-
-    debounceCloseTooltip(true);
+    debounceCloseTooltip();
   }, [debounceCloseTooltip, mergeStyle]);
 
   const showTooltip = React.useCallback(() => {
-    mergeStyle({
-      opacity: 1, visibility: undefined,
-    });
+    if (!element || !tooltip) {
+      updateRender();
+
+      return;
+    }
 
     setIsOpen(true);
 
+    setStyle({
+      opacity: 1,
+    });
+
     updateTooltip();
 
-    debounceCloseTooltip(false);
-  }, [debounceCloseTooltip, mergeStyle, updateTooltip]);
+    debounceCloseTooltip.cancel();
+  }, [debounceCloseTooltip, updateTooltip, element, tooltip, updateRender]);
 
   const handleTransitionEnd = React.useCallback<React.TransitionEventHandler>(() => {
     if (isOpen != null) {
@@ -100,7 +118,13 @@ export const useTooltip: UseTooltip = ({
   }, [isOpen, closeTooltip]);
 
   React.useEffect(() => {
-    if (!childrenProp || isOpen === false) {
+    if (isOpen === false) {
+      return undefined;
+    }
+
+    if (!element || !tooltip) {
+      updateRender();
+
       return undefined;
     }
 
@@ -109,16 +133,22 @@ export const useTooltip: UseTooltip = ({
     };
 
     window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleResize);
     };
-  }, [isOpen, childrenProp, updateTooltip]);
+  }, [isOpen, updateTooltip, element, tooltip, updateRender]);
 
   React.useEffect(() => {
-    const element = elementRef.current;
+    if (initialIsOpen != null) {
+      return undefined;
+    }
 
-    if (!childrenProp || isOpenProp != null || element == null) {
+    if (!element) {
+      updateRender();
+
       return undefined;
     }
 
@@ -133,19 +163,19 @@ export const useTooltip: UseTooltip = ({
       element.removeEventListener('touchstart', showTooltip);
       element.removeEventListener('touchend', hideTooltip);
     };
-  }, [isOpenProp, childrenProp, hideTooltip, showTooltip, elementRef]);
+  }, [initialIsOpen, showTooltip, hideTooltip, element, updateRender]);
 
   React.useEffect(() => {
-    if (isOpenProp == null) {
+    if (initialIsOpen == null) {
       return;
     }
 
-    if (childrenProp && isOpenProp) {
+    if (initialIsOpen) {
       showTooltip();
     } else {
       hideTooltip();
     }
-  }, [isOpenProp, childrenProp, hideTooltip, showTooltip]);
+  }, [initialIsOpen, showTooltip, hideTooltip]);
 
   return {
     handleTransitionEnd,

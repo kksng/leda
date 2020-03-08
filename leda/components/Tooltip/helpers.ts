@@ -3,7 +3,7 @@ import {
 } from './types';
 
 export const getTooltipPosition: GetTooltipPosition = ({
-  position, elementRect, tooltipRect, arrowSize,
+  position, elementRect, tooltipRect, arrowSize = 0,
 }) => {
   const checkPosition = (tooltipPosition: TooltipPosition): boolean => {
     switch (tooltipPosition) {
@@ -22,13 +22,13 @@ export const getTooltipPosition: GetTooltipPosition = ({
 
   switch (position) {
     case 'top':
-      return Array<TooltipPosition>('top', 'bottom', 'right', 'left').find(checkPosition) ?? 'top';
+      return Array<TooltipPosition>('top', 'bottom', 'right', 'left').find(checkPosition);
     case 'left':
-      return Array<TooltipPosition>('left', 'right', 'bottom', 'top').find(checkPosition) ?? 'left';
+      return Array<TooltipPosition>('left', 'right', 'bottom', 'top').find(checkPosition);
     case 'right':
-      return Array<TooltipPosition>('right', 'left', 'top', 'bottom').find(checkPosition) ?? 'right';
+      return Array<TooltipPosition>('right', 'left', 'top', 'bottom').find(checkPosition);
     case 'bottom':
-      return Array<TooltipPosition>('bottom', 'top', 'left', 'right').find(checkPosition) ?? 'bottom';
+      return Array<TooltipPosition>('bottom', 'top', 'left', 'right').find(checkPosition);
     default:
       return undefined;
   }

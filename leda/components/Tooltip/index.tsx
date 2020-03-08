@@ -1,5 +1,4 @@
 import * as React from 'react';
-import isString from 'lodash/isString';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { bindFunctionalRef, getClassNames, useTheme } from '../../utils';
 import { TooltipBody } from './TooltipBody';
@@ -12,8 +11,8 @@ import {
 export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<TooltipRefCurrent>): React.ReactElement => {
   const {
     arrowSize = defaultArrowSize,
-    children: childrenProp,
-    isOpen: isOpenProp,
+    children,
+    isOpen,
     position: positionProp = defaultPosition,
     theme: themeProp,
     title,
@@ -22,8 +21,8 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.tooltip);
 
-  const elementRef = React.useRef<Element | null>(null);
-  const tooltipRef = React.useRef<Element | null>(null);
+  const elementRef = React.useRef<Element>();
+  const tooltipRef = React.useRef<Element>();
 
   const {
     handleTransitionEnd,
@@ -31,48 +30,32 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
     style,
   } = useTooltip({
     arrowSize,
-    childrenProp,
-    isOpenProp,
-    positionProp,
     transitionTimeout,
-    elementRef,
-    tooltipRef,
+    initialIsOpen: isOpen,
+    initialPosition: positionProp,
+    element: elementRef.current,
+    tooltip: elementRef.current,
   });
 
   const tooltipClassNames = getClassNames(position ? theme[position] : theme.tooltip);
 
-  const shouldWrapChildren = React.useMemo(() => {
-    if (Array.isArray(childrenProp) && childrenProp.length) {
-      return childrenProp.length === 1 || isString(childrenProp[0]);
-    }
-
-    return !childrenProp || isString(childrenProp);
-  }, [childrenProp]);
-
-  // добавление враппера нужно если потомков несколько или передана строка
-  const children = shouldWrapChildren ? (
-    <div className={theme.wrapper}>
-      {childrenProp}
-    </div>
-  ) : childrenProp;
-
-  // невидимый элемент нужен для получения dom node у элемента children
   return (
     <>
       <div
-        style={{ display: 'none' }}
+        className={theme.wrapper}
         ref={(instance) => {
-          elementRef.current = instance?.nextElementSibling ?? null;
+          elementRef.current = instance || undefined;
         }}
-      />
-      {children}
+      >
+        {children}
+      </div>
       <TooltipBody
         onTransitionEnd={handleTransitionEnd}
         tooltipClassNames={tooltipClassNames}
         style={style}
         title={title}
         ref={(instance) => {
-          tooltipRef.current = instance;
+          tooltipRef.current = instance || undefined;
 
           if (ref) {
             return bindFunctionalRef(instance, ref, instance && {
