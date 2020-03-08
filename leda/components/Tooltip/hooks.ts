@@ -9,15 +9,15 @@ export const useTooltip: UseTooltip = ({
   transitionTimeout,
   initialIsOpen,
   initialPosition,
-  element,
-  tooltip,
+  elementRef,
+  tooltipRef,
 }) => {
   const [isOpen, setIsOpen] = React.useState<boolean | undefined>(initialIsOpen ?? false);
 
   const [position, setPosition] = React.useState<TooltipPosition>();
 
   const [style, setStyle] = React.useState<TooltipStyle>({
-    opacity: 0, visibility: 'hidden',
+    opacity: 0, height: 0, overflow: 'hidden',
   });
 
   const mergeStyle = React.useCallback((newStyle: Partial<TooltipStyle>) => {
@@ -33,20 +33,13 @@ export const useTooltip: UseTooltip = ({
     });
   }, []);
 
-  // sometimes update needed to wait for elements
-  const updateRender = React.useCallback(() => {
-    setStyle((object) => ({
-      ...object,
-    }));
-  }, []);
-
   const updateTooltip = React.useCallback(() => {
-    if (!element || !tooltip) {
+    if (!elementRef?.current || !tooltipRef?.current) {
       return;
     }
 
-    const elementRect = element.getBoundingClientRect();
-    const tooltipRect = tooltip.getBoundingClientRect();
+    const elementRect = elementRef.current.getBoundingClientRect();
+    const tooltipRect = tooltipRef.current.getBoundingClientRect();
 
     const newPosition = getTooltipPosition({
       position: initialPosition, elementRect, tooltipRect, arrowSize,
@@ -59,7 +52,7 @@ export const useTooltip: UseTooltip = ({
     });
 
     mergeStyle(newOffsets);
-  }, [element, tooltip, initialPosition, arrowSize, mergeStyle]);
+  }, [elementRef, tooltipRef, initialPosition, arrowSize, mergeStyle]);
 
   const closeTooltip = React.useCallback(() => {
     setIsOpen(false);
@@ -67,7 +60,7 @@ export const useTooltip: UseTooltip = ({
     setPosition(undefined);
 
     setStyle({
-      opacity: 0, visibility: 'hidden',
+      opacity: 0, height: 0, overflow: 'hidden',
     });
   }, []);
 
@@ -92,9 +85,7 @@ export const useTooltip: UseTooltip = ({
   }, [debounceCloseTooltip, mergeStyle]);
 
   const showTooltip = React.useCallback(() => {
-    if (!element || !tooltip) {
-      updateRender();
-
+    if (!elementRef?.current || !tooltipRef?.current) {
       return;
     }
 
@@ -107,7 +98,7 @@ export const useTooltip: UseTooltip = ({
     updateTooltip();
 
     debounceCloseTooltip.cancel();
-  }, [debounceCloseTooltip, updateTooltip, element, tooltip, updateRender]);
+  }, [debounceCloseTooltip, updateTooltip, elementRef, tooltipRef]);
 
   const handleTransitionEnd = React.useCallback<React.TransitionEventHandler>(() => {
     if (isOpen != null) {
@@ -122,9 +113,7 @@ export const useTooltip: UseTooltip = ({
       return undefined;
     }
 
-    if (!element || !tooltip) {
-      updateRender();
-
+    if (!elementRef?.current || !tooltipRef?.current) {
       return undefined;
     }
 
@@ -139,18 +128,18 @@ export const useTooltip: UseTooltip = ({
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleResize);
     };
-  }, [isOpen, updateTooltip, element, tooltip, updateRender]);
+  }, [isOpen, updateTooltip, elementRef, tooltipRef]);
 
   React.useEffect(() => {
     if (initialIsOpen != null) {
       return undefined;
     }
 
-    if (!element) {
-      updateRender();
-
+    if (!elementRef?.current) {
       return undefined;
     }
+
+    const element = elementRef?.current;
 
     element.addEventListener('pointerenter', showTooltip);
     element.addEventListener('pointerleave', hideTooltip);
@@ -163,7 +152,7 @@ export const useTooltip: UseTooltip = ({
       element.removeEventListener('touchstart', showTooltip);
       element.removeEventListener('touchend', hideTooltip);
     };
-  }, [initialIsOpen, showTooltip, hideTooltip, element, updateRender]);
+  }, [initialIsOpen, showTooltip, hideTooltip, elementRef]);
 
   React.useEffect(() => {
     if (initialIsOpen == null) {

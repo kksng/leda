@@ -22,7 +22,8 @@ export interface TooltipProps {
 
 export interface TooltipStyle extends React.CSSProperties {
   opacity: 0 | 1,
-  visibility?: 'hidden',
+  height?: 0,
+  overflow?: 'hidden',
   top?: number,
   left?: number,
 }
@@ -66,8 +67,8 @@ export interface UseTooltip {
     transitionTimeout?: number,
     initialIsOpen?: boolean,
     initialPosition: TooltipPosition,
-    element?: Element,
-    tooltip?: Element,
+    elementRef?: React.RefObject<Element | undefined>,
+    tooltipRef?: React.RefObject<Element | undefined>,
   }): {
     handleTransitionEnd: React.TransitionEventHandler,
     position: TooltipPosition,

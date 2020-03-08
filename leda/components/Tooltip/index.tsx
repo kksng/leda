@@ -33,11 +33,11 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
     transitionTimeout,
     initialIsOpen: isOpen,
     initialPosition: positionProp,
-    element: elementRef.current,
-    tooltip: elementRef.current,
+    elementRef,
+    tooltipRef,
   });
 
-  const tooltipClassNames = getClassNames(position ? theme[position] : theme.tooltip);
+  const tooltipClassNames = position && getClassNames(theme[position]);
 
   return (
     <>
