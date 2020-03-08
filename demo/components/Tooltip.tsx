@@ -25,9 +25,11 @@ export const Tooltip = () => {
               <L.Button _tipRight>Right</L.Button>
             </L.Tooltip>
           </L.Div>
-          <L.Tooltip position="bottom" title="Tooltip at bottom bottom bottom bottom bottom bottom bottom bottom">
-            {mount && <L.Button onClick={() => setMount(!mount)} _tipBottom>Bottom</L.Button>}
-          </L.Tooltip>
+          {mount && (
+            <L.Tooltip position="bottom" title="Tooltip at bottom bottom bottom bottom bottom bottom bottom bottom">
+              <L.Button onClick={() => setMount(!mount)} _tipBottom>Bottom</L.Button>
+            </L.Tooltip>
+          )}
         </L.Div>
       )}
     </L.Div>
