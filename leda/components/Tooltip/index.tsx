@@ -4,9 +4,7 @@ import { bindFunctionalRef, getClassNames, useTheme } from '../../utils';
 import { TooltipBody } from './TooltipBody';
 import { defaultArrowSize, defaultPosition, defaultTransitionTimeout } from './constants';
 import { useTooltip } from './hooks';
-import {
-  TooltipProps, TooltipRefCurrent,
-} from './types';
+import { TooltipProps, TooltipRefCurrent } from './types';
 
 export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<TooltipRefCurrent>): React.ReactElement => {
   const {
@@ -39,16 +37,23 @@ export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<To
 
   const tooltipClassNames = getClassNames(position ? theme[position] : theme.tooltip);
 
+  // добавление обертки если нужно
+  const element = React.isValidElement(children) ? children : (
+    <div className={theme.wrapper}>
+      {children}
+    </div>
+  );
+
+  // невидимый элемент нужен для получения element
   return (
     <>
       <div
-        className={theme.wrapper}
+        style={{ display: 'none' }}
         ref={(instance) => {
-          elementRef.current = instance || undefined;
+          elementRef.current = instance?.nextElementSibling || undefined;
         }}
-      >
-        {children}
-      </div>
+      />
+      {element}
       <TooltipBody
         onTransitionEnd={handleTransitionEnd}
         tooltipClassNames={tooltipClassNames}

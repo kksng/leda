@@ -64,15 +64,21 @@ export const useTooltip: UseTooltip = ({
     });
   }, []);
 
+  const handleTransitionEnd = React.useCallback<React.TransitionEventHandler>(() => {
+    if (isOpen != null) {
+      return;
+    }
+
+    closeTooltip();
+  }, [closeTooltip, isOpen]);
+
   const debounceCloseTooltip = React.useMemo(() => {
     const close = () => {
       closeTooltip();
     };
 
     return debounce(close, transitionTimeout);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [closeTooltip]);
+  }, [closeTooltip, transitionTimeout]);
 
   const hideTooltip = React.useCallback(() => {
     setIsOpen(undefined);
@@ -99,14 +105,6 @@ export const useTooltip: UseTooltip = ({
 
     debounceCloseTooltip.cancel();
   }, [debounceCloseTooltip, updateTooltip, elementRef, tooltipRef]);
-
-  const handleTransitionEnd = React.useCallback<React.TransitionEventHandler>(() => {
-    if (isOpen != null) {
-      return;
-    }
-
-    closeTooltip();
-  }, [isOpen, closeTooltip]);
 
   React.useEffect(() => {
     if (isOpen === false) {
@@ -155,16 +153,14 @@ export const useTooltip: UseTooltip = ({
   }, [initialIsOpen, showTooltip, hideTooltip, elementRef]);
 
   React.useEffect(() => {
-    if (initialIsOpen == null) {
-      return;
-    }
-
     if (initialIsOpen) {
       showTooltip();
     } else {
       hideTooltip();
     }
-  }, [initialIsOpen, showTooltip, hideTooltip]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialIsOpen]);
 
   return {
     handleTransitionEnd,
