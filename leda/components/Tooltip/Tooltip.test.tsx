@@ -41,7 +41,7 @@ describe('Tooltip ATTRIBUTES', () => {
         <Tooltip isOpen title="test">Test</Tooltip>
       ));
 
-      expect(document.querySelector('.tooltip.top')).toBeInTheDocument();
+      expect(document.querySelector('.tooltip')).toHaveClass('top');
     });
 
     it('should be top', () => {
@@ -49,7 +49,7 @@ describe('Tooltip ATTRIBUTES', () => {
         <Tooltip isOpen title="test" position="top">test</Tooltip>
       ));
 
-      expect(document.querySelector('.tooltip.top')).toBeInTheDocument();
+      expect(document.querySelector('.tooltip')).toHaveClass('top');
     });
 
     it('should be left', () => {
@@ -57,7 +57,7 @@ describe('Tooltip ATTRIBUTES', () => {
         <Tooltip isOpen title="test" position="left">test</Tooltip>
       ));
 
-      expect(document.querySelector('.tooltip.left')).toBeInTheDocument();
+      expect(document.querySelector('.tooltip')).toHaveClass('left');
     });
 
     it('should be right', () => {
@@ -65,7 +65,7 @@ describe('Tooltip ATTRIBUTES', () => {
         <Tooltip isOpen title="test" position="right">test</Tooltip>
       ));
 
-      expect(document.querySelector('.tooltip.right')).toBeInTheDocument();
+      expect(document.querySelector('.tooltip')).toHaveClass('right');
     });
 
     it('should be bottom', () => {
@@ -73,7 +73,7 @@ describe('Tooltip ATTRIBUTES', () => {
         <Tooltip isOpen title="test" position="bottom">test</Tooltip>
       ));
 
-      expect(document.querySelector('.tooltip.bottom')).toBeInTheDocument();
+      expect(document.querySelector('.tooltip')).toHaveClass('bottom');
     });
   });
 
