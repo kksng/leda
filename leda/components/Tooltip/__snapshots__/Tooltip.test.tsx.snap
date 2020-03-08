@@ -6,9 +6,6 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        style="display: none;"
-      />
-      <div
         class="tooltip-wrapper"
       >
         test
@@ -24,9 +21,6 @@ Object {
     </div>
   </body>,
   "container": <div>
-    <div
-      style="display: none;"
-    />
     <div
       class="tooltip-wrapper"
     >
@@ -93,9 +87,6 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        style="display: none;"
-      />
-      <div
         class="tooltip-wrapper"
       >
         test
@@ -111,9 +102,6 @@ Object {
     </div>
   </body>,
   "container": <div>
-    <div
-      style="display: none;"
-    />
     <div
       class="tooltip-wrapper"
     >
