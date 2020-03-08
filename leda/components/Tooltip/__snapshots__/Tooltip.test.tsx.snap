@@ -13,7 +13,7 @@ Object {
     </div>
     <div
       class="tooltip"
-      style="opacity: 0; visibility: hidden;"
+      style="opacity: 0; top: 0px; visibility: hidden;"
     >
       <div>
         test
