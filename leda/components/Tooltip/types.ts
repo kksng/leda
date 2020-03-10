@@ -4,7 +4,7 @@ import { PartialGlobalDefaultTheme } from '../../utils/useTheme';
 
 export interface TooltipProps {
   ref?: React.Ref<TooltipRefCurrent>,
-  /** Размер стрелки тултипа */
+  /** Размер стрелки тултипа в px */
   arrowSize?: number,
   /** Дочерние элементы */
   children?: React.ReactNode,
@@ -16,7 +16,7 @@ export interface TooltipProps {
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.tooltip],
   /** Заголовок принимается в виде строки, html, JSX */
   title: React.ReactNode,
-  /** Максимальная продолжительность выполнения анимации */
+  /** Максимальная продолжительность выполнения анимации в ms */
   transitionTimeout?: number,
 }
 
