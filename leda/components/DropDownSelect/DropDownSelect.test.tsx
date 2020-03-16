@@ -230,22 +230,22 @@ describe('DropDownSelect ATTRIBUTES', () => {
       <DropDownSelect data={['0']} _box />
     ));
 
-    expect(document.querySelectorAll('div.dropdownselect-wrapper.box')).toHaveLength(1);
+    expect(document.querySelector('div.dropdownselect-wrapper')).toHaveClass('box');
 
     wrapper.rerender((
       <DropDownSelect data={['0']} _active />
     ));
 
-    expect(document.querySelectorAll('div.dropdownselect-wrapper.box')).toHaveLength(0);
-    expect(document.querySelectorAll('div.dropdownselect-wrapper.active')).toHaveLength(1);
+    expect(document.querySelector('div.dropdownselect-wrapper')).not.toHaveClass('box');
+    expect(document.querySelector('div.dropdownselect-wrapper')).toHaveClass('active');
 
     wrapper.rerender((
-      <DropDownSelect data={['0']} _active className="testClass" />
+      <DropDownSelect data={['0']} _active className="test" />
     ));
 
-    expect(document.querySelectorAll('div.dropdownselect-wrapper.box')).toHaveLength(0);
-    expect(document.querySelectorAll('div.dropdownselect-wrapper.active')).toHaveLength(1);
-    expect(document.querySelectorAll('div.dropdownselect-wrapper.testClass')).toHaveLength(1);
+    expect(document.querySelector('div.dropdownselect-wrapper')).not.toHaveClass('box');
+    expect(document.querySelector('div.dropdownselect-wrapper')).toHaveClass('active');
+    expect(document.querySelector('div.dropdownselect-wrapper')).toHaveClass('test');
   });
 
   test('should display loader if dataLoading', () => {
@@ -448,6 +448,6 @@ describe('DropDownSelect VALIDATION', () => {
     screen.getByRole('textbox').focus();
     screen.getByRole('textbox').blur();
 
-    expect(document.querySelectorAll('div.dropdownselect-input-wrapper.danger')).toHaveLength(1);
+    expect(document.querySelector('div.dropdownselect-input-wrapper')).toHaveClass('danger');
   });
 });
