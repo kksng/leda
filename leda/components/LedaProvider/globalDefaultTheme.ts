@@ -17,6 +17,7 @@ import { defaultModalTheme } from '../Modal/theme';
 import { defaultNumericRangeTheme } from '../NumericRange/theme';
 import { defaultNumericTextBoxTheme } from '../NumericTextBox/theme';
 import { defaultPaginationTheme } from '../Pagination/theme';
+import { defaultPasswordTheme } from '../Password/theme';
 import { defaultProgressBarTheme } from '../ProgressBar/theme';
 import { defaultRadioTheme } from '../Radio/theme';
 import { defaultRatingTheme } from '../Rating/theme';
@@ -55,6 +56,7 @@ export const globalDefaultTheme = {
   numericTextBox: defaultNumericTextBoxTheme,
   notifications: defaultNotificationsTheme,
   pagination: defaultPaginationTheme,
+  password: defaultPasswordTheme,
   progressBar: defaultProgressBarTheme,
   radio: defaultRadioTheme,
   rating: defaultRatingTheme,
