@@ -1,8 +1,10 @@
 @import "variables";
 @import "fonts";
+
 @import "commonStyles/border-box";
 @import "commonStyles/DropDownList/dropdown-list";
 @import "commonStyles/Input/input";
+@import "commonStyles/Password/password";
 
 @import "components/A/anchor";
 @import "components/AutoComplete/autocomplete";
@@ -26,6 +28,7 @@
 @import "components/NumericRange/numeric-range";
 @import "components/NumericTextBox/numeric";
 @import "components/Pagination/pagination";
+@import "components/Password/password";
 @import "components/ProgressBar/progress-bar";
 @import "components/RadioGroup/radio";
 @import "components/Rating/rating";

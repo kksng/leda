@@ -6,6 +6,7 @@
 
   &-element-wrapper {
     @extend %input-wrapper;
+
     padding: 0;
 
     &:not(.disabled):not(.danger):hover {
