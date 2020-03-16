@@ -3,7 +3,8 @@ import * as L from '../../../leda';
 import { StateButtonGroup } from '../StateButtonGroup';
 import { useEventSpy } from '../../useEventSpy';
 
-export const Basic = (componentProps: any) => {
+// eslint-disable-next-line
+export const Basic = (anyProps: any) => {
   const [props, setProps] = React.useState({});
   const [value, setValue] = React.useState<string | null>(null);
 

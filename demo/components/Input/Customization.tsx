@@ -1,55 +1,11 @@
-/* eslint-disable no-console */
 import * as React from 'react';
 import * as L from '../../../leda';
 import { StateButtonGroup } from '../StateButtonGroup';
 import { useEventSpy } from '../../useEventSpy';
 import { validate } from '../../../leda/components/Validation';
 
-const exampleCode = `
-export const Strings = (componentProps: any) => {
-  const [props, setProps] = React.useState({});
-  const [value, setValue] = React.useState('');
-
-  return (
-    <L.Div _box _inner _demoBg>
-      <L.AutoComplete
-        data={[
-          'London',
-          'Islamabad',
-          'Berlin',
-          'Washington',
-          'Paris',
-          'Rome',
-          'Tokyo',
-          'Budapest',
-          'Ottawa',
-          'Moscow',
-        ]}
-        value={value}
-        onChange={ev => setValue(ev.component.value)}
-        placeholder="Type your city..."
-        hasClearButton
-        isRequired
-        _width30
-        {...props}
-      />
-      <br />
-      <br />
-      <StateButtonGroup
-        data={[
-          { text: 'Default', props: {} },
-          { text: 'Loading', props: { isLoading: true } },
-          { text: 'Opened', props: { isOpen: true } },
-          { text: 'Disabled', props: { isDisabled: true } },
-        ]}
-        setProps={setProps}
-      />
-    </L.Div>
-  );
-};
-`;
-
-export const Customization = (attrs: any) => {
+// eslint-disable-next-line
+export const Customization = (anyProps: any) => {
   const [props, setProps] = React.useState({});
   const [value, setValue] = React.useState('');
   const [count, setCount] = React.useState<number>(0);
@@ -67,7 +23,7 @@ export const Customization = (attrs: any) => {
           setValue(event.component.value);
           console.log(event.currentTarget?.value);
         }}
-        validator={(val) => val.length < count}
+        validator={(currentValue) => currentValue.length < count}
         form="form1"
         invalidMessage={`Length must be less than ${count}`}
         name="pattern-case"
