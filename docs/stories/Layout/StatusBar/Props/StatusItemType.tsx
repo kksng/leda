@@ -1,17 +1,18 @@
 import * as React from 'react';
 import * as L from '../../../../../leda';
 
+const code = `
+  interface StatusItem {
+    [text: string]: any,
+  }
+`;
+
+
 export const StatusItemType = (): React.ReactElement => (
   <L.Tooltip
-    title={
-<pre>
-{`
-interface StatusItem {
-  [text: string]: any,
-}
-`}
-</pre>
-    }
+    title={(
+      <pre>{code}</pre>
+    )}
   >
     <L.Span _txtType>
       StatusItem
