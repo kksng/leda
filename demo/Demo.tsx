@@ -1,4 +1,5 @@
-/* eslint-disable import/no-extraneous-dependencies,jsx-a11y/label-has-for */
+/* eslint-disable import/no-extraneous-dependencies */
+
 import { hot } from 'react-hot-loader/root';
 import * as React from 'react';
 import * as L from '../leda';
@@ -10,7 +11,7 @@ import {
   Tabs, Tags, DropZone, Textarea, DateTimePicker, TimePicker,
   DateTimeRange, TimeRange, DropDownLink, Currency, Rating,
   Div, Table, Dl, FileUpload, HTMLTags, Validation, Navigation,
-  Collapsible, Collapse, VStepper, Button, Tooltip, FileDrop,
+  Collapsible, Collapse, VStepper, Button, Tooltip, FileDrop, Password,
 } from './components';
 
 export const Demo = hot(() => (
@@ -53,6 +54,7 @@ export const Demo = hot(() => (
       <NumericRange />
       <NumericTextBox />
       <Pagination />
+      <Password />
       <ProgressBar />
       <Radio />
       <Rating />
