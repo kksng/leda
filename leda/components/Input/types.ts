@@ -100,6 +100,7 @@ export interface InputState {
   isValid: boolean,
   value: string,
 }
+
 export interface InputRefCurrent {
   wrapper: HTMLDivElement | null,
   input: HTMLInputElement | null,
