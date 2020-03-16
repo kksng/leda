@@ -61,6 +61,9 @@
     "jsx-a11y/label-has-associated-control": "off",
     // поле current у ref является мутируемым
     "no-param-reassign": ["error", { "ignorePropertyModificationsFor": ["ref"]}],
+    "yoda": ["error", "never", {
+      "onlyEquality": true
+    }],
 
     "@typescript-eslint/member-delimiter-style": ["error", {
       "multiline": {
