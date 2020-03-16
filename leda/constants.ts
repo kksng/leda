@@ -51,6 +51,7 @@ export const COMPONENTS_NAMESPACES = {
   numericRange: 'numericRange',
   numericTextBox: 'numericTextBox',
   pagination: 'pagination',
+  password: 'password',
   progressBar: 'progressBar',
   radio: 'radio',
   rating: 'rating',
