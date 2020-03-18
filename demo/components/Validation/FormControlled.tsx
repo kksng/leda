@@ -40,6 +40,7 @@ export const FormControlled = () => {
           </Label>
           <L.AutoComplete _grow1
             isRequired
+            hasClearButton
             form={formName}
             name="auto-complete"
             data={['Berlin', 'Paris']}
@@ -132,6 +133,7 @@ export const FormControlled = () => {
           </Label>
           <L.DropDownSelect _grow1
             isRequired
+            hasClearButton
             form={formName}
             name="drop-down-select"
             data={['Berlin', 'Paris']}
@@ -149,6 +151,7 @@ export const FormControlled = () => {
           </Label>
           <L.Input _grow1
             isRequired
+            hasClearButton
             form={formName}
             name="input"
             value={valueOfInput}
@@ -181,6 +184,7 @@ export const FormControlled = () => {
           </Label>
           <L.MultiSelect _grow1
             isRequired
+            hasClearButton
             form={formName}
             name="multi-select"
             data={['Berlin', 'Paris']}
