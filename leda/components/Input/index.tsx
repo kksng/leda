@@ -144,7 +144,9 @@ export const Input = React.forwardRef((props: InputProps, ref: React.Ref<InputRe
           )
         }
       </Div>
-      {!isFocused && !isDisabled && <InvalidMessage />}
+      {!isFocused && !isDisabled && (
+        <InvalidMessage />
+      )}
     </Wrapper>
   );
 }) as React.FC<InputProps>;

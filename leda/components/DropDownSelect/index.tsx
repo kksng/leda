@@ -199,7 +199,9 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
         theme={theme}
         value={value}
       />
-      {!isDisabled && !isLoading && !isOpen && !isFocused && <InvalidMessage />}
+      {!isDisabled && !isLoading && !isOpen && !isFocused && (
+        <InvalidMessage />
+      )}
     </Wrapper>
   );
 }) as <T extends Value>(props: DropDownSelectProps<T>, ref?: React.Ref<DropDownSelectRefCurrent>) => React.ReactElement;

@@ -241,7 +241,9 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
           value={value}
         />
       )}
-      {!isFocused && !isDisabled && <InvalidMessage />}
+      {!isFocused && !isDisabled && (
+        <InvalidMessage />
+      )}
     </Wrapper>
   );
 }) as MultiSelectComponent;
