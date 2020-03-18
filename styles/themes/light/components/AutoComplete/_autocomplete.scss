@@ -5,23 +5,41 @@
     position: relative;
   }
 
-  &-input {
-    @extend %input;
+  &-input-wrapper {
+    @extend %input-wrapper;
+    padding: 0;
+    align-items: center;
+
+    &:not(.focused):not(.danger):not(.disabled):hover {
+      @extend %input-hovered;
+    }
+
+    &:not(.focused):not(.disabled).danger {
+      border-color: $brand-danger;
+    }
 
     &.focused {
       @extend %input-focused;
     }
 
-    &:hover {
-      @extend %input-hovered;
-    }
-
-    &:not(.focused):not(:disabled).danger {
-      border-color: $brand-danger;
-    }
-
-    &:disabled {
+    &.disabled {
       @extend %input-disabled;
+
+      & .dropdownselect-select-icon {
+        cursor: default;
+      }
+    }
+  }
+
+  &-input {
+    border: none;
+    width: 100%;
+    padding: 5px 4px 7px 12px;
+    text-overflow: ellipsis;
+    background-color: rgba(0, 0, 0, 0);
+
+    &::placeholder {
+      color: $black-03;
     }
   }
 
@@ -30,20 +48,18 @@
     width: 30px;
     height: 30px;
     cursor: pointer;
-    position: absolute;
-    right: 0;
+    position: relative;
 
     &::before {
       content: "\00D7";
-      position: absolute;
       color: $black-03;
+      position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       width: 20px;
       height: 20px;
       display: block;
-      font-style: normal;
     }
   }
 
