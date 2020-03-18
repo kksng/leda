@@ -5,6 +5,7 @@ export const defaultAutoCompleteTheme = {
   ...defaultSuggestionListTheme,
   closeIcon:                  'autocomplete-clear-icon',
   input:                      'autocomplete-input',
+  inputWrapper:               'autocomplete-input-wrapper',
   inputWrapperDisabled:       'disabled',
   inputWrapperFocused:        'focused',
   inputWrapperInvalid:        'danger',

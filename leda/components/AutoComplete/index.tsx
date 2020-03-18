@@ -157,11 +157,13 @@ export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: Rea
     className,
   );
 
-  const inputClassNames = getClassNames(
-    theme.input,
-    { [theme.inputWrapperInvalid]: !isValid },
-    { [theme.inputWrapperDisabled]: isDisabled },
-    { [theme.inputWrapperFocused]: isFocused },
+  const inputWrapperClassNames = getClassNames(
+    theme.inputWrapper,
+    {
+      [theme.inputWrapperDisabled]: isDisabled,
+      [theme.inputWrapperFocused]: isFocused,
+      [theme.inputWrapperInvalid]: !isValid,
+    },
   );
 
   return (
@@ -172,30 +174,30 @@ export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: Rea
         input: inputRef.current,
       }))}
     >
-      <input
-        {...restProps}
-        aria-invalid={!isValid}
-        aria-required={isRequired}
-        className={inputClassNames}
-        disabled={isDisabled}
-        form={form}
-        name={name}
-        onBlur={inputBlurHandler}
-        onChange={inputChangeHandler}
-        onFocus={inputFocusHandler}
-        onKeyDown={inputKeyDownHandler}
-        placeholder={placeholder}
-        ref={inputRef}
-        value={inputValue}
-      />
-
-      {shouldShowClearButton && (
-        <i
-          className={theme.closeIcon}
-          onClick={clearButtonClickHandler}
+      <Div className={inputWrapperClassNames}>
+        <input
+          {...restProps}
+          aria-invalid={!isValid}
+          aria-required={isRequired}
+          className={theme.input}
+          disabled={isDisabled}
+          form={form}
+          name={name}
+          onBlur={inputBlurHandler}
+          onChange={inputChangeHandler}
+          onFocus={inputFocusHandler}
+          onKeyDown={inputKeyDownHandler}
+          placeholder={placeholder}
+          ref={inputRef}
+          value={inputValue}
         />
-      )}
-
+        {shouldShowClearButton && (
+          <i
+            className={theme.closeIcon}
+            onClick={clearButtonClickHandler}
+          />
+        )}
+      </Div>
       <SuggestionList
         compareObjectsBy={compareObjectsBy}
         data={suggestions}
