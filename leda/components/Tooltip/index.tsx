@@ -1,83 +1,70 @@
 import * as React from 'react';
-import isString from 'lodash/isString';
 import { COMPONENTS_NAMESPACES } from '../../constants';
-import { bindFunctionalRef, useTheme } from '../../utils';
-import { useTooltipEffects } from './hooks';
+import { bindFunctionalRef, getClassNames, useTheme } from '../../utils';
 import { TooltipBody } from './TooltipBody';
-import {
-  TooltipPosition, TooltipProps, TooltipRefCurrent, TooltipStyles,
-} from './types';
+import { defaultArrowSize, defaultPosition, defaultTransitionTimeout } from './constants';
+import { useTooltip } from './hooks';
+import { TooltipProps, TooltipRefCurrent } from './types';
 
 export const Tooltip = React.forwardRef((props: TooltipProps, ref?: React.Ref<TooltipRefCurrent>): React.ReactElement => {
   const {
+    arrowSize = defaultArrowSize,
     children,
     isOpen,
-    position: positionProp = 'top',
+    position: positionProp = defaultPosition,
     theme: themeProp,
     title,
+    transitionTimeout = defaultTransitionTimeout,
   } = props;
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.tooltip);
 
-  const invisibleElementRef = React.useRef<HTMLDivElement | null>(null);
+  const elementRef = React.useRef<Element>();
+  const tooltipRef = React.useRef<Element>();
 
-  const tooltipRef = React.useRef<HTMLDivElement | null>(null);
-
-  const [position, setPosition] = React.useState<TooltipPosition>(positionProp);
-
-  const [style, mergeStyle] = React.useReducer((
-    oldStyle: TooltipStyles,
-    newStyle: TooltipStyles,
-  ) => ({
-    ...oldStyle,
-    ...newStyle,
-  }), {
-    height: 'auto',
-    opacity: 1,
-  });
-
-  useTooltipEffects({
-    children,
-    isOpen,
-    positionProp,
-    invisibleElementRef,
-    tooltipRef,
+  const {
+    handleTransitionEnd,
     position,
-    setPosition,
-    mergeStyle,
+    style,
+  } = useTooltip({
+    arrowSize,
+    transitionTimeout,
+    initialIsOpen: isOpen,
+    initialPosition: positionProp,
+    elementRef,
+    tooltipRef,
   });
 
-  const shouldWrapChildren = (() => {
-    if (Array.isArray(children) && children.length) {
-      return children.length === 1 || isString(children[0]);
-    }
+  const tooltipClassNames = getClassNames(position ? theme[position] : theme.tooltip);
 
-    return isString(children);
-  })();
+  // добавление обертки если нужно
+  const element = React.isValidElement(children) ? children : (
+    <div className={theme.wrapper}>
+      {children}
+    </div>
+  );
 
+  // невидимый элемент нужен для получения element
   return (
     <>
-      {/* невидимый элемент, нужен для получения dom node у элемента children */}
-      <div ref={invisibleElementRef} style={{ display: 'none' }} />
-      {/* Если потомков больше чем 1 или передана строка, добавляем враппер */}
-      {
-        shouldWrapChildren ? (
-          <div className={theme.wrapper}>
-            {children}
-          </div>
-        ) : children
-      }
+      <div
+        style={{ display: 'none' }}
+        ref={(instance) => {
+          elementRef.current = instance?.nextElementSibling || undefined;
+        }}
+      />
+      {element}
       <TooltipBody
-        position={position}
+        onTransitionEnd={handleTransitionEnd}
+        tooltipClassNames={tooltipClassNames}
         style={style}
-        theme={theme}
         title={title}
-        ref={(component) => {
-          tooltipRef.current = component;
+        ref={(instance) => {
+          tooltipRef.current = instance || undefined;
 
           if (ref) {
-            return bindFunctionalRef(component, ref, component && {
-              wrapper: component,
+            return bindFunctionalRef(instance, ref, instance && {
+              wrapper: instance,
             });
           }
 

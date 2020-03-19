@@ -1,7 +1,5 @@
 import { isFunction, isNil } from 'lodash';
-import { SetState } from '../../commonTypes';
 import { getText } from '../../src/SuggestionList/helpers';
-import { mergeState } from '../../utils';
 import { filterData } from './helpers';
 import {
   BlurHandler,
@@ -18,10 +16,10 @@ import {
 } from './types';
 
 export const createChangeHandler = ({
-  props, setState,
+  props, mergeState,
 }: HandlerCreatorData): ChangeHandler => (ev) => {
   const {
-    onChange, name, onFilterChange,
+    name, onChange, onFilterChange, textField,
   } = props;
 
   if (isFunction(onChange)) {
@@ -32,51 +30,43 @@ export const createChangeHandler = ({
         name,
       },
     };
+
     onChange(changeEvent);
   }
-
-  // обновляем значение в стейте
-  setState(mergeState({ value: ev.target.value }));
-
-  setState(mergeState({
-    highlightedSuggestion: ev.target.value,
-    selectedSuggestion: ev.target.value,
-  }));
-
-  // после выбора значения закрываем список
-  setState(mergeState({ isOpen: false }));
 
   if (isFunction(onFilterChange)) {
     const customEvent = {
       ...ev,
       component: {
-        value: getText(ev.target.value),
+        value: getText(ev.target.value, textField),
+        name,
       },
     };
 
     onFilterChange(customEvent);
   }
 
-  // обновляем значение в стейте
-  setState(mergeState({ filterValue: null }));
+  mergeState({
+    filterValue: null,
+    highlightedSuggestion: ev.target.value,
+    isOpen: false,
+    selectedSuggestion: ev.target.value,
+    value: ev.target.value,
+  });
 };
 
 export const createBlurHandler = ({
-  props, state, validate, value, setState,
+  props, state, validate, value, mergeState,
 }: HandlerCreatorData): BlurHandler => (ev) => {
   const {
     onFilterChange, onBlur, name, textField,
   } = props;
 
-  const { highlightedSuggestion } = state;
+  const {
+    highlightedSuggestion,
+  } = state;
 
   const isValid = validate();
-  // убираем фокус
-  setState(mergeState({ isFocused: false }));
-  // закрываем список
-  setState(mergeState({ isOpen: false }));
-  // обновляем подсветку
-  setState(mergeState({ highlightedSuggestion }));
 
   if (isFunction(onFilterChange)) {
     const customEvent = {
@@ -103,14 +93,20 @@ export const createBlurHandler = ({
     onBlur(customEvent);
   }
 
-  // обновляем значение в стейте
-  setState(mergeState({ filterValue: null }));
+  mergeState({
+    filterValue: null,
+    highlightedSuggestion,
+    isFocused: false,
+    isOpen: false,
+  });
 };
 
 export const createFocusHandler = ({
-  props, value, setState,
+  props, value, mergeState,
 }: HandlerCreatorData): FocusHandler => (ev) => {
-  const { onFocus, name } = props;
+  const {
+    onFocus, name,
+  } = props;
 
   if (isFunction(onFocus)) {
     const customEvent = {
@@ -125,25 +121,31 @@ export const createFocusHandler = ({
   }
 
   // открываем список
-  setState(mergeState({ isOpen: true }));
+  mergeState({ isOpen: true });
   // добавляем фокус
-  setState(mergeState({ isFocused: true }));
+  mergeState({ isFocused: true });
 };
 
 export const createIconClickHandler = ({
-  props, state, inputRef, setState,
+  props, state, inputRef, mergeState,
 }: HandlerCreatorData): IconClickHandler => () => {
-  const { isDisabled = false } = props;
+  const {
+    isDisabled = false,
+  } = props;
 
   if (isDisabled) return;
+
   // фокусим инпут
   if (inputRef.current) inputRef.current.focus();
+
   // переключаем состояние списка (открыт/закрыт)
-  setState(mergeState({ isOpen: !state.isOpen }));
+  mergeState({
+    isOpen: !state.isOpen,
+  });
 };
 
 export const createKeyDownHandler = ({
-  props, state, setState,
+  props, state, mergeState,
 }: HandlerCreatorData): KeyDownHandler => (ev) => {
   const {
     data,
@@ -157,7 +159,9 @@ export const createKeyDownHandler = ({
     filterRule,
   } = props;
 
-  const { isOpen, highlightedSuggestion } = state;
+  const {
+    isOpen, highlightedSuggestion,
+  } = state;
 
   if (!data) return;
 
@@ -175,13 +179,15 @@ export const createKeyDownHandler = ({
   if (ev.key === 'ArrowDown' || ev.key === 'Down') {
     // предотвращение прокрутки страницы
     ev.preventDefault();
+
     // механизм работает как барабан
     const nextIndex = (suggestionIndex + 1) % fullData.length;
-    // новое значение
+
     const nextSuggestion = fullData[nextIndex];
 
-    // обновляем значение в стейте
-    setState(mergeState({ highlightedSuggestion: nextSuggestion }));
+    mergeState({
+      highlightedSuggestion: nextSuggestion,
+    });
 
     return;
   }
@@ -189,23 +195,25 @@ export const createKeyDownHandler = ({
   if (ev.key === 'ArrowUp' || ev.key === 'Up') {
     // предотвращение прокрутки страницы
     ev.preventDefault();
+
     // механизм работает как барабан
     const nextIndex = (() => {
       if (suggestionIndex <= 0) return fullData.length - 1;
 
       return suggestionIndex - 1;
     })();
-    // новое значение
+
     const nextSuggestion = fullData[nextIndex];
 
-    // обновляем значение в стейте
-    setState(mergeState({ highlightedSuggestion: nextSuggestion }));
+    mergeState({
+      highlightedSuggestion: nextSuggestion,
+    });
 
     return;
   }
 
   if (ev.key === 'Enter') {
-    if (isOpen) setState(mergeState({ isOpen: false }));
+    if (isOpen) mergeState({ isOpen: false });
 
     const value = getText(highlightedSuggestion, textField);
 
@@ -229,23 +237,29 @@ export const createKeyDownHandler = ({
           name,
         },
       };
+
       onChange(changeEvent);
     }
 
-    if (isOpen) setState(mergeState({ isOpen: false }));
+    if (isOpen) {
+      mergeState({
+        isOpen: false,
+      });
+    }
 
-    // обновляем значение в стейте
-    setState(mergeState({
+    mergeState({
       filterValue: null,
       selectedSuggestion: highlightedSuggestion,
       value,
-    }));
+    });
 
     return;
   }
 
   if ((ev.key === 'Escape' || ev.key === 'Esc') && isOpen) {
-    setState(mergeState({ isOpen: false }));
+    mergeState({
+      isOpen: false,
+    });
 
     return;
   }
@@ -253,12 +267,14 @@ export const createKeyDownHandler = ({
   if (ev.keyCode === 32 && !shouldFilterValues) {
     ev.preventDefault();
 
-    setState(mergeState({ isOpen: true }));
+    mergeState({
+      isOpen: true,
+    });
   }
 };
 
 export const createFilterChangeHandler = ({
-  props, setState,
+  props, mergeState,
 }: HandlerCreatorData): FilterChangeHandler => (ev) => {
   const {
     onFilterChange, data, shouldFilterValues, name,
@@ -276,19 +292,24 @@ export const createFilterChangeHandler = ({
     onFilterChange(customEvent);
   }
 
-  // обновляем значение в стейте
-  setState(mergeState({ filterValue: ev.target.value }));
+  mergeState({
+    filterValue: ev.target.value,
+  });
 
   if (ev.target.value && data && shouldFilterValues) {
-    setState(mergeState({ isOpen: true }));
+    mergeState({
+      isOpen: true,
+    });
   }
 };
 
 export const createClearIconClickHandler = ({
   props,
-  setState,
+  mergeState,
 }: HandlerCreatorData): ClearIconClickHandler => (ev) => {
-  const { onChange, name } = props;
+  const {
+    onChange, name,
+  } = props;
 
   if (isFunction(onChange)) {
     const changeEvent = {
@@ -301,26 +322,27 @@ export const createClearIconClickHandler = ({
     onChange(changeEvent);
   }
 
-  setState(mergeState({
+  mergeState({
     filterValue: null,
     highlightedSuggestion: null,
     selectedSuggestion: null,
     value: null,
-  }));
+  });
 };
 
 export const createResetHandler = ({
   props,
-  setState,
+  mergeState,
   value,
 }: {
   props: DropDownSelectProps,
-  setState: SetState<DropDownSelectState>,
+  mergeState: (state: Partial<DropDownSelectState>) => void,
   value: Value,
 }) => () => {
-  setState(mergeState({
+  mergeState({
     value,
-  }));
+  });
+
   if (isFunction(props.onChange)) {
     const customEvent = {
       component: {
@@ -328,6 +350,7 @@ export const createResetHandler = ({
         value,
       },
     };
+
     props.onChange(customEvent);
   }
 };

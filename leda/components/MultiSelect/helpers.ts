@@ -1,9 +1,9 @@
-import { filterSuggestionByRule } from '../../utils';
+import { filterSuggestionByRule, checkIsTheSameObject } from '../../utils';
 import { getText } from '../../src/SuggestionList/helpers';
 import {
   FilterDataParams, MultiSelectProps, Value,
 } from './types';
-import { checkIsTheSameObject } from '../../utils';
+
 
 export const filterData = ({
   compareObjectsBy,

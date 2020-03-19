@@ -49,7 +49,7 @@ export const Strings = (componentProps: any) => {
 };
 `;
 
-export const Customization = () => {
+export const Customization = (attrs: any) => {
   const [props, setProps] = React.useState({});
   const [value, setValue] = React.useState('');
   const [count, setCount] = React.useState<number>(0);
@@ -62,11 +62,12 @@ export const Customization = () => {
         placeholder="Type only capitals..."
         _width30
         value={value}
-        onChange={event => {
+        onChange={(event) => {
           update('Change', event);
           setValue(event.component.value);
+          console.log(event.currentTarget?.value);
         }}
-        validator={val => val.length < count}
+        validator={(val) => val.length < count}
         form="form1"
         invalidMessage={`Length must be less than ${count}`}
         name="pattern-case"

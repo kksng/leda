@@ -14,7 +14,7 @@ import {
 import { useValidation } from '../Validation';
 import { SomeObject } from '../../commonTypes';
 
-export const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: React.Ref<ButtonGroupRefCurrent>): React.ReactElement => {
+export const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: React.Ref<ButtonGroupRefCurrent>): React.ReactElement | null => {
   const {
     activeIndex,
     buttonRender,
@@ -39,8 +39,6 @@ export const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: Reac
     validator,
     ...restProps
   } = mergeClassNames<ButtonGroupProps>(props);
-
-  if (!data) return null as unknown as React.ReactElement;
 
   const [value, setUncontrolledValue] = useValue(valueProp, defaultValue);
 
@@ -77,6 +75,8 @@ export const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: Reac
     buttonRender,
     props,
   );
+
+  if (!data) return null;
 
   return (
     <Wrapper

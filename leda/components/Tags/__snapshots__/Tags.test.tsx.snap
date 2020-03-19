@@ -13,7 +13,7 @@ exports[`Tags SNAPSHOTS should render 1`] = `
       >
         <Tag
           icon={
-            <ForwardRef
+            <I
               className="i-del"
             />
           }
@@ -31,7 +31,7 @@ exports[`Tags SNAPSHOTS should render 1`] = `
           <Wrapper
             className="tags-item"
             icon={
-              <ForwardRef
+              <I
                 className="i-del"
               />
             }
@@ -40,7 +40,7 @@ exports[`Tags SNAPSHOTS should render 1`] = `
             <Span
               className="tags-item"
               icon={
-                <ForwardRef
+                <I
                   className="i-del"
                 />
               }
@@ -49,7 +49,7 @@ exports[`Tags SNAPSHOTS should render 1`] = `
               <span
                 className="tags-item"
                 icon={
-                  <ForwardRef
+                  <I
                     className="i-del"
                   />
                 }
@@ -73,7 +73,7 @@ exports[`Tags SNAPSHOTS should render 1`] = `
         </Tag>
         <Tag
           icon={
-            <ForwardRef
+            <I
               className="i-del"
             />
           }
@@ -91,7 +91,7 @@ exports[`Tags SNAPSHOTS should render 1`] = `
           <Wrapper
             className="tags-item"
             icon={
-              <ForwardRef
+              <I
                 className="i-del"
               />
             }
@@ -100,7 +100,7 @@ exports[`Tags SNAPSHOTS should render 1`] = `
             <Span
               className="tags-item"
               icon={
-                <ForwardRef
+                <I
                   className="i-del"
                 />
               }
@@ -109,7 +109,7 @@ exports[`Tags SNAPSHOTS should render 1`] = `
               <span
                 className="tags-item"
                 icon={
-                  <ForwardRef
+                  <I
                     className="i-del"
                   />
                 }
@@ -133,7 +133,7 @@ exports[`Tags SNAPSHOTS should render 1`] = `
         </Tag>
         <Tag
           icon={
-            <ForwardRef
+            <I
               className="i-del"
             />
           }
@@ -151,7 +151,7 @@ exports[`Tags SNAPSHOTS should render 1`] = `
           <Wrapper
             className="tags-item"
             icon={
-              <ForwardRef
+              <I
                 className="i-del"
               />
             }
@@ -160,7 +160,7 @@ exports[`Tags SNAPSHOTS should render 1`] = `
             <Span
               className="tags-item"
               icon={
-                <ForwardRef
+                <I
                   className="i-del"
                 />
               }
@@ -169,7 +169,7 @@ exports[`Tags SNAPSHOTS should render 1`] = `
               <span
                 className="tags-item"
                 icon={
-                  <ForwardRef
+                  <I
                     className="i-del"
                   />
                 }

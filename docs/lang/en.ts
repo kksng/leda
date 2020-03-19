@@ -21,6 +21,7 @@ export const en: CurrentLanguage = {
       customizationStylesStoryName: 'Styles Customization',
       customizationClassesStoryName: 'ClassNames Customization',
       customizationElementsStoryName: 'Elements Customization',
+      layoutStatusBarApi: 'API',
     },
   },
 };

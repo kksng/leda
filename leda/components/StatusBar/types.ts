@@ -5,7 +5,7 @@ import { DATA_TYPES, STEP_POSITION } from './constants';
 import { CustomRender, CustomEventHandler } from '../../commonTypes';
 
 export interface StatusItem {
-  [x: string]: string,
+  [x: string]: any,
 }
 
 export interface ItemProps {
@@ -42,6 +42,9 @@ export interface StatusBarProps extends Omit<React.HTMLAttributes<HTMLDivElement
   textField?: string,
   /** Поле из которого извлекается тип шага, работает только если в data объекты */
   typeField?: string,
+  /** Процент завершенности текущего шага */
+  currentStepProgress?: number,
+  /** Реф */
   ref?: React.Ref<StatusBarRefCurrent>,
   /** Текущий шаг, игнорируется если StatusItem содержит тип type  */
   value?: StatusItem | string,
@@ -69,6 +72,7 @@ export interface StatusBarItemProps {
   labelText: string,
   onClick?: CustomEventHandler<StatusBarItemClickEvent>,
   position: PositionType | null,
+  currentStepProgress?: number,
   theme: GlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.statusBar],
   type: string | null,
 }

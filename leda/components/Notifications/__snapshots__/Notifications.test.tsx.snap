@@ -1,0 +1,543 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notifications SNAPSHOTS should render action button 1`] = `
+<div>
+  <div
+    class="notifications-wrapper"
+  >
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+        <button
+          class="button-wrapper"
+          type="button"
+        >
+          text
+        </button>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+        <button
+          class="button-wrapper"
+          type="button"
+        >
+          text
+        </button>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Notifications SNAPSHOTS should render basic usage 1`] = `
+<div>
+  <div
+    class="notifications-wrapper"
+  >
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Notifications SNAPSHOTS should render items < maxItems 1`] = `
+<div>
+  <div
+    class="notifications-wrapper"
+  >
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Notifications add item should add new item 1`] = `
+<div>
+  <div
+    class="notifications-wrapper"
+  >
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+  </div>
+  <button
+    class="button-wrapper"
+    type="button"
+  />
+</div>
+`;
+
+exports[`Notifications add item should add new items and delete more than maxItems 1`] = `
+<div>
+  <div
+    class="notifications-wrapper"
+  >
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+  </div>
+  <button
+    class="button-wrapper"
+    type="button"
+  />
+</div>
+`;
+
+exports[`Notifications handlers should delete items by close icon click 1`] = `
+<div>
+  <div
+    class="notifications-wrapper"
+  >
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Notifications handlers should delete items by close icon click 2`] = `<div />`;
+
+exports[`Notifications handlers should not delete items with delay 0 1`] = `
+<div>
+  <div
+    class="notifications-wrapper"
+  >
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Notifications handlers should not delete items with delay 0 2`] = `
+<div>
+  <div
+    class="notifications-wrapper"
+  >
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Notifications handlers should trigger onChange close 1`] = `
+<div>
+  <div
+    class="notifications-wrapper"
+  >
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+    <div
+      class="notifications-item"
+    >
+      <div
+        class="notifications-icon"
+      />
+      <div
+        class="notifications-content"
+      >
+        <div>
+          Сомнение определяет 
+          <a
+            href="#"
+          >
+            эмпирический катарсис
+          </a>
+          , не учитывая мнения авторитетов.
+        </div>
+      </div>
+      <div
+        class="notifications-icon-close"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Notifications handlers should trigger onChange close 2`] = `<div />`;

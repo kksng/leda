@@ -15,8 +15,8 @@ Object {
       </div>
     </div>
     <div
-      class="tooltip top"
-      style="height: 0px; opacity: 0; left: -99999px;"
+      class="tooltip"
+      style="opacity: 0; top: 0px; visibility: hidden;"
     >
       <div>
         test
@@ -103,7 +103,7 @@ Object {
     </div>
     <div
       class="tooltip top"
-      style="height: auto; opacity: 1;"
+      style="opacity: 1; top: 0px; left: 0px;"
     >
       <div>
         test

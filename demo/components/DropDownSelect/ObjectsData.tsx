@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { SomeObject } from '../../../leda/commonTypes';
 import * as L from '../../../leda';
+import { SomeObject } from '../../../leda/commonTypes';
 
+// eslint-disable-next-line
 export const CompareObjectsBy = (args: SomeObject): React.ReactElement => {
   const [value, setValue] = React.useState<SomeObject>({ id: 1, attr: 'value1', city: 'London' });
 
@@ -24,7 +25,7 @@ export const CompareObjectsBy = (args: SomeObject): React.ReactElement => {
       <br />
       <L.Button
         onClick={() => {
-          setValue({ id: 2, attr: 'value2', city: 'Berlin' })
+          setValue({ id: 2, attr: 'value2', city: 'Berlin' });
         }}
       >
         Set Berlin

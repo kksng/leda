@@ -1,128 +1,65 @@
 import {
-  HideTooltip, ShowTooltip, TooltipPosition, TooltipStyles,
+  GetTooltipPosition, GetTooltipOffsets, TooltipPosition,
 } from './types';
-import { SetState } from '../../commonTypes';
 
-const updateTooltipPosition = (data: {
-  elementRect: DOMRect,
-  tooltipRect: DOMRect,
-  position: TooltipPosition,
-  setPosition: SetState<TooltipPosition>,
-}): TooltipPosition => {
-  const {
-    elementRect, tooltipRect, position, setPosition,
-  } = data;
-
-  const arrowSize = 10;
-
-  if (position === 'top') {
-    if (elementRect.top - tooltipRect.height < arrowSize) {
-      setPosition('bottom');
-
-      return 'bottom';
+export const getTooltipPosition: GetTooltipPosition = ({
+  position, elementRect, tooltipRect, arrowSize = 0,
+}) => {
+  const checkPosition = (tooltipPosition: TooltipPosition): boolean => {
+    switch (tooltipPosition) {
+      case 'top':
+        return elementRect.top >= tooltipRect.height + arrowSize;
+      case 'left':
+        return elementRect.left >= tooltipRect.width + arrowSize;
+      case 'right':
+        return elementRect.right + tooltipRect.width + arrowSize <= window.innerWidth;
+      case 'bottom':
+        return elementRect.bottom + tooltipRect.height + arrowSize <= window.innerHeight;
+      default:
+        return false;
     }
-
-    return 'top';
-  }
-
-  if (position === 'left') {
-    if (elementRect.left - tooltipRect.width < arrowSize) {
-      setPosition('right');
-
-      return 'right';
-    }
-
-    return 'left';
-  }
-
-  if (position === 'right') {
-    if (window.innerWidth - tooltipRect.width - elementRect.right < arrowSize) {
-      setPosition('left');
-
-      return 'left';
-    }
-
-    return 'right';
-  }
-
-  if (position === 'bottom') {
-    if (window.innerHeight - tooltipRect.height - elementRect.bottom < arrowSize) {
-      setPosition('top');
-
-      return 'top';
-    }
-
-    return 'bottom';
-  }
-
-  return 'top';
-};
-
-export const showTooltip: ShowTooltip = ({
-  invisibleElementRef, tooltipRef, position, setPosition, mergeStyle,
-}): void => {
-  // вычисление координат тултипа на основе координат потомков тултипа
-  const element = invisibleElementRef.current?.nextElementSibling;
-  const tooltip = tooltipRef.current;
-
-  if (!element) return;
-
-  const elementRect = element.getBoundingClientRect();
-
-  const newPosition = tooltip && updateTooltipPosition({
-    elementRect,
-    tooltipRect: tooltip.getBoundingClientRect(),
-    position,
-    setPosition,
-  });
-
-  const newTooltipStyles: TooltipStyles = {
-    top: (() => {
-      switch (newPosition) {
-        default:
-        case 'top':
-          return window.pageYOffset + elementRect.top;
-        case 'right':
-          return window.pageYOffset + elementRect.top + elementRect.height / 2;
-        case 'left':
-          return window.pageYOffset + elementRect.top + elementRect.height / 2;
-        case 'bottom':
-          return window.pageYOffset + elementRect.bottom;
-      }
-    })(),
-    left: (() => {
-      switch (newPosition) {
-        default:
-        case 'top':
-          return window.pageXOffset + elementRect.left + elementRect.width / 2;
-        case 'right':
-          return window.pageXOffset + elementRect.right;
-        case 'left':
-          return window.pageXOffset + elementRect.left;
-        case 'bottom':
-          return window.pageXOffset + elementRect.left + elementRect.width / 2;
-      }
-    })(),
   };
 
-  mergeStyle({
-    opacity: 1,
-    height: 'auto',
-    top: newTooltipStyles.top,
-    left: newTooltipStyles.left,
-  });
+  switch (position) {
+    case 'top':
+      return Array<TooltipPosition>('top', 'bottom', 'right', 'left').find(checkPosition);
+    case 'left':
+      return Array<TooltipPosition>('left', 'right', 'bottom', 'top').find(checkPosition);
+    case 'right':
+      return Array<TooltipPosition>('right', 'left', 'top', 'bottom').find(checkPosition);
+    case 'bottom':
+      return Array<TooltipPosition>('bottom', 'top', 'left', 'right').find(checkPosition);
+    default:
+      return undefined;
+  }
 };
 
-export const hideTooltip: HideTooltip = ({
-  isOpen, positionProp, setPosition, mergeStyle,
-}): void => {
-  if (isOpen) return;
+export const getTooltipOffsets: GetTooltipOffsets = ({
+  position, elementRect,
+}) => {
+  const top = ((): number => {
+    switch (position) {
+      case 'top':
+        return window.pageYOffset + elementRect.top;
+      case 'bottom':
+        return window.pageYOffset + elementRect.bottom;
+      default:
+        return window.pageYOffset + elementRect.top + elementRect.height / 2;
+    }
+  })();
 
-  mergeStyle({
-    left: -99999,
-    height: 0,
-    opacity: 0,
-  });
+  const left = ((): number => {
+    switch (position) {
+      case 'left':
+        return window.pageXOffset + elementRect.left;
+      case 'right':
+        return window.pageXOffset + elementRect.right;
+      default:
+        return window.pageXOffset + elementRect.left + elementRect.width / 2;
+    }
+  })();
 
-  setPosition(positionProp);
+  return {
+    top, left,
+  };
 };

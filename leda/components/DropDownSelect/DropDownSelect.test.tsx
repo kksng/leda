@@ -2,6 +2,7 @@ import React from 'react';
 import {
   getNodeText, render, screen,
 } from '@testing-library/react';
+import last from 'lodash/last';
 import userEvent from '@testing-library/user-event';
 import { DropDownSelect } from './index';
 
@@ -164,7 +165,7 @@ describe('DropDownSelect HANDLERS', () => {
     expect(onChangeHandler).lastCalledWith(eventMatcher);
   });
 
-  test.skip('should trigger onFilterChange', () => {
+  test('should trigger onFilterChange by typing', () => {
     const onFilterChangeHandler = jest.fn();
     const name = 'name';
     const value = 'value';
@@ -183,12 +184,40 @@ describe('DropDownSelect HANDLERS', () => {
     });
 
     render((
-      <DropDownSelect hasFilter textField="value" name={name} isOpen onFilterChange={onFilterChangeHandler} data={data} />
+      <DropDownSelect textField="value" name={name} isOpen onFilterChange={onFilterChangeHandler} shouldFilterValues data={data} />
     ));
 
-    screen.getByRole('textbox').focus();
     userEvent.type(screen.getByRole('textbox'), value);
-    screen.getByRole('textbox').blur();
+
+    expect(onFilterChangeHandler).toBeCalledTimes(value.length);
+    expect(onFilterChangeHandler).lastCalledWith(eventMatcher);
+  });
+
+  test('should trigger onFilterChange by suggestion click', () => {
+    const onFilterChangeHandler = jest.fn();
+    const name = 'name';
+    const value = 'value1';
+    const data = [
+      { id: 0, value: 'value0' },
+      { id: 1, value: 'value1' },
+    ];
+    const eventMatcher = expect.objectContaining({
+      component: expect.objectContaining({
+        name,
+        value,
+      }),
+    });
+
+    render((
+      <DropDownSelect textField="value" name={name} isOpen onFilterChange={onFilterChangeHandler} shouldFilterValues data={data} />
+    ));
+
+    screen.getByRole('textbox')?.focus();
+
+    const listItem = last(document.querySelectorAll('.suggestion-item'));
+
+    expect(listItem).toBeDefined();
+    userEvent.click(listItem as HTMLElement);
 
     expect(onFilterChangeHandler).toBeCalledTimes(1);
     expect(onFilterChangeHandler).lastCalledWith(eventMatcher);
@@ -201,22 +230,22 @@ describe('DropDownSelect ATTRIBUTES', () => {
       <DropDownSelect data={['0']} _box />
     ));
 
-    expect(document.querySelectorAll('div.dropdownselect-wrapper.box')).toHaveLength(1);
+    expect(document.querySelector('div.dropdownselect-wrapper')).toHaveClass('box');
 
     wrapper.rerender((
       <DropDownSelect data={['0']} _active />
     ));
 
-    expect(document.querySelectorAll('div.dropdownselect-wrapper.box')).toHaveLength(0);
-    expect(document.querySelectorAll('div.dropdownselect-wrapper.active')).toHaveLength(1);
+    expect(document.querySelector('div.dropdownselect-wrapper')).not.toHaveClass('box');
+    expect(document.querySelector('div.dropdownselect-wrapper')).toHaveClass('active');
 
     wrapper.rerender((
-      <DropDownSelect data={['0']} _active className="testClass" />
+      <DropDownSelect data={['0']} _active className="test" />
     ));
 
-    expect(document.querySelectorAll('div.dropdownselect-wrapper.box')).toHaveLength(0);
-    expect(document.querySelectorAll('div.dropdownselect-wrapper.active')).toHaveLength(1);
-    expect(document.querySelectorAll('div.dropdownselect-wrapper.testClass')).toHaveLength(1);
+    expect(document.querySelector('div.dropdownselect-wrapper')).not.toHaveClass('box');
+    expect(document.querySelector('div.dropdownselect-wrapper')).toHaveClass('active');
+    expect(document.querySelector('div.dropdownselect-wrapper')).toHaveClass('test');
   });
 
   test('should display loader if dataLoading', () => {
@@ -419,6 +448,6 @@ describe('DropDownSelect VALIDATION', () => {
     screen.getByRole('textbox').focus();
     screen.getByRole('textbox').blur();
 
-    expect(document.querySelectorAll('div.dropdownselect-input-wrapper.danger')).toHaveLength(1);
+    expect(document.querySelector('div.dropdownselect-input-wrapper')).toHaveClass('danger');
   });
 });

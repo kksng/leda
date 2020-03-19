@@ -45,6 +45,7 @@ export const Input = React.forwardRef((props: InputProps, ref: React.Ref<InputRe
     validator,
     value: valueProp,
     wrapperRender,
+    invalidMessageRender,
     ...restProps
   } = mergeClassNames<InputProps>(props);
 

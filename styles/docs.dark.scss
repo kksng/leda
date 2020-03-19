@@ -1,0 +1,64 @@
+body {
+  background-color: #272727;
+  color: white;
+}
+
+pre {
+  background: #1a1a1a;
+}
+
+* {
+  scrollbar-color: #343434 #121212;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  background-color: #121212;
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #343434;
+}
+
+.content {
+  background-color: rgba(0, 0, 0, 0.5);
+
+  .story-wrapper {
+    background-color: #303030;
+  }
+
+  a {
+    color: #8bd0ff;
+  }
+}
+
+.bside {
+  background-color: #1a1a1a;
+  box-shadow: none;
+
+  .lang-drop-down {
+    .lang-list {
+      > .lang-item {
+        &:hover {
+          background-color: #252525;
+        }
+      }
+    }
+  }
+
+  .story-list-container {
+    .story-list {
+      .story-link {
+        color: white;
+
+        &.active, &:hover {
+          &::before {
+            background-color: white;
+          }
+          color: black;
+        }
+      }
+    }
+  }
+}

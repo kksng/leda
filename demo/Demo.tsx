@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies,jsx-a11y/label-has-for */
 import { hot } from 'react-hot-loader/root';
 import * as React from 'react';
 import * as L from '../leda';
@@ -16,7 +17,6 @@ export const Demo = hot(() => (
   <L.Div style={{ color: 'black' }} _wrapper>
     <Navigation />
     <L.Div _container>
-      <Validation />
       <L.Div _row _demoMainTitle _noGutters>
         <L.H1 _colMd12>Demo sandbox</L.H1>
         <L.P _colMd12>
@@ -67,6 +67,7 @@ export const Demo = hot(() => (
       <TimePicker />
       <TimeRange />
       <Tooltip />
+      <Validation />
       <VStepper />
     </L.Div>
   </L.Div>

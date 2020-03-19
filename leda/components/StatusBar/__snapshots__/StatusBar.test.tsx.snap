@@ -1,254 +1,162 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StatusBar SNAPSHOTS should render 1`] = `
-<StatusBar
-  data={
-    Array [
-      Object {
-        "id": "todo",
-        "labelText": "To do",
-      },
-      Object {
-        "id": "wip",
-        "labelText": "In progress",
-      },
-      Object {
-        "id": "done",
-        "labelText": "Done",
-      },
-    ]
-  }
-  textField="labelText"
-  value={
-    Object {
-      "id": "todo",
-      "labelText": "To do",
-    }
-  }
->
-  <Div
-    className="statusbar-wrapper"
-  >
-    <div
-      className="statusbar-wrapper"
-    >
-      <Component
-        index={0}
-        isFirst={true}
-        isLast={false}
-        item={
-          Object {
-            "id": "todo",
-            "labelText": "To do",
-          }
-        }
-        key="0"
-        labelText="To do"
-        position="current"
-        theme={
-          Object {
-            "label": "statusbar-label",
-            "statusIcon": "statusbar-icon",
-            "statusItem": "statusbar-status-item",
-            "statusItemDanger": "danger",
-            "statusItemFirst": "first",
-            "statusItemLast": "last",
-            "statusItemProgress": "progress",
-            "statusItemSuccess": "success",
-            "statusLine": "statusbar-line",
-            "wrapper": "statusbar-wrapper",
-          }
-        }
-        type={null}
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="statusbar-wrapper"
       >
-        <Item
-          className="statusbar-status-item first"
-        >
-          <Div
-            className="statusbar-status-item first"
-          >
-            <div
-              className="statusbar-status-item first"
-            >
-              <Icon
-                className="statusbar-icon progress"
-                onClick={[Function]}
-              >
-                <Span
-                  className="statusbar-icon progress"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="statusbar-icon progress"
-                    onClick={[Function]}
-                  />
-                </Span>
-              </Icon>
-              <Label
-                className="statusbar-label"
-              >
-                <Span
-                  className="statusbar-label"
-                >
-                  <span
-                    className="statusbar-label"
-                  >
-                    To do
-                  </span>
-                </Span>
-              </Label>
-            </div>
-          </Div>
-        </Item>
         <div
-          className="statusbar-line"
-        />
-      </Component>
-      <Component
-        index={1}
-        isFirst={false}
-        isLast={false}
-        item={
-          Object {
-            "id": "wip",
-            "labelText": "In progress",
-          }
-        }
-        key="1"
-        labelText="In progress"
-        position="next"
-        theme={
-          Object {
-            "label": "statusbar-label",
-            "statusIcon": "statusbar-icon",
-            "statusItem": "statusbar-status-item",
-            "statusItemDanger": "danger",
-            "statusItemFirst": "first",
-            "statusItemLast": "last",
-            "statusItemProgress": "progress",
-            "statusItemSuccess": "success",
-            "statusLine": "statusbar-line",
-            "wrapper": "statusbar-wrapper",
-          }
-        }
-        type={null}
-      >
-        <Item
-          className="statusbar-status-item"
+          class="statusbar-status-item first"
         >
-          <Div
-            className="statusbar-status-item"
+          <span
+            class="statusbar-icon progress"
+          />
+          <span
+            class="statusbar-label"
           >
-            <div
-              className="statusbar-status-item"
-            >
-              <Icon
-                className="statusbar-icon"
-                onClick={[Function]}
-              >
-                <Span
-                  className="statusbar-icon"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="statusbar-icon"
-                    onClick={[Function]}
-                  />
-                </Span>
-              </Icon>
-              <Label
-                className="statusbar-label"
-              >
-                <Span
-                  className="statusbar-label"
-                >
-                  <span
-                    className="statusbar-label"
-                  >
-                    In progress
-                  </span>
-                </Span>
-              </Label>
-            </div>
-          </Div>
-        </Item>
+            To do
+          </span>
+        </div>
         <div
-          className="statusbar-line"
+          class="statusbar-line"
         />
-      </Component>
-      <Component
-        index={2}
-        isFirst={false}
-        isLast={true}
-        item={
-          Object {
-            "id": "done",
-            "labelText": "Done",
-          }
-        }
-        key="2"
-        labelText="Done"
-        position="next"
-        theme={
-          Object {
-            "label": "statusbar-label",
-            "statusIcon": "statusbar-icon",
-            "statusItem": "statusbar-status-item",
-            "statusItemDanger": "danger",
-            "statusItemFirst": "first",
-            "statusItemLast": "last",
-            "statusItemProgress": "progress",
-            "statusItemSuccess": "success",
-            "statusLine": "statusbar-line",
-            "wrapper": "statusbar-wrapper",
-          }
-        }
-        type={null}
-      >
-        <Item
-          className="statusbar-status-item last"
+        <div
+          class="statusbar-status-item"
         >
-          <Div
-            className="statusbar-status-item last"
+          <span
+            class="statusbar-icon"
+          />
+          <span
+            class="statusbar-label"
           >
-            <div
-              className="statusbar-status-item last"
-            >
-              <Icon
-                className="statusbar-icon"
-                onClick={[Function]}
-              >
-                <Span
-                  className="statusbar-icon"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="statusbar-icon"
-                    onClick={[Function]}
-                  />
-                </Span>
-              </Icon>
-              <Label
-                className="statusbar-label"
-              >
-                <Span
-                  className="statusbar-label"
-                >
-                  <span
-                    className="statusbar-label"
-                  >
-                    Done
-                  </span>
-                </Span>
-              </Label>
-            </div>
-          </Div>
-        </Item>
+            In progress
+          </span>
+        </div>
         <div
-          className="statusbar-line"
+          class="statusbar-line"
         />
-      </Component>
+        <div
+          class="statusbar-status-item last"
+        >
+          <span
+            class="statusbar-icon"
+          />
+          <span
+            class="statusbar-label"
+          >
+            Done
+          </span>
+        </div>
+        <div
+          class="statusbar-line"
+        />
+      </div>
     </div>
-  </Div>
-</StatusBar>
+  </body>,
+  "container": <div>
+    <div
+      class="statusbar-wrapper"
+    >
+      <div
+        class="statusbar-status-item first"
+      >
+        <span
+          class="statusbar-icon progress"
+        />
+        <span
+          class="statusbar-label"
+        >
+          To do
+        </span>
+      </div>
+      <div
+        class="statusbar-line"
+      />
+      <div
+        class="statusbar-status-item"
+      >
+        <span
+          class="statusbar-icon"
+        />
+        <span
+          class="statusbar-label"
+        >
+          In progress
+        </span>
+      </div>
+      <div
+        class="statusbar-line"
+      />
+      <div
+        class="statusbar-status-item last"
+      >
+        <span
+          class="statusbar-icon"
+        />
+        <span
+          class="statusbar-label"
+        >
+          Done
+        </span>
+      </div>
+      <div
+        class="statusbar-line"
+      />
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
