@@ -5,50 +5,6 @@ import { StateButtonGroup } from '../StateButtonGroup';
 import { useEventSpy } from '../../useEventSpy';
 import { validate } from '../../../leda/components/Validation';
 
-const exampleCode = `
-export const Strings = (componentProps: any) => {
-  const [props, setProps] = React.useState({});
-  const [value, setValue] = React.useState('');
-
-  return (
-    <L.Div _box _inner _demoBg>
-      <L.AutoComplete
-        data={[
-          'London',
-          'Islamabad',
-          'Berlin',
-          'Washington',
-          'Paris',
-          'Rome',
-          'Tokyo',
-          'Budapest',
-          'Ottawa',
-          'Moscow',
-        ]}
-        value={value}
-        onChange={ev => setValue(ev.component.value)}
-        placeholder="Type your city..."
-        hasClearButton
-        isRequired
-        _width30
-        {...props}
-      />
-      <br />
-      <br />
-      <StateButtonGroup
-        data={[
-          { text: 'Default', props: {} },
-          { text: 'Loading', props: { isLoading: true } },
-          { text: 'Opened', props: { isOpen: true } },
-          { text: 'Disabled', props: { isDisabled: true } },
-        ]}
-        setProps={setProps}
-      />
-    </L.Div>
-  );
-};
-`;
-
 export const Customization = (attrs: any) => {
   const [props, setProps] = React.useState({});
   const [value, setValue] = React.useState('');
@@ -59,8 +15,9 @@ export const Customization = (attrs: any) => {
   return (
     <L.Div _box _inner _demoBg>
       <L.Input
-        placeholder="Type only capitals..."
         _width30
+        placeholder="Type only capitals..."
+        hasClearButton
         value={value}
         onChange={(event) => {
           update('Change', event);

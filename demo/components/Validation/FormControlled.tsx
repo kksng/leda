@@ -150,6 +150,7 @@ export const FormControlled = () => {
             Input
           </Label>
           <L.Input _grow1
+            hasClearButton
             isRequired
             hasClearButton
             form={formName}
