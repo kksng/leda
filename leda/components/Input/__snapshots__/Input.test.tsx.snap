@@ -1,227 +1,359 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Input SNAPSHOTS should render basic usage 1`] = `
-<Input
-  onBlur={[MockFunction]}
-  onChange={[MockFunction]}
->
-  <Wrapper
-    className="input-wrapper"
-  >
-    <Div
-      className="input-wrapper"
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="input-wrapper"
+      >
+        <div
+          class="input-element-wrapper"
+        >
+          <input
+            aria-invalid="false"
+            class="input-element"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="input-wrapper"
     >
       <div
-        className="input-wrapper"
+        class="input-element-wrapper"
       >
-        <Div
-          className="input-element-wrapper"
-        >
-          <div
-            className="input-element-wrapper"
-          >
-            <Input
-              aria-invalid={false}
-              className="input-element"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              value=""
-            >
-              <input
-                aria-invalid={false}
-                className="input-element"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                value=""
-              />
-            </Input>
-          </div>
-        </Div>
-        <InvalidMessageWrapper>
-          <InvalidMessage
-            isValid={true}
-            messages={Array []}
-          >
-            <Component
-              isValid={true}
-              messages={Array []}
-            />
-          </InvalidMessage>
-        </InvalidMessageWrapper>
+        <input
+          aria-invalid="false"
+          class="input-element"
+          value=""
+        />
       </div>
-    </Div>
-  </Wrapper>
-</Input>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
 exports[`Input SNAPSHOTS should render different component states should render disabled 1`] = `
-<Input
-  isDisabled={true}
-  onBlur={[MockFunction]}
-  onChange={[MockFunction]}
->
-  <Wrapper
-    className="input-wrapper"
-  >
-    <Div
-      className="input-wrapper"
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="input-wrapper"
+      >
+        <div
+          class="input-element-wrapper disabled"
+        >
+          <input
+            aria-invalid="false"
+            class="input-element"
+            disabled=""
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="input-wrapper"
     >
       <div
-        className="input-wrapper"
+        class="input-element-wrapper disabled"
       >
-        <Div
-          className="input-element-wrapper disabled"
-        >
-          <div
-            className="input-element-wrapper disabled"
-          >
-            <Input
-              aria-invalid={false}
-              className="input-element"
-              disabled={true}
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              value=""
-            >
-              <input
-                aria-invalid={false}
-                className="input-element"
-                disabled={true}
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                value=""
-              />
-            </Input>
-          </div>
-        </Div>
+        <input
+          aria-invalid="false"
+          class="input-element"
+          disabled=""
+          value=""
+        />
       </div>
-    </Div>
-  </Wrapper>
-</Input>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
 exports[`Input SNAPSHOTS should render value in controllable mode 1`] = `
-<Input
-  onBlur={[MockFunction]}
-  onChange={[MockFunction]}
-  value="test value"
->
-  <Wrapper
-    className="input-wrapper"
-  >
-    <Div
-      className="input-wrapper"
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="input-wrapper"
+      >
+        <div
+          class="input-element-wrapper"
+        >
+          <input
+            aria-invalid="false"
+            class="input-element"
+            value="test value"
+          />
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="input-wrapper"
     >
       <div
-        className="input-wrapper"
+        class="input-element-wrapper"
       >
-        <Div
-          className="input-element-wrapper"
-        >
-          <div
-            className="input-element-wrapper"
-          >
-            <Input
-              aria-invalid={false}
-              className="input-element"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              value="test value"
-            >
-              <input
-                aria-invalid={false}
-                className="input-element"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                value="test value"
-              />
-            </Input>
-          </div>
-        </Div>
-        <InvalidMessageWrapper>
-          <InvalidMessage
-            isValid={true}
-            messages={Array []}
-          >
-            <Component
-              isValid={true}
-              messages={Array []}
-            />
-          </InvalidMessage>
-        </InvalidMessageWrapper>
+        <input
+          aria-invalid="false"
+          class="input-element"
+          value="test value"
+        />
       </div>
-    </Div>
-  </Wrapper>
-</Input>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
 
 exports[`Input SNAPSHOTS should render value in controllable mode 2`] = `
-<Input
-  onBlur={[MockFunction]}
-  onChange={[MockFunction]}
-  value="new test value"
->
-  <Wrapper
-    className="input-wrapper"
-  >
-    <Div
-      className="input-wrapper"
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="input-wrapper"
+      >
+        <div
+          class="input-element-wrapper"
+        >
+          <input
+            aria-invalid="false"
+            class="input-element"
+            value="new test value"
+          />
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="input-wrapper"
     >
       <div
-        className="input-wrapper"
+        class="input-element-wrapper"
       >
-        <Div
-          className="input-element-wrapper"
-        >
-          <div
-            className="input-element-wrapper"
-          >
-            <Input
-              aria-invalid={false}
-              className="input-element"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              value="new test value"
-            >
-              <input
-                aria-invalid={false}
-                className="input-element"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                value="new test value"
-              />
-            </Input>
-          </div>
-        </Div>
-        <InvalidMessageWrapper>
-          <InvalidMessage
-            isValid={true}
-            messages={Array []}
-          >
-            <Component
-              isValid={true}
-              messages={Array []}
-            />
-          </InvalidMessage>
-        </InvalidMessageWrapper>
+        <input
+          aria-invalid="false"
+          class="input-element"
+          value="new test value"
+        />
       </div>
-    </Div>
-  </Wrapper>
-</Input>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
