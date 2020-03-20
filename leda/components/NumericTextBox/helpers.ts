@@ -61,7 +61,8 @@ export const formatValue = (value?: number | null, format = '#', thousandSeparat
 
   const decimalPart = Math.ceil(Math.floor((number % 1) * (10 ** (precision + 1))) / 10);
 
-  return format.replace(/#/, `${isNegative ? '-' : ''}${addThousandSeparator(integerPart, thousandSeparator)}`)
+  return format
+    .replace(/#/, `${isNegative ? '-' : ''}${addThousandSeparator(integerPart, thousandSeparator)}`)
     .replace(/.#+/, precision === 0 ? '' : `${separator}${decimalPart.toString().padStart(precision, '0')}`);
 };
 
@@ -203,31 +204,22 @@ export const getRestProps = (props: NumericTextBoxProps): WrapperProps => {
 // форматирует inputValue (значение при фокусе)
 // "1 200.05 Руб." -> "1200.05" (Отличается от числа)
 export const formatInputValue = (formattedValue: string, format: string): string => {
-  const fractionSeparator = getSeparator(format) || '';
+  const fractionSeparator = getSeparator(format);
 
-  const separator = fractionSeparator.length ? `\\${fractionSeparator}` : '';
+  const separator = fractionSeparator?.length ? `\\${fractionSeparator}` : '';
 
-  const isStartingWithFractionSeparator = new RegExp(`^-?${separator}\\d$`).test(formattedValue);
-
-  if (isStartingWithFractionSeparator) {
-    return formattedValue[0] === '-'
-      ? `-0${fractionSeparator}${formattedValue[2]}`
-      : `0${fractionSeparator}${formattedValue[1]}`;
-  }
   // значение без лишних символов "1 200.05 Руб." -> "1200.05"
   const cleanValue = formattedValue
     .replace(/^[^\d]*(?=\d)/, '')
     .replace(new RegExp(`[^\\d${separator}]`, 'g'), '');
 
-  const value = formattedValue[0] === '-'
-    ? `-${cleanValue}`
-    : cleanValue;
+  const value = `${formattedValue.startsWith('-') ? '-' : ''}${cleanValue}`;
 
-  const hasMoreThanOneFractionSeparator = (formattedValue.match(new RegExp(separator, 'g')) || []).length > 1;
+  const hasMoreThanOneFractionSeparator = (formattedValue.match(new RegExp(separator, 'g'))?.length ?? 0) > 1;
+
   // в случае, если разделителей разряда больше 1 - нужно убрать лишние
   if (fractionSeparator && hasMoreThanOneFractionSeparator) {
-    return value
-      .replace(/\D+$/, '');
+    return value.replace(/\D+$/, '');
   }
 
   return value;
