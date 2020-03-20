@@ -1,139 +1,117 @@
 import * as React from 'react';
-import { isFunction } from 'lodash';
 import { CustomEventHandler, SetState } from '../../commonTypes';
-import { InputProps, InputState } from './types';
+import { InputProps } from './types';
 import { isSymbolAllowed, isSymbolForbidden, transformToCase } from './helpers';
 
 export const createChangeHandler = (
-  props: InputProps, state: InputState, setValue: SetState<string>,
-): CustomEventHandler<React.ChangeEvent<HTMLInputElement>> => (ev) => {
-  const {
-    maxLength, forbiddenSymbols, allowedSymbols, letterCase, value: valueProp, name, onChange,
-  } = props;
+  props: InputProps,
+  setValue: SetState<string>,
+): CustomEventHandler<React.ChangeEvent<HTMLInputElement>> => (event) => {
+  if ((props.maxLength && props.maxLength < event.target.value.length)
+    || isSymbolForbidden(event.target.value, props.forbiddenSymbols)
+    || !isSymbolAllowed(event.target.value, props.allowedSymbols)
+  ) {
+    return;
+  }
 
-  const { target: { value } } = ev;
+  const newValue = props.letterCase ? transformToCase(event.target.value, props.letterCase) : event.target.value;
 
-  if (maxLength && value.length > maxLength) return;
+  if (props.value == null) {
+    setValue(newValue);
+  }
 
-  if (isSymbolForbidden(value, forbiddenSymbols)) return;
+  if (props.onChange) {
+    const newEvent = {
+      ...event,
+      component: {
+        value: newValue,
+        name: props.name,
+      },
+    };
 
-  if (!isSymbolAllowed(value, allowedSymbols)) return;
-
-  const newValue = letterCase ? transformToCase(value, letterCase) : value;
-
-  if (valueProp === undefined) setValue(newValue);
-
-  const customEvent = {
-    ...ev,
-    component: {
-      value: newValue,
-      name,
-    },
-  };
-
-  if (isFunction(onChange)) onChange(customEvent);
+    props.onChange(newEvent);
+  }
 };
 
 export const createClearHandler = (
-  props: InputProps, state: InputState, setValue: SetState<string>,
-): CustomEventHandler<React.MouseEvent<HTMLInputElement>> => (ev) => {
-  const {
-    value: valueProp, name, onChange,
-  } = props;
+  props: InputProps,
+  setValue: SetState<string>,
+): CustomEventHandler<React.MouseEvent<HTMLInputElement>> => (event) => {
+  event.preventDefault();
 
-  ev.preventDefault();
-
-  const customEvent = {
-    ...ev,
+  const newEvent = {
+    ...event,
     component: {
       value: '',
-      name,
+      name: props.name,
     },
   };
 
-  if (valueProp === undefined) setValue('');
+  if (props.value == null) {
+    setValue('');
+  }
 
-  if (isFunction(onChange)) onChange(customEvent);
+  if (props.onChange) {
+    props.onChange(newEvent);
+  }
 };
 
 export const createBlurHandler = (
-  props: InputProps, state: InputState, setFocused: SetState<boolean>, validate: () => boolean,
-): React.FocusEventHandler<HTMLInputElement> => (ev) => {
-  const { onBlur, name } = props;
-
+  props: InputProps,
+  setFocused: SetState<boolean>,
+  validate: () => boolean,
+): React.FocusEventHandler<HTMLInputElement> => (event) => {
   setFocused(false);
 
   const newValid = validate();
 
-  if (isFunction(onBlur)) {
-    const customEvent = {
-      ...ev,
+  if (props.onBlur) {
+    const newEvent = {
+      ...event,
       component: {
-        value: ev.target.value,
-        name,
+        value: event.target.value,
+        name: props.name,
         isValid: newValid,
       },
     };
 
-    onBlur(customEvent);
+    props.onBlur(newEvent);
   }
 };
 
 export const createFocusHandler = (
-  props: InputProps, state: InputState, setFocused: SetState<boolean>,
-): React.FocusEventHandler<HTMLInputElement> => (ev) => {
-  const { name, onFocus } = props;
-
-  const { isValid } = state;
-
+  props: InputProps,
+  isValid: boolean,
+  setFocused: SetState<boolean>,
+): React.FocusEventHandler<HTMLInputElement> => (event) => {
   setFocused(true);
 
-  const customEvent = {
-    ...ev,
-    component: {
-      value: ev.target.value,
-      name,
-      isValid,
-    },
-  };
+  if (props.onFocus) {
+    const newEvent = {
+      ...event,
+      component: {
+        value: event.target.value,
+        name: props.name,
+        isValid,
+      },
+    };
 
-  if (isFunction(onFocus)) onFocus(customEvent);
+    props.onFocus(newEvent);
+  }
 };
 
 export const createKeyDownHandler = (
   props: InputProps,
-): React.KeyboardEventHandler<HTMLInputElement> => (ev) => {
-  const { name, onEnterPress } = props;
-
-  if (ev.key === 'Enter' && isFunction(onEnterPress)) {
-    const event = {
-      ...ev,
+): React.KeyboardEventHandler<HTMLInputElement> => (event) => {
+  if (props.onEnterPress && event.key === 'Enter') {
+    const newEvent = {
+      ...event,
       component: {
-        name,
-        value: ev.currentTarget.value,
-      },
-    };
-    onEnterPress(event);
-  }
-};
-
-export const createResetHandler = ({
-  props,
-  setValue,
-  value,
-}: {
-  props: InputProps,
-  setValue: SetState<string>,
-  value: string,
-}) => () => {
-  setValue(value);
-  if (isFunction(props.onChange)) {
-    const customEvent = {
-      component: {
+        value: event.currentTarget.value,
         name: props.name,
-        value,
       },
     };
-    props.onChange(customEvent);
+
+    props.onEnterPress(newEvent);
   }
 };
