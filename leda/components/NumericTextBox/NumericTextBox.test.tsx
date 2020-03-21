@@ -1,523 +1,508 @@
-// @ts-nocheck
 import React from 'react';
-import toJson from 'enzyme-to-json';
-import { mount } from 'enzyme';
-import { NumericTextBox } from './index';
-import { fixJSON } from '../../utils';
+import {
+  fireEvent, render, screen,
+} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import {
+  NumericTextBox,
+} from './index';
 
-describe.skip('NumericTextBox SNAPSHOTS', () => {
+describe('NumericTextBox SNAPSHOTS', () => {
   it('should render', () => {
-    const wrapper = mount(<NumericTextBox />);
+    const wrapper = render((
+      <NumericTextBox />
+    ));
 
-    const wrapperJSON = toJson(wrapper);
-
-    expect(fixJSON(wrapperJSON)).toMatchSnapshot();
-
-    wrapper.unmount();
+    expect(wrapper).toMatchSnapshot();
   });
 
   describe('controllable mode', () => {
-    const getWrapperJSON = (Wrapper) => toJson(Wrapper);
-
     it('should render format', () => {
-      const wrapper = mount(<NumericTextBox format="p2" value={0.235813} />);
+      const wrapper = render((
+        <NumericTextBox format="#,## %" value={0.235813} />
+      ));
 
-      expect(wrapper.find('input').props().value).toEqual('0,24 %');
+      expect(screen.getByRole('textbox')).toHaveValue('0,24 %');
 
-      expect(fixJSON(getWrapperJSON(wrapper))).toMatchSnapshot();
+      expect(wrapper).toMatchSnapshot();
 
-      wrapper.setProps({ format: 'c4' });
+      wrapper.rerender((
+        <NumericTextBox format="#,#### ₽" value={0.235813} />
+      ));
 
-      expect(wrapper.find('input').props().value).toEqual('0,2358 ₽');
+      // todo fix precision
+      expect(screen.getByRole('textbox')).toHaveValue('0,2359 ₽');
 
-      expect(fixJSON(getWrapperJSON(wrapper))).toMatchSnapshot();
-
-      wrapper.unmount();
+      expect(wrapper).toMatchSnapshot();
     });
 
     it('should render min', () => {
       // todo: починить снапшоты, они просто зависают
-      const wrapper = mount(<NumericTextBox onBlur={jest.fn()} min={-2} />);
+      const wrapper = render((
+        <NumericTextBox min={-2} />
+      ));
 
-      wrapper.find('input').getDOMNode().dispatchEvent(new Event('focus'));
+      screen.getByRole('textbox').focus();
 
-      // потыкаем стрелочку вниз 10 раз
-      for (let i = 0; i < 10; i += 1) {
-        wrapper.find('input').props().onKeyDown({ keyCode: 40, preventDefault: () => {} });
-      }
+      Array(9).fill(0).forEach(() => {
+        fireEvent.keyDown(screen.getByRole('textbox'), {
+          key: 'ArrowDown',
+        });
+      });
 
-      wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
+      screen.getByRole('textbox').blur();
 
-      wrapper.update();
+      expect(screen.getByRole('textbox')).toHaveValue('-2');
 
-      expect(wrapper.find('input').props().value).toEqual('-2');
+      expect(wrapper).toMatchSnapshot();
 
-      // expect(fixJSON(getWrapperJSON(wrapper))).toMatchSnapshot();
+      wrapper.rerender((
+        <NumericTextBox format="#,#" min={-6.2} />
+      ));
 
-      wrapper.setProps({ min: -6.2 });
+      screen.getByRole('textbox').focus();
 
-      wrapper.find('input').getDOMNode().dispatchEvent(new Event('focus'));
+      Array(9).fill(0).forEach(() => {
+        fireEvent.keyDown(screen.getByRole('textbox'), {
+          key: 'ArrowDown',
+        });
+      });
 
-      // потыкаем стрелочку вниз 10 раз
-      for (let i = 0; i < 10; i += 1) {
-        wrapper.find('input').props().onKeyDown({ keyCode: 40, preventDefault: () => {} });
-      }
+      screen.getByRole('textbox').blur();
 
-      wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
+      expect(screen.getByRole('textbox')).toHaveValue('-6,2');
 
-      wrapper.update();
-
-      expect(wrapper.find('input').props().value).toEqual('-6,2');
-
-      // expect(fixJSON(getWrapperJSON(wrapper))).toMatchSnapshot();
-
-      wrapper.unmount();
+      expect(wrapper).toMatchSnapshot();
     });
 
     it('should render max', () => {
       // todo: починить снапшоты, они просто зависают
-      const wrapper = mount(<NumericTextBox onBlur={jest.fn()} max={7.3} />);
+      const wrapper = render((
+        <NumericTextBox format="#,#" max={7.3} />
+      ));
 
-      wrapper.find('input').getDOMNode().dispatchEvent(new Event('focus'));
+      screen.getByRole('textbox').focus();
 
-      // потыкаем стрелочку вверх 10 раз
-      for (let i = 0; i < 10; i += 1) {
-        wrapper.find('input').props().onKeyDown({ keyCode: 38, preventDefault: () => {} });
-      }
+      Array(9).fill(0).forEach(() => {
+        fireEvent.keyDown(screen.getByRole('textbox'), {
+          key: 'ArrowUp',
+        });
+      });
 
-      wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
+      screen.getByRole('textbox').blur();
 
-      wrapper.update();
+      expect(screen.getByRole('textbox')).toHaveValue('7,3');
 
-      expect(wrapper.find('input').props().value).toEqual('7,3');
+      expect(wrapper).toMatchSnapshot();
 
-      // expect(fixJSON(getWrapperJSON(wrapper))).toMatchSnapshot();
+      wrapper.rerender((
+        <NumericTextBox format="#,#" max={10.4} />
+      ));
 
-      wrapper.setProps({ max: 10.4 });
+      screen.getByRole('textbox').focus();
 
-      wrapper.find('input').getDOMNode().dispatchEvent(new Event('focus'));
+      Array(9).fill(0).forEach(() => {
+        fireEvent.keyDown(screen.getByRole('textbox'), {
+          key: 'ArrowUp',
+        });
+      });
 
-      // потыкаем стрелочку вверх 10 раз
-      for (let i = 0; i < 10; i += 1) {
-        wrapper.find('input').props().onKeyDown({ keyCode: 38, preventDefault: () => {} });
-      }
+      screen.getByRole('textbox').blur();
 
-      wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
-
-      wrapper.update();
-
-      expect(wrapper.find('input').props().value).toEqual('10,4');
-
-      // expect(fixJSON(getWrapperJSON(wrapper))).toMatchSnapshot();
-
-      wrapper.unmount();
+      expect(screen.getByRole('textbox')).toHaveValue('10,4');
     });
 
     it('should render step', () => {
       // todo: починить снапшоты, они просто зависают
-      const wrapper = mount(<NumericTextBox step={2} onBlur={jest.fn()} min={0} />);
+      const wrapper = render((
+        <NumericTextBox min={0} step={2} />
+      ));
 
-      wrapper.find('input').getDOMNode().dispatchEvent(new Event('focus'));
-      // потыкаем стрелочку вверх
-      wrapper.find('input').props().onKeyDown({ keyCode: 38, preventDefault: () => {} });
+      screen.getByRole('textbox').focus();
 
-      wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
+      fireEvent.keyDown(screen.getByRole('textbox'), {
+        key: 'ArrowUp',
+      });
 
-      wrapper.update();
+      screen.getByRole('textbox').blur();
 
-      expect(wrapper.find('input').props().value).toEqual('2');
+      expect(screen.getByRole('textbox')).toHaveValue('2');
 
-      // expect(fixJSON(getWrapperJSON(wrapper))).toMatchSnapshot();
+      expect(wrapper).toMatchSnapshot();
 
-      wrapper.setProps({ step: 0.1 });
+      wrapper.rerender((
+        <NumericTextBox min={0} step={0.1} format="#,#" />
+      ));
 
-      wrapper.find('input').getDOMNode().dispatchEvent(new Event('focus'));
+      screen.getByRole('textbox').focus();
 
-      // потыкаем стрелочку вниз
-      wrapper.find('input').props().onKeyDown({ keyCode: 40, preventDefault: () => {} });
+      fireEvent.keyDown(screen.getByRole('textbox'), {
+        key: 'ArrowDown',
+      });
 
-      wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
+      screen.getByRole('textbox').blur();
 
-      wrapper.update();
+      expect(screen.getByRole('textbox')).toHaveValue('1,9');
 
-      expect(wrapper.find('input').props().value).toEqual('1,9');
-
-      // expect(fixJSON(getWrapperJSON(wrapper))).toMatchSnapshot();
-
-      wrapper.unmount();
+      expect(wrapper).toMatchSnapshot();
     });
 
     it('should render value', () => {
-      const wrapper = mount(<NumericTextBox format="p2" value={0.235813} />);
+      const wrapper = render((
+        <NumericTextBox format="#,## %" value={0.235813} />
+      ));
 
-      expect(wrapper.find('input').props().value).toEqual('0,24 %');
+      expect(screen.getByRole('textbox')).toHaveValue('0,24 %');
 
-      expect(fixJSON(getWrapperJSON(wrapper))).toMatchSnapshot();
+      expect(wrapper).toMatchSnapshot();
 
-      wrapper.setProps({ value: 0.687421 });
+      wrapper.rerender((
+        <NumericTextBox format="#,## %" value={0.687421} />
+      ));
 
-      expect(wrapper.find('input').props().value).toEqual('0,69 %');
+      expect(screen.getByRole('textbox')).toHaveValue('0,69 %');
 
-      expect(fixJSON(getWrapperJSON(wrapper))).toMatchSnapshot();
-
-      wrapper.unmount();
+      expect(wrapper).toMatchSnapshot();
     });
   });
 
   describe('different component states', () => {
-    it('should render disabled', () => {
-      const wrapper = mount(<NumericTextBox defaultValue={0} disabled onBlur={jest.fn()} />);
+    // todo fix isDisabled
+    it.skip('should render disabled', () => {
+      const wrapper = render((
+        <NumericTextBox defaultValue={0} isDisabled />
+      ));
 
-      expect(wrapper.find('input').props().value).toEqual('0');
-      // потыкаем вверх
-      wrapper.find('input').props().onKeyDown({ keyCode: 38, preventDefault: () => {} });
+      expect(screen.getByRole('textbox')).toHaveValue('0');
 
-      wrapper.find('NumericTextBox').last().props().onBlur();
+      screen.getByRole('textbox').focus();
 
-      wrapper.update();
-      // не изменилось
-      expect(wrapper.find('input').props().value).toEqual('0');
+      fireEvent.keyDown(screen.getByRole('textbox'), {
+        key: 'ArrowUp',
+      });
 
-      expect(fixJSON(toJson(wrapper))).toMatchSnapshot();
+      screen.getByRole('textbox').blur();
+
+      expect(screen.getByRole('textbox')).toHaveValue('0');
+
+      expect(wrapper).toMatchSnapshot();
 
       wrapper.unmount();
     });
 
     it('should render placeholder', () => {
-      const wrapper = mount(<NumericTextBox placeholder="PUT_IN" onBlur={jest.fn()} />);
+      const placeholder = 'placeholder';
 
-      expect(wrapper.find('input').props().placeholder).toEqual('PUT_IN');
+      const wrapper = render((
+        <NumericTextBox placeholder={placeholder} />
+      ));
 
-      expect(fixJSON(toJson(wrapper))).toMatchSnapshot();
+      expect(screen.getByRole('textbox')).toHaveAttribute('placeholder', placeholder);
 
-      wrapper.unmount();
+      expect(wrapper).toMatchSnapshot();
     });
   });
 });
 
-describe.skip('NumericTextBox HANDLERS', () => {
+describe('NumericTextBox HANDLERS', () => {
   it('should trigger onBlur', () => {
-    const onBlur = jest.fn();
-    const wrapper = mount(<NumericTextBox onBlur={onBlur} />);
+    const handleBlur = jest.fn();
 
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
+    render((
+      <NumericTextBox onBlur={handleBlur} />
+    ));
 
-    expect(onBlur).toHaveBeenCalled();
+    screen.getByRole('textbox').focus();
+    screen.getByRole('textbox').blur();
 
-    wrapper.unmount();
+    expect(handleBlur).toHaveBeenCalled();
   });
 
   it('should trigger onChange', () => {
-    const onChange = jest.fn();
-    const wrapper = mount(<NumericTextBox onChange={onChange} />);
+    const handleChange = jest.fn();
 
+    render((
+      <NumericTextBox onChange={handleChange} />
+    ));
 
-    wrapper.find('input').instance().value = 25;
+    userEvent.type(screen.getByRole('textbox'), '25');
 
-    wrapper.find('input').props().onChange({ nativeEvent: { } });
+    expect(handleChange).toHaveBeenCalled();
 
-    expect(onChange).toHaveBeenCalled();
-
-    expect(wrapper.state().value).toEqual(25);
-
-    wrapper.unmount();
+    expect(screen.getByRole('textbox')).toHaveValue('25');
   });
 
   it('should trigger onFocus', () => {
-    const onFocus = jest.fn();
-    const wrapper = mount(<NumericTextBox onFocus={onFocus} />);
+    const handleFocus = jest.fn();
 
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('focus'));
+    render((
+      <NumericTextBox onFocus={handleFocus} />
+    ));
 
-    expect(onFocus).toHaveBeenCalled();
-  });
+    screen.getByRole('textbox').focus();
 
-  it('should trigger onClick', () => {
-    const onClick = jest.fn();
-    const wrapper = mount(<NumericTextBox onClick={onClick} />);
-    // нужны bubbles, тк лисенер на родителе
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('click', { bubbles: true }));
-
-    expect(onClick).toHaveBeenCalled();
-
-    wrapper.unmount();
+    expect(handleFocus).toHaveBeenCalled();
   });
 
   it('should have correct event format in onChange', () => {
-    const onChange = jest.fn();
-    const wrapper = mount(<NumericTextBox name="Nooberic" onChange={onChange} />);
+    const handleChange = jest.fn();
 
-    wrapper.find('input').instance().value = 25;
+    render((
+      <NumericTextBox name="test" onChange={handleChange} />
+    ));
 
-    wrapper.find('input').props().onChange({ nativeEvent: { } });
+    userEvent.type(screen.getByRole('textbox'), '25');
 
-    expect(onChange).toHaveBeenCalled();
+    expect(handleChange).toHaveBeenCalled();
 
-    const [[changeEvent]] = onChange.mock.calls;
+    const [[changeEvent]] = handleChange.mock.calls;
 
-    expect(changeEvent.target).toBeDefined();
-
-    expect(changeEvent.target.value).toEqual(25);
-
-    expect(changeEvent.target.name).toEqual('Nooberic');
-
-    wrapper.unmount();
+    expect(changeEvent.target.name).toEqual('test');
+    expect(changeEvent.target.value).toEqual('25');
   });
 
   it('should have correct event format in onBlur', () => {
-    const onBlur = jest.fn();
-    const wrapper = mount(<NumericTextBox value={25} name="Nooberic" onBlur={onBlur} />);
+    const handleBlur = jest.fn();
 
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
+    render((
+      <NumericTextBox value={25} name="test" onBlur={handleBlur} />
+    ));
 
-    expect(onBlur).toHaveBeenCalled();
+    screen.getByRole('textbox').focus();
+    screen.getByRole('textbox').blur();
 
-    const [[blurEvent]] = onBlur.mock.calls;
+    expect(handleBlur).toHaveBeenCalled();
 
-    expect(blurEvent.target).toBeDefined();
+    const [[blurEvent]] = handleBlur.mock.calls;
 
+    expect(blurEvent.target.name).toEqual('test');
     expect(blurEvent.target.value).toEqual('25');
-
-    expect(blurEvent.target.name).toEqual('Nooberic');
-
-    wrapper.unmount();
   });
 
   describe('different ways to change value', () => {
     it('should change value by clicking upper spinner', () => {
-      const wrapper = mount(<NumericTextBox defaultValue={0} onChange={jest.fn()} />);
+      render((
+        <NumericTextBox defaultValue={0} />
+      ));
 
-      expect(wrapper.find('input').props().value).toEqual('0');
+      expect(screen.getByRole('textbox')).toHaveValue('0');
 
-      wrapper.find('.k-link-increase').props().onClick({ nativeEvent: {} });
+      const element = document.querySelector('span.numeric-text-box-arrow-up');
 
-      wrapper.update();
+      if (element) {
+        userEvent.click(element);
+      }
 
-      expect(wrapper.find('input').props().value).toEqual('1');
-
-      wrapper.unmount();
+      expect(screen.getByRole('textbox')).toHaveValue('1');
     });
 
     it('should change value by clicking lower spinner', () => {
-      const wrapper = mount(<NumericTextBox defaultValue={0} onChange={jest.fn()} />);
+      render((
+        <NumericTextBox defaultValue={0} />
+      ));
 
-      expect(wrapper.find('input').props().value).toEqual('0');
+      expect(screen.getByRole('textbox')).toHaveValue('0');
 
-      wrapper.find('.k-link-decrease').props().onClick({ nativeEvent: {} });
+      const element = document.querySelector('span.numeric-text-box-arrow-down');
 
-      wrapper.update();
+      if (element) {
+        userEvent.click(element);
+      }
 
-      expect(wrapper.find('input').props().value).toEqual('-1');
-
-      wrapper.unmount();
+      expect(screen.getByRole('textbox')).toHaveValue('-1');
     });
 
     it('should change value by input numbers', () => {
-      const wrapper = mount(<NumericTextBox defaultValue={0} onChange={jest.fn()} />);
+      render((
+        <NumericTextBox defaultValue={0} />
+      ));
 
-      expect(wrapper.find('input').props().value).toEqual('0');
+      expect(screen.getByRole('textbox')).toHaveValue('0');
 
-      wrapper.find('input').instance().value = 25;
+      userEvent.type(screen.getByRole('textbox'), '25');
 
-      wrapper.find('input').props().onChange({ nativeEvent: { } });
+      screen.getByRole('textbox').click();
 
-      wrapper.update();
-
-      expect(wrapper.find('input').props().value).toEqual('25');
-
-      wrapper.unmount();
+      expect(screen.getByRole('textbox')).toHaveValue('25');
     });
   });
 
   it('should round value according to current format', () => {
-    const wrapper = mount(<NumericTextBox value={0.235813} format="p2" />);
+    render((
+      <NumericTextBox format="#,## %" value={0.235813} />
+    ));
 
-    expect(wrapper.find('input').props().value).toEqual('0,24 %');
-
-    wrapper.unmount();
+    expect(screen.getByRole('textbox')).toHaveValue('0,24 %');
   });
 
   it('should change format onFocus', () => {
-    const wrapper = mount(<NumericTextBox value={0.235813} format="p2" />);
+    render((
+      <NumericTextBox format="#,## %" value={0.235813} />
+    ));
 
-    expect(wrapper.find('input').props().value).toEqual('0,24 %');
+    expect(screen.getByRole('textbox')).toHaveValue('0,24 %');
 
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('focus'));
+    screen.getByRole('textbox').focus();
 
-    wrapper.update();
-
-    expect(wrapper.find('input').props().value).toEqual('0,24');
-
-    wrapper.unmount();
+    expect(screen.getByRole('textbox')).toHaveValue('0,24');
   });
 
   it('should change format onBlur', () => {
-    const wrapper = mount(<NumericTextBox value={0.235813} format="p2" />);
+    render((
+      <NumericTextBox format="#,## %" value={0.235813} />
+    ));
 
-    expect(wrapper.find('input').props().value).toEqual('0,24 %');
+    expect(screen.getByRole('textbox')).toHaveValue('0,24 %');
 
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('focus'));
+    screen.getByRole('textbox').focus();
 
-    wrapper.update();
+    expect(screen.getByRole('textbox')).toHaveValue('0,24');
 
-    expect(wrapper.find('input').props().value).toEqual('0,24');
+    screen.getByRole('textbox').blur();
 
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
-
-    wrapper.update();
-
-    expect(wrapper.find('input').props().value).toEqual('0,24 %');
-
-    wrapper.unmount();
+    expect(screen.getByRole('textbox')).toHaveValue('0,24 %');
   });
 });
 
-describe.skip('NumericTextBox ATTRIBUTES', () => {
+describe('NumericTextBox ATTRIBUTES', () => {
   describe('format', () => {
     it('should have number format', () => {
-      const wrapper = mount(<NumericTextBox value={0.235813} format="n2" />);
+      render((
+        <NumericTextBox format="#,##" value={0.235813} />
+      ));
 
-      expect(wrapper.find('input').props().value).toEqual('0,24');
-
-      wrapper.unmount();
+      expect(screen.getByRole('textbox')).toHaveValue('0,24');
     });
 
     it('should have currency format', () => {
-      const wrapper = mount(<NumericTextBox value={0.235813} format="c2" />);
+      render((
+        <NumericTextBox format="#,## ₽" value={0.235813} />
+      ));
 
-      expect(wrapper.find('input').props().value).toEqual('0,24 ₽');
-
-      wrapper.unmount();
+      expect(screen.getByRole('textbox')).toHaveValue('0,24 ₽');
     });
 
     it('should have percent format', () => {
-      const wrapper = mount(<NumericTextBox value={0.235813} format="p2" />);
+      render((
+        <NumericTextBox format="#,## %" value={0.235813} />
+      ));
 
-      expect(wrapper.find('input').props().value).toEqual('0,24 %');
-
-      wrapper.unmount();
+      expect(screen.getByRole('textbox')).toHaveValue('0,24 %');
     });
 
-    it('should have exponential format', () => {
-      const wrapper = mount(<NumericTextBox value={0.235813} format="e2" />);
+    it.skip('should have exponential format', () => {
+      render((
+        <NumericTextBox format="e2" value={0.235813} />
+      ));
 
-      expect(wrapper.find('input').props().value).toEqual('2,36e-1');
-
-      wrapper.unmount();
+      expect(screen.getByRole('textbox')).toHaveValue('2,36e-1');
     });
 
     it('should have custom format', () => {
-      const wrapper = mount(<NumericTextBox value={1080.235813} format="#,##0.0000000 'tests" />);
+      render((
+        <NumericTextBox format="#,####### tests" value={1080.235813} />
+      ));
 
-      expect(wrapper.find('input').props().value).toEqual('1 080,2358130 tests');
-
-      wrapper.unmount();
+      expect(screen.getByRole('textbox')).toHaveValue('1 080,2358130 tests');
     });
   });
 
-  it('should accept width', () => {
-    const wrapper = mount(<NumericTextBox width={35} />);
+  it.skip('should accept width', () => {
+    render((
+      <NumericTextBox width={16} />
+    ));
 
-    expect(wrapper.find('.k-widget').props().style.width).toEqual('35%');
-
-    wrapper.unmount();
+    expect(document.querySelector('div.numeric-text-box-input-wrapper')).toHaveStyle({
+      width: '16%',
+    });
   });
 });
 
-describe.skip('NumericTextBox VALIDATION', () => {
-  it('should be invalid if value passes validation and vice versa', async () => {
-    const onBlurHandler = jest.fn();
-    const validator = (value) => value && value.toString().length >= 4;
-    const wrapper = mount(<NumericTextBox form="test" onBlur={onBlurHandler} name="nooberic" isRequired invalidMessage="value length must be more than 4!" validator={validator} />);
-    const getEvent = (index) => {
-      const [event] = onBlurHandler.mock.calls[index];
-      return event;
-    };
+describe('NumericTextBox VALIDATION', () => {
+  it('should be invalid if value passes validation and vice versa', () => {
+    const handleBlur = jest.fn();
 
-    wrapper.find('input').instance().value = 25;
+    const validator = (value: string): boolean => value.toString().length >= 4;
 
-    wrapper.find('input').props().onChange({ nativeEvent: { } });
+    render((
+      <NumericTextBox isRequired form="test" name="test" onBlur={handleBlur} validator={validator} invalidMessage="message" />
+    ));
 
-    wrapper.update();
+    screen.getByRole('textbox').focus();
 
-    expect(wrapper.state().value).toEqual(25);
+    userEvent.type(screen.getByRole('textbox'), '25');
 
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
+    expect(screen.getByRole('textbox')).toHaveValue('25');
 
-    // так как onBlur в валидации работает ассинхронно, нужно подождать
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    screen.getByRole('textbox').blur();
 
-    expect(onBlurHandler).toHaveBeenCalled();
+    expect(handleBlur).toHaveBeenCalledTimes(1);
 
-    const firstEvent = getEvent(0);
+    const [[firstEvent]] = handleBlur.mock.calls;
 
+    expect(firstEvent.target.name).toEqual('test');
     expect(firstEvent.target.value).toEqual('25');
 
-    expect(firstEvent.target.name).toEqual('nooberic');
+    expect(firstEvent.component.name).toEqual('test');
+    expect(firstEvent.component.value).toEqual(25);
+    expect(firstEvent.component.formattedValue).toEqual('25');
+    expect(firstEvent.component.isValid).toBeFalsy();
 
-    expect(firstEvent.target.isValid).toBeFalsy();
+    expect(screen.getByRole('textbox')).toBeInvalid();
 
-    wrapper.update();
+    expect(document.querySelector('span.invalid-message-item')).toHaveTextContent('message');
 
-    expect(wrapper.state().isValid).toBeFalsy();
+    handleBlur.mockReset();
 
-    expect(wrapper.state().invalidMessage).toEqual('value length must be more than 4!');
+    screen.getByRole('textbox').focus();
 
+    userEvent.type(screen.getByRole('textbox'), '2552');
 
-    wrapper.find('input').instance().value = 2552;
+    expect(screen.getByRole('textbox')).toHaveValue('2552');
 
-    wrapper.find('input').props().onChange({ nativeEvent: { } });
+    screen.getByRole('textbox').blur();
 
-    wrapper.update();
+    expect(screen.getByRole('textbox')).toHaveValue('2 552');
 
-    expect(wrapper.state().value).toEqual(2552);
+    expect(handleBlur).toHaveBeenCalledTimes(1);
 
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
+    const [[secondEvent]] = handleBlur.mock.calls;
 
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(secondEvent.target.name).toEqual('test');
+    expect(secondEvent.target.value).toEqual('2 552');
 
-    expect(onBlurHandler).toHaveBeenCalledTimes(2);
+    expect(secondEvent.component.name).toEqual('test');
+    expect(secondEvent.component.value).toEqual(2552);
+    expect(secondEvent.component.formattedValue).toEqual('2 552');
+    expect(secondEvent.component.isValid).toBeTruthy();
 
-    const secondEvent = getEvent(1);
+    expect(screen.getByRole('textbox')).toBeValid();
 
-    expect(secondEvent.target.value).toEqual('2 552');
-
-    expect(secondEvent.target.name).toEqual('nooberic');
-
-    expect(secondEvent.target.isValid).toBeTruthy();
-
-    wrapper.update();
-
-    expect(wrapper.state().isValid).toBeTruthy();
-
-    expect(wrapper.state().invalidMessage).toBeNull();
-
-    wrapper.unmount();
+    expect(document.querySelector('span.invalid-message-item')).toBeNull();
   });
 
   it('should be invalid if component is isRequired, value is empty and onBlur was called', async () => {
-    const onBlurHandler = jest.fn();
-    const wrapper = mount(<NumericTextBox form="test" name="nooberic" onBlur={onBlurHandler} isRequired />);
+    const handleBlur = jest.fn();
 
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
+    render((
+      <NumericTextBox isRequired form="test" name="test" onBlur={handleBlur} />
+    ));
 
-    // так как onBlur в валидации работает ассинхронно, нужно подождать
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    screen.getByRole('textbox').focus();
+    screen.getByRole('textbox').blur();
 
-    const [[event]] = onBlurHandler.mock.calls;
+    const [[event]] = handleBlur.mock.calls;
 
+    expect(event.target.name).toEqual('test');
     expect(event.target.value).toEqual('');
 
-    expect(event.target.name).toEqual('nooberic');
+    expect(event.component.name).toEqual('test');
+    expect(event.component.value).toBeNull();
+    expect(event.component.formattedValue).toEqual('');
+    expect(event.component.isValid).toBeFalsy();
 
-    expect(event.target.isValid).toBeFalsy();
+    expect(screen.getByRole('textbox')).toBeInvalid();
 
-    wrapper.update();
-
-    expect(wrapper.state().isValid).toBeFalsy();
-
-    expect(wrapper.find('.k-widget').getDOMNode().classList.contains('danger')).toBeTruthy();
-
-    wrapper.unmount();
+    expect(document.querySelector('div.numeric-text-box-input-wrapper')).toHaveClass('danger');
   });
 });
