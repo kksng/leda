@@ -13,12 +13,11 @@ import {
   createFocusHandler,
   createKeyDownHandler,
   createPasteHandler,
-  createResetHandler,
 } from './handlers';
 import {
   formatInputValue, formatValue, getRestProps, getValue, normalizeValue,
 } from './helpers';
-import { useCustomElements, useSyncedValue } from './hooks';
+import { useCustomElements, useReset, useSyncedValue } from './hooks';
 import { NumericRefCurrent, NumericTextBoxProps, NormalizeParameters } from './types';
 import { DEFAULT_VALUES } from './constants';
 
@@ -46,7 +45,7 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.numericTextBox);
 
-  const [isFocused, setFocused] = React.useState<boolean>(false);
+  const [isFocused, setFocused] = React.useState(false);
 
   const normalizeValueParams: NormalizeParameters = {
     value: defaultValue,
@@ -65,7 +64,7 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
   } = useValidation(props, {
     value,
   }, {
-    reset: createResetHandler({
+    reset: useReset({
       props, setUncontrolledValue, format, thousandsSeparator, value: normalizeValue(normalizeValueParams),
     }),
   });
@@ -128,7 +127,7 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
           ref={inputRef}
           value={getValue(value, inputValue, format, isFocused, thousandsSeparator)}
         />
-        <ArrowButtons className={theme.arrowButtons} onClick={(ev) => ev.stopPropagation()}>
+        <ArrowButtons className={theme.arrowButtons} onClick={(event) => event.stopPropagation()}>
           <Span
             className={theme.arrowUp}
             onClick={handleArrowButtonClick('increase')}
@@ -139,7 +138,11 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
           />
         </ArrowButtons>
       </Div>
-      {!isFocused && !isDisabled && <InvalidMessage />}
+      {
+        !isFocused && !isDisabled && (
+          <InvalidMessage />
+        )
+      }
     </Wrapper>
   );
 }) as React.FC<NumericTextBoxProps>;

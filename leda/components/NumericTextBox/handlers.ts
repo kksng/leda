@@ -10,7 +10,6 @@ import {
   NumericHandlers,
   EnterPressEvent,
   NormalizeParameters,
-  NumericTextBoxProps,
 } from './types';
 
 export const createFocusHandler = (
@@ -22,23 +21,27 @@ export const createFocusHandler = (
   thousandsSeparator: string,
   inputRef: React.MutableRefObject<HTMLInputElement | null>,
   name?: string,
-): NumericHandlers['handleFocus'] => (ev) => {
-  const customEvent = {
-    ...ev,
-    component: {
-      name,
-      value,
-      formattedValue: formatValue(value, format, thousandsSeparator),
-    },
-  };
+): NumericHandlers['handleFocus'] => (event) => {
+  if (onFocus) {
+    const newEvent = {
+      ...event,
+      component: {
+        name,
+        value,
+        formattedValue: formatValue(value, format, thousandsSeparator),
+      },
+    };
 
-  if (isFunction(onFocus)) onFocus(customEvent);
+    onFocus(newEvent);
+  }
 
   setFocused(true);
 
+  // ассинхронная установка выделения
   setTimeout(() => {
-    // ассинхронная установка выделения
-    if (inputRef.current) inputRef.current.setSelectionRange(0, inputValue.length);
+    if (inputRef.current) {
+      inputRef.current.setSelectionRange(0, inputValue.length);
+    }
   }, 0);
 };
 
@@ -55,7 +58,7 @@ export const createBlurHandler = (
   min?: number,
   max?: number,
   name?: string,
-): NumericHandlers['handleBlur'] => (ev) => {
+): NumericHandlers['handleBlur'] => (event) => {
   const normalizeValueParams: NormalizeParameters = {
     value,
     min,
@@ -64,32 +67,37 @@ export const createBlurHandler = (
   };
 
   const newValue = normalizeValue(normalizeValueParams);
+
   const formattedValue = formatValue(newValue, format, thousandsSeparator);
 
-  const customChangeEvent = {
-    ...ev,
-    component: {
-      name,
-      value: newValue,
-      formattedValue,
-    },
-  };
+  if (newValue !== value && isFunction(onChange)) {
+    const newEvent = {
+      ...event,
+      component: {
+        name,
+        value: newValue,
+        formattedValue,
+      },
+    };
 
-  if (newValue !== value && isFunction(onChange)) onChange(customChangeEvent);
+    onChange(newEvent);
+  }
 
   const isValid = validate(newValue);
 
-  const customBlurEvent = {
-    ...ev,
-    component: {
-      name,
-      value: newValue,
-      isValid,
-      formattedValue,
-    },
-  };
+  if (onBlur) {
+    const newEvent = {
+      ...event,
+      component: {
+        name,
+        value: newValue,
+        isValid,
+        formattedValue,
+      },
+    };
 
-  if (isFunction(onBlur)) onBlur(customBlurEvent);
+    onBlur(newEvent);
+  }
 
   setFocused(false);
 
@@ -106,27 +114,29 @@ export const createChangeHandler = (
   format: string,
   thousandsSeparator: string,
   name?: string,
-): NumericHandlers['handleChange'] => (ev) => {
-  const separator = getSeparator(format);
+): NumericHandlers['handleChange'] => (event) => {
+  const separator = getSeparator(format) || '';
 
-  if ((ev.target.value.match(new RegExp(`\\${separator}` || '', 'ig')) || []).length === 2) return;
+  if (separator.length && (event.target.value.match(new RegExp(`\\${separator}`, 'ig'))?.length ?? 0) === 2) return;
 
-  if ((ev.target.value.match(new RegExp('-' || '', 'ig')) || []).length === 2) return;
+  if ((event.target.value.match(new RegExp('-', 'ig'))?.length ?? 0) === 2) return;
 
-  const newValue = extractValue(ev.target.value, format, thousandsSeparator);
+  const newValue = extractValue(event.target.value, format, thousandsSeparator);
 
-  const newInputValue = formatInputValue(ev.target.value, format);
+  const newInputValue = formatInputValue(event.target.value, format);
 
-  const customEvent = {
-    ...ev,
-    component: {
-      name,
-      value: newValue,
-      formattedValue: formatValue(newValue, format, thousandsSeparator),
-    },
-  };
+  if (onChange && newValue !== value) {
+    const customEvent = {
+      ...event,
+      component: {
+        name,
+        value: newValue,
+        formattedValue: formatValue(newValue, format, thousandsSeparator),
+      },
+    };
 
-  if (isFunction(onChange) && newValue !== value) onChange(customEvent);
+    onChange(customEvent);
+  }
 
   setUncontrolledValue(newValue);
 
@@ -143,44 +153,47 @@ export const createKeyDownHandler = (
   thousandsSeparator: string,
   format: string,
   name?: string,
-): NumericHandlers['handleKeyDown'] => (ev) => {
-  if (ev.key === 'Enter' && isFunction(onEnterPress)) {
-    const event = {
-      ...ev,
+): NumericHandlers['handleKeyDown'] => (event) => {
+  if (onEnterPress && event.key === 'Enter') {
+    const newEvent = {
+      ...event,
       component: {
         name,
         value,
       },
     };
-    onEnterPress(event);
+
+    onEnterPress(newEvent);
   }
 
   const sign = (() => {
-    if (ev.key === 'ArrowUp' || ev.key === 'Up') return 1;
-    if (ev.key === 'ArrowDown' || ev.key === 'Down') return -1;
+    if (event.key === 'ArrowUp' || event.key === 'Up') return 1;
+    if (event.key === 'ArrowDown' || event.key === 'Down') return -1;
     return null;
   })();
 
-  if (!sign) return;
+  if (sign === null) return;
 
-  const newValue = (value as number) + (step * sign);
+  const newValue = value as number + step * sign;
 
   const formattedValue = formatValue(newValue, format, thousandsSeparator);
 
   const newInputValue = formatInputValue(formattedValue, format);
 
-  ev.preventDefault();
+  event.preventDefault();
 
-  const customEvent = {
-    ...ev,
-    component: {
-      name,
-      value: newValue,
-      formattedValue,
-    },
-  };
+  if (onChange) {
+    const newEvent = {
+      ...event,
+      component: {
+        name,
+        value: newValue,
+        formattedValue,
+      },
+    };
 
-  if (isFunction(onChange)) onChange(customEvent);
+    onChange(newEvent);
+  }
 
   setUncontrolledValue(newValue);
 
@@ -193,23 +206,25 @@ export const createPasteHandler = (
   format: string,
   thousandsSeparator: string,
   name?: string,
-): NumericHandlers['handlePaste'] => (ev) => {
+): NumericHandlers['handlePaste'] => (event) => {
   const newValue = extractValue(
-    ev.clipboardData.getData('text/plain').replace(/[^\d.,]/g, ''),
+    event.clipboardData.getData('text/plain').replace(/[^\d.,]/g, ''),
     format,
     thousandsSeparator,
   );
 
-  const customEvent = {
-    ...ev,
-    component: {
-      name,
-      value: newValue,
-      formattedValue: formatValue(newValue, format),
-    },
-  };
+  if (onChange) {
+    const newEvent = {
+      ...event,
+      component: {
+        name,
+        value: newValue,
+        formattedValue: formatValue(newValue, format),
+      },
+    };
 
-  if (isFunction(onChange)) onChange(customEvent);
+    onChange(newEvent);
+  }
 
   setUncontrolledValue(newValue);
 };
@@ -228,7 +243,7 @@ export const createArrowButtonClick = (
   min?: number,
   max?: number,
   name?: string,
-): NumericHandlers['handleArrowButtonClick'] => (type) => (ev) => {
+): NumericHandlers['handleArrowButtonClick'] => (type) => (event) => {
   if (isDisabled) return;
 
   const sign = (() => {
@@ -237,7 +252,7 @@ export const createArrowButtonClick = (
     return null;
   })();
 
-  if (!sign) return;
+  if (sign === null) return;
 
   const normalizeValueParams: NormalizeParameters = {
     value,
@@ -254,50 +269,28 @@ export const createArrowButtonClick = (
 
   const newInputValue = formatInputValue(formattedValue, format);
 
-  ev.preventDefault();
+  event.preventDefault();
 
-  const customEvent = {
-    ...ev,
-    component: {
-      name,
-      value: newValue,
-      formattedValue,
-    },
-  };
+  if (onClick) {
+    onClick(event);
+  }
 
-  if (isFunction(onChange)) onChange(customEvent);
+  if (onChange) {
+    const newEvent = {
+      ...event,
+      component: {
+        name,
+        value: newValue,
+        formattedValue,
+      },
+    };
 
-  if (isFunction(onClick)) onClick(ev);
+    onChange(newEvent);
+  }
 
   setUncontrolledValue(newValue);
 
   setInputValue(newInputValue);
 
   validate(newValue);
-};
-
-export const createResetHandler = ({
-  props,
-  setUncontrolledValue,
-  format,
-  thousandsSeparator,
-  value,
-}: {
-  props: NumericTextBoxProps,
-  setUncontrolledValue: SetState<number | null>,
-  format: string,
-  thousandsSeparator: string,
-  value: number | null,
-}) => () => {
-  setUncontrolledValue(value);
-  if (isFunction(props.onChange)) {
-    const customEvent = {
-      component: {
-        formattedValue: formatValue(value, format, thousandsSeparator),
-        name: props.name,
-        value,
-      },
-    };
-    props.onChange(customEvent);
-  }
 };
