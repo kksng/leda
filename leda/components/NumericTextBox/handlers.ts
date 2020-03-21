@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { isFunction } from 'lodash';
 import { CustomEventHandler, SetState } from '../../commonTypes';
 import {
   extractValue, formatInputValue, formatValue, getSeparator, normalizeValue,
 } from './helpers';
 import {
+  BlurEvent,
   FocusEvent,
   ChangeEvent,
   NumericHandlers,
@@ -22,32 +22,26 @@ export const createFocusHandler = (
   inputRef: React.MutableRefObject<HTMLInputElement | null>,
   name?: string,
 ): NumericHandlers['handleFocus'] => (event) => {
-  if (onFocus) {
-    const newEvent = {
-      ...event,
-      component: {
-        name,
-        value,
-        formattedValue: formatValue(value, format, thousandsSeparator),
-      },
-    };
-
-    onFocus(newEvent);
-  }
+  onFocus?.({
+    ...event,
+    component: {
+      name,
+      value,
+      formattedValue: formatValue(value, format, thousandsSeparator),
+    },
+  });
 
   setFocused(true);
 
   // ассинхронная установка выделения
   setTimeout(() => {
-    if (inputRef.current) {
-      inputRef.current.setSelectionRange(0, inputValue.length);
-    }
+    inputRef.current?.setSelectionRange(0, inputValue.length);
   }, 0);
 };
 
 export const createBlurHandler = (
   value: number | null,
-  onBlur: CustomEventHandler<FocusEvent> | undefined,
+  onBlur: CustomEventHandler<BlurEvent> | undefined,
   onChange: CustomEventHandler<ChangeEvent> | undefined,
   setFocused: SetState<boolean>,
   setUncontrolledValue: SetState<number | null>,
@@ -70,34 +64,28 @@ export const createBlurHandler = (
 
   const formattedValue = formatValue(newValue, format, thousandsSeparator);
 
-  if (newValue !== value && isFunction(onChange)) {
-    const newEvent = {
+  if (newValue !== value) {
+    onChange?.({
       ...event,
       component: {
         name,
         value: newValue,
         formattedValue,
       },
-    };
-
-    onChange(newEvent);
+    });
   }
 
   const isValid = validate(newValue);
 
-  if (onBlur) {
-    const newEvent = {
-      ...event,
-      component: {
-        name,
-        value: newValue,
-        isValid,
-        formattedValue,
-      },
-    };
-
-    onBlur(newEvent);
-  }
+  onBlur?.({
+    ...event,
+    component: {
+      name,
+      value: newValue,
+      isValid,
+      formattedValue,
+    },
+  });
 
   setFocused(false);
 
@@ -125,17 +113,15 @@ export const createChangeHandler = (
 
   const newInputValue = formatInputValue(event.target.value, format);
 
-  if (onChange && newValue !== value) {
-    const customEvent = {
+  if (newValue !== value) {
+    onChange?.({
       ...event,
       component: {
         name,
         value: newValue,
         formattedValue: formatValue(newValue, format, thousandsSeparator),
       },
-    };
-
-    onChange(customEvent);
+    });
   }
 
   setUncontrolledValue(newValue);
@@ -154,16 +140,14 @@ export const createKeyDownHandler = (
   format: string,
   name?: string,
 ): NumericHandlers['handleKeyDown'] => (event) => {
-  if (onEnterPress && event.key === 'Enter') {
-    const newEvent = {
+  if (event.key === 'Enter') {
+    onEnterPress?.({
       ...event,
       component: {
         name,
         value,
       },
-    };
-
-    onEnterPress(newEvent);
+    });
   }
 
   const sign = (() => {
@@ -182,18 +166,14 @@ export const createKeyDownHandler = (
 
   event.preventDefault();
 
-  if (onChange) {
-    const newEvent = {
-      ...event,
-      component: {
-        name,
-        value: newValue,
-        formattedValue,
-      },
-    };
-
-    onChange(newEvent);
-  }
+  onChange?.({
+    ...event,
+    component: {
+      name,
+      value: newValue,
+      formattedValue,
+    },
+  });
 
   setUncontrolledValue(newValue);
 
@@ -213,18 +193,14 @@ export const createPasteHandler = (
     thousandsSeparator,
   );
 
-  if (onChange) {
-    const newEvent = {
-      ...event,
-      component: {
-        name,
-        value: newValue,
-        formattedValue: formatValue(newValue, format),
-      },
-    };
-
-    onChange(newEvent);
-  }
+  onChange?.({
+    ...event,
+    component: {
+      name,
+      value: newValue,
+      formattedValue: formatValue(newValue, format),
+    },
+  });
 
   setUncontrolledValue(newValue);
 };
@@ -232,7 +208,7 @@ export const createPasteHandler = (
 export const createArrowButtonClick = (
   value: number | null,
   onChange: CustomEventHandler<ChangeEvent> | undefined,
-  onClick: React.MouseEventHandler| undefined,
+  onClick: React.MouseEventHandler | undefined,
   isDisabled: boolean | undefined,
   setUncontrolledValue: SetState<number | null>,
   setInputValue: SetState<string>,
@@ -271,22 +247,16 @@ export const createArrowButtonClick = (
 
   event.preventDefault();
 
-  if (onClick) {
-    onClick(event);
-  }
+  onClick?.(event);
 
-  if (onChange) {
-    const newEvent = {
-      ...event,
-      component: {
-        name,
-        value: newValue,
-        formattedValue,
-      },
-    };
-
-    onChange(newEvent);
-  }
+  onChange?.({
+    ...event,
+    component: {
+      name,
+      value: newValue,
+      formattedValue,
+    },
+  });
 
   setUncontrolledValue(newValue);
 
