@@ -20,8 +20,8 @@ import { MixedValidation } from './MixedValidation';
 export const Validation = () => (
   <>
     <Story title="Валидация">
-      <FormControlled title="reset controlled" />
       <FormUncontrolled title="reset uncontrolled" />
+      <FormControlled title="reset controlled" />
       <Required title="isRequired" />
       <Form title="form" />
       <Validator title="validator" />
