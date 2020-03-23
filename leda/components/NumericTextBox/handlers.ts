@@ -34,7 +34,7 @@ export const createFocusHandler = (
 
   setFocused(true);
 
-  // ассинхронная установка выделения
+  // асинхронная установка выделения
   setTimeout(() => {
     inputRef.current?.setSelectionRange(0, inputValue.length);
   }, 0);
