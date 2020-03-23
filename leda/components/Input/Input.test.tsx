@@ -11,7 +11,7 @@ describe('Input SNAPSHOTS', () => {
       <Input onChange={jest.fn()} />
     ));
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 
   it('should render value in controllable mode', () => {
@@ -21,7 +21,7 @@ describe('Input SNAPSHOTS', () => {
 
     expect(screen.getByRole('textbox')).toHaveValue('test value');
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
 
     wrapper.rerender((
       <Input onChange={jest.fn()} value="new test value" />
@@ -29,7 +29,7 @@ describe('Input SNAPSHOTS', () => {
 
     expect(screen.getByRole('textbox')).toHaveValue('new test value');
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 
   describe('should render different component states', () => {
@@ -40,7 +40,7 @@ describe('Input SNAPSHOTS', () => {
 
       expect(screen.getByRole('textbox')).toBeDisabled();
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.container).toMatchSnapshot();
     });
   });
 });
