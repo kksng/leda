@@ -89,7 +89,7 @@
     "mkdirp": "1.0.3",
     "ncp": "2.0.0",
     "node-sass": "4.13.1",
-    "react": "16.13.0",
+    "react": "16.13.1",
     "react-dom": "16.12.0",
     "react-hot-loader": "4.12.19",
     "react-router-dom": "5.1.2",
