@@ -212,5 +212,5 @@ export const formatInputValue = (formattedValue: string, format: string): string
   // значение без лишних символов "1 200.05 Руб." -> "1200.05"
   const clearValue = formattedValue.replace(new RegExp(`[^-\\d${separator}]`, 'g'), '');
 
-  return clearValue.match(new RegExp(`^-?(\\d+(${separator}\\d*)?)?`))?.[0] ?? '';
+  return clearValue.match(new RegExp(`^-?\\d*(${separator}\\d*)?`))?.[0] ?? '';
 };
