@@ -10,14 +10,10 @@ export const useReset = (
 
   setValue(newValue);
 
-  if (props.onChange) {
-    const newEvent = {
-      component: {
-        name: props.name,
-        value: newValue,
-      },
-    };
-
-    props.onChange(newEvent);
-  }
+  props.onChange?.({
+    component: {
+      name: props.name,
+      value: newValue,
+    },
+  });
 }, [props, setValue]);
