@@ -16,7 +16,7 @@ export const createChangeHandler = (
 
   const newValue = props.letterCase ? transformToCase(event.target.value, props.letterCase) : event.target.value;
 
-  if (props.value == null) {
+  if (props.value === undefined) {
     setValue(newValue);
   }
 
@@ -47,7 +47,7 @@ export const createClearHandler = (
     },
   };
 
-  if (props.value == null) {
+  if (props.value === undefined) {
     setValue('');
   }
 
