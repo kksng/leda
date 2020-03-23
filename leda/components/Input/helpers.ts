@@ -3,12 +3,12 @@ import { predefinedAllowedSymbols, predefinedForbiddenSymbols } from './constant
 import { InputProps } from './types';
 
 export const isSymbolAllowed = (value: string, allowedSymbols?: keyof typeof predefinedAllowedSymbols | RegExp): boolean => {
-  if (allowedSymbols == null || value.length === 0) return true;
+  if (!allowedSymbols || value.length === 0) return true;
 
   if (isString(allowedSymbols)) {
     const predefinedRegExp = predefinedAllowedSymbols[allowedSymbols];
 
-    if (predefinedRegExp == null) throw new Error(`L.Input: no such predefined allowedSymbols - "${allowedSymbols}"!`);
+    if (!predefinedRegExp) throw new Error(`L.Input: no such predefined allowedSymbols - "${allowedSymbols}"!`);
 
     return [...value].every((symbol) => predefinedRegExp.test(symbol));
   }
@@ -23,12 +23,12 @@ export const isSymbolAllowed = (value: string, allowedSymbols?: keyof typeof pre
 };
 
 export const isSymbolForbidden = (value: string, forbiddenSymbols?: keyof typeof predefinedForbiddenSymbols | RegExp): boolean => {
-  if (forbiddenSymbols == null || value.length === 0) return false;
+  if (!forbiddenSymbols || value.length === 0) return false;
 
   if (isString(forbiddenSymbols)) {
     const predefinedRegExp = predefinedForbiddenSymbols[forbiddenSymbols];
 
-    if (predefinedRegExp == null) throw new Error(`L.Input: no such predefined forbiddenSymbols - "${forbiddenSymbols}"!`);
+    if (!predefinedRegExp) throw new Error(`L.Input: no such predefined forbiddenSymbols - "${forbiddenSymbols}"!`);
 
     return [...value].some((symbol) => predefinedRegExp.test(symbol));
   }
