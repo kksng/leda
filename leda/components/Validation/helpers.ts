@@ -10,6 +10,7 @@ import {
   Validator,
   ValidatorObject,
 } from './types';
+import { validateRequired } from '../../form/helpers';
 
 export const getForms = (formName?: string | string[]): Form[] => {
   // @ts-ignore
@@ -49,26 +50,6 @@ export const getField = (formName?: string, fieldName?: string): Field | undefin
   return currentField;
 };
 
-export const requiredValidator: Validator = (value) => {
-  if (value == null) {
-    return false;
-  }
-
-  if (isString(value) && value.length === 0) {
-    return false;
-  }
-
-  if (value.acceptedFiles && value.acceptedFiles.length === 0) { // DropZone value
-    return false;
-  }
-
-  if (value.errorCode && value.errorCode !== 0) { // FileDrop rejected file
-    return false;
-  }
-
-  return true;
-};
-
 export const validate = (formName: string | undefined, fieldName?: string, externalValue?: unknown): boolean => {
   const forms: Form[] = getForms();
 
@@ -91,11 +72,11 @@ export const validate = (formName: string | undefined, fieldName?: string, exter
   const value = externalValue === undefined ? currentField.value : externalValue;
 
   // не проверяем валидаторы если поле обязательное и пустое
-  if (currentField.isRequired && !requiredValidator(value)) {
+  if (currentField.isRequired && !validateRequired(value)) {
     isValid = false;
 
     if (currentField.requiredMessage) invalidMessages.push(currentField.requiredMessage);
-  } else if (requiredValidator(value)) {
+  } else if (validateRequired(value)) {
     currentField.validators.forEach((validator) => {
       // если валидатор имеет вид { validator, invalidMessage } - извлекаем сообщение об ошибке
       if (isObject(validator) && 'validator' in validator) {
