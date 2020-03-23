@@ -12,9 +12,9 @@ import {
   createClearHandler,
   createFocusHandler,
   createKeyDownHandler,
+  createResetHandler,
 } from './handlers';
 import { getValue } from './helpers';
-import { useReset } from './hooks';
 
 export const Input = React.forwardRef((props: InputProps, ref: React.Ref<InputRefCurrent>): React.ReactElement => {
   const {
@@ -58,7 +58,7 @@ export const Input = React.forwardRef((props: InputProps, ref: React.Ref<InputRe
   } = useValidation(props, {
     value,
   }, {
-    reset: useReset(props, setValue),
+    reset: createResetHandler(props, setValue),
   });
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.input);

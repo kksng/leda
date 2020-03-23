@@ -96,3 +96,19 @@ export const createKeyDownHandler = (
     });
   }
 };
+
+export const createResetHandler = (
+  props: InputProps,
+  setValue: SetState<string>,
+) => React.useCallback(() => {
+  const newValue = props.defaultValue || '';
+
+  setValue(newValue);
+
+  props.onChange?.({
+    component: {
+      name: props.name,
+      value: newValue,
+    },
+  });
+}, [props, setValue]);
