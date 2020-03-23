@@ -4,7 +4,6 @@ import {
 import { PREDEFINED_VALIDATORS } from '../components/Validation/predefinedValidators';
 import * as Types from './types';
 
-
 export const validateRequired = (value?: null | number | string | any[] | {
   [key: string]: any,
 }): boolean => {
@@ -12,20 +11,16 @@ export const validateRequired = (value?: null | number | string | any[] | {
     return false;
   }
 
-  if (isString(value)) {
-    return value.length !== 0;
-  }
-
-  if (isArray(value)) {
-    return value.length !== 0;
-  }
-
   if (isNumber(value)) {
     return true;
   }
 
+  if (isString(value) || isArray(value)) {
+    return value.length !== 0;
+  }
+
   // DropZone value
-  if (value.acceptedFiles as number && value.acceptedFiles?.length === 0) {
+  if (value.acceptedFiles && value.acceptedFiles?.length === 0) {
     return false;
   }
 
