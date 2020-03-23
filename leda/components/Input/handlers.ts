@@ -19,17 +19,13 @@ export const createChangeHandler = (
     setValue(newValue);
   }
 
-  if (props.onChange) {
-    const newEvent = {
-      ...event,
-      component: {
-        value: newValue,
-        name: props.name,
-      },
-    };
-
-    props.onChange(newEvent);
-  }
+  props.onChange?.({
+    ...event,
+    component: {
+      value: newValue,
+      name: props.name,
+    },
+  });
 };
 
 export const createClearHandler = (
@@ -38,21 +34,17 @@ export const createClearHandler = (
 ): CustomEventHandler<React.MouseEvent<HTMLInputElement>> => (event) => {
   event.preventDefault();
 
-  const newEvent = {
+  if (props.value === undefined) {
+    setValue('');
+  }
+
+  props.onChange?.({
     ...event,
     component: {
       value: '',
       name: props.name,
     },
-  };
-
-  if (props.value === undefined) {
-    setValue('');
-  }
-
-  if (props.onChange) {
-    props.onChange(newEvent);
-  }
+  });
 };
 
 export const createBlurHandler = (
@@ -64,18 +56,14 @@ export const createBlurHandler = (
 
   const newValid = validate();
 
-  if (props.onBlur) {
-    const newEvent = {
-      ...event,
-      component: {
-        value: event.target.value,
-        name: props.name,
-        isValid: newValid,
-      },
-    };
-
-    props.onBlur(newEvent);
-  }
+  props.onBlur?.({
+    ...event,
+    component: {
+      value: event.target.value,
+      name: props.name,
+      isValid: newValid,
+    },
+  });
 };
 
 export const createFocusHandler = (
@@ -85,32 +73,26 @@ export const createFocusHandler = (
 ): React.FocusEventHandler<HTMLInputElement> => (event) => {
   setFocused(true);
 
-  if (props.onFocus) {
-    const newEvent = {
-      ...event,
-      component: {
-        value: event.target.value,
-        name: props.name,
-        isValid,
-      },
-    };
-
-    props.onFocus(newEvent);
-  }
+  props.onFocus?.({
+    ...event,
+    component: {
+      value: event.target.value,
+      name: props.name,
+      isValid,
+    },
+  });
 };
 
 export const createKeyDownHandler = (
   props: InputProps,
 ): React.KeyboardEventHandler<HTMLInputElement> => (event) => {
-  if (props.onEnterPress && event.key === 'Enter') {
-    const newEvent = {
+  if (event.key === 'Enter') {
+    props.onEnterPress?.({
       ...event,
       component: {
         value: event.currentTarget.value,
         name: props.name,
       },
-    };
-
-    props.onEnterPress(newEvent);
+    });
   }
 };
