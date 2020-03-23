@@ -100,7 +100,7 @@ export const createKeyDownHandler = (
 export const createResetHandler = (
   props: InputProps,
   setValue: SetState<string>,
-) => React.useCallback(() => {
+) => () => {
   const newValue = props.defaultValue || '';
 
   setValue(newValue);
@@ -111,4 +111,4 @@ export const createResetHandler = (
       value: newValue,
     },
   });
-}, [props, setValue]);
+};
