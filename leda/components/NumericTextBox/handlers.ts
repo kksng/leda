@@ -10,6 +10,7 @@ import {
   NumericHandlers,
   EnterPressEvent,
   NormalizeParameters,
+  NumericTextBoxProps,
 } from './types';
 
 export const createFocusHandler = (
@@ -263,4 +264,28 @@ export const createArrowButtonClick = (
   setInputValue(newInputValue);
 
   validate(newValue);
+};
+
+export const createResetHandler = ({
+  props,
+  setUncontrolledValue,
+  format,
+  thousandsSeparator,
+  value,
+}: {
+  props: NumericTextBoxProps,
+  setUncontrolledValue: SetState<number | null>,
+  format: string,
+  thousandsSeparator: string,
+  value: number | null,
+}) => () => {
+  setUncontrolledValue(value);
+
+  props.onChange?.({
+    component: {
+      formattedValue: formatValue(value, format, thousandsSeparator),
+      name: props.name,
+      value,
+    },
+  });
 };

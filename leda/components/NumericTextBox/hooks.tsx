@@ -57,31 +57,3 @@ export const useSyncedValue = (value: NumericTextBoxProps['value'], isFocused: b
     }
   }, [format, isFocused, setInputValue, thousandsSeparator, value]);
 };
-
-export const useReset = ({
-  props,
-  setUncontrolledValue,
-  format,
-  thousandsSeparator,
-  value,
-}: {
-  props: NumericTextBoxProps,
-  setUncontrolledValue: SetState<number | null>,
-  format: string,
-  thousandsSeparator: string,
-  value: number | null,
-}) => () => {
-  setUncontrolledValue(value);
-
-  if (props.onChange) {
-    const newEvent = {
-      component: {
-        formattedValue: formatValue(value, format, thousandsSeparator),
-        name: props.name,
-        value,
-      },
-    };
-
-    props.onChange(newEvent);
-  }
-};

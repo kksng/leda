@@ -13,11 +13,12 @@ import {
   createFocusHandler,
   createKeyDownHandler,
   createPasteHandler,
+  createResetHandler,
 } from './handlers';
 import {
   formatInputValue, formatValue, getRestProps, getValue, normalizeValue,
 } from './helpers';
-import { useCustomElements, useReset, useSyncedValue } from './hooks';
+import { useCustomElements, useSyncedValue } from './hooks';
 import { NumericRefCurrent, NumericTextBoxProps, NormalizeParameters } from './types';
 import { DEFAULT_VALUES } from './constants';
 
@@ -64,7 +65,7 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
   } = useValidation(props, {
     value,
   }, {
-    reset: useReset({
+    reset: createResetHandler({
       props, setUncontrolledValue, format, thousandsSeparator, value: normalizeValue(normalizeValueParams),
     }),
   });
