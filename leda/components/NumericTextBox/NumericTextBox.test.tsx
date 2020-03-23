@@ -13,7 +13,7 @@ describe('NumericTextBox SNAPSHOTS', () => {
       <NumericTextBox />
     ));
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 
   describe('controllable mode', () => {
@@ -24,7 +24,7 @@ describe('NumericTextBox SNAPSHOTS', () => {
 
       expect(screen.getByRole('textbox')).toHaveValue('0,24 %');
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.container).toMatchSnapshot();
 
       wrapper.rerender((
         <NumericTextBox format="#,#### ₽" value={0.235813} />
@@ -33,7 +33,7 @@ describe('NumericTextBox SNAPSHOTS', () => {
       // todo fix precision
       expect(screen.getByRole('textbox')).toHaveValue('0,2359 ₽');
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.container).toMatchSnapshot();
     });
 
     it('should render min', () => {
@@ -54,7 +54,7 @@ describe('NumericTextBox SNAPSHOTS', () => {
 
       expect(screen.getByRole('textbox')).toHaveValue('-2');
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.container).toMatchSnapshot();
 
       wrapper.rerender((
         <NumericTextBox format="#,#" min={-6.2} />
@@ -72,7 +72,7 @@ describe('NumericTextBox SNAPSHOTS', () => {
 
       expect(screen.getByRole('textbox')).toHaveValue('-6,2');
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.container).toMatchSnapshot();
     });
 
     it('should render max', () => {
@@ -93,7 +93,7 @@ describe('NumericTextBox SNAPSHOTS', () => {
 
       expect(screen.getByRole('textbox')).toHaveValue('7,3');
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.container).toMatchSnapshot();
 
       wrapper.rerender((
         <NumericTextBox format="#,#" max={10.4} />
@@ -128,7 +128,7 @@ describe('NumericTextBox SNAPSHOTS', () => {
 
       expect(screen.getByRole('textbox')).toHaveValue('2');
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.container).toMatchSnapshot();
 
       wrapper.rerender((
         <NumericTextBox min={0} step={0.1} format="#,#" />
@@ -144,7 +144,7 @@ describe('NumericTextBox SNAPSHOTS', () => {
 
       expect(screen.getByRole('textbox')).toHaveValue('1,9');
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.container).toMatchSnapshot();
     });
 
     it('should render value', () => {
@@ -154,7 +154,7 @@ describe('NumericTextBox SNAPSHOTS', () => {
 
       expect(screen.getByRole('textbox')).toHaveValue('0,24 %');
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.container).toMatchSnapshot();
 
       wrapper.rerender((
         <NumericTextBox format="#,## %" value={0.687421} />
@@ -162,7 +162,7 @@ describe('NumericTextBox SNAPSHOTS', () => {
 
       expect(screen.getByRole('textbox')).toHaveValue('0,69 %');
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.container).toMatchSnapshot();
     });
   });
 
@@ -185,7 +185,7 @@ describe('NumericTextBox SNAPSHOTS', () => {
 
       expect(screen.getByRole('textbox')).toHaveValue('0');
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.container).toMatchSnapshot();
 
       wrapper.unmount();
     });
@@ -199,7 +199,7 @@ describe('NumericTextBox SNAPSHOTS', () => {
 
       expect(screen.getByRole('textbox')).toHaveAttribute('placeholder', placeholder);
 
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.container).toMatchSnapshot();
     });
   });
 });
