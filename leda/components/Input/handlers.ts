@@ -7,12 +7,11 @@ export const createChangeHandler = (
   props: InputProps,
   setValue: SetState<string>,
 ): CustomEventHandler<React.ChangeEvent<HTMLInputElement>> => (event) => {
-  if ((props.maxLength && props.maxLength < event.target.value.length)
-    || isSymbolForbidden(event.target.value, props.forbiddenSymbols)
-    || !isSymbolAllowed(event.target.value, props.allowedSymbols)
-  ) {
-    return;
-  }
+  if (props.maxLength && props.maxLength < event.target.value.length) return;
+
+  if (isSymbolForbidden(event.target.value, props.forbiddenSymbols)) return;
+
+  if (!isSymbolAllowed(event.target.value, props.allowedSymbols)) return;
 
   const newValue = props.letterCase ? transformToCase(event.target.value, props.letterCase) : event.target.value;
 
