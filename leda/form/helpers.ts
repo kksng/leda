@@ -1,5 +1,5 @@
 import {
-  isArray, isFunction, isString, isNumber, isRegExp,
+  isArray, isFunction, isNumber, isRegExp, isString,
 } from 'lodash';
 import { PREDEFINED_VALIDATORS } from '../components/Validation/predefinedValidators';
 import * as Types from './types';
