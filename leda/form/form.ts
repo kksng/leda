@@ -9,7 +9,7 @@ const validate = (
   const unifiedValidatorWrappers = ((): Types.ValidatorWrapper[] => {
     if (field.isRequired) {
       return [{
-        validator: (value: any): boolean => value != null && value.length,
+        validator: helpers.validateRequired,
         invalidMessage: field.requiredMessage,
       }];
     }

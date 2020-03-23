@@ -1,8 +1,41 @@
 import {
-  isFunction, isString, isRegExp,
+  isArray, isFunction, isString, isNumber, isRegExp,
 } from 'lodash';
 import { PREDEFINED_VALIDATORS } from '../components/Validation/predefinedValidators';
 import * as Types from './types';
+
+
+export const validateRequired = (value?: null | number | string | any[] | {
+  [key: string]: any,
+}): boolean => {
+  if (value == null) {
+    return false;
+  }
+
+  if (isString(value)) {
+    return value.length !== 0;
+  }
+
+  if (isArray(value)) {
+    return value.length !== 0;
+  }
+
+  if (isNumber(value)) {
+    return true;
+  }
+
+  // DropZone value
+  if (value.acceptedFiles as number && value.acceptedFiles?.length === 0) {
+    return false;
+  }
+
+  // FileDrop rejected file
+  if (value.errorCode && value.errorCode !== 0) {
+    return false;
+  }
+
+  return true;
+};
 
 export const getForm = (name: string): Types.Form | undefined => {
   // @ts-ignore
