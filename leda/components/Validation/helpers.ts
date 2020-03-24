@@ -71,7 +71,7 @@ export const validate = (formName: string | undefined, fieldName?: string, exter
 
   const value = externalValue === undefined ? currentField.value : externalValue;
 
-  // проходим валидаторы если значение заполнено
+  // проходим валидаторы если поле заполнено
   if (checkIsFilled(value)) {
     currentField.validators.forEach((validator) => {
       // если валидатор имеет вид { validator, invalidMessage } - извлекаем сообщение об ошибке
