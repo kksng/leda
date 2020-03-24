@@ -73,7 +73,7 @@ export const validate = (formName: string | undefined, fieldName?: string, exter
 
   const isFilled = checkIsFilled(value);
 
-  // проходим валидаторы если поле заполнено
+  // не проходим валидаторы если поле заполнено и пустое
   if (currentField.isRequired && !isFilled) {
     isValid = false;
 
