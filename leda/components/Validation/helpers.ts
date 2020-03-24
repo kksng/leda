@@ -71,8 +71,14 @@ export const validate = (formName: string | undefined, fieldName?: string, exter
 
   const value = externalValue === undefined ? currentField.value : externalValue;
 
+  const isFilled = checkIsFilled(value);
+
   // проходим валидаторы если поле заполнено
-  if (checkIsFilled(value)) {
+  if (currentField.isRequired && !isFilled) {
+    isValid = false;
+
+    if (currentField.requiredMessage) invalidMessages.push(currentField.requiredMessage);
+  } else if (isFilled) {
     currentField.validators.forEach((validator) => {
       // если валидатор имеет вид { validator, invalidMessage } - извлекаем сообщение об ошибке
       if (isObject(validator) && 'validator' in validator) {
@@ -85,10 +91,6 @@ export const validate = (formName: string | undefined, fieldName?: string, exter
         }
       }
     });
-  } else if (currentField.isRequired) {
-    isValid = false;
-
-    if (currentField.requiredMessage) invalidMessages.push(currentField.requiredMessage);
   }
 
   const newForms = [...forms.map((form: Form): Form => {
