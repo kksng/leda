@@ -1,26 +1,20 @@
 import {
-  isArray, isFunction, isNumber, isRegExp, isString,
+  isArrayLike, isFunction, isRegExp, isString,
 } from 'lodash';
 import { PREDEFINED_VALIDATORS } from '../components/Validation/predefinedValidators';
 import * as Types from './types';
 
-export const validateRequired = (value?: null | number | string | any[] | {
-  [key: string]: any,
-}): boolean => {
+export const checkIsFilled = (value: any): boolean => {
   if (value == null) {
     return false;
   }
 
-  if (isNumber(value)) {
-    return true;
-  }
-
-  if (isString(value) || isArray(value)) {
+  if (isArrayLike(value)) {
     return value.length !== 0;
   }
 
   // DropZone value
-  if (value.acceptedFiles && value.acceptedFiles?.length === 0) {
+  if (value.acceptedFiles && value.acceptedFiles.length === 0) {
     return false;
   }
 

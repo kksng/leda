@@ -10,7 +10,7 @@ import {
   Validator,
   ValidatorObject,
 } from './types';
-import { validateRequired } from '../../form/helpers';
+import { checkIsFilled } from '../../form/helpers';
 
 export const getForms = (formName?: string | string[]): Form[] => {
   // @ts-ignore
@@ -71,12 +71,8 @@ export const validate = (formName: string | undefined, fieldName?: string, exter
 
   const value = externalValue === undefined ? currentField.value : externalValue;
 
-  // не проверяем валидаторы если поле обязательное и пустое
-  if (currentField.isRequired && !validateRequired(value)) {
-    isValid = false;
-
-    if (currentField.requiredMessage) invalidMessages.push(currentField.requiredMessage);
-  } else if (validateRequired(value)) {
+  // проходим валидаторы если значение заполнено
+  if (checkIsFilled(value)) {
     currentField.validators.forEach((validator) => {
       // если валидатор имеет вид { validator, invalidMessage } - извлекаем сообщение об ошибке
       if (isObject(validator) && 'validator' in validator) {
@@ -89,6 +85,10 @@ export const validate = (formName: string | undefined, fieldName?: string, exter
         }
       }
     });
+  } else if (currentField.isRequired) {
+    isValid = false;
+
+    if (currentField.requiredMessage) invalidMessages.push(currentField.requiredMessage);
   }
 
   const newForms = [...forms.map((form: Form): Form => {
