@@ -21,8 +21,11 @@ import {
 import { useCustomElements, useSyncedValue } from './hooks';
 import { NumericRefCurrent, NumericTextBoxProps, NormalizeParameters } from './types';
 import { DEFAULT_VALUES } from './constants';
+import { LedaContext } from '../LedaProvider';
 
 export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref: React.Ref<NumericRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     className,
     defaultValue = null,
@@ -42,7 +45,7 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
     theme: themeProp,
     thousandsSeparator = ' ',
     value: valueProp,
-  } = mergeClassNames<NumericTextBoxProps>(props);
+  } = mergeClassNames<NumericTextBoxProps>(props, { underscoreClassesTransform });
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.numericTextBox);
 
@@ -112,7 +115,7 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
         onClick={() => (inputRef.current ? inputRef.current.focus() : null)}
       >
         <Input
-          {...getRestProps(mergeClassNames(props))}
+          {...getRestProps(mergeClassNames(props, { underscoreClassesTransform }))}
           aria-invalid={!isValid}
           aria-required={isRequired}
           className={theme.input}

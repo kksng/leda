@@ -10,6 +10,8 @@ import { DivRefCurrent } from '../Div';
 import { Ul } from '../Ul';
 
 export const DropDown = React.forwardRef((props: DropDownProps, ref?: React.Ref<DropDownRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     boundingContainerRef,
     children,
@@ -18,7 +20,7 @@ export const DropDown = React.forwardRef((props: DropDownProps, ref?: React.Ref<
     theme: themeProp,
     wrapperRender,
     ...restProps
-  } = mergeClassNames(props);
+  } = mergeClassNames(props, { underscoreClassesTransform });
 
   const [isOpenState, setIsOpen] = React.useState(false);
 

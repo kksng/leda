@@ -14,8 +14,11 @@ import {
   createChangeHandler, createEnterPressHandler, handleErrors,
 } from './handlers';
 import { DateTimeInputRangeProps, DateTimeInputRangeRefCurrent, DateTimeInputRangeState } from './types';
+import { LedaContext } from '../../components/LedaProvider';
 
 export const DateTimeInputRange = React.forwardRef((props: DateTimeInputRangeProps, ref: React.Ref<DateTimeInputRangeRefCurrent>) => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     boundingContainerRef,
     calendarHeaderRender,
@@ -49,7 +52,7 @@ export const DateTimeInputRange = React.forwardRef((props: DateTimeInputRangePro
     yearViewRender,
     calendarWrapperRender,
     ...restProps
-  } = mergeClassNames(props);
+  } = mergeClassNames(props, { underscoreClassesTransform });
 
   handleErrors(props);
 

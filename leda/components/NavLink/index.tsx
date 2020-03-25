@@ -9,8 +9,11 @@ import {
 } from '../../utils';
 import { getLocationPath } from './helpers';
 import { NavLinkProps, NavLinkRefCurrent } from './types';
+import { LedaContext } from '../LedaProvider';
 
 export const NavLink = React.forwardRef((props: NavLinkProps, ref?: React.Ref<NavLinkRefCurrent>): React.ReactElement | null => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     activeClassName = 'active',
     children,
@@ -25,7 +28,7 @@ export const NavLink = React.forwardRef((props: NavLinkProps, ref?: React.Ref<Na
     location = getLocationPath(),
     target,
     href,
-  } = mergeClassNames(props);
+  } = mergeClassNames(props, { underscoreClassesTransform });
 
   // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
   const path = href && href.replace(/([.+*?=^!:${}()[\]|/\\])/g, '\\$1');
@@ -66,7 +69,7 @@ export const NavLink = React.forwardRef((props: NavLinkProps, ref?: React.Ref<Na
 
         return (
           <Li
-            _level1
+            _level-1
             _dropdown={!!dropDownRender}
             className={listItemClassNames}
             ref={ref && ((component) => bindFunctionalRef(component, ref, component && {

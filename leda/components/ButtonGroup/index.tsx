@@ -13,8 +13,11 @@ import {
 } from './types';
 import { useValidation } from '../Validation';
 import { SomeObject } from '../../commonTypes';
+import { LedaContext } from '../LedaProvider';
 
 export const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: React.Ref<ButtonGroupRefCurrent>): React.ReactElement | null => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     activeIndex,
     buttonRender,
@@ -38,7 +41,7 @@ export const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: Reac
     form,
     validator,
     ...restProps
-  } = mergeClassNames<ButtonGroupProps>(props);
+  } = mergeClassNames<ButtonGroupProps>(props, { underscoreClassesTransform });
 
   const [value, setUncontrolledValue] = useValue(valueProp, defaultValue);
 

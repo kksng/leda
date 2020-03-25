@@ -8,15 +8,18 @@ import { useStickyPanelEffect } from './hooks';
 import {
   StickyPanelProps, StickyPanelRefCurrent, StickyPanelPosition, StickyPanelStyles,
 } from './types';
+import { LedaContext } from '../LedaProvider';
 
 export const StickyPanel = React.forwardRef((props: StickyPanelProps, ref?: React.Ref<StickyPanelRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     theme: themeProp,
     children,
     offsetTop = 0,
     className,
     ...restProps
-  } = mergeClassNames(props);
+  } = mergeClassNames(props, { underscoreClassesTransform });
 
   const panelRef = React.useRef<HTMLDivElement | null>(null);
 

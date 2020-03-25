@@ -12,13 +12,15 @@ import { LedaContext } from '../LedaProvider';
 import { TagsProps, TagsRefCurrent } from './types';
 
 export const Tags = React.forwardRef((props: TagsProps, ref?: React.Ref<TagsRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     children,
     className,
     wrapperRender,
     theme: themeProp,
     ...restProps
-  } = mergeClassNames(props);
+  } = mergeClassNames(props, { underscoreClassesTransform });
 
   const { renders: { [COMPONENTS_NAMESPACES.tags]: tagsRenders } } = React.useContext(LedaContext);
 

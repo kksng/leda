@@ -6,8 +6,11 @@ import {
 import { RatingProps, RatingRefCurrent } from './types';
 import { createChangeHandler, createMouseOutHandler, createMouseOverHandler } from './handlers';
 import { Span } from '../Span';
+import { LedaContext } from '../LedaProvider';
 
 export const Rating = React.forwardRef((props: RatingProps, ref?: React.Ref<RatingRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     max = 5,
     iconRender,
@@ -18,7 +21,7 @@ export const Rating = React.forwardRef((props: RatingProps, ref?: React.Ref<Rati
     onClick,
     theme: themeProp,
     ...restProps
-  } = mergeClassNames<RatingProps>(props);
+  } = mergeClassNames<RatingProps>(props, { underscoreClassesTransform });
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.rating);
 

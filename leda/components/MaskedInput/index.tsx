@@ -11,8 +11,11 @@ import {
 } from './handlers';
 import { useCustomElements } from './hooks';
 import { getValue, getValueToValidate } from './helpers';
+import { LedaContext } from '../LedaProvider';
 
 export const MaskedInput = React.forwardRef((props: MaskedInputProps, ref: React.Ref<MaskedInputRefCurrent>) => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     className,
     defaultValue,
@@ -39,7 +42,7 @@ export const MaskedInput = React.forwardRef((props: MaskedInputProps, ref: React
     validator,
     value: valueProp,
     ...restProps
-  } = mergeClassNames(props);
+  } = mergeClassNames(props, { underscoreClassesTransform });
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.maskedInput);
 

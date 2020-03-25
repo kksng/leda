@@ -7,6 +7,8 @@ import { Div } from '../Div';
 import {
   DropZoneError, DropZoneFileType, DropZoneProps, DropZoneState, FileType, ExternalFile,
 } from './types';
+import { LedaContext } from '../LedaProvider';
+import { UnderscoreClasses } from '../LedaProvider/underscoreClasses';
 
 export const compareFiles = (firstFile: DropZoneFileType, secondFile: DropZoneFileType): boolean => {
   if (firstFile.size !== secondFile.size) return false;
@@ -119,7 +121,7 @@ export const checkFiles = (
   return [acceptedFiles, rejectedFiles];
 };
 
-export const getRestProps = (props: DropZoneProps): {} => {
+export const getRestProps = (props: DropZoneProps, underscoreClassesTransform: UnderscoreClasses): {} => {
   const {
     acceptedFilesRender,
     allowedFiles,
@@ -148,7 +150,7 @@ export const getRestProps = (props: DropZoneProps): {} => {
     validator,
     wrapperRender,
     ...restProps
-  } = mergeClassNames(props);
+  } = mergeClassNames(props, { underscoreClassesTransform });
 
   return restProps;
 };
@@ -158,7 +160,7 @@ export const DescriptionMessage = (props: { children: string }): React.ReactElem
 
   const shouldWrapMessage = isString(message) && message.length;
 
-  return (shouldWrapMessage ? <Div _blockInline>{message}</Div> : message) as React.ReactElement;
+  return (shouldWrapMessage ? <Div _block-inline>{message}</Div> : message) as React.ReactElement;
 };
 
 const getError = (file: DropZoneFileType | ExternalFile): DropZoneError => (ERROR_MESSAGES.find(

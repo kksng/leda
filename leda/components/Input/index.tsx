@@ -15,8 +15,11 @@ import {
   createResetHandler,
 } from './handlers';
 import { getValue } from './helpers';
+import { LedaContext } from '../LedaProvider';
 
 export const Input = React.forwardRef((props: InputProps, ref: React.Ref<InputRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     className,
     defaultValue,
@@ -45,7 +48,7 @@ export const Input = React.forwardRef((props: InputProps, ref: React.Ref<InputRe
     wrapperRender,
     invalidMessageRender,
     ...restProps
-  } = mergeClassNames<InputProps>(props);
+  } = mergeClassNames<InputProps>(props, { underscoreClassesTransform });
 
   const [isFocused, setFocused] = React.useState(false);
 

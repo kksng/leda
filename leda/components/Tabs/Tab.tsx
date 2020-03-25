@@ -5,15 +5,18 @@ import {
 import { Li, LiProps } from '../Li';
 import { TabsContext } from './TabsContext';
 import { TabProps, TabRefCurrent } from './types';
+import { LedaContext } from '../LedaProvider';
 
 export const Tab = React.forwardRef((props: TabProps, ref: React.Ref<TabRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     onTabSelect, activeTabKey, theme: parentTheme, tabRender: parentTabRender,
   } = React.useContext(TabsContext);
 
   const {
     isDisabled, tabKey, title, className, style, theme: themeProp, tabRender: childTabRender,
-  } = mergeClassNames<TabProps>(props);
+  } = mergeClassNames<TabProps>(props, { underscoreClassesTransform });
 
   const tabRender = childTabRender ?? parentTabRender;
 

@@ -13,8 +13,11 @@ import {
 } from './types';
 import { DataObject } from '../../commonTypes';
 import { DivRefCurrent } from '../Div';
+import { LedaContext } from '../LedaProvider';
 
 export const DropDownLink = React.forwardRef((props: DropDownLinkProps, ref?: React.Ref<DropDownLinkRefCurrent>): React.ReactElement | null => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     data,
     itemRender,
@@ -26,7 +29,7 @@ export const DropDownLink = React.forwardRef((props: DropDownLinkProps, ref?: Re
     value = '',
     isOpen: isOpenProp,
     ...restProps
-  } = mergeClassNames(props);
+  } = mergeClassNames(props, { underscoreClassesTransform });
 
   const Title = useElement<DropDownLinkProps, {}, TitleProps>(
     'Title',

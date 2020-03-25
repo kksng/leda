@@ -10,8 +10,11 @@ import {
 import { createClickHandler } from './handlers';
 import { VStepperItemProps } from './types';
 import { useCustomElements } from './hooks';
+import { LedaContext } from '../LedaProvider';
 
 export const VStepperItem: React.FC<VStepperItemProps> = (props: VStepperItemProps): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     children,
     titleTextField,
@@ -21,7 +24,7 @@ export const VStepperItem: React.FC<VStepperItemProps> = (props: VStepperItemPro
     item,
     isDisabled,
     typeField,
-  } = mergeClassNames<VStepperItemProps>(props);
+  } = mergeClassNames<VStepperItemProps>(props, { underscoreClassesTransform });
 
   const [isOpenState, setIsOpenState] = React.useState(false);
 

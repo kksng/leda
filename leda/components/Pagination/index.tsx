@@ -12,8 +12,11 @@ import { useCustomElements } from './hooks';
 import { PagesList } from './PagesList';
 import { PaginationControl } from './PaginationControl';
 import { PaginationProps, PaginationRefCurrent } from './types';
+import { LedaContext } from '../LedaProvider';
 
 export const Pagination = React.forwardRef((props: PaginationProps, ref: React.Ref<PaginationRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     className,
     theme: themeProp,
@@ -25,7 +28,7 @@ export const Pagination = React.forwardRef((props: PaginationProps, ref: React.R
     isLoading = false,
     onChange,
     onPageSizeChange,
-  } = mergeClassNames<PaginationProps>(props);
+  } = mergeClassNames<PaginationProps>(props, { underscoreClassesTransform });
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.pagination);
 

@@ -15,8 +15,11 @@ import {
 } from './types';
 import { useCustomElements } from './hooks';
 import { useValidation } from '../Validation';
+import { LedaContext } from '../LedaProvider';
 
 export const DropZone = React.forwardRef((props: DropZoneProps, ref: React.Ref<DropZoneRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     allowedFiles,
     className,
@@ -27,7 +30,7 @@ export const DropZone = React.forwardRef((props: DropZoneProps, ref: React.Ref<D
     maxFilesNumber,
     minFileSize = MIN_FILE_SIZE,
     value: valueProps,
-  } = mergeClassNames<DropZoneProps>(props);
+  } = mergeClassNames<DropZoneProps>(props, { underscoreClassesTransform });
 
 
   const dropZoneRef = React.useRef<DropzoneRef | null>(null);
@@ -78,7 +81,7 @@ export const DropZone = React.forwardRef((props: DropZoneProps, ref: React.Ref<D
 
   const rootProps = getRootProps();
 
-  const inputProps = { ...getRestProps(props), ...getInputProps() };
+  const inputProps = { ...getRestProps(props, underscoreClassesTransform), ...getInputProps() };
 
   return (
     <>

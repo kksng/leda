@@ -30,8 +30,11 @@ import {
   AutoCompleteProps, AutoCompleteRefCurrent, Suggestion,
 } from './types';
 import { useValidation } from '../Validation';
+import { LedaContext } from '../LedaProvider';
 
 export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: React.Ref<AutoCompleteRefCurrent>): React.ReactElement | null => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     className,
     compareObjectsBy,
@@ -69,7 +72,7 @@ export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: Rea
     validator,
     value: propValue,
     ...restProps
-  } = mergeClassNames<AutoCompleteProps>(props);
+  } = mergeClassNames<AutoCompleteProps>(props, { underscoreClassesTransform });
 
   // todo handle props format errors
 

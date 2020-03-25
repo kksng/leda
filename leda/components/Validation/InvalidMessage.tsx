@@ -5,9 +5,9 @@ import { InvalidMessageProps } from './types';
 export const InvalidMessage = ({ isValid, messages = [] }: InvalidMessageProps): React.ReactElement | null => (isValid || messages.length === 0
   ? null
   : (
-    <Span _invalidMessageList>
+    <Span _invalid-message-list>
       {messages.map((message) => (
-        <Span key={message} _invalidMessageItem>
+        <Span key={message} _invalid-message-item>
           {message}
         </Span>
       ))}

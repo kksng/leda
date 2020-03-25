@@ -12,8 +12,11 @@ import { COMPONENTS_NAMESPACES } from '../../constants';
 import { DATA_TYPES } from './constants';
 import { Div } from '../Div';
 import { StatusBarItem } from './StatusBarItem';
+import { LedaContext } from '../LedaProvider';
 
 export const StatusBar = React.forwardRef((props: StatusBarProps, ref?: React.Ref<StatusBarRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     theme: themeProp,
     data,
@@ -27,7 +30,7 @@ export const StatusBar = React.forwardRef((props: StatusBarProps, ref?: React.Re
     onClick,
     currentStepProgress,
     ...restProps
-  } = mergeClassNames<StatusBarProps>(props);
+  } = mergeClassNames<StatusBarProps>(props, { underscoreClassesTransform });
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.statusBar);
 

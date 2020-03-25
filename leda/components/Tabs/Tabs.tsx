@@ -10,8 +10,11 @@ import {
 } from '../../utils';
 import { TabsContext } from './TabsContext';
 import { TabsProps, TabsRefCurrent } from './types';
+import { LedaContext } from '../LedaProvider';
 
 export const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<TabsRefCurrent>): React.ReactElement | null => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     theme: themeProp,
     activeTabKey: activeTabKeyProp,
@@ -19,7 +22,7 @@ export const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<TabsRefC
     className,
     style,
     tabRender,
-  } = mergeClassNames<TabsProps>(props);
+  } = mergeClassNames<TabsProps>(props, { underscoreClassesTransform });
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.tabs);
 

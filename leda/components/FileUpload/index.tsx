@@ -7,8 +7,11 @@ import { createClickHandler, createLoadHandler } from './handlers';
 import { FileUploadProps, FileUploadRefCurrent } from './types';
 import { useCustomElements } from './hooks';
 import { useValidation } from '../Validation';
+import { LedaContext } from '../LedaProvider';
 
 export const FileUpload = React.forwardRef((props: FileUploadProps, ref: React.Ref<FileUploadRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     allowedFiles,
     forbiddenFiles,
@@ -29,7 +32,7 @@ export const FileUpload = React.forwardRef((props: FileUploadProps, ref: React.R
     invalidMessageRender,
     requiredMessage,
     ...restProps
-  } = mergeClassNames<FileUploadProps>(props);
+  } = mergeClassNames<FileUploadProps>(props, { underscoreClassesTransform });
 
   const fileUploadRef = React.useRef<DropzoneRef | undefined>();
 

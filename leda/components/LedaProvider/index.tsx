@@ -3,17 +3,24 @@ import { LedaContext } from './LedaContext';
 import { globalDefaultTheme } from './globalDefaultTheme';
 import { PartialGlobalDefaultTheme } from '../../utils/useTheme';
 import { globalDefaultRenders, GlobalDefaultRenders } from './globalDefaultRenders';
+import { UnderscoreClasses } from './underscoreClasses';
 
 export interface LedaProps {
   children: React.ReactNode,
   theme?: PartialGlobalDefaultTheme,
   renders?: GlobalDefaultRenders,
+  underscoreClassesTransform?: UnderscoreClasses,
 }
 
 export const Leda = ((props: LedaProps): React.ReactElement => {
-  const { theme = globalDefaultTheme, renders = globalDefaultRenders, children } = props;
+  const {
+    theme = globalDefaultTheme,
+    renders = globalDefaultRenders,
+    underscoreClassesTransform = UnderscoreClasses.NoTransform,
+    children,
+  } = props;
 
-  const context = { theme, renders };
+  const context = { theme, renders, underscoreClassesTransform };
 
   return (
     <LedaContext.Provider value={context}>

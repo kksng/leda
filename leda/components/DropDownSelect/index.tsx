@@ -23,8 +23,11 @@ import {
   DropDownSelectProps, DropDownSelectRefCurrent, DropDownSelectState, Value,
 } from './types';
 import { Span } from '../Span';
+import { LedaContext } from '../LedaProvider';
 
 export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref: React.Ref<DropDownSelectRefCurrent>): React.ReactElement | null => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     boundingContainerRef,
     className,
@@ -64,7 +67,7 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     value: valueProp,
     wrapperRender,
     ...restProps
-  } = mergeClassNames<DropDownSelectProps>(props);
+  } = mergeClassNames<DropDownSelectProps>(props, { underscoreClassesTransform });
 
   const [state, mergeState] = React.useReducer((oldState: DropDownSelectState, newState: Partial<DropDownSelectState>) => ({
     ...oldState, ...newState,

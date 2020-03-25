@@ -7,13 +7,16 @@ import {
 } from '../../utils';
 import { extractIdAndNamespace } from './helpers';
 import { SvgProps, SvgRefCurrent } from './types';
+import { LedaContext } from '../LedaProvider';
 
 export const Svg = React.forwardRef((props: SvgProps, ref?: React.Ref<SvgRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     className,
     noIconClass,
     ...restProps
-  } = mergeClassNames<SvgProps>(props);
+  } = mergeClassNames<SvgProps>(props, { underscoreClassesTransform });
 
   const { id, namespace, ...wrapperProps } = extractIdAndNamespace(restProps);
 

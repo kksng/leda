@@ -9,8 +9,11 @@ import { COMPONENTS_NAMESPACES } from '../../constants';
 import {
   ChangeEvent, RadioGroupProps, RadioGroupRefCurrent, WrapperProps,
 } from './types';
+import { LedaContext } from '../LedaProvider';
 
 export const RadioGroup = React.forwardRef((props: RadioGroupProps, ref?: React.Ref<RadioGroupRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     children,
     className,
@@ -19,7 +22,7 @@ export const RadioGroup = React.forwardRef((props: RadioGroupProps, ref?: React.
     value: valueProp,
     wrapperRender,
     isDisabled,
-  } = mergeClassNames(props);
+  } = mergeClassNames(props, { underscoreClassesTransform });
 
   const theme = useTheme(props.theme, COMPONENTS_NAMESPACES.radio);
 

@@ -13,8 +13,11 @@ import {
   getValue, maskValue,
 } from './helpers';
 import { DEFAULT_PLACEHOLDER_CHAR } from './constants';
+import { LedaContext } from '../../components/LedaProvider';
 
 export const MaskedInputBase = React.forwardRef((props: MaskedInputBaseProps, ref?: React.Ref<HTMLInputElement | null>) => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     className,
     mask,
@@ -28,7 +31,7 @@ export const MaskedInputBase = React.forwardRef((props: MaskedInputBaseProps, re
     onKeyDown,
     onMouseDown,
     ...restProps
-  } = mergeClassNames(props);
+  } = mergeClassNames(props, { underscoreClassesTransform });
 
   const [isFocused, setFocused] = React.useState<boolean>(false);
 

@@ -7,8 +7,11 @@ import { COMPONENTS_NAMESPACES } from '../../constants';
 import { createClickHandler } from './handlers';
 import { useCustomElements } from './hooks';
 import { SwitcherProps, SwitcherRefCurrent } from './types';
+import { LedaContext } from '../LedaProvider';
 
 export const Switcher = React.forwardRef((props: SwitcherProps, ref: React.Ref<SwitcherRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     className,
     children,
@@ -20,7 +23,7 @@ export const Switcher = React.forwardRef((props: SwitcherProps, ref: React.Ref<S
     theme: themeProp,
     wrapperRender,
     ...restProps
-  } = mergeClassNames<SwitcherProps>(props);
+  } = mergeClassNames<SwitcherProps>(props, { underscoreClassesTransform });
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.switcher);
 

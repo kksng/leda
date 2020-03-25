@@ -14,8 +14,11 @@ import {
   getPlaceholder, getRequired, getDisabled, getName, getControlledValue,
 } from './helpers';
 import { NumericRangeProps, NumericRangeRefCurrent, NumericRangeState } from './types';
+import { LedaContext } from '../LedaProvider';
 
 export const NumericRange = React.forwardRef((props: NumericRangeProps, ref?: React.Ref<NumericRangeRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     className,
     form,
@@ -37,7 +40,7 @@ export const NumericRange = React.forwardRef((props: NumericRangeProps, ref?: Re
     value: valueProp,
     wrapperRender,
     ...restProps
-  } = mergeClassNames<NumericRangeProps>(props);
+  } = mergeClassNames<NumericRangeProps>(props, { underscoreClassesTransform });
   // вернет value из props или value из state, функция setUncontrolledState сработает только в неконтролируемом режиме
   const [value, setUncontrolledValue] = useValue<NumericRangeState['value']>(getControlledValue(valueProp), [null, null]);
 

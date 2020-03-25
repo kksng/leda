@@ -4,9 +4,12 @@ import { bindFunctionalRef, getClassNames, mergeClassNames } from '../../utils';
 import { handleHeadingClick } from './handlers';
 import { CollapsePanelContext } from './CollapseContext';
 import { HeadingProps, HeadingRefCurrent } from './types';
+import { LedaContext } from '../LedaProvider';
 
 export const Heading = React.forwardRef((props: HeadingProps, ref?: React.Ref<HeadingRefCurrent>): React.ReactElement => {
-  const { children, className } = mergeClassNames<HeadingProps>(props);
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
+  const { children, className } = mergeClassNames<HeadingProps>(props, { underscoreClassesTransform });
 
   const context = React.useContext(CollapsePanelContext);
 

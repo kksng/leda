@@ -20,6 +20,7 @@ export { FileDrop } from './FileDrop';
 export { FileUpload } from './FileUpload';
 export { Input } from './Input';
 export { HTMLTags } from './HTMLTags';
+export { LedaProvider } from './LedaProvider';
 export { Loader } from './Loader';
 export { MaskedInput } from './MaskedInput';
 export { Modal } from './Modal';

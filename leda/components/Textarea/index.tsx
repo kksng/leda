@@ -10,9 +10,12 @@ import {
 } from './handlers';
 import { useCustomElements } from './hooks';
 import { getValue } from './helpers';
+import { LedaContext } from '../LedaProvider';
 
 
 export const Textarea = React.forwardRef((props: TextareaProps, ref: React.Ref<TextareaRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     children,
     className,
@@ -36,7 +39,7 @@ export const Textarea = React.forwardRef((props: TextareaProps, ref: React.Ref<T
     value: valueProp,
     wrapperRender,
     ...restProps
-  } = mergeClassNames(props);
+  } = mergeClassNames(props, { underscoreClassesTransform });
 
   const [isFocused, setIsFocused] = React.useState<boolean>(false);
 

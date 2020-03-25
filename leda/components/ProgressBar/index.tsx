@@ -5,14 +5,17 @@ import {
 } from '../../utils';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { ProgressBarProps, ProgressBarRefCurrent } from './types';
+import { LedaContext } from '../LedaProvider';
 
 export const ProgressBar = React.forwardRef((props: ProgressBarProps, ref?: React.Ref<ProgressBarRefCurrent>) => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     value,
     className,
     theme: themeProp,
     ...restProps
-  } = mergeClassNames<ProgressBarProps>(props);
+  } = mergeClassNames<ProgressBarProps>(props, { underscoreClassesTransform });
 
   const width = `${value}%`;
 

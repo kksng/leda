@@ -15,15 +15,18 @@ import {
 import { useCustomElements } from './hooks';
 import { SingleFileView } from './SingleFileView';
 import { useValidation } from '../Validation';
+import { LedaContext } from '../LedaProvider';
 
 export const FileDrop = React.forwardRef((props: FileDropProps, ref: React.Ref<FileDropRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     allowedFiles,
     className,
     isDisabled,
     maxFileSize = MAX_FILE_SIZE,
     value,
-  } = mergeClassNames<FileDropProps>(props);
+  } = mergeClassNames<FileDropProps>(props, { underscoreClassesTransform });
 
   const fileDropRef = React.useRef<DropzoneRef | null>(null);
 
@@ -64,7 +67,7 @@ export const FileDrop = React.forwardRef((props: FileDropProps, ref: React.Ref<F
 
   const handleRetry = createRetryHandler(props);
 
-  const inputProps = { ...getInputProps(), ...getRestProps(props) };
+  const inputProps = { ...getInputProps(), ...getRestProps(props, underscoreClassesTransform) };
 
   return (
     <>

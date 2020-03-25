@@ -10,6 +10,8 @@ import { Span } from '../Span';
 import { TagProps, TagsRefCurrent } from './types';
 
 export const Tag = React.forwardRef((props: TagProps, ref?: React.Ref<TagsRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     children,
     className,
@@ -18,7 +20,7 @@ export const Tag = React.forwardRef((props: TagProps, ref?: React.Ref<TagsRefCur
     onIconClick,
     theme = globalDefaultTheme[COMPONENTS_NAMESPACES.tags],
     ...restProps
-  } = mergeClassNames(props);
+  } = mergeClassNames(props, { underscoreClassesTransform });
 
   const { renders: { [COMPONENTS_NAMESPACES.tags]: tagsRenders } } = React.useContext(LedaContext);
 

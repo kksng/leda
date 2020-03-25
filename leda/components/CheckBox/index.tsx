@@ -9,6 +9,8 @@ import { CheckBoxProps, CheckBoxRefCurrent } from './types';
 import { LedaContext } from '../LedaProvider';
 
 export const CheckBox = React.forwardRef((props: CheckBoxProps, ref?: React.Ref<CheckBoxRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     children,
     className,
@@ -22,7 +24,7 @@ export const CheckBox = React.forwardRef((props: CheckBoxProps, ref?: React.Ref<
     value: valueProp,
     wrapperRender,
     ...restProps
-  } = mergeClassNames<CheckBoxProps>(props);
+  } = mergeClassNames<CheckBoxProps>(props, { underscoreClassesTransform });
 
   const theme = useTheme(props.theme, COMPONENTS_NAMESPACES.checkBox);
 

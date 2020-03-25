@@ -14,6 +14,7 @@ import { SliderTooltip } from './SliderTooltip';
 import {
   SliderProps, SliderRefCurrent, SliderValue,
 } from './types';
+import { LedaContext } from '../LedaProvider';
 
 // Слайдер взят здесь:
 // https://github.com/mpowaga/react-slider#readme
@@ -26,6 +27,8 @@ import {
 // и как неконтролируемый (начальное значение задаётся через defaultValue)
 
 export const Slider = React.forwardRef((props: SliderProps, ref?: React.Ref<SliderRefCurrent>): React.ReactElement => {
+  const { underscoreClassesTransform } = React.useContext(LedaContext);
+
   const {
     labelType = LABELS.MINMAX,
     hasTooltip = false,
@@ -42,7 +45,7 @@ export const Slider = React.forwardRef((props: SliderProps, ref?: React.Ref<Slid
     step,
     theme: themeProp,
     value: valueProp,
-  } = mergeClassNames<SliderProps>(props);
+  } = mergeClassNames<SliderProps>(props, { underscoreClassesTransform });
 
   const [valueState, setValueState] = React.useState<SliderValue>(defaultValue || 0);
 
