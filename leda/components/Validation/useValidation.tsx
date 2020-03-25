@@ -28,6 +28,7 @@ export const useValidation = <P extends ValidationProps, S extends ValidationSta
   const value = props.value === undefined && state
     ? state.value
     : props.value;
+
   // текущее состояние поля
   const [isValid, setIsValid] = React.useState<boolean>(true);
 
@@ -62,6 +63,7 @@ export const useValidation = <P extends ValidationProps, S extends ValidationSta
     return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form, name]);
+
   // каждый раз при смене props - записываем новые данные в forms, необходимо для корректной работы валидации
   React.useEffect(() => {
     if (form && name) {
@@ -79,8 +81,10 @@ export const useValidation = <P extends ValidationProps, S extends ValidationSta
       });
     }
   }, [form, isRequired, name, value, isValidProp, validator, invalidMessage, shouldValidateUnmounted, requiredMessage]);
+
   // функция, которую получает пользователь для валидации текущего поля, её можно вызывать, например, в обработчике onBlur
   const validateCurrent = React.useCallback((val?: unknown) => (isNil(isValidProp) ? validate(form, name, val) : isValidProp), [form, isValidProp, name]);
+
   // сообщение о невалидном поле, автоматически отслеживает состояние поля и показывает сообщение, когда поле не валидно
   const InvalidMessage = useElement(
     'InvalidMessage',
@@ -96,6 +100,7 @@ export const useValidation = <P extends ValidationProps, S extends ValidationSta
 
     return message;
   }, [isValid, messages]);
+
   // если формы нет - возвращаем заглушку, сделать это в самом начале нельзя из-за правила хуков
   if (!form) return { isValid: true, validateCurrent: () => true, InvalidMessage: invalidMessageComponent };
 
