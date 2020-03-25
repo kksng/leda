@@ -98,7 +98,7 @@ describe('Tooltip ATTRIBUTES', () => {
   it('should wrap element', () => {
     render((
       <Tooltip title="test" position="top">
-        <I _iSearch />
+        <I _i-search />
       </Tooltip>
     ));
 
@@ -108,8 +108,8 @@ describe('Tooltip ATTRIBUTES', () => {
   it('should wrap elements', () => {
     render((
       <Tooltip title="test" position="top">
-        <I _iSearch />
-        <I _iSearch />
+        <I _i-search />
+        <I _i-search />
       </Tooltip>
     ));
 

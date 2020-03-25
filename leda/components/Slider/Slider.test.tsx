@@ -119,11 +119,11 @@ describe.skip('Slider ATTRIBUTES', () => {
   });
 
   it('should accept width', () => {
-    const wrapper = mount(<Slider value={10} _width50 />);
+    const wrapper = mount(<Slider value={10} _width-50 />);
 
     expect(wrapper.find('Div.width-50')).toHaveLength(1);
 
-    wrapper.setProps({ _width30: true, _width50: false });
+    wrapper.setProps({ '_width-30': true, '_width-50': false });
 
     expect(wrapper.find('Div.width-30')).toHaveLength(1);
   });

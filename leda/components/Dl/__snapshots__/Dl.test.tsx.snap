@@ -2,7 +2,7 @@
 
 exports[`TwoColumns SNAPSHOTS should render 1`] = `
 <Dl
-  _w25={true}
+  _w-25={true}
 >
   <dl
     className="w-25"

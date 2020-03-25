@@ -49,7 +49,7 @@ describe('Loader SNAPSHOTS', () => {
     });
 
     it('should render spinner loader', () => {
-      const wrapper = mount(<Loader iconRender={(props) => <Div {...props} _loaderSpinner />} />);
+      const wrapper = mount(<Loader iconRender={(props) => <Div {...props} _loader-spinner />} />);
 
       expect(wrapper.find('div.loader-spinner')).toHaveLength(1);
 

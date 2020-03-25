@@ -240,7 +240,7 @@ exports[`DropZone ATTRIBUTES should customize upload button 1`] = `
                 >
                   <Component>
                     <Div
-                      _blockInline={true}
+                      _block-inline={true}
                     >
                       <div
                         className="block-inline"
@@ -252,7 +252,7 @@ exports[`DropZone ATTRIBUTES should customize upload button 1`] = `
                    
                   <Component>
                     <Div
-                      _blockInline={true}
+                      _block-inline={true}
                     >
                       <div
                         className="block-inline"
@@ -438,7 +438,7 @@ exports[`DropZone SNAPSHOTS should render 1`] = `
                 >
                   <Component>
                     <Div
-                      _blockInline={true}
+                      _block-inline={true}
                     >
                       <div
                         className="block-inline"
@@ -450,7 +450,7 @@ exports[`DropZone SNAPSHOTS should render 1`] = `
                    
                   <Component>
                     <Div
-                      _blockInline={true}
+                      _block-inline={true}
                     >
                       <div
                         className="block-inline"

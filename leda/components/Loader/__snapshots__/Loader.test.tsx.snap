@@ -78,7 +78,7 @@ exports[`Loader SNAPSHOTS should render different component states should render
                 "render": [Function],
               }
             }
-            _loaderSpinner={true}
+            _loader-spinner={true}
             componentProps={
               Object {
                 "iconRender": [Function],

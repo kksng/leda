@@ -129,7 +129,7 @@ describe('DropZone ATTRIBUTES', () => {
   });
 
   it('should render width', () => {
-    const wrapper = mount(<DropZone _width20 onDrop={jest.fn()} onRemove={jest.fn()} />);
+    const wrapper = mount(<DropZone _width-20 onDrop={jest.fn()} onRemove={jest.fn()} />);
 
     expect(wrapper.find('div').first().getDOMNode().classList).toContain('width-20');
   });

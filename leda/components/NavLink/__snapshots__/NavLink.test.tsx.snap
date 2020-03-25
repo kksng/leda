@@ -21,7 +21,7 @@ exports[`NavLink ATTRIBUTES should accept _blank target prop 1`] = `
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
         >
           <li
             className="level-1"
@@ -91,7 +91,7 @@ exports[`NavLink ATTRIBUTES should accept _self target prop 1`] = `
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
         >
           <li
             className="level-1"
@@ -181,7 +181,7 @@ exports[`NavLink ATTRIBUTES should accept isActive function 1`] = `
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
         >
           <li
             className="level-1"
@@ -266,7 +266,7 @@ exports[`NavLink ATTRIBUTES should compare location 1`] = `
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
         >
           <li
             className="level-1"
@@ -332,7 +332,7 @@ exports[`NavLink ATTRIBUTES should have "href" in isExternal rout  1`] = `
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
         >
           <li
             className="level-1"
@@ -378,7 +378,7 @@ exports[`NavLink ATTRIBUTES should have "href" route 1`] = `
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
         >
           <li
             className="level-1"
@@ -443,7 +443,7 @@ exports[`NavLink ATTRIBUTES should have children prop 1`] = `
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
         >
           <li
             className="level-1"
@@ -511,7 +511,7 @@ exports[`NavLink ATTRIBUTES should have className, change classes through props 
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
           className="inner"
         >
           <li
@@ -580,7 +580,7 @@ exports[`NavLink ATTRIBUTES should have className, change classes through props 
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
           className="box"
         >
           <li
@@ -650,7 +650,7 @@ exports[`NavLink ATTRIBUTES should have className, change classes through props 
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
           className="inner testClass"
         >
           <li
@@ -718,7 +718,7 @@ exports[`NavLink ATTRIBUTES should have isExact route 1`] = `
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
         >
           <li
             className="level-1"
@@ -784,7 +784,7 @@ exports[`NavLink ATTRIBUTES should render dropDownListTemplate 1`] = `
       >
         <Li
           _dropdown={true}
-          _level1={true}
+          _level-1={true}
         >
           <li
             className="level-1 dropdown"
@@ -856,7 +856,7 @@ exports[`NavLink ATTRIBUTES should render icon 1`] = `
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
         >
           <li
             className="level-1"
@@ -932,7 +932,7 @@ exports[`NavLink ATTRIBUTES should render react link if isExternal is true 1`] =
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
         >
           <li
             className="level-1"
@@ -980,7 +980,7 @@ exports[`NavLink ATTRIBUTES should work in isStrict mode 1`] = `
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
         >
           <li
             className="level-1"
@@ -1039,7 +1039,7 @@ exports[`NavLink SNAPSHOTS should render 1`] = `
       >
         <Li
           _dropdown={false}
-          _level1={true}
+          _level-1={true}
         >
           <li
             className="level-1"

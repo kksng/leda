@@ -68,7 +68,7 @@ describe('Div ATTRIBUTES', () => {
     const wrapper = mount(
       <Div>
         <Switcher value />
-        <Div _testWrapper>
+        <Div _test-wrapper>
           <AutoComplete
             data={[
               'London',

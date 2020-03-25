@@ -7,7 +7,7 @@ import { Dl, Dd, Dt } from './index';
 describe('TwoColumns SNAPSHOTS', () => {
   it('should render', () => {
     const list = (
-      <Dl _w25>
+      <Dl _w-25>
         <Dt>Term</Dt>
         <Dd>Definition</Dd>
       </Dl>
@@ -27,7 +27,7 @@ describe('TwoColumns SNAPSHOTS', () => {
 describe('TwoColumns ATTRIBUTES', () => {
   it('should render given firstColumn width', () => {
     const list = (
-      <Dl _w55>
+      <Dl _w-55>
         <Dt>Term</Dt>
         <Dd>Definition</Dd>
       </Dl>
