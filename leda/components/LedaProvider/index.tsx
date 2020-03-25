@@ -31,3 +31,4 @@ export const Leda = ((props: LedaProps): React.ReactElement => {
 
 export { LedaContext } from './LedaContext';
 export { globalDefaultTheme } from './globalDefaultTheme';
+export { UnderscoreClasses } from './underscoreClasses';

@@ -79,7 +79,7 @@ import { TimePicker } from './components/TimePicker';
 import { TimeRange } from './components/TimeRange';
 import { Tooltip } from './components/Tooltip';
 import { Ul } from './components/Ul';
-import { Leda, LedaContext } from './components/LedaProvider';
+import { Leda, LedaContext, UnderscoreClasses } from './components/LedaProvider';
 import { validate } from './validators';
 import { VStepper } from './components/VStepper';
 
@@ -231,7 +231,7 @@ export {
   TimeRange,
   Tooltip,
   Ul,
-  Leda, LedaContext,
+  Leda, LedaContext, UnderscoreClasses,
   validate,
   VStepper,
   form,
