@@ -13,13 +13,13 @@ export const checkIsFilled = (value: any): boolean => {
     return value.length !== 0;
   }
 
-  // DropZone value
-  if (value.acceptedFiles && value.acceptedFiles.length === 0) {
-    return false;
+  // DropZone
+  if (value.acceptedFiles) {
+    return value.acceptedFiles.length === 0;
   }
 
-  // FileDrop rejected file
-  if (value.errorCode && value.errorCode !== 0) {
+  // FileDrop
+  if (value.errorCode) {
     return false;
   }
 
