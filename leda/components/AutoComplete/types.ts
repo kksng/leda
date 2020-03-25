@@ -34,7 +34,7 @@ export enum CHANGE_METHOD {
   reset = 'reset', // сборс значения
 }
 
-export interface KeyboardChangeEvent<T extends Suggestion> extends React.KeyboardEvent<HTMLElement> {
+export interface KeyboardChangeEvent<T extends Suggestion> extends React.KeyboardEvent<HTMLInputElement> {
   component: {
     value: string,
     method: CHANGE_METHOD.enter | CHANGE_METHOD.down | CHANGE_METHOD.up,

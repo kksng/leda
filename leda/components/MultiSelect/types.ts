@@ -22,6 +22,7 @@ export interface MultiSelectComponent {
 export interface ClearEvent<T> extends React.MouseEvent {
   component: {
     deselectedValues: T[],
+    selectedValue: undefined,
     name?: string,
     value: T,
   },
@@ -39,6 +40,7 @@ export interface MouseSelectEvent<T> extends React.MouseEvent {
 export interface EnterSelectEvent<T> extends React.KeyboardEvent {
   component: {
     name?: string,
+    deselectedValues: undefined,
     selectedValue: T,
     value: T[],
   },
@@ -46,6 +48,8 @@ export interface EnterSelectEvent<T> extends React.KeyboardEvent {
 
 export interface ResetEvent<T> {
   component: {
+    deselectedValues: undefined,
+    selectedValue: undefined,
     name?: string,
     value: T[],
   },
