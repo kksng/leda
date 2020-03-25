@@ -6,12 +6,18 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { CypressLayout } from './CypressLayout';
 import { Demo } from './Demo';
+import { Leda } from '../leda';
+import { UnderscoreClasses } from '../leda/components/LedaProvider/underscoreClasses';
 
 const element = (
   <Router>
     <React.StrictMode>
-      <Route exact path="/" component={Demo} />
-      <CypressLayout />
+      <Leda
+        underscoreClassesTransform={UnderscoreClasses.CamelCaseTransform}
+      >
+        <Route exact path="/" component={Demo} />
+        <CypressLayout />
+      </Leda>
     </React.StrictMode>
   </Router>
 );
