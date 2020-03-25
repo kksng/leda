@@ -1,21 +1,18 @@
 import * as React from 'react';
 import { Div } from '../Div';
 import {
-  useTheme, bindFunctionalRef, getClassNames, mergeClassNames,
+  useTheme, bindFunctionalRef, getClassNames, useProps,
 } from '../../utils';
 import { VStepperItem } from './VStepperItem';
 import { VStepperContext } from './VStepperContext';
 import { getChildren } from './helpers';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { VStepperItemProps, VStepperProps, VStepperRefCurrent } from './types';
-import { LedaContext } from '../LedaProvider';
 
 export const VStepper = React.forwardRef((props: VStepperProps, ref?: React.Ref<VStepperRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     className, theme: themeProp, children, value, ...restProps
-  } = mergeClassNames<VStepperProps>(props, { underscoreClassesTransform });
+  } = useProps<VStepperProps>(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.vstepper);
 

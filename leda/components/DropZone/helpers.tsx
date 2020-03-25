@@ -2,13 +2,10 @@ import * as React from 'react';
 import accept from 'attr-accept';
 import { isString } from 'lodash';
 import { ERROR_MESSAGES, MAX_FILE_SIZE, MIN_FILE_SIZE } from '../../constants';
-import { mergeClassNames } from '../../utils';
 import { Div } from '../Div';
 import {
   DropZoneError, DropZoneFileType, DropZoneProps, DropZoneState, FileType, ExternalFile,
 } from './types';
-import { LedaContext } from '../LedaProvider';
-import { UnderscoreClasses } from '../LedaProvider/underscoreClasses';
 
 export const compareFiles = (firstFile: DropZoneFileType, secondFile: DropZoneFileType): boolean => {
   if (firstFile.size !== secondFile.size) return false;
@@ -119,40 +116,6 @@ export const checkFiles = (
   });
 
   return [acceptedFiles, rejectedFiles];
-};
-
-export const getRestProps = (props: DropZoneProps, underscoreClassesTransform: UnderscoreClasses): {} => {
-  const {
-    acceptedFilesRender,
-    allowedFiles,
-    className,
-    dropZoneFilesNode, // не должно попасть в restProps
-    forbiddenFiles,
-    infoRender,
-    maxFileNameLength, // не должно попасть в restProps
-    maxFileSize, // не должно попасть в restProps
-    maxFilesNumber,
-    minFileSize, // не должно попасть в restProps
-    onDrop, // не должно попасть в restProps
-    onRemove, // не должно попасть в restProps
-    onChange,
-    rejectedFilesRender,
-    theme: themeProp,
-    uploadButtonRender,
-    value,
-    isDisabled,
-    requiredMessage,
-    invalidMessageRender,
-    invalidMessage,
-    isRequired,
-    isValid,
-    shouldValidateUnmounted,
-    validator,
-    wrapperRender,
-    ...restProps
-  } = mergeClassNames(props, { underscoreClassesTransform });
-
-  return restProps;
 };
 
 export const DescriptionMessage = (props: { children: string }): React.ReactElement => {

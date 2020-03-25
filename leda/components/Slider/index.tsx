@@ -5,7 +5,7 @@ import { Span } from '../Span';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { SliderSrc } from '../../src/ReactSlider';
 import {
-  mergeClassNames, getClassNames, useTheme, bindFunctionalRef, useElement,
+  getClassNames, useTheme, bindFunctionalRef, useElement, useProps,
 } from '../../utils';
 import { LABELS } from './constants';
 import { createAfterChangeHandler, createChangeHandler } from './handlers';
@@ -14,7 +14,6 @@ import { SliderTooltip } from './SliderTooltip';
 import {
   SliderProps, SliderRefCurrent, SliderValue,
 } from './types';
-import { LedaContext } from '../LedaProvider';
 
 // Слайдер взят здесь:
 // https://github.com/mpowaga/react-slider#readme
@@ -27,8 +26,6 @@ import { LedaContext } from '../LedaProvider';
 // и как неконтролируемый (начальное значение задаётся через defaultValue)
 
 export const Slider = React.forwardRef((props: SliderProps, ref?: React.Ref<SliderRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     labelType = LABELS.MINMAX,
     hasTooltip = false,
@@ -45,7 +42,7 @@ export const Slider = React.forwardRef((props: SliderProps, ref?: React.Ref<Slid
     step,
     theme: themeProp,
     value: valueProp,
-  } = mergeClassNames<SliderProps>(props, { underscoreClassesTransform });
+  } = useProps<SliderProps>(props);
 
   const [valueState, setValueState] = React.useState<SliderValue>(defaultValue || 0);
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { isNil } from 'lodash';
 import { Div } from '../Div';
 import { VStepperContext } from './VStepperContext';
-import { mergeClassNames } from '../../utils';
+import { useProps } from '../../utils';
 import { Collapsible } from '../Collapsible';
 import {
   getItemClassNames,
@@ -10,11 +10,8 @@ import {
 import { createClickHandler } from './handlers';
 import { VStepperItemProps } from './types';
 import { useCustomElements } from './hooks';
-import { LedaContext } from '../LedaProvider';
 
 export const VStepperItem: React.FC<VStepperItemProps> = (props: VStepperItemProps): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     children,
     titleTextField,
@@ -24,7 +21,7 @@ export const VStepperItem: React.FC<VStepperItemProps> = (props: VStepperItemPro
     item,
     isDisabled,
     typeField,
-  } = mergeClassNames<VStepperItemProps>(props, { underscoreClassesTransform });
+  } = useProps<VStepperItemProps>(props);
 
   const [isOpenState, setIsOpenState] = React.useState(false);
 

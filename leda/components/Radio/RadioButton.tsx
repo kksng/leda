@@ -1,15 +1,13 @@
 import React from 'react';
 import {
-  bindFunctionalRef, mergeClassNames, getClassNames, useElement,
+  bindFunctionalRef, getClassNames, useElement, useProps,
 } from '../../utils';
 import { generateId } from '../../utils/generateId';
 import { Div } from '../Div';
 import { PropsFromParent, RadioButtonProps, RadioGroupRefCurrent } from './types';
-import { globalDefaultTheme, LedaContext } from '../LedaProvider';
+import { globalDefaultTheme } from '../LedaProvider';
 
 export const RadioButton = React.forwardRef((props: RadioButtonProps, ref?: React.Ref<RadioGroupRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     children,
     className,
@@ -22,7 +20,7 @@ export const RadioButton = React.forwardRef((props: RadioButtonProps, ref?: Reac
     value,
     name,
     ...restProps
-  } = mergeClassNames<RadioButtonProps & PropsFromParent>(props as RadioButtonProps & PropsFromParent, { underscoreClassesTransform });
+  } = useProps<RadioButtonProps & PropsFromParent>(props as RadioButtonProps & PropsFromParent);
 
   const Wrapper = useElement(
     'Wrapper',

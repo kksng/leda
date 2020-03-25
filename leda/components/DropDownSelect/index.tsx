@@ -3,7 +3,7 @@ import { isNil } from 'lodash';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { SuggestionList } from '../../src/SuggestionList';
 import {
-  bindFunctionalRef, mergeClassNames, useTheme,
+  bindFunctionalRef, useProps, useTheme,
 } from '../../utils';
 import { Div } from '../Div';
 import { useValidation } from '../Validation';
@@ -23,11 +23,8 @@ import {
   DropDownSelectProps, DropDownSelectRefCurrent, DropDownSelectState, Value,
 } from './types';
 import { Span } from '../Span';
-import { LedaContext } from '../LedaProvider';
 
 export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref: React.Ref<DropDownSelectRefCurrent>): React.ReactElement | null => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     boundingContainerRef,
     className,
@@ -67,7 +64,7 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     value: valueProp,
     wrapperRender,
     ...restProps
-  } = mergeClassNames<DropDownSelectProps>(props, { underscoreClassesTransform });
+  } = useProps<DropDownSelectProps>(props);
 
   const [state, mergeState] = React.useReducer((oldState: DropDownSelectState, newState: Partial<DropDownSelectState>) => ({
     ...oldState, ...newState,

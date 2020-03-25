@@ -1,32 +1,26 @@
 import React from 'react';
 import { DropzoneRef, useDropzone } from 'react-dropzone';
 import {
-  bindFunctionalRef, getClassNames, mergeClassNames, useTheme,
+  bindFunctionalRef, getClassNames, useProps, useTheme,
 } from '../../utils';
 import { MAX_FILE_SIZE } from '../../constants';
 import { Div } from '../Div';
-import {
-  getRestProps,
-} from './helpers';
 import { createChangeHandler, createClickHandler, createRetryHandler } from './handlers';
 import {
   FileDropProps, FileDropRefCurrent,
 } from './types';
-import { useCustomElements } from './hooks';
+import { useCustomElements, useFileDropRestProps } from './hooks';
 import { SingleFileView } from './SingleFileView';
 import { useValidation } from '../Validation';
-import { LedaContext } from '../LedaProvider';
 
 export const FileDrop = React.forwardRef((props: FileDropProps, ref: React.Ref<FileDropRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     allowedFiles,
     className,
     isDisabled,
     maxFileSize = MAX_FILE_SIZE,
     value,
-  } = mergeClassNames<FileDropProps>(props, { underscoreClassesTransform });
+  } = useProps<FileDropProps>(props);
 
   const fileDropRef = React.useRef<DropzoneRef | null>(null);
 
@@ -67,7 +61,9 @@ export const FileDrop = React.forwardRef((props: FileDropProps, ref: React.Ref<F
 
   const handleRetry = createRetryHandler(props);
 
-  const inputProps = { ...getInputProps(), ...getRestProps(props, underscoreClassesTransform) };
+  const restProps = useFileDropRestProps(props);
+
+  const inputProps = { ...getInputProps(), ...restProps };
 
   return (
     <>

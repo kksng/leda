@@ -28,6 +28,8 @@ export { useTheme } from './useTheme';
 
 export { useElement } from './useElement';
 
+export { useProps } from './usePops';
+
 export { useValue } from './useValue';
 
 export { dispatchEvent } from './dispatchEvent';

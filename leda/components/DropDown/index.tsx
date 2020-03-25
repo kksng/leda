@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  bindFunctionalRef, mergeClassNames, getClassNames, useTheme, useElement, useAdaptivePosition,
+  bindFunctionalRef, getClassNames, useTheme, useElement, useAdaptivePosition, useProps,
 } from '../../utils';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { DropDownProps, DropDownRefCurrent, WrapperProps } from './types';
@@ -10,8 +10,6 @@ import { DivRefCurrent } from '../Div';
 import { Ul } from '../Ul';
 
 export const DropDown = React.forwardRef((props: DropDownProps, ref?: React.Ref<DropDownRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     boundingContainerRef,
     children,
@@ -20,7 +18,7 @@ export const DropDown = React.forwardRef((props: DropDownProps, ref?: React.Ref<
     theme: themeProp,
     wrapperRender,
     ...restProps
-  } = mergeClassNames(props, { underscoreClassesTransform });
+  } = useProps<DropDownProps>(props);
 
   const [isOpenState, setIsOpen] = React.useState(false);
 

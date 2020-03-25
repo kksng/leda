@@ -3,7 +3,7 @@ import { isNil } from 'lodash';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { DateTimeInput } from '../DateTimeInput';
 import {
-  bindFunctionalRef, getClassNames, mergeClassNames, useTheme,
+  bindFunctionalRef, getClassNames, useProps, useTheme,
 } from '../../utils';
 import { DateTimeInputRefCurrent } from '../DateTimeInput/types';
 import {
@@ -14,11 +14,8 @@ import {
   createChangeHandler, createEnterPressHandler, handleErrors,
 } from './handlers';
 import { DateTimeInputRangeProps, DateTimeInputRangeRefCurrent, DateTimeInputRangeState } from './types';
-import { LedaContext } from '../../components/LedaProvider';
 
 export const DateTimeInputRange = React.forwardRef((props: DateTimeInputRangeProps, ref: React.Ref<DateTimeInputRangeRefCurrent>) => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     boundingContainerRef,
     calendarHeaderRender,
@@ -52,7 +49,7 @@ export const DateTimeInputRange = React.forwardRef((props: DateTimeInputRangePro
     yearViewRender,
     calendarWrapperRender,
     ...restProps
-  } = mergeClassNames(props, { underscoreClassesTransform });
+  } = useProps<DateTimeInputRangeProps>(props);
 
   handleErrors(props);
 

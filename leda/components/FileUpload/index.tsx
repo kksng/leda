@@ -1,17 +1,14 @@
 import * as React from 'react';
 import { DropEvent, DropzoneRef, useDropzone } from 'react-dropzone';
-import { mergeClassNames, bindFunctionalRef, getClassNames } from '../../utils';
+import { bindFunctionalRef, useProps } from '../../utils';
 import { MAX_FILE_SIZE, MIN_FILE_SIZE } from '../../constants';
 import { Div } from '../Div';
 import { createClickHandler, createLoadHandler } from './handlers';
 import { FileUploadProps, FileUploadRefCurrent } from './types';
 import { useCustomElements } from './hooks';
 import { useValidation } from '../Validation';
-import { LedaContext } from '../LedaProvider';
 
 export const FileUpload = React.forwardRef((props: FileUploadProps, ref: React.Ref<FileUploadRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     allowedFiles,
     forbiddenFiles,
@@ -32,7 +29,7 @@ export const FileUpload = React.forwardRef((props: FileUploadProps, ref: React.R
     invalidMessageRender,
     requiredMessage,
     ...restProps
-  } = mergeClassNames<FileUploadProps>(props, { underscoreClassesTransform });
+  } = useProps<FileUploadProps>(props);
 
   const fileUploadRef = React.useRef<DropzoneRef | undefined>();
 

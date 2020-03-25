@@ -5,10 +5,10 @@ import {
 } from 'lodash';
 import { SuggestionList } from '../../src/SuggestionList';
 import {
-  getClassNames,
-  mergeClassNames,
-  useTheme,
   bindFunctionalRef,
+  getClassNames,
+  useProps,
+  useTheme,
 } from '../../utils';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { Div } from '../Div';
@@ -30,11 +30,8 @@ import {
   AutoCompleteProps, AutoCompleteRefCurrent, Suggestion,
 } from './types';
 import { useValidation } from '../Validation';
-import { LedaContext } from '../LedaProvider';
 
 export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: React.Ref<AutoCompleteRefCurrent>): React.ReactElement | null => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     className,
     compareObjectsBy,
@@ -72,7 +69,7 @@ export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: Rea
     validator,
     value: propValue,
     ...restProps
-  } = mergeClassNames<AutoCompleteProps>(props, { underscoreClassesTransform });
+  } = useProps<AutoCompleteProps>(props);
 
   // todo handle props format errors
 

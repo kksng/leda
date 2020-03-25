@@ -2,18 +2,15 @@ import React from 'react';
 import { isFunction, isBoolean } from 'lodash';
 import { RadioButton } from './RadioButton';
 import {
-  bindFunctionalRef, mergeClassNames, getClassNames, useTheme, useElement,
+  bindFunctionalRef, getClassNames, useTheme, useElement, useProps,
 } from '../../utils';
 import { Div } from '../Div';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import {
   ChangeEvent, RadioGroupProps, RadioGroupRefCurrent, WrapperProps,
 } from './types';
-import { LedaContext } from '../LedaProvider';
 
 export const RadioGroup = React.forwardRef((props: RadioGroupProps, ref?: React.Ref<RadioGroupRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     children,
     className,
@@ -22,7 +19,7 @@ export const RadioGroup = React.forwardRef((props: RadioGroupProps, ref?: React.
     value: valueProp,
     wrapperRender,
     isDisabled,
-  } = mergeClassNames(props, { underscoreClassesTransform });
+  } = useProps<RadioGroupProps>(props);
 
   const theme = useTheme(props.theme, COMPONENTS_NAMESPACES.radio);
 

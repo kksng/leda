@@ -2,20 +2,17 @@ import * as React from 'react';
 import { createPanelHandlers } from './handlers';
 import { usePanelWrapper } from './helpers';
 import { CollapseContext, CollapsePanelContext } from './CollapseContext';
-import { mergeClassNames } from '../../utils';
+import { useProps } from '../../utils';
 import { PanelProps } from './types';
-import { LedaContext } from '../LedaProvider';
 
 export const Panel: React.FC<PanelProps> = (props: PanelProps): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     panelKey,
     children,
     className,
     name,
     isDisabled,
-  } = mergeClassNames<PanelProps>(props, { underscoreClassesTransform });
+  } = useProps<PanelProps>(props);
 
   const [isClicked, setClicked] = React.useState(false);
 

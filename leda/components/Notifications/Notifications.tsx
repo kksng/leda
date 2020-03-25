@@ -2,18 +2,15 @@ import React from 'react';
 import { NotificationItem } from './NotificationItem';
 import { Div } from '../Div';
 import {
-  mergeClassNames, useTheme, bindFunctionalRef, getClassNames,
+  useTheme, bindFunctionalRef, getClassNames, useProps,
 } from '../../utils';
 import { Item, NotificationRefCurrent, NotificationsProps } from './types';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { ChangeMethods } from './constants';
-import { LedaContext } from '../LedaProvider';
 
 export const Notifications = React.forwardRef((
   props: NotificationsProps, ref?: React.Ref<NotificationRefCurrent>,
 ): React.ReactElement | null => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     className,
     maxItems = 3,
@@ -23,7 +20,7 @@ export const Notifications = React.forwardRef((
     iconRender,
     theme: themeProp,
     actionButtonRender,
-  } = mergeClassNames(props, { underscoreClassesTransform });
+  } = useProps<NotificationsProps>(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.notifications);
 

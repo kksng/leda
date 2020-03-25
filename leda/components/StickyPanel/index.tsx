@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  bindFunctionalRef, getClassNames, mergeClassNames, useTheme,
+  bindFunctionalRef, getClassNames, useProps, useTheme,
 } from '../../utils';
 import { Div } from '../Div';
 import { COMPONENTS_NAMESPACES } from '../../constants';
@@ -8,18 +8,15 @@ import { useStickyPanelEffect } from './hooks';
 import {
   StickyPanelProps, StickyPanelRefCurrent, StickyPanelPosition, StickyPanelStyles,
 } from './types';
-import { LedaContext } from '../LedaProvider';
 
 export const StickyPanel = React.forwardRef((props: StickyPanelProps, ref?: React.Ref<StickyPanelRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     theme: themeProp,
     children,
     offsetTop = 0,
     className,
     ...restProps
-  } = mergeClassNames(props, { underscoreClassesTransform });
+  } = useProps<StickyPanelProps>(props);
 
   const panelRef = React.useRef<HTMLDivElement | null>(null);
 

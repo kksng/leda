@@ -1,19 +1,16 @@
 import React from 'react';
 import { isFunction } from 'lodash';
-import { bindFunctionalRef, mergeClassNames } from '../../utils';
+import { bindFunctionalRef, useProps } from '../../utils';
 import { CustomEventHandler } from '../../commonTypes';
 import { AProps, ARefCurrent } from './types';
-import { LedaContext } from '../LedaProvider';
 
 export const A = React.forwardRef((props: AProps, ref?: React.Ref<ARefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     children,
     href,
     onClick,
     ...restProps
-  } = mergeClassNames<AProps>(props, { underscoreClassesTransform });
+  } = useProps<AProps>(props);
 
   const handleClick: CustomEventHandler<React.MouseEvent<HTMLAnchorElement>> = (ev) => {
     // если href не передали, то нужен preventDefault, иначе - нет

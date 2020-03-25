@@ -1,16 +1,14 @@
 import React from 'react';
-import { mergeClassNames, getClassNames, useElement } from '../../utils';
+import { getClassNames, useElement, useProps } from '../../utils';
 import { Div } from '../Div';
 import { LedaContext } from '../LedaProvider';
 import { ModalContext } from './ModalContext';
 import { ModalElementsProps } from './types';
 
 export const ModalBody: React.FC<ModalElementsProps> = (props: ModalElementsProps): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     className, children, wrapperRender, ...restProps
-  } = mergeClassNames(props, { underscoreClassesTransform });
+  } = useProps<ModalElementsProps>(props);
 
   const modalContext = React.useContext(ModalContext);
 

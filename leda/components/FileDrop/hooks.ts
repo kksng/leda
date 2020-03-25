@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   CustomElements, FileDropProps, UploadButtonProps,
 } from './types';
-import { useElement } from '../../utils';
+import { useElement, useProps } from '../../utils';
 import { Div } from '../Div';
 import { Span } from '../Span';
 import { Button } from '../Button';
@@ -42,4 +42,40 @@ export const useCustomElements = (props: FileDropProps): CustomElements => {
     Info,
     Wrapper,
   };
+};
+
+export const useFileDropRestProps = (props: FileDropProps): {} => {
+  const {
+    // не должно попасть в restProps
+    acceptedFilesRender,
+    allowedFiles,
+    className,
+    dropZoneFilesNode,
+    loadingData,
+    forbiddenFiles,
+    infoRender,
+    maxFileNameLength,
+    maxFileSize,
+    maxFilesNumber,
+    minFileSize,
+    onDrop,
+    onRemove,
+    onChange,
+    rejectedFilesRender,
+    theme: themeProp,
+    uploadButtonRender,
+    value,
+    isDisabled,
+    invalidMessageRender,
+    invalidMessage,
+    isRequired,
+    isValid,
+    requiredMessage,
+    validator,
+    shouldValidateUnmounted,
+    // конец того, что не должно попасть в restProps
+    ...restProps
+  } = useProps<FileDropProps>(props);
+
+  return restProps;
 };

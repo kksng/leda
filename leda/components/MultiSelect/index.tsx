@@ -4,7 +4,7 @@ import {
   MultiSelectComponent, MultiSelectProps, MultiSelectRefCurrent, Value,
 } from './types';
 import {
-  bindFunctionalRef, getClassNames, mergeClassNames, useElement, useTheme,
+  bindFunctionalRef, getClassNames, useElement, useProps, useTheme,
 } from '../../utils';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { useValidation } from '../Validation';
@@ -24,8 +24,6 @@ import { Tag } from '../Tags';
 import { filterData, getValue } from './helpers';
 
 export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React.Ref<MultiSelectRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     className,
     compareObjectsBy,
@@ -61,7 +59,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     value: valueProp,
     wrapperRender,
     ...restProps
-  } = mergeClassNames(props, { underscoreClassesTransform });
+  } = useProps<MultiSelectProps>(props);
 
   const [valueState, setValue] = React.useState<Value[]>(defaultValue || []);
 

@@ -4,14 +4,12 @@ import { isString } from 'lodash';
 import {
   COMPONENTS_NAMESPACES, ERROR_MESSAGES, MAX_FILE_SIZE, MIN_FILE_SIZE,
 } from '../../constants';
-import { mergeClassNames } from '../../utils';
 import { Div } from '../Div';
 import {
   FileDropError, FileType, FileDropProps,
 } from './types';
 import { A } from '../A';
 import { globalDefaultTheme } from '../LedaProvider';
-import { UnderscoreClasses } from '../LedaProvider/underscoreClasses';
 
 export const compareFiles = (firstFile: FileType, secondFile: FileType): boolean => {
   if (firstFile.size !== secondFile.size) return false;
@@ -118,40 +116,6 @@ export const checkFiles = (
   }
 
   return acceptedFile;
-};
-
-export const getRestProps = (props: FileDropProps, underscoreClassesTransform: UnderscoreClasses): {} => {
-  const {
-    acceptedFilesRender,
-    allowedFiles,
-    className,
-    dropZoneFilesNode, // не должно попасть в restProps
-    loadingData,
-    forbiddenFiles,
-    infoRender,
-    maxFileNameLength, // не должно попасть в restProps
-    maxFileSize, // не должно попасть в restProps
-    maxFilesNumber,
-    minFileSize, // не должно попасть в restProps
-    onDrop, // не должно попасть в restProps
-    onRemove, // не должно попасть в restProps
-    onChange,
-    rejectedFilesRender,
-    theme: themeProp,
-    uploadButtonRender,
-    value,
-    isDisabled,
-    invalidMessageRender,
-    invalidMessage,
-    isRequired,
-    isValid,
-    requiredMessage,
-    validator,
-    shouldValidateUnmounted,
-    ...restProps
-  } = mergeClassNames(props, { underscoreClassesTransform });
-
-  return restProps;
 };
 
 export const DescriptionMessage = (props: { children: string }): React.ReactElement => {

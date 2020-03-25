@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { isString } from 'lodash';
 import {
-  bindFunctionalRef, mergeClassNames, getClassNames, useTheme, useElement,
+  bindFunctionalRef, getClassNames, useTheme, useElement, useProps,
 } from '../../utils';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { Div } from '../Div';
@@ -12,15 +12,13 @@ import { LedaContext } from '../LedaProvider';
 import { TagsProps, TagsRefCurrent } from './types';
 
 export const Tags = React.forwardRef((props: TagsProps, ref?: React.Ref<TagsRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     children,
     className,
     wrapperRender,
     theme: themeProp,
     ...restProps
-  } = mergeClassNames(props, { underscoreClassesTransform });
+  } = useProps<TagsProps>(props);
 
   const { renders: { [COMPONENTS_NAMESPACES.tags]: tagsRenders } } = React.useContext(LedaContext);
 

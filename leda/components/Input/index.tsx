@@ -1,7 +1,7 @@
 import React from 'react';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import {
-  mergeClassNames, getClassNames, bindFunctionalRef, useTheme, useElement,
+  getClassNames, bindFunctionalRef, useTheme, useElement, useProps,
 } from '../../utils';
 import { useValidation } from '../Validation';
 import { InputProps, InputRefCurrent } from './types';
@@ -15,11 +15,8 @@ import {
   createResetHandler,
 } from './handlers';
 import { getValue } from './helpers';
-import { LedaContext } from '../LedaProvider';
 
 export const Input = React.forwardRef((props: InputProps, ref: React.Ref<InputRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     className,
     defaultValue,
@@ -48,7 +45,7 @@ export const Input = React.forwardRef((props: InputProps, ref: React.Ref<InputRe
     wrapperRender,
     invalidMessageRender,
     ...restProps
-  } = mergeClassNames<InputProps>(props, { underscoreClassesTransform });
+  } = useProps<InputProps>(props);
 
   const [isFocused, setFocused] = React.useState(false);
 

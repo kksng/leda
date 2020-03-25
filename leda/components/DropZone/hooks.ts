@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import {
   AcceptedFilesProps, CustomElements, DropZoneProps, DropZoneState, UploadButtonProps,
 } from './types';
-import { useElement } from '../../utils';
+import { useElement, useProps } from '../../utils';
 import { Div } from '../Div';
 import { Ul } from '../Ul';
 import { Span } from '../Span';
@@ -71,4 +71,40 @@ export const useCustomElements = (props: DropZoneProps, state: DropZoneState): C
     Info,
     Wrapper,
   };
+};
+
+export const useDropZoneRestProps = (props: DropZoneProps): {} => {
+  const {
+    // не должно попасть в restProps
+    acceptedFilesRender,
+    allowedFiles,
+    className,
+    dropZoneFilesNode,
+    forbiddenFiles,
+    infoRender,
+    maxFileNameLength,
+    maxFileSize,
+    maxFilesNumber,
+    minFileSize,
+    onDrop,
+    onRemove,
+    onChange,
+    rejectedFilesRender,
+    theme: themeProp,
+    uploadButtonRender,
+    value,
+    isDisabled,
+    requiredMessage,
+    invalidMessageRender,
+    invalidMessage,
+    isRequired,
+    isValid,
+    shouldValidateUnmounted,
+    validator,
+    wrapperRender,
+    // конец того, что не должно попасть в restProps
+    ...restProps
+  } = useProps<DropZoneProps>(props);
+
+  return restProps;
 };

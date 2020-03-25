@@ -3,15 +3,13 @@
 import * as React from 'react';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import {
-  bindFunctionalRef, mergeClassNames, getClassNames, useElement,
+  bindFunctionalRef, getClassNames, useElement, useProps,
 } from '../../utils';
 import { globalDefaultTheme, LedaContext } from '../LedaProvider';
 import { Span } from '../Span';
 import { TagProps, TagsRefCurrent } from './types';
 
 export const Tag = React.forwardRef((props: TagProps, ref?: React.Ref<TagsRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     children,
     className,
@@ -20,7 +18,7 @@ export const Tag = React.forwardRef((props: TagProps, ref?: React.Ref<TagsRefCur
     onIconClick,
     theme = globalDefaultTheme[COMPONENTS_NAMESPACES.tags],
     ...restProps
-  } = mergeClassNames(props, { underscoreClassesTransform });
+  } = useProps<TagProps>(props);
 
   const { renders: { [COMPONENTS_NAMESPACES.tags]: tagsRenders } } = React.useContext(LedaContext);
 

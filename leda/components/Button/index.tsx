@@ -1,16 +1,13 @@
 import React from 'react';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import {
-  mergeClassNames, getClassNames, bindFunctionalRef, useTheme,
+  getClassNames, bindFunctionalRef, useTheme, useProps,
 } from '../../utils';
 import { createClickHandler } from './handlers';
 import { ButtonProps, ButtonRefCurrent } from './types';
-import { LedaContext } from '../LedaProvider';
 
 // как настраивать кнопку для валидации ввода: ../Validation/validation.md
 export const Button = React.forwardRef((props: ButtonProps, ref: React.Ref<ButtonRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     children,
     className,
@@ -22,7 +19,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref: React.Ref<Butto
     shouldValidateUnmounted,
     theme: themeProp,
     ...restProps
-  } = mergeClassNames(props, { underscoreClassesTransform });
+  } = useProps<ButtonProps>(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.button);
 

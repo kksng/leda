@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  getClassNames, bindFunctionalRef, mergeClassNames, useTheme,
+  getClassNames, bindFunctionalRef, useTheme, useProps,
 } from '../../utils';
 import { createCloseButtonClickHandler, createEscapePressHandler, createOverlayClickHandler } from './handlers';
 import { useCustomElements } from './hooks';
@@ -8,11 +8,8 @@ import { ModalWindowProps } from './types';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { getModalWidth } from './helpers';
 import { ModalContext } from './ModalContext';
-import { LedaContext } from '../LedaProvider';
 
 export const ModalWindow = (props: ModalWindowProps): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     children,
     className,
@@ -27,7 +24,7 @@ export const ModalWindow = (props: ModalWindowProps): React.ReactElement => {
     wrapperRender,
     iconRender,
     ...restProp
-  } = mergeClassNames(props, { underscoreClassesTransform });
+  } = useProps<ModalWindowProps>(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.modal);
 

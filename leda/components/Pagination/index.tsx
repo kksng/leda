@@ -2,7 +2,7 @@ import * as React from 'react';
 import { isNil } from 'lodash';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import {
-  bindFunctionalRef, getClassNames, mergeClassNames, useTheme,
+  bindFunctionalRef, getClassNames, useProps, useTheme,
 } from '../../utils';
 import { Div } from '../Div';
 import { Span } from '../Span';
@@ -12,11 +12,8 @@ import { useCustomElements } from './hooks';
 import { PagesList } from './PagesList';
 import { PaginationControl } from './PaginationControl';
 import { PaginationProps, PaginationRefCurrent } from './types';
-import { LedaContext } from '../LedaProvider';
 
 export const Pagination = React.forwardRef((props: PaginationProps, ref: React.Ref<PaginationRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     className,
     theme: themeProp,
@@ -28,7 +25,7 @@ export const Pagination = React.forwardRef((props: PaginationProps, ref: React.R
     isLoading = false,
     onChange,
     onPageSizeChange,
-  } = mergeClassNames<PaginationProps>(props, { underscoreClassesTransform });
+  } = useProps<PaginationProps>(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.pagination);
 

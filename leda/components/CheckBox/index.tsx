@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  bindFunctionalRef, mergeClassNames, getClassNames, useTheme, useElement, generateId, useValue,
+  bindFunctionalRef, getClassNames, useTheme, useElement, generateId, useValue, useProps,
 } from '../../utils';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { Span } from '../Span';
@@ -9,8 +9,6 @@ import { CheckBoxProps, CheckBoxRefCurrent } from './types';
 import { LedaContext } from '../LedaProvider';
 
 export const CheckBox = React.forwardRef((props: CheckBoxProps, ref?: React.Ref<CheckBoxRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     children,
     className,
@@ -24,7 +22,7 @@ export const CheckBox = React.forwardRef((props: CheckBoxProps, ref?: React.Ref<
     value: valueProp,
     wrapperRender,
     ...restProps
-  } = mergeClassNames<CheckBoxProps>(props, { underscoreClassesTransform });
+  } = useProps<CheckBoxProps>(props);
 
   const theme = useTheme(props.theme, COMPONENTS_NAMESPACES.checkBox);
 

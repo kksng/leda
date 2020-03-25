@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react';
 import {
-  bindFunctionalRef, mergeClassNames, getClassNames, useTheme, useElement,
+  bindFunctionalRef, getClassNames, useTheme, useElement, useProps,
 } from '../../utils';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { IconProps, LoaderProps, LoaderRefCurrent } from './types';
 import { Span } from '../Span';
 import { Div } from '../Div';
-import { LedaContext } from '../LedaProvider';
 
 export const Loader = React.forwardRef((props: LoaderProps, ref?: React.Ref<LoaderRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     children,
     className,
@@ -19,7 +16,7 @@ export const Loader = React.forwardRef((props: LoaderProps, ref?: React.Ref<Load
     isLoading = true,
     theme: themeProp,
     ...restProps
-  } = mergeClassNames<LoaderProps>(props, { underscoreClassesTransform });
+  } = useProps<LoaderProps>(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.loader);
 

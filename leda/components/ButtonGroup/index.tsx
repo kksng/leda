@@ -3,7 +3,7 @@ import { isObject } from 'lodash';
 import { Div } from '../Div';
 import { Button as DefaultButton } from '../Button';
 import {
-  mergeClassNames, bindFunctionalRef, getClassNames, useTheme, useValue, useElement,
+  bindFunctionalRef, getClassNames, useTheme, useValue, useElement, useProps,
 } from '../../utils';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { createChangeHandler, createResetHandler } from './handlers';
@@ -13,11 +13,8 @@ import {
 } from './types';
 import { useValidation } from '../Validation';
 import { SomeObject } from '../../commonTypes';
-import { LedaContext } from '../LedaProvider';
 
 export const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: React.Ref<ButtonGroupRefCurrent>): React.ReactElement | null => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     activeIndex,
     buttonRender,
@@ -41,7 +38,7 @@ export const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: Reac
     form,
     validator,
     ...restProps
-  } = mergeClassNames<ButtonGroupProps>(props, { underscoreClassesTransform });
+  } = useProps<ButtonGroupProps>(props);
 
   const [value, setUncontrolledValue] = useValue(valueProp, defaultValue);
 

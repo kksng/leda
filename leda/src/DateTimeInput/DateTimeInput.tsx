@@ -5,7 +5,7 @@ import { COMPONENTS_NAMESPACES } from '../../constants';
 import { getCalendarConditions } from '../Calendar/helpers';
 import { Div } from '../../components/Div';
 import {
-  bindFunctionalRef, getClassNames, mergeClassNames, useTheme,
+  bindFunctionalRef, getClassNames, useProps, useTheme,
 } from '../../utils';
 import { Calendar } from '../Calendar';
 import { COMPONENT_TYPES } from './constants';
@@ -28,11 +28,8 @@ import {
 import { useCustomElements, useDateTimeInputEffects, useDateTimeInputState } from './hooks';
 import { Span } from '../../components/Span';
 import { DateTimeInputProps, DateTimeInputRefCurrent } from './types';
-import { LedaContext } from '../../components/LedaProvider';
 
 export const DateTimeInput = React.forwardRef((props: DateTimeInputProps, ref: React.Ref<DateTimeInputRefCurrent>) => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     boundingContainerRef,
     calendarHeaderRender,
@@ -66,7 +63,7 @@ export const DateTimeInput = React.forwardRef((props: DateTimeInputProps, ref: R
     wrapperRender,
     yearViewRender,
     ...restProps
-  } = mergeClassNames<DateTimeInputProps>(props, { underscoreClassesTransform });
+  } = useProps<DateTimeInputProps>(props);
 
   handleErrors(props);
 

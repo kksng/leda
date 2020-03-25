@@ -1,20 +1,17 @@
 import React from 'react';
 import {
-  bindFunctionalRef, mergeClassNames,
+  bindFunctionalRef, useProps,
 } from '../../utils';
 import { Loader } from '../Loader';
 import { CollapsePanelContext } from './CollapseContext';
 import { useBodyWrapper } from './helpers';
 import { BodyProps, BodyRefCurrent } from './types';
 import { useCollapse } from './useCollapse';
-import { LedaContext } from '../LedaProvider';
 
 export const Body = React.forwardRef((props: BodyProps, ref?: React.Ref<BodyRefCurrent>): React.ReactElement => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     onOpen, onCloseByClick, onClose, isLoading, transition, children, className,
-  } = mergeClassNames<BodyProps>(props, { underscoreClassesTransform });
+  } = useProps<BodyProps>(props);
 
   const {
     isExpanded, isClicked, onBodyRest, panelKey,

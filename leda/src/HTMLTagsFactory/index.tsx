@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { bindFunctionalRef, mergeClassNames } from '../../utils';
-import { LedaContext } from '../../components/LedaProvider';
+import { bindFunctionalRef, useProps } from '../../utils';
 
 export const htmlTagFactory = (tagName: string): React.ForwardRefExoticComponent<React.RefAttributes<unknown>> => {
   const tagComponent = React.forwardRef(<P, R>(props: P, ref: React.Ref<R>): React.ReactElement => {
-    const { underscoreClassesTransform } = React.useContext(LedaContext);
-    const newProps = mergeClassNames(props, { underscoreClassesTransform });
+    const newProps = useProps<P>(props);
 
     const ElementName = tagName.toLowerCase() as React.ElementType;
 

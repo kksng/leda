@@ -1,17 +1,14 @@
 import 'element-closest/browser';
 import * as React from 'react';
 import { isFunction } from 'lodash';
-import { bindFunctionalRef, mergeClassNames } from '../../utils';
+import { bindFunctionalRef, useProps } from '../../utils';
 import { DEFAULT_TRANSITION } from './contants';
 import { generateTransitionProperty } from './helpers';
 import { CollapsibleProps, CollapsibleRefCurrent } from './types';
 import { useCollapse } from '../Collapse/useCollapse';
 import { Div } from '../Div';
-import { LedaContext } from '../LedaProvider';
 
 export const Collapsible = React.forwardRef((props: CollapsibleProps, ref: React.Ref<CollapsibleRefCurrent>) => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     children,
     className,
@@ -20,7 +17,7 @@ export const Collapsible = React.forwardRef((props: CollapsibleProps, ref: React
     onOpen,
     onToggle,
     transition = DEFAULT_TRANSITION,
-  } = mergeClassNames<CollapsibleProps>(props, { underscoreClassesTransform });
+  } = useProps<CollapsibleProps>(props);
 
   const onRest = (): void => {
     if (isOpen && isFunction(onOpen)) {

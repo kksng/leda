@@ -1,7 +1,7 @@
 import React from 'react';
 import { isEqual, isFunction, isObject } from 'lodash';
 import {
-  mergeClassNames, bindFunctionalRef, useTheme, useElement, useAdaptivePosition,
+  bindFunctionalRef, useTheme, useElement, useAdaptivePosition, useProps,
 } from '../../utils';
 import { A } from '../A';
 import { DropDown } from '../DropDown';
@@ -13,11 +13,8 @@ import {
 } from './types';
 import { DataObject } from '../../commonTypes';
 import { DivRefCurrent } from '../Div';
-import { LedaContext } from '../LedaProvider';
 
 export const DropDownLink = React.forwardRef((props: DropDownLinkProps, ref?: React.Ref<DropDownLinkRefCurrent>): React.ReactElement | null => {
-  const { underscoreClassesTransform } = React.useContext(LedaContext);
-
   const {
     data,
     itemRender,
@@ -29,7 +26,7 @@ export const DropDownLink = React.forwardRef((props: DropDownLinkProps, ref?: Re
     value = '',
     isOpen: isOpenProp,
     ...restProps
-  } = mergeClassNames(props, { underscoreClassesTransform });
+  } = useProps<DropDownLinkProps>(props);
 
   const Title = useElement<DropDownLinkProps, {}, TitleProps>(
     'Title',
