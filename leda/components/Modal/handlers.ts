@@ -23,7 +23,9 @@ export const createCloseButtonClickHandler = (props: ModalWindowProps) => (ev: R
 export const createOverlayClickHandler = (props: ModalWindowProps) => (ev: React.MouseEvent<HTMLElement>) => {
   const { onOverlayClick, onClose } = props;
 
-  if (ev.currentTarget === ev.target) {
+  const elementThatCursorIsOver = document.elementFromPoint(ev.clientX, ev.clientY);
+
+  if (ev.currentTarget === ev.target && ev.currentTarget === elementThatCursorIsOver) {
     onOverlayClick?.(ev);
 
     onClose?.(ev);

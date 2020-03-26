@@ -75,7 +75,7 @@ export const ModalWindow = (props: ModalWindowProps): React.ReactElement => {
           wrapper: component,
         }))}
         className={wrapperClassname}
-        onMouseDown={handleOverlayClick}
+        onClick={handleOverlayClick}
         {...restProp}
       >
         <div

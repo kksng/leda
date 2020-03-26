@@ -50,15 +50,15 @@ exports[`Modal SNAPSHOTS different component states should have header 1`] = `
     >
       <Wrapper
         className="modal-wrapper"
-        onMouseDown={[Function]}
+        onClick={[Function]}
       >
         <Div
           className="modal-wrapper"
-          onMouseDown={[Function]}
+          onClick={[Function]}
         >
           <div
             className="modal-wrapper"
-            onMouseDown={[Function]}
+            onClick={[Function]}
           >
             <div
               className="modal-window"
@@ -171,15 +171,15 @@ exports[`Modal SNAPSHOTS different component states should render closing icon i
     >
       <Wrapper
         className="modal-wrapper"
-        onMouseDown={[Function]}
+        onClick={[Function]}
       >
         <Div
           className="modal-wrapper"
-          onMouseDown={[Function]}
+          onClick={[Function]}
         >
           <div
             className="modal-wrapper"
-            onMouseDown={[Function]}
+            onClick={[Function]}
           >
             <div
               className="modal-window"
@@ -276,15 +276,15 @@ exports[`Modal SNAPSHOTS should render 1`] = `
     >
       <Wrapper
         className="modal-wrapper"
-        onMouseDown={[Function]}
+        onClick={[Function]}
       >
         <Div
           className="modal-wrapper"
-          onMouseDown={[Function]}
+          onClick={[Function]}
         >
           <div
             className="modal-wrapper"
-            onMouseDown={[Function]}
+            onClick={[Function]}
           >
             <div
               className="modal-window"
