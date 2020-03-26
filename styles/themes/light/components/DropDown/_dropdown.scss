@@ -18,10 +18,14 @@
       left: 0;
     }
 
+    &.pos-top {
+      top: auto;
+      bottom: 100%;
+    }
+
     &.pos-right {
       right: 0;
     }
-
 
     & > li {
       display: block;
@@ -51,7 +55,7 @@
     }
   }
 
-  &:hover {
+  &.opened {
     z-index: 999;
 
     & > ul {
