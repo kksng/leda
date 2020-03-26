@@ -1,25 +1,25 @@
 import * as React from 'react';
-import { SomeObject } from '../../../leda/commonTypes';
 import * as L from '../../../leda';
+import { SomeObject } from '../../../leda/commonTypes';
 
 const DDSData = [
   {
-    city: 'Salvador', id: 1, attr: 'value1', groupName: 'Brazil',
+    id: 1, attr: 'value1', city: 'Salvador', groupName: 'Brazil',
   },
   {
-    city: 'Rio de Janeiro', id: 2, attr: 'value2', groupName: 'Brazil',
+    id: 2, attr: 'value2', city: 'Rio de Janeiro', groupName: 'Brazil',
   },
   {
-    city: 'Berlin', id: 3, attr: 'value3', groupName: 'Germany',
+    id: 3, attr: 'value3', city: 'Berlin', groupName: 'Germany',
   },
   {
-    city: 'Munich', id: 4, attr: 'value4', groupName: 'Germany',
+    id: 4, attr: 'value4', city: 'Munich', groupName: 'Germany',
   },
   {
-    city: 'Milan', groupName: 'Italy', id: 5, attr: 'value5',
+    id: 5, attr: 'value5', city: 'Milan', groupName: 'Italy',
   },
   {
-    city: 'Rome', groupName: 'Italy', id: 6, attr: 'value6',
+    id: 6, attr: 'value6', city: 'Rome', groupName: 'Italy',
   },
   { city: 'Islamabad', id: 7, attr: 'value7' },
   { city: 'Washington', id: 8, attr: 'value8' },
@@ -28,6 +28,7 @@ const DDSData = [
   { city: 'Budapest', id: 11, attr: 'value11' },
 ];
 
+// eslint-disable-next-line
 export const GroupedObjectsData = (args: SomeObject): React.ReactElement => {
   const [isOpen, setIsOpen] = React.useState<boolean | undefined>();
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);

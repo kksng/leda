@@ -82,6 +82,17 @@ exports[`DropZone ATTRIBUTES should customize description text 1`] = `
       </div>
     </Div>
   </Wrapper>
+  <InvalidMessageWrapper>
+    <InvalidMessage
+      isValid={true}
+      messages={Array []}
+    >
+      <Component
+        isValid={true}
+        messages={Array []}
+      />
+    </InvalidMessage>
+  </InvalidMessageWrapper>
   <RejectedFiles
     className="rejected-list margin-none"
   >
@@ -101,6 +112,7 @@ exports[`DropZone ATTRIBUTES should customize description text 1`] = `
               "fileDeleteIcon": "dropzone-delete-icon",
               "fileDeleteLink": "dropzone-file-delete internal",
               "fileDownloadLink": "dropzone-file-download internal",
+              "invalid": "danger",
               "rejectedFilesWrapper": "rejected-list margin-none",
               "rejectedMessage": "dropzone-rejected-message txt-danger",
               "status": "dropzone-status",
@@ -136,6 +148,7 @@ exports[`DropZone ATTRIBUTES should customize description text 1`] = `
             "fileDeleteIcon": "dropzone-delete-icon",
             "fileDeleteLink": "dropzone-file-delete internal",
             "fileDownloadLink": "dropzone-file-download internal",
+            "invalid": "danger",
             "rejectedFilesWrapper": "rejected-list margin-none",
             "rejectedMessage": "dropzone-rejected-message txt-danger",
             "status": "dropzone-status",
@@ -262,6 +275,17 @@ exports[`DropZone ATTRIBUTES should customize upload button 1`] = `
       </div>
     </Div>
   </Wrapper>
+  <InvalidMessageWrapper>
+    <InvalidMessage
+      isValid={true}
+      messages={Array []}
+    >
+      <Component
+        isValid={true}
+        messages={Array []}
+      />
+    </InvalidMessage>
+  </InvalidMessageWrapper>
   <RejectedFiles
     className="rejected-list margin-none"
   >
@@ -281,6 +305,7 @@ exports[`DropZone ATTRIBUTES should customize upload button 1`] = `
               "fileDeleteIcon": "dropzone-delete-icon",
               "fileDeleteLink": "dropzone-file-delete internal",
               "fileDownloadLink": "dropzone-file-download internal",
+              "invalid": "danger",
               "rejectedFilesWrapper": "rejected-list margin-none",
               "rejectedMessage": "dropzone-rejected-message txt-danger",
               "status": "dropzone-status",
@@ -316,6 +341,7 @@ exports[`DropZone ATTRIBUTES should customize upload button 1`] = `
             "fileDeleteIcon": "dropzone-delete-icon",
             "fileDeleteLink": "dropzone-file-delete internal",
             "fileDownloadLink": "dropzone-file-download internal",
+            "invalid": "danger",
             "rejectedFilesWrapper": "rejected-list margin-none",
             "rejectedMessage": "dropzone-rejected-message txt-danger",
             "status": "dropzone-status",
@@ -447,6 +473,17 @@ exports[`DropZone SNAPSHOTS should render 1`] = `
       </div>
     </Div>
   </Wrapper>
+  <InvalidMessageWrapper>
+    <InvalidMessage
+      isValid={true}
+      messages={Array []}
+    >
+      <Component
+        isValid={true}
+        messages={Array []}
+      />
+    </InvalidMessage>
+  </InvalidMessageWrapper>
   <RejectedFiles
     className="rejected-list margin-none"
   >
@@ -466,6 +503,7 @@ exports[`DropZone SNAPSHOTS should render 1`] = `
               "fileDeleteIcon": "dropzone-delete-icon",
               "fileDeleteLink": "dropzone-file-delete internal",
               "fileDownloadLink": "dropzone-file-download internal",
+              "invalid": "danger",
               "rejectedFilesWrapper": "rejected-list margin-none",
               "rejectedMessage": "dropzone-rejected-message txt-danger",
               "status": "dropzone-status",
@@ -501,6 +539,7 @@ exports[`DropZone SNAPSHOTS should render 1`] = `
             "fileDeleteIcon": "dropzone-delete-icon",
             "fileDeleteLink": "dropzone-file-delete internal",
             "fileDownloadLink": "dropzone-file-download internal",
+            "invalid": "danger",
             "rejectedFilesWrapper": "rejected-list margin-none",
             "rejectedMessage": "dropzone-rejected-message txt-danger",
             "status": "dropzone-status",

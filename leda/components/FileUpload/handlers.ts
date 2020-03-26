@@ -30,40 +30,40 @@ interface LoadHandler {
 export const createLoadHandler = (props: FileUploadProps): LoadHandler => (accepted, rejected) => {
   const { onFileLoad } = props;
 
-  // todo: изменить map на forEach, отрефакторить метод
-  const rejectedWithErrors = rejected.map((item) => {
-    const rejectedFile: RejectedFileType = item;
-
-    rejectedFile.errorCode = getErrorCode(item, props);
-
-    return rejectedFile;
-  });
-
-  const acceptedFiles: File[] = [];
+  const rejectedWithErrors = rejected.map((item) => ({
+    ...item,
+    errorCode: getErrorCode(item, props),
+  }));
 
   // Обрабатываем файлы, принятые ядром.
   // Перенос файлов с ошибкой в rejected
-  accepted.forEach((file) => {
+  const acceptedFiles: File[] = accepted.filter((file) => {
     const errorCode = getErrorCode(file, props);
     // Если ошибки обнаружены (0 - отсутствие ошибок)
     if (errorCode !== 0) {
-      const rejectedFile: RejectedFileType = file;
-      rejectedFile.errorCode = errorCode;
-      rejectedWithErrors.push(rejectedFile);
+      rejectedWithErrors.push({
+        ...file,
+        errorCode,
+      });
+
+      return false;
       // Если файла еще нет то добавляем в acceptedFiles
-    } else {
-      acceptedFiles.push(file);
     }
+    return true;
   });
+
+  const newValue = {
+    acceptedFiles,
+    rejectedFiles: rejectedWithErrors,
+  };
 
   const customEvent = {
     component: {
-      value: {
-        acceptedFiles,
-        rejectedFiles: rejectedWithErrors,
-      },
+      value: newValue,
     },
   };
 
   if (isFunction(onFileLoad)) onFileLoad(customEvent);
+
+  return newValue;
 };

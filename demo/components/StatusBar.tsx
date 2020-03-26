@@ -1,8 +1,8 @@
 /* eslint-disable no-alert, no-console */
 import * as React from 'react';
 import * as L from '../../leda';
-import { StatusItem } from '../../leda/components/StatusBar/types';
-import { SetState, SomeObject } from '../../leda/commonTypes';
+import { SetState } from '../../leda/commonTypes';
+import { useInterval } from '../../leda/utils';
 
 const data = [
   { labelText: 'Согласование' },
@@ -16,19 +16,19 @@ const data = [
 const customData = [
   {
     txt: 'Согласование',
-    type: 'success',
+    status: 'success',
   },
   {
     txt: 'Оформление',
-    type: 'danger',
+    status: 'danger',
   },
   {
     txt: 'Подписание',
-    type: 'success',
+    status: 'success',
   },
   {
     txt: 'Предоплата',
-    type: 'progress',
+    status: 'progress',
   },
   {
     txt: 'Доставка',
@@ -57,10 +57,21 @@ const handleClick = (newIndex: number, setValue: SetState<{ labelText: string }>
 export const StatusBar = () => {
   const [index, setIndex] = React.useState(2);
   const [value, setValue] = React.useState(data[index]);
+  const [progress, setProgress] = React.useState(0);
+
+  useInterval(() => {
+    setProgress(progress + 10);
+  }, progress < 100 ? 500 : null);
 
   return (
     <L.Div _demoStory>
       <L.H4 _title>StatusBar & StatusBarCustom</L.H4>
+      <L.StatusBar
+        data={data}
+        value={data[2]}
+        textField="labelText"
+        currentStepProgress={progress}
+      />
       <br />
       <L.StatusBar
         data={data}
@@ -86,13 +97,20 @@ export const StatusBar = () => {
       >
         Следующий Шаг
       </L.Button>
+      {' '}
+      <L.Button
+        _warning
+        onClick={() => setProgress(0)}
+      >
+        Начать анимацию
+      </L.Button>
       <br />
       <br />
       <L.Span>Custom step types:</L.Span>
       <L.StatusBar
-        data={customData as StatusItem[]}
+        data={customData as L.StatusBarTypes.StatusItem[]}
         textField="txt"
-        typeField="type"
+        typeField="status"
       />
       <br />
       <br />

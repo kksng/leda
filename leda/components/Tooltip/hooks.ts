@@ -1,51 +1,170 @@
 import * as React from 'react';
-import { hideTooltip, showTooltip } from './helpers';
-import { UseTooltipEffects } from './types';
+import debounce from 'lodash/debounce';
+import isMatch from 'lodash/isMatch';
+import { getTooltipPosition, getTooltipOffsets } from './helpers';
+import { TooltipPosition, TooltipStyle, UseTooltip } from './types';
 
-export const useTooltipEffects: UseTooltipEffects = ({
-  isOpen, positionProp, children, invisibleElementRef, tooltipRef, position, setPosition, mergeStyle,
+export const useTooltip: UseTooltip = ({
+  arrowSize,
+  transitionTimeout,
+  initialIsOpen,
+  initialPosition,
+  elementRef,
+  tooltipRef,
 }) => {
-  const sibling = invisibleElementRef.current?.nextElementSibling;
+  const [isOpen, setIsOpen] = React.useState<boolean | undefined>(initialIsOpen ?? false);
 
-  const hide = React.useCallback(() => {
-    hideTooltip({
-      isOpen, positionProp, setPosition, mergeStyle,
-    });
-  }, [isOpen, positionProp, setPosition, mergeStyle]);
+  const [position, setPosition] = React.useState<TooltipPosition>();
 
-  const show = React.useCallback(() => {
-    showTooltip({
-      invisibleElementRef, tooltipRef, position, setPosition, mergeStyle,
-    });
-  }, [invisibleElementRef, tooltipRef, position, setPosition, mergeStyle]);
+  const [style, setStyle] = React.useState<TooltipStyle>({
+    opacity: 0, top: 0, visibility: 'hidden',
+  });
 
-  React.useEffect(() => {
-    hide();
+  const mergeStyle = React.useCallback((newStyle: Partial<TooltipStyle>) => {
+    setStyle((oldStyle) => {
+      if (isMatch(oldStyle, newStyle)) {
+        return oldStyle;
+      }
 
-    return hide;
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [children]);
-
-  React.useEffect(() => {
-    if (sibling) {
-      const element = sibling as HTMLElement;
-
-      element.addEventListener('pointerenter', show);
-      element.addEventListener('pointerleave', hide);
-      element.addEventListener('touchstart', show);
-      element.addEventListener('touchend', hide);
-
-      return () => {
-        if (element) {
-          element.removeEventListener('pointerenter', show);
-          element.removeEventListener('pointerleave', hide);
-          element.removeEventListener('touchstart', show);
-          element.removeEventListener('touchend', hide);
-        }
+      return {
+        ...oldStyle,
+        ...newStyle,
       };
+    });
+  }, []);
+
+  const updateTooltip = React.useCallback(() => {
+    if (!elementRef?.current || !tooltipRef?.current) {
+      return;
     }
 
-    return undefined;
-  }, [sibling, hide, show]);
+    const elementRect = elementRef.current.getBoundingClientRect();
+    const tooltipRect = tooltipRef.current.getBoundingClientRect();
+
+    const newPosition = getTooltipPosition({
+      position: initialPosition, elementRect, tooltipRect, arrowSize,
+    }) || initialPosition;
+
+    setPosition(newPosition);
+
+    const newOffsets = getTooltipOffsets({
+      position: newPosition, elementRect,
+    });
+
+    mergeStyle(newOffsets);
+  }, [elementRef, tooltipRef, initialPosition, arrowSize, mergeStyle]);
+
+  const closeTooltip = React.useCallback(() => {
+    setIsOpen(false);
+
+    setPosition(undefined);
+
+    setStyle({
+      opacity: 0, top: 0, visibility: 'hidden',
+    });
+  }, []);
+
+  const handleTransitionEnd = React.useCallback<React.TransitionEventHandler>(() => {
+    if (isOpen != null) {
+      return;
+    }
+
+    closeTooltip();
+  }, [closeTooltip, isOpen]);
+
+  const debounceCloseTooltip = React.useMemo(() => {
+    const close = () => {
+      closeTooltip();
+    };
+
+    return debounce(close, transitionTimeout);
+  }, [closeTooltip, transitionTimeout]);
+
+  const hideTooltip = React.useCallback(() => {
+    setIsOpen(undefined);
+
+    mergeStyle({
+      opacity: 0,
+    });
+
+    debounceCloseTooltip();
+  }, [debounceCloseTooltip, mergeStyle]);
+
+  const showTooltip = React.useCallback(() => {
+    if (!elementRef?.current || !tooltipRef?.current) {
+      return;
+    }
+
+    setIsOpen(true);
+
+    setStyle({
+      opacity: 1, top: 0,
+    });
+
+    updateTooltip();
+
+    debounceCloseTooltip.cancel();
+  }, [debounceCloseTooltip, updateTooltip, elementRef, tooltipRef]);
+
+  React.useEffect(() => {
+    if (isOpen === false) {
+      return undefined;
+    }
+
+    if (!elementRef?.current || !tooltipRef?.current) {
+      return undefined;
+    }
+
+    const handleResize = () => {
+      updateTooltip();
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleResize);
+    };
+  }, [isOpen, updateTooltip, elementRef, tooltipRef]);
+
+  React.useEffect(() => {
+    if (initialIsOpen != null) {
+      return undefined;
+    }
+
+    if (!elementRef?.current) {
+      return undefined;
+    }
+
+    const element = elementRef?.current;
+
+    element.addEventListener('pointerenter', showTooltip);
+    element.addEventListener('pointerleave', hideTooltip);
+    element.addEventListener('touchstart', showTooltip);
+    element.addEventListener('touchend', hideTooltip);
+
+    return () => {
+      element.removeEventListener('pointerenter', showTooltip);
+      element.removeEventListener('pointerleave', hideTooltip);
+      element.removeEventListener('touchstart', showTooltip);
+      element.removeEventListener('touchend', hideTooltip);
+    };
+  }, [initialIsOpen, showTooltip, hideTooltip, elementRef]);
+
+  React.useEffect(() => {
+    if (initialIsOpen) {
+      showTooltip();
+    } else {
+      hideTooltip();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialIsOpen]);
+
+  return {
+    handleTransitionEnd,
+    position,
+    style,
+  };
 };

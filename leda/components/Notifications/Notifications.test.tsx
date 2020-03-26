@@ -1,10 +1,15 @@
-// @ts-nocheck
 import React from 'react';
-import toJson from 'enzyme-to-json';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
+import shortid from 'shortid';
+import userEvent from '@testing-library/user-event';
 import { Notifications } from './index';
-// TODO: починить тесты
-describe.skip('Notifications SNAPSHOTS', () => {
+import { ChangeEvent, Item } from './types';
+import { Button } from '../Button';
+
+jest.useFakeTimers();
+
+describe('Notifications SNAPSHOTS', () => {
   it('should render basic usage', () => {
     const items = [
       {
@@ -18,20 +23,37 @@ describe.skip('Notifications SNAPSHOTS', () => {
         text: 'Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
         icon: 'danger',
         color: 'danger',
-        delay: 10,
+        delay: 15,
         id: 2,
       },
     ];
 
-    const wrapper = mount(<Notifications
-      items={items}
-      onClose={jest.fn()}
-      maxItems={3}
-    />);
+    const onChange = jest.fn();
 
-    expect(wrapper.find('NotificationItem')).toHaveLength(2);
+    const eventMatcher = expect.objectContaining({
+      component: expect.objectContaining({
+        value: expect.any(Array),
+        method: 'delay',
+      }),
+    });
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    const { container } = render(
+      <Notifications
+        value={items}
+        onChange={onChange}
+        maxItems={3}
+      />,
+    );
+
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(2);
+
+    expect(container).toMatchSnapshot();
+
+    jest.advanceTimersByTime(100);
+
+    expect(onChange).toHaveBeenCalledTimes(2);
+
+    expect(onChange).toHaveBeenCalledWith(eventMatcher);
   });
 
   it('should render items < maxItems', () => {
@@ -73,20 +95,20 @@ describe.skip('Notifications SNAPSHOTS', () => {
       },
     ];
 
-    const wrapper = mount(<Notifications
-      items={items}
-      onClose={jest.fn()}
-      maxItems={3}
-    />);
+    const { container } = render(
+      <Notifications
+        value={items}
+        onChange={jest.fn()}
+        maxItems={3}
+      />,
+    );
 
-    expect(wrapper.find('NotificationItem')).toHaveLength(3);
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(3);
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
-});
 
-describe.skip('Notifications handlers', () => {
-  it('should trigger onClick close', () => {
+  it('should render action button', () => {
     const items = [
       {
         text: 'Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
@@ -99,67 +121,221 @@ describe.skip('Notifications handlers', () => {
         text: 'Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
         icon: 'danger',
         color: 'danger',
-        delay: 10,
+        delay: 15,
         id: 2,
       },
     ];
-    const wrapper = mount(<Notifications
-      items={items}
-      maxItems={3}
-    />);
 
-    wrapper.setProps({ onClose: (ev) => wrapper.setProps({ items: items.filter((item) => ev.component.id !== item.id) }) });
+    const { container } = render(
+      <Notifications
+        value={items}
+        onChange={jest.fn()}
+        actionButtonRender={() => <Button>text</Button>}
+        maxItems={3}
+      />,
+    );
 
-    wrapper.update();
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(2);
 
-    wrapper.find('.uicon-close').first().props().onClick({ target: {} });
+    expect(container.querySelectorAll('button')).toHaveLength(2);
 
-    wrapper.update();
+    expect(container.querySelector('button')?.textContent).toEqual('text');
 
-    expect(wrapper.find('NotificationItem')).toHaveLength(1);
-
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 });
 
-describe.skip('Notifications timeout delete items', () => {
-  it('should delete by timeout items', () => async () => {
+describe('Notifications handlers', () => {
+  it('should trigger onChange close', () => {
     const items = [
       {
         text: 'Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
         icon: 'success',
         color: 'success',
-        delay: 1000,
+        delay: 10,
         id: 1,
+      },
+      {
+        text: 'Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
+        icon: 'danger',
+        color: 'danger',
+        delay: 15,
+        id: 2,
       },
     ];
 
-    const wrapper = mount(<Notifications
-      items={items}
-      maxItems={3}
-    />);
+    const eventMatcher = expect.objectContaining({
+      component: expect.objectContaining({
+        value: expect.any(Array),
+        method: 'delay',
+      }),
+    });
 
-    wrapper.setProps({ onClose: (ev) => wrapper.setProps({ items: items.filter((item) => ev.component.id !== item.id) }) });
+    const Wrapper = () => {
+      const [value, setValue] = React.useState<Item[]>(items);
 
-    wrapper.update();
+      const handleChange = (ev: ChangeEvent) => {
+        expect(ev).toMatchObject(eventMatcher);
 
-    expect(wrapper.find('NotificationItem')).toHaveLength(1);
+        setValue(ev.component.value);
+      };
 
-    await new Promise((resolve) => setTimeout(() => {
-      wrapper.update();
+      return (
+        <Notifications
+          value={value}
+          onChange={handleChange}
+          maxItems={3}
+        />
+      );
+    };
 
-      wrapper.update();
+    const { container } = render(<Wrapper />);
 
-      expect(wrapper.find('NotificationItem')).toHaveLength(0);
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(2);
 
-      expect(toJson(wrapper)).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
 
-      resolve();
-    }, 2000));
+    act(() => {
+      jest.advanceTimersByTime(100);
+    });
+
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(0);
+
+    expect(container).toMatchSnapshot();
+  });
+
+  it('should not delete items with delay 0', () => {
+    const items = [
+      {
+        text: 'Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
+        icon: 'success',
+        color: 'success',
+        delay: 0,
+        id: 1,
+      },
+      {
+        text: 'Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
+        icon: 'danger',
+        color: 'danger',
+        delay: 15,
+        id: 2,
+      },
+    ];
+
+    const eventMatcher = expect.objectContaining({
+      component: expect.objectContaining({
+        value: expect.any(Array),
+        method: 'delay',
+      }),
+    });
+
+    const Wrapper = () => {
+      const [value, setValue] = React.useState<Item[]>(items);
+
+      const handleChange = (ev: ChangeEvent) => {
+        expect(ev).toMatchObject(eventMatcher);
+
+        setValue(ev.component.value);
+      };
+
+      return (
+        <Notifications
+          value={value}
+          onChange={handleChange}
+          maxItems={3}
+        />
+      );
+    };
+
+    const { container } = render(<Wrapper />);
+
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(2);
+
+    expect(container).toMatchSnapshot();
+
+    act(() => {
+      jest.advanceTimersByTime(100);
+    });
+
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(1);
+
+    expect(container).toMatchSnapshot();
+  });
+
+  it('should delete items by close icon click', () => {
+    const items = [
+      {
+        text: 'Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
+        icon: 'success',
+        color: 'success',
+        delay: 0,
+        id: 1,
+      },
+      {
+        text: 'Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
+        icon: 'danger',
+        color: 'danger',
+        delay: 0,
+        id: 2,
+      },
+    ];
+
+    const eventMatcher = expect.objectContaining({
+      component: expect.objectContaining({
+        value: expect.any(Array),
+        method: 'close-icon-click',
+      }),
+    });
+
+    const Wrapper = () => {
+      const [value, setValue] = React.useState<Item[]>(items);
+
+      const handleChange = (ev: ChangeEvent) => {
+        expect(ev).toMatchObject(eventMatcher);
+
+        setValue(ev.component.value);
+      };
+
+      return (
+        <Notifications
+          value={value}
+          onChange={handleChange}
+          maxItems={3}
+        />
+      );
+    };
+
+    const { container } = render(<Wrapper />);
+
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(2);
+
+    expect(container).toMatchSnapshot();
+
+    act(() => {
+      const icon = container.querySelector('.notifications-icon-close');
+
+      expect(icon).toBeDefined();
+
+      userEvent.click(icon as HTMLElement);
+    });
+
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(1);
+
+    act(() => {
+      const icon = container.querySelector('.notifications-icon-close');
+
+      expect(icon).toBeDefined();
+
+      userEvent.click(icon as HTMLElement);
+    });
+
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(0);
+
+    expect(container).toMatchSnapshot();
   });
 });
 
-describe.skip('Notifications add item', () => {
+describe('Notifications add item', () => {
   it('should add new item', () => {
     const items = [
       {
@@ -171,12 +347,6 @@ describe.skip('Notifications add item', () => {
       },
     ];
 
-    const wrapper = mount(<Notifications
-      items={items}
-      onClose={jest.fn()}
-      maxItems={3}
-    />);
-
     const item = {
       text: 'Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
       icon: 'danger',
@@ -185,57 +355,126 @@ describe.skip('Notifications add item', () => {
       id: 2,
     };
 
-    const newItems = [...items, item];
+    const Wrapper = () => {
+      const [value, setValue] = React.useState<Item[]>(items);
 
-    wrapper.setProps({ items: newItems });
+      const handleChange = (ev: ChangeEvent) => {
+        setValue(ev.component.value);
+      };
 
-    wrapper.update();
+      const addNewItem = () => setValue([...value, item]);
 
-    expect(wrapper.state().items).toHaveLength(2);
+      return (
+        <>
+          <Notifications
+            value={value}
+            onChange={handleChange}
+            maxItems={3}
+          />
+          <Button onClick={() => addNewItem()} />
+        </>
+      );
+    };
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    const { container } = render(<Wrapper />);
+
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(1);
+
+    act(() => {
+      const button = container.querySelector('button');
+
+      expect(button).toBeDefined();
+
+      userEvent.click(button as HTMLElement);
+    });
+
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(2);
+
+    expect(container).toMatchSnapshot();
   });
 
   it('should add new items and delete more than maxItems', () => {
     const items = [
       {
-        text: '1Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
+        text: 'Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
         icon: 'success',
         color: 'success',
         delay: 10,
         id: 1,
       },
       {
-        text: '2Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
-        icon: 'danger',
-        color: 'danger',
+        text: 'Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
+        icon: 'success',
+        color: 'success',
         delay: 10,
-        id: 2,
+        id: 3,
       },
     ];
 
-    const wrapper = mount(<Notifications
-      items={items}
-      onClose={jest.fn()}
-      maxItems={3}
-    />);
-
     const item = {
-      text: '3Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
-      icon: 'warning',
-      color: 'warning',
+      text: 'Сомнение определяет <a href="#">эмпирический катарсис</a>, не&nbsp;учитывая мнения авторитетов.',
+      icon: 'danger',
+      color: 'danger',
       delay: 10,
-      id: 3,
     };
 
-    const newItems = [...items, item];
+    const Wrapper = () => {
+      const [value, setValue] = React.useState<Item[]>(items);
 
-    wrapper.setProps({ items: newItems });
+      const handleChange = (ev: ChangeEvent) => {
+        setValue(ev.component.value);
+      };
 
-    wrapper.update();
+      const addNewItem = () => {
+        setValue([...value, { ...item, id: shortid.generate() }]);
+      };
 
-    expect(wrapper.state().items).toHaveLength(3);
+      return (
+        <>
+          <Notifications
+            value={value}
+            onChange={handleChange}
+            maxItems={3}
+          />
+          <Button onClick={() => addNewItem()} />
+        </>
+      );
+    };
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    const { container } = render(<Wrapper />);
+
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(2);
+
+    act(() => {
+      const button = container.querySelector('button');
+
+      expect(button).toBeDefined();
+
+      userEvent.click(button as HTMLElement);
+    });
+
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(3);
+
+    act(() => {
+      const button = container.querySelector('button');
+
+      expect(button).toBeDefined();
+
+      userEvent.click(button as HTMLElement);
+    });
+
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(3);
+
+    act(() => {
+      const button = container.querySelector('button');
+
+      expect(button).toBeDefined();
+
+      userEvent.click(button as HTMLElement);
+    });
+    // не более 3 элементов за раз
+    expect(container.querySelectorAll('.notifications-item')).toHaveLength(3);
+
+    expect(container).toMatchSnapshot();
   });
 });

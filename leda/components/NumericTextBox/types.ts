@@ -66,7 +66,6 @@ export type ChangeEvent = KeyArrowChangeEvent
 | InputChangeEvent
 | ResetChangeEvent;
 
-
 export interface BlurEvent extends React.FocusEvent<HTMLInputElement> {
   component: {
     formattedValue: string,

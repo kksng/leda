@@ -32,6 +32,7 @@ export const FormUncontrolled = () => {
           </Label>
           <L.AutoComplete _grow1
             isRequired
+            hasClearButton
             form={formName}
             name="auto-complete"
             data={['Berlin', 'Paris']}
@@ -101,6 +102,7 @@ export const FormUncontrolled = () => {
           </Label>
           <L.DropDownSelect _grow1
             isRequired
+            hasClearButton
             form={formName}
             name="drop-down-select"
             data={['Berlin', 'Paris']}
@@ -114,6 +116,7 @@ export const FormUncontrolled = () => {
           </Label>
           <L.Input _grow1
             isRequired
+            hasClearButton
             form={formName}
             name="input"
             onChange={handleChange}
@@ -138,6 +141,7 @@ export const FormUncontrolled = () => {
           </Label>
           <L.MultiSelect _grow1
             isRequired
+            hasClearButton
             form={formName}
             name="multi-select"
             data={['Berlin', 'Paris']}

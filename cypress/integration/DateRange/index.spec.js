@@ -128,5 +128,4 @@ describe('DateRange', () => {
         .should('have.attr', 'value', '11-е число  22-го месяца  33__-го года')
     })
   })
-
 })

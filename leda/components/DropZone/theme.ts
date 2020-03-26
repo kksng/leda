@@ -10,6 +10,7 @@ export const defaultDropZoneTheme = {
   rejectedFilesWrapper: 'rejected-list margin-none',
   rejectedMessage:      'dropzone-rejected-message txt-danger',
   status:               'dropzone-status',
+  invalid:              'danger',
   wrapper:              'dropzone-wrapper',
 };
 /* eslint-enable key-spacing */

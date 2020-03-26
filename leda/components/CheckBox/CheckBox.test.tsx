@@ -1,159 +1,172 @@
-// @ts-nocheck
-/* eslint-disable jsx-a11y/label-has-for */
-
 import React from 'react';
-import { mount, shallow } from 'enzyme';
-import toJson from 'enzyme-to-json';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { CheckBox } from './index';
+import { ChangeEvent } from './types';
 
 describe('CheckBox SNAPSHOTS', () => {
   it('should render', () => {
-    const wrapper = mount(<CheckBox id="test" />);
+    const { container } = render(<CheckBox id="test" />);
 
-    expect(wrapper.find('input.checkbox-input')).toHaveLength(1);
+    expect(container.querySelector('input')).toBeDefined();
 
-    expect(wrapper.find('label.checkbox-label')).toHaveLength(1);
+    expect(container.querySelector('label')).toBeDefined();
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('should render controllable mode', () => {
-    let checkedState = true;
-    const toggleCheckedState = () => {
-      checkedState = !checkedState;
+    const eventMatcher = expect.objectContaining({
+      component: expect.objectContaining({
+        value: false,
+        name: 'checker',
+      }),
+    });
+    const Wrapper = () => {
+      const [value, setValue] = React.useState(true);
+      const handleChange = (ev: ChangeEvent) => {
+        expect(ev).toMatchObject(eventMatcher);
+        setValue(!value);
+      };
+      return (
+        <CheckBox onChange={handleChange} id="test" name="checker" value={value} />
+      );
     };
-    const wrapper = mount(<CheckBox onChange={toggleCheckedState} value={checkedState} id="test" />);
+    const { container } = render(<Wrapper />);
 
-    expect(wrapper.find('input').props().checked).toBeTruthy();
+    const input = document.querySelector('input');
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(input).toBeInTheDocument();
 
-    wrapper.find('input').props().onChange({ currentTarget: { value: 'test', checked: false } });
+    expect(input?.checked).toBeTruthy();
 
-    wrapper.setProps({ value: checkedState });
+    expect(container).toMatchSnapshot();
 
-    expect(wrapper.find('input').props().checked).toBeFalsy();
+    const label = document.querySelector('label');
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(label).not.toEqual(null);
+
+    userEvent.click(label as HTMLElement);
+
+    expect(input?.checked).toBeFalsy();
+
+    expect(container).toMatchSnapshot();
   });
 });
 
 describe('CheckBox HANDLERS', () => {
   it('should trigger onChange', () => {
     const onChange = jest.fn();
-    const wrapper = mount(<CheckBox onChange={onChange} />);
-    const evClick = new Event('click', { currentTarget: { checked: true, bubbles: true } });
-    wrapper.find('input').getDOMNode().addEventListener('change', onChange);
+    const eventMatcher = expect.objectContaining({
+      component: expect.objectContaining({
+        value: true,
+        name: 'chegevara',
+      }),
+    });
+    const { container } = render(<CheckBox onChange={onChange} id="test" name="chegevara" />);
 
-    expect(wrapper.find('input').getDOMNode().checked).toBeFalsy();
+    const input = container.querySelector('input');
 
-    wrapper.find('input').getDOMNode().dispatchEvent(evClick);
+    expect(input).toBeInTheDocument();
 
-    expect(wrapper.find('input').getDOMNode().checked).toBeTruthy();
+    expect(input?.checked).toBeFalsy();
 
-    expect(wrapper.props().onChange).toHaveBeenCalled();
+    userEvent.click(container.querySelector('label') as HTMLElement);
+
+    expect(input?.checked).toBeTruthy();
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+
+    expect(onChange).toHaveBeenCalledWith(eventMatcher);
   });
 
   describe('should trigger onClick', () => {
     it('should trigger onClick', () => {
-      const onClick = jest.fn((e) => e.target.value);
-      const wrapper = mount(<CheckBox id="test" onClick={onClick} />);
-      const evClick = new Event('click');
-      const getInputDOM = wrapper.find('input').getDOMNode();
+      const onClick = jest.fn();
 
-      // так как браузера у нас нет, повесим лисенер на инпут сами
-      getInputDOM.addEventListener('click', onClick);
-      // изначально checked = false
-      expect(getInputDOM.checked).toBeFalsy();
+      const { container } = render(<CheckBox id="test" onClick={onClick} />);
 
+      const input = container.querySelector('input');
+
+      expect(input).toBeInTheDocument();
+
+      expect(input?.checked).toBeFalsy();
       // кликнем по инпуту
-      getInputDOM.dispatchEvent(evClick);
+      userEvent.click(container.querySelector('label') as HTMLElement);
       // проверим, что значение изменилось
-      expect(getInputDOM.checked).toBeTruthy();
+      expect(input?.checked).toBeTruthy();
+
       // проверим, что был вызван обработик
-      expect(wrapper.props().onClick).toHaveBeenCalled();
+      expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('should not call onClick if checkbox is disabled', () => {
-      const wrapper = mount(<CheckBox id="test" />);
-      const evChange = new Event('change');
-      const getInputDOM = wrapper.find('input').getDOMNode();
+    it('should not call onChange if checkbox is disabled', () => {
+      const onChange = jest.fn();
+      const { container } = render(<CheckBox isDisabled onChange={onChange} />);
+      const input = container.querySelector('input');
 
-      // сделаем инпут disabled
-      wrapper.setProps({ isDisabled: true });
+      expect(input).toBeInTheDocument();
+
+      expect(input?.disabled).toBeTruthy();
       // вызываем click
-      wrapper.find('label').getDOMNode().dispatchEvent(evChange);
-      // проверим, что инпут disabled
-      expect(getInputDOM.disabled).toBeTruthy();
+      userEvent.click(container.querySelector('label') as HTMLElement);
       // проверим, что значение в инпуте не изменилось
-      expect(getInputDOM.checked).toBeFalsy();
+      expect(input?.checked).toBeFalsy();
+      expect(onChange).not.toHaveBeenCalled();
     });
   });
 });
 
 describe('CheckBox ATTRIBUTES', () => {
   describe(', should add classname "semi" to wrapper', () => {
-    const wrapper = mount(<CheckBox _semi />);
-
     it('should have className', () => {
-      expect(wrapper.find('input').hasClass('checkbox-input')).toBeTruthy();
+      const { container } = render(<CheckBox _semi />);
 
-      expect(wrapper.find('label').hasClass('checkbox-label')).toBeTruthy();
+      expect(container.querySelector('input')).toHaveClass('checkbox-input');
 
-      expect(wrapper.find('.checkbox-label.semi')).toHaveLength(1);
+      expect(container.querySelector('label')).toHaveClass('checkbox-label');
+
+      expect(container.querySelector('label.checkbox-label')).toHaveClass('semi');
     });
 
     it(', should convert props to classes', () => {
-      wrapper.setProps({ _active: true, _box: false });
+      const { container } = render(<CheckBox _active />);
 
-      expect(wrapper.find('.checkbox-label.box')).toHaveLength(0);
+      expect(container.querySelector('.checkbox-label.box')).toBeNull();
 
-      expect(wrapper.find('.checkbox-label.active')).toHaveLength(1);
+      expect(container.querySelector('.checkbox-label.active')).toBeInTheDocument();
     });
 
     it('classes passed through className should not override prop-classes', () => {
-      wrapper.setProps({ className: 'test' });
+      const { container } = render(<CheckBox className="test" _active />);
 
-      expect(wrapper.find('.checkbox-label.test')).toHaveLength(1);
+      expect(container.querySelector('.checkbox-label.test')).toBeInTheDocument();
 
-      expect(wrapper.find('.checkbox-label.active')).toHaveLength(1);
+      expect(container.querySelector('.checkbox-label.active')).toBeInTheDocument();
     });
-  });
-
-  it('should have disabled class and ignore click', () => {
-    const wrapper = mount(<CheckBox isDisabled />);
-
-    expect(wrapper.find('input').props().disabled).toBeTruthy();
-
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('change'));
-
-    // todo: исправить disabled, инпут не должен менять своё значение при клике
-    // expect(wrapper.find('input').getDOMNode().checked).toBeFalsy();
   });
 
   describe('children prop', () => {
-    const wrapper = mount(<CheckBox><div className="lvl1"><span className="lvl2">TEXT</span></div></CheckBox>);
+    it('children should have correct className', () => {
+      const { container } = render(<CheckBox><div className="lvl1"><span className="lvl2">TEXT</span></div></CheckBox>);
+
+      expect(container.querySelector('div.lvl1')).toBeInTheDocument();
+
+      expect(container.querySelector('span.lvl2')).toBeInTheDocument();
+    });
 
     it('should have children', () => {
-      expect(wrapper.props().children).toBeDefined();
+      const { container } = render(<CheckBox><div className="lvl1"><span className="lvl2">TEXT</span></div></CheckBox>);
 
-      expect(wrapper.props().children.props.children.props.children).toEqual('TEXT');
+      expect(container.children).toBeInstanceOf(HTMLCollection);
+
+      expect(container.querySelector('div.lvl1 span.lvl2')?.textContent).toEqual('TEXT');
     });
 
-    it('children should have correct className', () => {
-      expect(wrapper.props().children.props.className).toEqual('lvl1');
+    it('children should be passed to .checkbox-label', () => {
+      const { container } = render(<CheckBox><div className="lvl1"><span className="lvl2">TEXT</span></div></CheckBox>);
 
-      expect(wrapper.props().children.props.children.props.className).toEqual('lvl2');
-    });
-
-    it('children should have correct type', () => {
-      expect(wrapper.props().children.type).toEqual('div');
-
-      expect(wrapper.props().children.props.children.type).toEqual('span');
-    });
-
-    it('children should be passed to .checkbox-text', () => {
-      expect(wrapper.find('.checkbox-label').props().children.props.className).toEqual('lvl1');
+      expect(container.querySelector('.checkbox-label div.lvl1 span.lvl2')).toBeInTheDocument();
     });
   });
 });

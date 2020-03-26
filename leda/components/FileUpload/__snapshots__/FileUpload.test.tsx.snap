@@ -5,12 +5,15 @@ exports[`FileUpload SNAPSHOTS should render 1`] = `
   onFileLoad={[MockFunction]}
 >
   <Wrapper
+    aria-invalid={false}
     onClick={[Function]}
   >
     <A
+      aria-invalid={false}
       onClick={[Function]}
     >
       <a
+        aria-invalid={false}
         onClick={[Function]}
       >
         <Info>
@@ -60,6 +63,17 @@ exports[`FileUpload SNAPSHOTS should render 1`] = `
       </a>
     </A>
   </Wrapper>
+  <InvalidMessageWrapper>
+    <InvalidMessage
+      isValid={true}
+      messages={Array []}
+    >
+      <Component
+        isValid={true}
+        messages={Array []}
+      />
+    </InvalidMessage>
+  </InvalidMessageWrapper>
 </FileUpload>
 `;
 
@@ -70,12 +84,15 @@ exports[`FileUpload SNAPSHOTS should render different component states should re
   onFileLoad={[MockFunction]}
 >
   <Wrapper
+    aria-invalid={false}
     onClick={[Function]}
   >
     <A
+      aria-invalid={false}
       onClick={[Function]}
     >
       <a
+        aria-invalid={false}
         onClick={[Function]}
       >
         <Info>
@@ -121,5 +138,16 @@ exports[`FileUpload SNAPSHOTS should render different component states should re
       </a>
     </A>
   </Wrapper>
+  <InvalidMessageWrapper>
+    <InvalidMessage
+      isValid={true}
+      messages={Array []}
+    >
+      <Component
+        isValid={true}
+        messages={Array []}
+      />
+    </InvalidMessage>
+  </InvalidMessageWrapper>
 </FileUpload>
 `;

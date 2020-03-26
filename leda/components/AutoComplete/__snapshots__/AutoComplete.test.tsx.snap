@@ -5,11 +5,15 @@ exports[`AutoComplete SNAPSHOTS basic usage 1`] = `
   <div
     class="autocomplete-wrapper"
   >
-    <input
-      aria-invalid="false"
-      class="autocomplete-input"
-      value="value"
-    />
+    <div
+      class="autocomplete-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="autocomplete-input"
+        value="value"
+      />
+    </div>
   </div>
 </div>
 `;
@@ -19,11 +23,15 @@ exports[`AutoComplete SNAPSHOTS should render different component states loading
   <div
     class="autocomplete-wrapper"
   >
-    <input
-      aria-invalid="false"
-      class="autocomplete-input"
-      value="value"
-    />
+    <div
+      class="autocomplete-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="autocomplete-input"
+        value="value"
+      />
+    </div>
     <div
       class="suggestion-wrapper visible"
     >
@@ -48,11 +56,15 @@ exports[`AutoComplete SNAPSHOTS should render different component states opened 
   <div
     class="autocomplete-wrapper"
   >
-    <input
-      aria-invalid="false"
-      class="autocomplete-input"
-      value="value"
-    />
+    <div
+      class="autocomplete-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="autocomplete-input"
+        value="value"
+      />
+    </div>
     <div
       class="suggestion-wrapper visible"
     >
@@ -80,12 +92,16 @@ exports[`AutoComplete SNAPSHOTS should render different component states readonl
   <div
     class="autocomplete-wrapper"
   >
-    <input
-      aria-invalid="false"
-      class="autocomplete-input"
-      readonly=""
-      value="value"
-    />
+    <div
+      class="autocomplete-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="autocomplete-input"
+        readonly=""
+        value="value"
+      />
+    </div>
   </div>
 </div>
 `;
@@ -95,11 +111,15 @@ exports[`AutoComplete SNAPSHOTS should render multi-type attributes data 1`] = `
   <div
     class="autocomplete-wrapper"
   >
-    <input
-      aria-invalid="false"
-      class="autocomplete-input"
-      value="value"
-    />
+    <div
+      class="autocomplete-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="autocomplete-input"
+        value="value"
+      />
+    </div>
     <div
       class="suggestion-wrapper visible"
     >
@@ -127,11 +147,15 @@ exports[`AutoComplete SNAPSHOTS should render multi-type attributes data 2`] = `
   <div
     class="autocomplete-wrapper"
   >
-    <input
-      aria-invalid="false"
-      class="autocomplete-input"
-      value="value0"
-    />
+    <div
+      class="autocomplete-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="autocomplete-input"
+        value="value0"
+      />
+    </div>
     <div
       class="suggestion-wrapper visible"
     >
@@ -154,14 +178,18 @@ exports[`AutoComplete SNAPSHOTS should render validation required validation 1`]
   <div
     class="autocomplete-wrapper"
   >
-    <input
-      aria-invalid="true"
-      aria-required="true"
-      class="autocomplete-input danger"
-      form="form"
-      name="name"
-      value=""
-    />
+    <div
+      class="autocomplete-input-wrapper danger"
+    >
+      <input
+        aria-invalid="true"
+        aria-required="true"
+        class="autocomplete-input"
+        form="form"
+        name="name"
+        value=""
+      />
+    </div>
     <span
       class="invalid-message-list"
     >
@@ -180,13 +208,17 @@ exports[`AutoComplete SNAPSHOTS should render validation validation 1`] = `
   <div
     class="autocomplete-wrapper"
   >
-    <input
-      aria-invalid="true"
-      class="autocomplete-input danger"
-      form="form"
-      name="name"
-      value="value"
-    />
+    <div
+      class="autocomplete-input-wrapper danger"
+    >
+      <input
+        aria-invalid="true"
+        class="autocomplete-input"
+        form="form"
+        name="name"
+        value="value"
+      />
+    </div>
     <span
       class="invalid-message-list"
     >
@@ -205,11 +237,15 @@ exports[`AutoComplete SNAPSHOTS value in controllable mode 1`] = `
   <div
     class="autocomplete-wrapper"
   >
-    <input
-      aria-invalid="false"
-      class="autocomplete-input"
-      value="value"
-    />
+    <div
+      class="autocomplete-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="autocomplete-input"
+        value="value"
+      />
+    </div>
   </div>
 </div>
 `;

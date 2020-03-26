@@ -23,6 +23,7 @@ export const StatusBarItem: React.FC<StatusBarItemProps> = (props: StatusBarItem
     type,
     position,
     labelText,
+    currentStepProgress,
   } = props;
 
   const { renders: { [COMPONENTS_NAMESPACES.statusBar]: statusBarRenders } } = React.useContext(LedaContext);
@@ -75,6 +76,25 @@ export const StatusBarItem: React.FC<StatusBarItemProps> = (props: StatusBarItem
     props,
   );
 
+  const progress = (() => {
+    switch (position) {
+      case STEP_POSITION.PREV:
+        return 100;
+      case STEP_POSITION.CURRENT:
+        return currentStepProgress ?? 100;
+      case STEP_POSITION.NEXT:
+        return 0;
+      default:
+        return 0;
+    }
+  })();
+
+  const lineClassName = getClassNames(theme.statusLine, { [theme.statusItemSuccess]: currentStepProgress != null && position !== STEP_POSITION.NEXT });
+
+  const lineStyle = currentStepProgress != null && position === STEP_POSITION.CURRENT
+    ? `linear-gradient(to right, #00b300 ${progress}%, #f3f5f7 ${progress}%)`
+    : undefined;
+
   return (
     <>
       <Item className={itemClassName}>
@@ -83,7 +103,7 @@ export const StatusBarItem: React.FC<StatusBarItemProps> = (props: StatusBarItem
           {labelText}
         </Label>
       </Item>
-      <div className={theme.statusLine} />
+      <Div className={lineClassName} style={{ background: lineStyle }} />
     </>
   );
 };

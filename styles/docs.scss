@@ -16,6 +16,10 @@ body {
   display: flex;
 }
 
+.txt-type {
+  color: #4ca8fb;
+}
+
 .bside-panel {
   width: 70px;
   position: relative;
@@ -49,7 +53,6 @@ body {
 
   .lang-drop-down {
     height: 30px;
-    margin-bottom: 1rem;
 
     .lang-list > .lang-item {
       padding: 1rem;
@@ -59,6 +62,10 @@ body {
         background-color: whitesmoke;
       }
     }
+  }
+
+  .title {
+    margin-top: 1rem;
   }
 
   .story-menu {

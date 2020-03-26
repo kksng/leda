@@ -106,9 +106,9 @@ export const checkFiles = (
 
   const acceptedFile = accepted[0];
 
-  const errorCode = getErrorCode(props, acceptedFile);
+  const errorCode = acceptedFile && getErrorCode(props, acceptedFile);
   // если ошибок нет errorCode равен 0
-  if (errorCode !== 0) {
+  if (errorCode && errorCode !== 0) {
     return {
       ...acceptedFile,
       errorCode: getErrorCode(props, acceptedFile),
@@ -140,6 +140,13 @@ export const getRestProps = (props: FileDropProps): {} => {
     uploadButtonRender,
     value,
     isDisabled,
+    invalidMessageRender,
+    invalidMessage,
+    isRequired,
+    isValid,
+    requiredMessage,
+    validator,
+    shouldValidateUnmounted,
     ...restProps
   } = mergeClassNames(props);
 

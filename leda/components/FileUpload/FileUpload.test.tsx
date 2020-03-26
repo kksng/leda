@@ -2,7 +2,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
-
+import { act } from 'react-dom/test-utils';
 import { FileUpload } from './index';
 import { Span } from '../Span';
 
@@ -50,7 +50,9 @@ describe('FileUpload HANDLERS', () => {
     const onFileLoad = jest.fn();
     const wrapper = mount(<FileUpload onFileLoad={onFileLoad} />);
 
-    wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    });
 
     expect(onFileLoad).toHaveBeenCalledWith({ target: { acceptedFiles: [firstFile], rejectedFiles: [] } });
   });
@@ -59,7 +61,9 @@ describe('FileUpload HANDLERS', () => {
     const onClick = jest.fn();
     const wrapper = mount(<FileUpload onFileLoad={jest.fn()} onClick={onClick} />);
 
-    wrapper.find('a').props().onClick({ currentTarget: { value: 'blah-blah-blah' }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('a').props().onClick({ currentTarget: { value: 'blah-blah-blah' }, preventDefault: () => {} });
+    });
 
     expect(onClick).toHaveBeenCalled();
   });
@@ -68,7 +72,9 @@ describe('FileUpload HANDLERS', () => {
     const onClick = jest.fn();
     const wrapper = mount(<FileUpload onFileLoad={jest.fn()} onClick={onClick} />);
 
-    wrapper.find('a').props().onClick({ currentTarget: { value: 'blah-blah-blah' }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('a').props().onClick({ currentTarget: { value: 'blah-blah-blah' }, preventDefault: () => {} });
+    });
 
     expect(onClick).toHaveBeenCalled();
 
@@ -86,7 +92,9 @@ describe('FileUpload ATTRIBUTES', () => {
     const onFileLoad = jest.fn();
     const wrapper = mount(<FileUpload allowedFiles="image/*" onFileLoad={onFileLoad} />);
 
-    wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    });
 
     expect(onFileLoad).toHaveBeenCalledWith({
       target: {
@@ -100,7 +108,9 @@ describe('FileUpload ATTRIBUTES', () => {
       },
     });
 
-    wrapper.find('div').props().onDrop({ dataTransfer: { files: [secondFile] }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('div').props().onDrop({ dataTransfer: { files: [secondFile] }, preventDefault: () => {} });
+    });
 
     expect(onFileLoad).toHaveBeenCalledWith({
       target: {
@@ -145,7 +155,9 @@ describe('FileUpload ATTRIBUTES', () => {
     const onFileLoad = jest.fn();
     const wrapper = mount(<FileUpload maxFileSize={20} onFileLoad={onFileLoad} />);
 
-    wrapper.find('div').props().onDrop({ dataTransfer: { files: [secondFile] }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('div').props().onDrop({ dataTransfer: { files: [secondFile] }, preventDefault: () => {} });
+    });
 
     expect(onFileLoad).toHaveBeenCalledWith({
       target: {
@@ -164,7 +176,9 @@ describe('FileUpload ATTRIBUTES', () => {
     const onFileLoad = jest.fn();
     const wrapper = mount(<FileUpload minFileSize={200000000} onFileLoad={onFileLoad} />);
 
-    wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    });
 
     expect(onFileLoad).toHaveBeenCalledWith({
       target: {
@@ -183,7 +197,9 @@ describe('FileUpload ATTRIBUTES', () => {
     const onFileLoad = jest.fn();
     const wrapper = mount(<FileUpload maxFileSize={1} fileSizeUnit="MB" onFileLoad={onFileLoad} />);
 
-    wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    });
 
     expect(onFileLoad).toHaveBeenCalledWith({
       target: {
@@ -202,7 +218,9 @@ describe('FileUpload ATTRIBUTES', () => {
     const onFileLoad = jest.fn();
     const wrapper = mount(<FileUpload minFileSize={500000000} onFileLoad={onFileLoad} />);
 
-    wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    });
 
     expect(onFileLoad).toHaveBeenCalledWith({
       target: {
@@ -220,7 +238,10 @@ describe('FileUpload ATTRIBUTES', () => {
     const onFileLoad = jest.fn();
     const wrapper = mount(<FileUpload maxFileSize={1000} fileSizeUnit="kB" onFileLoad={onFileLoad} />);
 
-    wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    });
+
 
     expect(onFileLoad).toHaveBeenCalledWith({
       target: {
@@ -239,7 +260,9 @@ describe('FileUpload ATTRIBUTES', () => {
     const onFileLoad = jest.fn();
     const wrapper = mount(<FileUpload minFileSize={50000000} fileSizeUnit="kB" onFileLoad={onFileLoad} />);
 
-    wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    });
 
     expect(onFileLoad).toHaveBeenCalledWith({
       target: {
@@ -258,7 +281,9 @@ describe('FileUpload ATTRIBUTES', () => {
     const onFileLoad = jest.fn();
     const wrapper = mount(<FileUpload maxFileSize={1000} fileSizeUnit="byte" onFileLoad={onFileLoad} />);
 
-    wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    });
 
     expect(onFileLoad).toHaveBeenCalledWith({
       target: {
@@ -277,7 +302,9 @@ describe('FileUpload ATTRIBUTES', () => {
     const onFileLoad = jest.fn();
     const wrapper = mount(<FileUpload minFileSize={50000000} fileSizeUnit="byte" onFileLoad={onFileLoad} />);
 
-    wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    });
 
     expect(onFileLoad).toHaveBeenCalledWith({
       target: {
@@ -296,7 +323,9 @@ describe('FileUpload ATTRIBUTES', () => {
     const onFileLoad = jest.fn();
     const wrapper = mount(<FileUpload minFileSize={5000} maxFileSize={30000000} fileSizeUnit="byte" onFileLoad={onFileLoad} />);
 
-    wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    act(() => {
+      wrapper.find('div').props().onDrop({ dataTransfer: { files: [firstFile] }, preventDefault: () => {} });
+    });
 
     expect(onFileLoad).toHaveBeenCalledWith({
       target: {

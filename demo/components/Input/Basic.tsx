@@ -1,73 +1,11 @@
-/* eslint-disable no-console */
 import * as React from 'react';
 import * as L from '../../../leda';
 import { StateButtonGroup } from '../StateButtonGroup';
 import { useEventSpy } from '../../useEventSpy';
 
-const exampleCode = `
-export const Strings = (componentProps: any) => {
-  const [props, setProps] = React.useState({});
-  const [value, setValue] = React.useState('');
-
-  return (
-    <L.Div _box _inner _demoBg>
-      <L.Input
-        name="ACfocus1"
-        form="AwesomeInput"
-        data-test="input"
-        value={value}
-        invalidMessage="invalidMessage"
-        requiredMessage="requiredMessage"
-        onChange={ev => {
-          setValue(ev.component.value);
-          update('Change', ev);
-        }}
-        placeholder="Type your city..."
-        hasClearButton
-        onFocus={ev => {
-          update('Focus', ev);
-        }}
-        onEnterPress={({ component }) => {
-          console.log(component.name, component.value);
-        }}
-        onBlur={ev => {
-          update('Blur', ev);
-        }}
-        isRequired
-        validator={[
-          {
-            validator: 'email',
-          },
-          {
-            validator: /[A-Z]/,
-            invalidMessage: 'Must be one',
-          },
-          {
-            validator: (val: string | number) => (val.toString().length > 10),
-            invalidMessage: 'Minimum 10 symbols',
-          },
-        ]}
-        _width30
-        {...props}
-      />
-
-      <br />
-
-      <L.Button
-        form="AwesomeInput"
-        onClick={ev => console.log('awesome form submit ev', ev)}
-        onValidationFail={ev => console.log('awesome form fail ev', ev)}
-      >
-        Validate an awesome input
-      </L.Button>
-    </L.Div>
-  );
-};
-`;
-
 export const Basic = (componentProps: any) => {
   const [props, setProps] = React.useState({});
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState<string | null>(null);
 
   const { update, EventInfo } = useEventSpy();
 
@@ -77,22 +15,22 @@ export const Basic = (componentProps: any) => {
         name="Input"
         form="AwesomeInput"
         data-test="input"
-        // value={value}
+        value={value}
         invalidMessage="invalidMessage"
         requiredMessage="requiredMessage"
-        onChange={ev => {
+        onChange={(ev) => {
           setValue(ev.component.value);
           update('Change', ev);
         }}
         placeholder="Type your city..."
         hasClearButton
-        onFocus={ev => {
+        onFocus={(ev) => {
           update('Focus', ev);
         }}
         onEnterPress={({ component }) => {
           console.log(component.name, component.value);
         }}
-        onBlur={ev => {
+        onBlur={(ev) => {
           update('Blur', ev);
         }}
         isRequired
@@ -117,8 +55,8 @@ export const Basic = (componentProps: any) => {
 
       <L.Button
         form="AwesomeInput"
-        onClick={ev => console.log('awesome form submit ev', ev)}
-        onValidationFail={ev => console.log('awesome form fail ev', ev)}
+        onClick={(ev) => console.log('awesome form submit ev', ev)}
+        onValidationFail={(ev) => console.log('awesome form fail ev', ev)}
       >
         Validate an awesome input
       </L.Button>

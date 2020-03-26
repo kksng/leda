@@ -6,20 +6,19 @@ import { LedaContext } from '../LedaProvider';
 import { formatInputValue, formatValue } from './helpers';
 import { CustomElements, NumericTextBoxProps, NumericTextBoxState } from './types';
 
-const defaultInput = React.forwardRef((props, ref: React.Ref<HTMLInputElement>) => <input {...props} ref={ref} />);
+const defaultInput = React.forwardRef((props, ref: React.Ref<HTMLInputElement>) => (
+  <input {...props} ref={ref} />
+));
+
 defaultInput.displayName = 'Input';
 
 export const useCustomElements = (props: NumericTextBoxProps, state: NumericTextBoxState): CustomElements => {
-  const {
-    wrapperRender, inputRender, arrowButtonsRender,
-  } = props;
-
-  const { renders: { numericTextBox: numericRenders } } = React.useContext(LedaContext);
+  const numericRenders = React.useContext(LedaContext).renders.numericTextBox;
 
   const Wrapper = useElement(
     'Wrapper',
     Div,
-    wrapperRender || numericRenders.wrapperRender,
+    props.wrapperRender || numericRenders.wrapperRender,
     props,
     state,
   );
@@ -27,7 +26,7 @@ export const useCustomElements = (props: NumericTextBoxProps, state: NumericText
   const Input = useElement(
     'Input',
     defaultInput,
-    inputRender || numericRenders.inputRender,
+    props.inputRender || numericRenders.inputRender,
     props,
     state,
   );
@@ -35,7 +34,7 @@ export const useCustomElements = (props: NumericTextBoxProps, state: NumericText
   const ArrowButtons = useElement(
     'ArrowButtons',
     Div,
-    arrowButtonsRender || numericRenders.arrowButtonsRender,
+    props.arrowButtonsRender || numericRenders.arrowButtonsRender,
     props,
     state,
   );
@@ -50,7 +49,11 @@ export const useCustomElements = (props: NumericTextBoxProps, state: NumericText
 export const useSyncedValue = (value: NumericTextBoxProps['value'], isFocused: boolean, format: string, thousandsSeparator: string, setInputValue: SetState<string>): void => {
   React.useEffect((): void => {
     if (value !== undefined && !isFocused) {
-      setInputValue(formatInputValue(formatValue(value, format, thousandsSeparator), format));
+      const newValue = formatValue(value, format, thousandsSeparator);
+
+      const newInputValue = formatInputValue(newValue, format);
+
+      setInputValue(newInputValue);
     }
   }, [format, isFocused, setInputValue, thousandsSeparator, value]);
 };

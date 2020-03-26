@@ -19,6 +19,7 @@ export interface CurrentLanguage {
       customizationStylesStoryName: string,
       customizationClassesStoryName: string,
       customizationElementsStoryName: string,
+      layoutStatusBarApi: string,
     },
   },
 }

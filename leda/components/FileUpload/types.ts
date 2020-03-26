@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { RenderEvent } from '../../commonTypes';
+import { ValidationProps } from '../Validation/types';
 
 export interface RejectedFileType extends File {
   errorCode?: number,
@@ -14,7 +15,7 @@ export interface FileLoadEvent {
   },
 }
 
-export interface FileUploadProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface FileUploadProps extends React.HTMLAttributes<HTMLDivElement>, ValidationProps {
   /** Разрешенные типы файлов, см. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#Attributes. Передача нескольких типов файлов происходит через запятую (.png, image/jpeg). allowedFiles и forbiddenFiles нельзя использовать вместе */
   allowedFiles?: string, // comma separated list of valid mime types: "image/*, application/pdf"
   /** Классы, применяемые к первому диву */

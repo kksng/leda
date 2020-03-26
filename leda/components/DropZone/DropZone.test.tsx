@@ -55,7 +55,7 @@ describe('DropZone HANDLERS', () => {
 
 describe('DropZone ATTRIBUTES', () => {
   it('should have className, change classes through props and className should not change prop-classes', () => {
-    const wrapper = mount(<DropZone _box uploadStatusText="Loading" onDrop={jest.fn()} onRemove={jest.fn()} />);
+    const wrapper = mount(<DropZone _box onDrop={jest.fn()} onRemove={jest.fn()} />);
 
     expect(wrapper.find('Div').first().hasClass('box')).toBeTruthy();
 
@@ -79,7 +79,7 @@ describe('DropZone ATTRIBUTES', () => {
   it('should render files in custom HTMLElement', () => {
     const div = document.createElement('div');
     document.body.appendChild(div);
-    const wrapper = mount(<DropZone dropZoneFilesNode={div} onDrop={jest.fn()} onRemove={jest.fn()} uploadStatusText="Loading" />);
+    const wrapper = mount(<DropZone dropZoneFilesNode={div} onDrop={jest.fn()} onRemove={jest.fn()} />);
 
     wrapper.setProps({ value: { acceptedFiles: files, rejectedFiles: [] } });
 
@@ -115,13 +115,13 @@ describe('DropZone ATTRIBUTES', () => {
   });
 
   it.skip('should reject file if its size is smaller than minSize', () => {
-    const wrapper = mount(<DropZone minFileSize={20000000} onDrop={jest.fn()} onRemove={jest.fn()} uploadStatusText="Loading" />);
+    const wrapper = mount(<DropZone minFileSize={20000000} onDrop={jest.fn()} onRemove={jest.fn()} />);
 
     (wrapper.find('div.dropzone-content').props()).onChange();
   });
 
   it.skip('should render dropped files', () => {
-    const wrapper = mount(<DropZone files={files} acceptedFilesRender={({ elementProps: { files: accepted } }) => accepted.map((item) => <Li>{item.name}</Li>)} onDrop={jest.fn()} onRemove={jest.fn()} uploadStatusText="Loading" />);
+    const wrapper = mount(<DropZone files={files} acceptedFilesRender={({ elementProps: { files: accepted } }) => accepted.map((item) => <Li>{item.name}</Li>)} onDrop={jest.fn()} onRemove={jest.fn()} />);
 
     expect(wrapper.find('Li')).toHaveLength(2);
 
@@ -129,13 +129,13 @@ describe('DropZone ATTRIBUTES', () => {
   });
 
   it('should render width', () => {
-    const wrapper = mount(<DropZone _width20 onDrop={jest.fn()} onRemove={jest.fn()} uploadStatusText="Loading" />);
+    const wrapper = mount(<DropZone _width20 onDrop={jest.fn()} onRemove={jest.fn()} />);
 
     expect(wrapper.find('div').first().getDOMNode().classList).toContain('width-20');
   });
 
   it.skip('should display error messages', () => {
-    const wrapper = mount(<DropZone onDrop={jest.fn()} showDroppedFiles={false} onRemove={jest.fn()} uploadStatusText="loading" />);
+    const wrapper = mount(<DropZone onDrop={jest.fn()} showDroppedFiles={false} onRemove={jest.fn()} />);
 
     wrapper.setProps({ minFileSize: 20000000 });
 

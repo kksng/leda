@@ -79,11 +79,6 @@ export interface TextareaProps extends ValidationProps {
   [x: string]: unknown,
 }
 
-export interface WrapperProps {
-  className?: string,
-  style?: React.CSSProperties,
-}
-
 export interface CustomElements {
-  Wrapper: React.FC<WrapperProps>,
+  Wrapper: React.FC<DivProps>,
 }

@@ -97,5 +97,5 @@ export const useAdaptivePosition = ({
 
       window.removeEventListener('scroll', handler);
     };
-  }, [classNames, elRef, isOpen]);
+  }, [boundingContainerRef, classNames, elRef, isOpen]);
 };

@@ -32,6 +32,8 @@ export interface TabsState {
 }
 
 export type TabProps = React.HTMLAttributes<HTMLDivElement> & {
+  /** Делает вкладку неактивной */
+  isDisabled?: boolean,
   /** Номер вкладки. Нумерация от 0, т.к. обработчик onSelect комопнента Tabs возвращает номер вкладки начиная с 0. */
   tabKey: string | number,
   /** Тема копмонента */

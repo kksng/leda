@@ -3,6 +3,7 @@ import { CustomRender, CustomEventHandler } from '../../commonTypes';
 import { PartialGlobalDefaultTheme } from '../../utils/useTheme';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { globalDefaultTheme } from '../LedaProvider';
+import { ValidationProps } from '../Validation/types';
 
 export interface ExternalFile {
   /** Имя файла. Необходимо для отображения в списке и удаления */
@@ -38,7 +39,7 @@ export interface ChangeEvent {
   },
 }
 
-export interface DropZoneProps {
+export interface DropZoneProps extends ValidationProps {
   /** Отображение добавленных файлов */
   acceptedFilesRender?: CustomRender<DropZoneProps, DropZoneState, AcceptedFilesProps>,
   /** Разрешенные типы файлов, см. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#Attributes. Передача нескольких типов файлов происходит через запятую (.png, image/jpeg). allowedFiles и forbiddenFiles вместе не могут находиться. */
@@ -158,8 +159,8 @@ export interface ChangeEventHandler {
   (
     accepted: FileType[],
     rejected: FileType[],
-    ev: React.DragEvent<HTMLDivElement> | React.MouseEvent<HTMLAnchorElement>,
-    removedFile: FileType
+    ev?: React.DragEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
+    removedFile?: FileType
   ): void,
 }
 

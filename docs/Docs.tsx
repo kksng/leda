@@ -3,6 +3,7 @@ import { Group, MainLayout, Story } from './system';
 import { Urls } from './constants';
 import { Concept } from './stories/Basic/Concept/Concept';
 import { MainContext } from './system/components/MainContext';
+import { StatusBarApi } from './stories/Layout/StatusBar/API';
 
 export const Docs = (): React.ReactElement => {
   const { lang } = React.useContext(MainContext);
@@ -27,6 +28,13 @@ export const Docs = (): React.ReactElement => {
           <Story name={menu.customizationStylesStoryName} url={Urls.CustomizationStyles} />
           <Story name={menu.customizationClassesStoryName} url={Urls.CustomizationClasses} />
           <Story name={menu.customizationElementsStoryName} url={Urls.CustomizationElements} />
+        </Group>
+      </Group>
+      <Group name="LAYOUT">
+        <Group name="StatusBar">
+          <Story name="API" url={Urls.StatusBarApi}>
+            <StatusBarApi />
+          </Story>
         </Group>
       </Group>
     </MainLayout>

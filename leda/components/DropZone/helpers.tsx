@@ -139,6 +139,14 @@ export const getRestProps = (props: DropZoneProps): {} => {
     uploadButtonRender,
     value,
     isDisabled,
+    requiredMessage,
+    invalidMessageRender,
+    invalidMessage,
+    isRequired,
+    isValid,
+    shouldValidateUnmounted,
+    validator,
+    wrapperRender,
     ...restProps
   } = mergeClassNames(props);
 

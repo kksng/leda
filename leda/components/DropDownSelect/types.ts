@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  CustomEventHandler, CustomRender, SetState, SomeObject,
+  CustomEventHandler, CustomRender, SomeObject,
 } from '../../commonTypes';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { SuggestionListProps } from '../../src/SuggestionList/types';
@@ -75,7 +75,7 @@ export interface DropDownSelectProps<T extends Value = Value> extends Validation
   noSuggestionsRender?: SuggestionListProps['noSuggestionsRender'],
   onBlur?: CustomEventHandler<BlurEvent<T>>,
   onChange?: CustomEventHandler<ChangeEvent<T>>,
-  onFilterChange?: CustomEventHandler<ChangeEvent<T>>,
+  onFilterChange?: CustomEventHandler<ChangeEvent<string>>,
   onFocus?: CustomEventHandler<FocusEvent<T>>,
   placeholder?: string,
   ref?: React.Ref<DropDownSelectRefCurrent>,
@@ -120,7 +120,7 @@ export interface GetComponentClassNames {
 export interface HandlerCreatorData {
   props: DropDownSelectProps,
   state: DropDownSelectState,
-  setState: SetState<DropDownSelectState>,
+  mergeState: (state: Partial<DropDownSelectState>) => void,
   value: DropDownSelectState['value'],
   inputRef: React.MutableRefObject<HTMLInputElement | null>,
   validate: (value?: string | number | SomeObject | null) => boolean,

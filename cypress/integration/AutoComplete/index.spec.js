@@ -24,9 +24,10 @@ describe('AutoComplete', () => {
     });
 
     it('should render SuggestionList when isOpen', () => {
-      cy.get('[name=AutoComplete1')
+      cy.get('[name=AutoComplete1]')
         .clear()
         .blur()
+        .parent()
         .parent()
         .children('.suggestion-wrapper')
         .should('be.visible')
@@ -42,6 +43,7 @@ describe('AutoComplete', () => {
           .clear()
           .type('Z')
           .parent()
+          .parent()
           .find('.suggestion-wrapper .nodata')
           .should('have.text', 'Ничего не найдено');
       });
@@ -50,6 +52,7 @@ describe('AutoComplete', () => {
         cy.get('[name=AutoComplete4]')
           .clear()
           .type('Z')
+          .parent()
           .parent()
           .find('.suggestion-wrapper .nodata')
           .should('have.text', 'набери что-то, что я знаю');
@@ -70,6 +73,7 @@ describe('AutoComplete', () => {
         .clear()
         .type('z')
         .parent()
+        .parent()
         .find('.loader-container')
         .should('be.visible')
         .children('.loader-element')
@@ -79,6 +83,7 @@ describe('AutoComplete', () => {
     it('should be disabled when isDisabled', () => {
       cy.get('[name=AutoComplete5]')
         .should('be.disabled')
+        .parent()
         .should('have.class', 'disabled');
     });
 
@@ -87,6 +92,7 @@ describe('AutoComplete', () => {
         cy.get('[name=AutoComplete4]')
           .clear()
           .type('n')
+          .parent()
           .parent()
           .contains('Berlin')
           .should('have.class', 'txt-bold')
@@ -97,6 +103,7 @@ describe('AutoComplete', () => {
         cy.get('[name=AutoComplete4]')
           .clear()
           .type('n')
+          .parent()
           .parent()
           .contains('Bangkok')
           .should('not.have.class', 'txt-bold')
@@ -120,6 +127,7 @@ describe('AutoComplete', () => {
       cy.get('[name=AutoComplete2]')
         .clear()
         .parent()
+        .parent()
         .children('.suggestion-wrapper')
         .should('be.visible')
         .children('.suggestion-list')
@@ -132,11 +140,13 @@ describe('AutoComplete', () => {
         .clear()
         .type('Lo')
         .parent()
+        .parent()
         .find('.suggestion-list')
         .should('not.be.visible');
       cy.get('[name=AutoComplete3]')
         .clear()
         .type('Lon')
+        .parent()
         .parent()
         .find('.suggestion-list')
         .should('be.visible')
@@ -152,12 +162,14 @@ describe('AutoComplete', () => {
         .clear()
         .type('don')
         .parent()
+        .parent()
         .find('.suggestion-item')
         .should('have.length', 1)
         .should('have.text', 'London (region: Europe)')
         .get('[name=AutoComplete4]')
         .clear()
         .type('don lon')
+        .parent()
         .parent()
         .find('.suggestion-wrapper .nodata')
         .should('be.visible');
@@ -168,12 +180,14 @@ describe('AutoComplete', () => {
         .clear()
         .type('don')
         .parent()
+        .parent()
         .find('.suggestion-item')
         .should('have.length', 1)
         .should('have.text', 'London')
         .get('[name=AutoComplete3]')
         .clear()
         .type('don lon')
+        .parent()
         .parent()
         .find('.suggestion-item')
         .should('have.length', 1)
@@ -185,12 +199,14 @@ describe('AutoComplete', () => {
         .clear()
         .type('lon')
         .parent()
+        .parent()
         .find('.suggestion-item')
         .should('have.length', 1)
         .should('have.text', 'London')
         .get('[name=AutoComplete2]')
         .clear()
         .type('don')
+        .parent()
         .parent()
         .find('.suggestion-wrapper .nodata')
         .should('be.visible');
@@ -242,6 +258,7 @@ describe('AutoComplete', () => {
           expect(lastConsole.component).to.have.property('suggestion', null);
         })
         .parent()
+        .parent()
         .find('.suggestion-item')
         .click()
         .then(() => {
@@ -263,12 +280,14 @@ describe('AutoComplete', () => {
         .type('Mo')
         .should('have.value', 'Mo')
         .parent()
+        .parent()
         .find('.suggestion-item')
         .click()
         .get('[name=AutoComplete2]')
         .should('have.value', 'Moscow')
         .type('{backspace}'.repeat(5))
         .should('have.value', 'M')
+        .parent()
         .parent()
         .find('.suggestion-item')
         .first()
@@ -303,5 +322,6 @@ describe('AutoComplete', () => {
         .should('have.value', '');
     });
   });
-    xit('Validation tests', () => {})
+
+  it.skip('Validation tests', () => {});
 });

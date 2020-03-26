@@ -1,0 +1,12 @@
+.dropdown {
+  &-wrapper {
+    > ul {
+      background-color: #383838;
+      border: #202020;
+
+      > li {
+        border-bottom: #202020;
+      }
+    }
+  }
+}

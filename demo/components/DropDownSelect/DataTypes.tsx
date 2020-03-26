@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { SomeObject } from '../../../leda/commonTypes';
 import * as L from '../../../leda';
+import { SomeObject } from '../../../leda/commonTypes';
 import { StateButtonGroup } from '../StateButtonGroup';
 
+// eslint-disable-next-line
 export const DataTypes = (args: SomeObject): React.ReactElement => {
   const [props, setProps] = React.useState({});
   const [isOpen, setIsOpen] = React.useState<boolean | undefined>();
@@ -33,11 +34,11 @@ export const DataTypes = (args: SomeObject): React.ReactElement => {
         isLoading={isLoading}
         isDisabled={isDisabled}
         value={value}
-        onChange={ev => {
+        onChange={(ev) => {
           console.log('ev.component', ev.component);
           setValue(ev.component.value);
         }}
-        onBlur={ev => {
+        onBlur={(ev) => {
           console.log('ev.component.value', ev.component.value);
         }}
         {...props}
@@ -69,15 +70,15 @@ export const DataTypes = (args: SomeObject): React.ReactElement => {
             text: 'Object data',
             props: {
               data: [
-                { txt: 'London', val: 1 },
-                { txt: 'Islamabad', val: 2 },
-                { txt: 'Berlin', val: 3 },
-                { txt: 'Washington', val: 4 },
-                { txt: 'Paris', val: 5 },
-                { txt: 'Rome', val: 6 },
+                { id: 1, text: 'London' },
+                { id: 2, text: 'Islamabad' },
+                { id: 3, text: 'Berlin' },
+                { id: 4, text: 'Washington' },
+                { id: 5, text: 'Paris' },
+                { id: 6, text: 'Rome' },
               ],
-              textField: 'txt',
-              defaultValue: { txt: 'London', val: 1 },
+              textField: 'text',
+              defaultValue: { id: 1, text: 'London' },
               key: 'object-data',
             },
           },

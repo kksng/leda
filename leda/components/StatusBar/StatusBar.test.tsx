@@ -1,95 +1,118 @@
 import React from 'react';
-import toJson from 'enzyme-to-json';
-import { mount } from 'enzyme';
+import {
+  render,
+} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { StatusBar } from './index';
 
 const data = [
   { id: 'todo', labelText: 'To do' },
-  { id: 'wip', labelText: 'In progress' },
+  { id: 'work', labelText: 'In progress' },
   { id: 'done', labelText: 'Done' },
+];
+
+const customData = [
+  { id: '1', value: 'success' },
+  { id: '2', value: 'danger' },
+  { id: '3', value: 'progress' },
+  { id: '4' },
 ];
 
 describe('StatusBar SNAPSHOTS', () => {
   it('should render', () => {
-    const statusBar = (
+    const wrapper = render((
       <StatusBar
         data={data}
         textField="labelText"
         value={data[0]}
       />
-    );
-    const wrapper = mount(statusBar);
+    ));
 
-    expect(wrapper.find('Span')).toHaveLength(6);
+    expect(document.querySelectorAll('span')).toHaveLength(6);
 
-    expect(wrapper.find('.first .statusbar-icon').first().hasClass('progress')).toBeTruthy();
+    expect(document.querySelector('.first .statusbar-icon')).toHaveClass('progress');
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });
 
 describe('StatusBar HANDLERS', () => {
   it('should trigger onClick', () => {
-    const onClick = jest.fn();
-    const statusBar = (
+    const handleClick = jest.fn();
+
+    render((
       <StatusBar
-        onClick={onClick}
+        onClick={handleClick}
         data={data}
         textField="labelText"
         value={data[0]}
       />
-    );
-    const wrapper = mount(statusBar);
+    ));
 
-    wrapper.find('span.statusbar-icon').first().props().onClick?.({ target: {} } as React.MouseEvent);
+    userEvent.click(document.querySelectorAll('span.statusbar-icon')[0]);
 
-    expect(onClick).toHaveBeenCalled();
+    expect(handleClick).toBeCalledTimes(1);
   });
 });
 
 describe('StatusBar ATTRIBUTES', () => {
   it('should add progress class to current item', () => {
-    const statusBar = (
+    render((
       <StatusBar
         data={data}
         textField="labelText"
         value={data[0]}
       />
-    );
-    const wrapper = mount(statusBar);
+    ));
 
-    expect(wrapper.find('.first .statusbar-icon').first().hasClass('progress')).toBeTruthy();
+    expect(document.querySelector('.first .statusbar-icon')).toHaveClass('progress');
   });
 
   it('should give first an last item suitable className', () => {
-    const statusBar = (
+    render((
       <StatusBar
         data={data}
-        textField="labelText"
+        textField="value"
         value={data[0]}
       />
-    );
-    const wrapper = mount(statusBar);
+    ));
 
-    expect(wrapper.find('.statusbar-status-item').first().hasClass('first')).toBeTruthy();
+    expect(document.querySelectorAll('.statusbar-status-item')[0]).toHaveClass('first');
 
-    expect(wrapper.find('.statusbar-status-item').last().hasClass('last')).toBeTruthy();
+    expect(document.querySelectorAll('.statusbar-status-item')[2]).toHaveClass('last');
   });
 
   it('should add success className to all items before current', () => {
-    const statusBar = (
+    render((
       <StatusBar
         data={data}
         textField="labelText"
         value={data[1]}
       />
-    );
-    const wrapper = mount(statusBar);
+    ));
 
-    expect(wrapper.find('span.success')).toHaveLength(1);
+    expect(document.querySelectorAll('span.success')).toHaveLength(1);
 
-    expect(wrapper.find('div.statusbar-status-item span.statusbar-icon').first().hasClass('success')).toBeTruthy();
+    expect(document.querySelectorAll('div.statusbar-status-item span.statusbar-icon')[0]).toHaveClass('success');
 
-    expect(wrapper.find('div.statusbar-status-item span.statusbar-icon').at(1).hasClass('progress')).toBeTruthy();
+    expect(document.querySelectorAll('div.statusbar-status-item span.statusbar-icon')[1]).toHaveClass('progress');
+  });
+
+  it('should take typeField form data', () => {
+    render((
+      <StatusBar
+        data={customData}
+        textField="id"
+        typeField="value"
+      />
+    ));
+
+    expect(document.querySelectorAll('.danger')).toHaveLength(1);
+    expect(document.querySelectorAll('.progress')).toHaveLength(1);
+    expect(document.querySelectorAll('.success')).toHaveLength(1);
+
+    expect(document.querySelector('.last .statusbar-icon')).not.toHaveClass('danger');
+    expect(document.querySelector('.last .statusbar-icon')).not.toHaveClass('progress');
+    expect(document.querySelector('.last .statusbar-icon')).not.toHaveClass('success');
   });
 });

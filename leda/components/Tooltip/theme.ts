@@ -1,9 +1,10 @@
 /* eslint-disable key-spacing */
 export const defaultTooltipTheme = {
-  bottom:                   'tooltip bottom',
+  tooltip:                  'tooltip',
+  top:                      'tooltip top',
   left:                     'tooltip left',
   right:                    'tooltip right',
-  top:                      'tooltip top',
+  bottom:                   'tooltip bottom',
   wrapper:                  'tooltip-wrapper',
 };
 /* eslint-enable key-spacing */

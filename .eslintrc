@@ -1,6 +1,8 @@
 {
   "parser": "@typescript-eslint/parser",
-
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "rules": {
     // Максимальная длина строки с учетом пробелов, в стандарте 100
     "max-len": ["error", 250],
@@ -40,13 +42,7 @@
 
     // По умолчанию рекомендуется проверять как вложенность, так и идентификатор на сопоставление лейбла с элементом управления
     // Сделаем так, чтобы одной проверки было достаточно
-    "jsx-a11y/label-has-for": [ 2, {
-      "components": [ "CheckBox" ],
-      "required": {
-        "some": [ "nesting", "id" ]
-      },
-      "allowChildren": true
-    }],
+    "jsx-a11y/label-has-for": "off",
 
     // Правила для accessibility:
 

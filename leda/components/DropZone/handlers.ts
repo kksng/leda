@@ -26,7 +26,7 @@ export const createChangeHandler = (
   rejected,
   ev,
   removedFile,
-): void => {
+) => {
   const { value: valueProp, onChange } = props;
 
   const value = valueProp || state;
@@ -36,18 +36,20 @@ export const createChangeHandler = (
 
   const acceptedWithRemoved = removedFile ? (value.acceptedFiles as FileType[]).filter((file: FileType): boolean => file !== removedFile) : [...acceptedFiles, ...value.acceptedFiles];
 
+  const newValue = {
+    acceptedFiles: acceptedWithRemoved,
+    rejectedFiles,
+  };
+
   const customEvent = {
     ...ev,
     component: {
-      ...ev.target,
+      ...ev?.target,
       dropped: {
         acceptedFiles: accepted,
         rejectedFiles: rejected,
       },
-      value: {
-        acceptedFiles: acceptedWithRemoved,
-        rejectedFiles,
-      },
+      value: newValue,
       removedFile,
     },
   };
@@ -56,11 +58,10 @@ export const createChangeHandler = (
     onChange(customEvent);
   }
 
-  if (valueProp) return;
+  if (valueProp) return newValue;
 
   // неконтролируемый режим
-  setState({
-    acceptedFiles: acceptedWithRemoved as DropZoneFileType[],
-    rejectedFiles: rejectedFiles as DropZoneFileType[],
-  });
+  setState(newValue as DropZoneState);
+
+  return newValue;
 };

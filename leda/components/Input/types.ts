@@ -25,6 +25,7 @@ export interface TypeEvent extends React.ChangeEvent<HTMLInputElement> {
 }
 
 export interface ResetEvent {
+  currentTarget?: undefined,
   component: {
     value: string,
     name?: string,
@@ -52,6 +53,7 @@ export interface FocusEvent extends React.FocusEvent<HTMLInputElement> {
   component: {
     value: string,
     name?: string,
+    isValid: boolean,
   },
 }
 
@@ -59,7 +61,7 @@ export interface InputProps extends ValidationProps {
   /** Позволяет вводить в инпут только символы, удовлеторвяющие RegExp или из списка предопределённых */
   allowedSymbols?: PredefinedAllowedSymbols | RegExp,
   /** Значение по умолчанию */
-  defaultValue?: string,
+  defaultValue?: string | null,
   /** Запрещает вводить в инпут символы, удовлеторвяющие RegExp или из списка предопределённых */
   forbiddenSymbols?: PredefinedForbiddenSymbols | RegExp,
   /** Отображение кнопки очистки в инпуте */
@@ -87,7 +89,7 @@ export interface InputProps extends ValidationProps {
   /** Тема компонента */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.input],
   /** Значение для инпута */
-  value?: string,
+  value?: string | null,
   /** Рендер враппера */
   wrapperRender?: CustomRender<InputProps, InputState, DivProps>,
   /** Классы переданные через _ */
@@ -99,6 +101,7 @@ export interface InputState {
   isValid: boolean,
   value: string,
 }
+
 export interface InputRefCurrent {
   wrapper: HTMLDivElement | null,
   input: HTMLInputElement | null,

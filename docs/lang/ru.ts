@@ -21,6 +21,7 @@ export const ru: CurrentLanguage = {
       customizationStylesStoryName: 'Кастомизация стилей',
       customizationClassesStoryName: 'Переопределение css-классов',
       customizationElementsStoryName: 'Изменение элемента',
+      layoutStatusBarApi: 'API',
     },
   },
 };

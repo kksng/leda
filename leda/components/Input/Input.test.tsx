@@ -1,150 +1,209 @@
-// @ts-nocheck
 import React from 'react';
-import toJson from 'enzyme-to-json';
-import { act } from 'react-dom/test-utils';
-import { mount } from 'enzyme';
+import {
+  fireEvent, render, screen,
+} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Input } from './index';
 
 describe('Input SNAPSHOTS', () => {
   it('should render basic usage', () => {
-    const wrapper = mount(<Input onChange={jest.fn()} onBlur={jest.fn()} />);
+    const wrapper = render((
+      <Input onChange={jest.fn()} />
+    ));
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 
   it('should render value in controllable mode', () => {
-    const wrapper = mount(<Input value="test value" onChange={jest.fn()} onBlur={jest.fn()} />);
+    const wrapper = render((
+      <Input onChange={jest.fn()} value="test value" />
+    ));
 
-    expect(wrapper.find('input').props().value).toEqual('test value');
+    expect(screen.getByRole('textbox')).toHaveValue('test value');
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
 
-    wrapper.setProps({ value: 'new test value' });
+    wrapper.rerender((
+      <Input onChange={jest.fn()} value="new test value" />
+    ));
 
-    expect(wrapper.find('input').props().value).toEqual('new test value');
+    expect(screen.getByRole('textbox')).toHaveValue('new test value');
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 
   describe('should render different component states', () => {
     it('should render disabled', () => {
-      const wrapper = mount(<Input isDisabled onChange={jest.fn()} onBlur={jest.fn()} />);
+      const wrapper = render((
+        <Input onChange={jest.fn()} isDisabled />
+      ));
 
-      expect(wrapper.find('input').props().disabled).toBeTruthy();
+      expect(screen.getByRole('textbox')).toBeDisabled();
 
-      expect(toJson(wrapper)).toMatchSnapshot();
+      expect(wrapper.container).toMatchSnapshot();
     });
   });
 });
 
 describe('Input HANDLERS', () => {
   it('should test onBlur', () => {
-    const onBlurHandler = jest.fn();
-    const wrapper = mount(<Input value="text value" className="test" name="auto" onBlur={onBlurHandler} />);
+    const handleBlur = jest.fn();
 
-    wrapper.find('input').props().onBlur({ target: {} });
+    render((
+      <Input onBlur={handleBlur} />
+    ));
 
-    expect(onBlurHandler).toHaveBeenCalled();
+    screen.getByRole('textbox').focus();
+    screen.getByRole('textbox').blur();
+
+    expect(handleBlur).toBeCalled();
   });
 
   it('should test onChange', () => {
-    const onChangeHandler = jest.fn();
-    const wrapper = mount(<Input name="auto" onChange={onChangeHandler} onBlur={jest.fn()} />);
+    const handleChange = jest.fn();
+    const name = 'name';
+    const value = 'value';
+    const eventMatcher = expect.objectContaining({
+      component: expect.objectContaining({
+        value, name,
+      }),
+      target: expect.objectContaining({
+        value,
+      }),
+    });
 
-    wrapper.find('input').props().onChange({ target: { value: 'test value' } });
+    render((
+      <Input onChange={handleChange} name={name} />
+    ));
 
-    expect(onChangeHandler).toHaveBeenCalledWith({ component: { value: 'test value', name: 'auto' }, target: { value: 'test value' } });
+    userEvent.type(screen.getByRole('textbox'), value);
+
+    expect(handleChange).lastCalledWith(eventMatcher);
   });
 
   it('should test onEnterPress', () => {
-    const onEnterPressHandler = jest.fn();
-    const wrapper = mount(<Input name="auto" value="text" onEnterPress={onEnterPressHandler} />);
+    const handleEnterPress = jest.fn();
 
-    wrapper.find('input').props().onKeyDown({ key: 'Enter', currentTarget: { value: 'text' } });
+    render((
+      <Input name="auto" value="text" onEnterPress={handleEnterPress} />
+    ));
 
-    expect(onEnterPressHandler).toHaveBeenCalled();
+    fireEvent.keyDown(screen.getByRole('textbox'), {
+      key: 'Enter',
+    });
+
+    expect(handleEnterPress).toBeCalledTimes(1);
   });
 });
 
 describe('Input ATTRIBUTES', () => {
   it('should have className, change classes through props and className should not change prop-classes', () => {
-    const wrapper = mount(<Input _box onBlur={jest.fn()} />);
+    const wrapper = render((
+      <Input onBlur={jest.fn()} _box />
+    ));
 
-    expect(wrapper.find('div.input-wrapper').hasClass('box')).toBeTruthy();
+    expect(document.querySelector('div.input-wrapper')).toHaveClass('box');
 
+    wrapper.rerender((
+      <Input onBlur={jest.fn()} _active />
+    ));
 
-    wrapper.setProps({ _active: true, _box: false });
+    expect(document.querySelector('div.input-wrapper')).not.toHaveClass('box');
 
-    expect(wrapper.find('div.input-wrapper').hasClass('box')).toBeFalsy();
+    expect(document.querySelector('div.input-wrapper')).toHaveClass('active');
 
-    expect(wrapper.find('div.input-wrapper').hasClass('active')).toBeTruthy();
+    wrapper.rerender((
+      <Input onBlur={jest.fn()} _active className="testClass" />
+    ));
 
+    expect(document.querySelector('div.input-wrapper')).not.toHaveClass('box');
 
-    wrapper.setProps({ className: 'testClass' });
-
-    expect(wrapper.find('div.input-wrapper').hasClass('box')).toBeFalsy();
-
-    expect(wrapper.find('div.input-wrapper').hasClass('active')).toBeTruthy();
-
-    expect(wrapper.find('div.input-wrapper').hasClass('testClass')).toBeTruthy();
+    expect(document.querySelector('div.input-wrapper')).toHaveClass('active');
+    expect(document.querySelector('div.input-wrapper')).toHaveClass('testClass');
   });
 
   it('should have maxLength limit', () => {
-    const onChange = jest.fn();
-    const wrapper = mount(<Input onChange={onChange} maxLength={5} onBlur={jest.fn()} />);
+    const handleChange = jest.fn();
 
-    wrapper.find('input').props().onChange({ target: { value: 'value' } });
+    render((
+      <Input onChange={handleChange} maxLength={5} onBlur={jest.fn()} />
+    ));
 
-    expect(onChange).toHaveBeenCalled();
+    userEvent.type(screen.getByRole('textbox'), 'value', {
+      allAtOnce: true,
+    });
 
-    wrapper.find('input').props().onChange({ target: { value: 'new value' } });
-    // should not call onChange twice
-    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(handleChange).toBeCalledTimes(1);
+
+    userEvent.type(screen.getByRole('textbox'), 'new value', {
+      allAtOnce: true,
+    });
+
+    expect(handleChange).toBeCalledTimes(1);
   });
 
-  it('should throw error if no predefined allowedSymbols found', () => {
-    const wrapper = mount(<Input allowedSymbols="lala-land" />);
-
-    const input = wrapper.find('input');
-
+  it.skip('should throw error if no predefined allowedSymbols found', () => {
     const error = new Error('L.Input: no such predefined allowedSymbols - "lala-land"!');
 
-    expect(() => input.props().onChange({ target: { value: 'anything' } })).toThrow(error);
+    const wrapper = render((
+      <Input allowedSymbols={/[abc]/} />
+    ));
+
+    expect(() => {
+      screen.getByRole('textbox').focus();
+
+      userEvent.type(screen.getByRole('textbox'), 'anything');
+
+      screen.getByRole('textbox').blur();
+
+      wrapper.debug();
+    }).toThrow(error);
   });
 
-  it('should throw error allowedSymbols is not string or RegExp', () => {
-    const wrapper = mount(<Input allowedSymbols={777} />);
-
-    const input = wrapper.find('input');
-
+  it.skip('should throw error allowedSymbols is not string or RegExp', () => {
     const error = new Error('L.Input: allowedSymbols prop accepts only predefined string or RegExp!');
 
-    expect(() => input.props().onChange({ target: { value: 'anything' } })).toThrow(error);
+    const wrapper = render((
+      <Input allowedSymbols="numbers" />
+    ));
+
+    expect(() => {
+      screen.getByRole('textbox').focus();
+
+      userEvent.type(screen.getByRole('textbox'), 'anything');
+
+      screen.getByRole('textbox').blur();
+
+      wrapper.debug();
+    }).toThrow(error);
   });
 });
 
 describe('Input VALIDATION', () => {
-  it('should be invalid if value passes validation and vice versa', () => {
-    const validator = (value) => value && value.length >= 4;
-    const wrapper = mount(<Input onBlur={jest.fn()} isRequired invalidMessage="value length must be more than 4!" validator={validator} />);
+  it('should be invalid if component is isRequired, value is empty and onBlur was called', () => {
+    render((
+      <Input isRequired form="form" name="name" />
+    ));
 
-    wrapper.find('input').props().onChange({ target: { value: 'a' } });
+    screen.getByRole('textbox').focus();
+    screen.getByRole('textbox').blur();
 
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
-
-
-    wrapper.find('input').props().onChange({ target: { value: 'value length is more than 4!' } });
-
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
+    expect(document.querySelector('div.input-element-wrapper')).toHaveClass('danger');
   });
 
-  it('should be invalid if component is isRequired, value is empty and onBlur was called', () => {
-    const wrapper = mount(<Input onBlur={jest.fn()} isRequired form="test-form" name="input" />);
+  it('should be invalid if value passes validation and vice versa', () => {
+    const validator = (value: string): boolean => value.length > 2;
 
-    act(() => {
-      wrapper.find('input').props().onBlur({ target: { value: '' } });
-    });
+    render((
+      <Input isRequired name="name" form="form" invalidMessage="value length must be more than 2" validator={validator} />
+    ));
 
-    expect(wrapper.find('div.input-element-wrapper').getDOMNode().classList.contains('danger')).toBeTruthy();
+    screen.getByRole('textbox').focus();
+
+    userEvent.type(screen.getByRole('textbox'), 'a');
+
+    screen.getByRole('textbox').blur();
+
+    expect(document.querySelector('div.input-element-wrapper')).toHaveClass('danger');
   });
 });

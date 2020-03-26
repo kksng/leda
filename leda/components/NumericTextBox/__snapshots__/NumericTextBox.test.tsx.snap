@@ -1,0 +1,321 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NumericTextBox SNAPSHOTS controllable mode should render format 1`] = `
+<div>
+  <div
+    class="numeric-text-box-wrapper"
+  >
+    <div
+      class="numeric-text-box-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="numeric-text-box-input"
+        inputmode="numeric"
+        value="0,24 %"
+      />
+      <div
+        class="numeric-text-box-arrow-buttons"
+      >
+        <span
+          class="numeric-text-box-arrow-up uicon-collapse"
+        />
+        <span
+          class="numeric-text-box-arrow-down uicon-expand"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NumericTextBox SNAPSHOTS controllable mode should render format 2`] = `
+<div>
+  <div
+    class="numeric-text-box-wrapper"
+  >
+    <div
+      class="numeric-text-box-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="numeric-text-box-input"
+        inputmode="numeric"
+        value="0,2359 ₽"
+      />
+      <div
+        class="numeric-text-box-arrow-buttons"
+      >
+        <span
+          class="numeric-text-box-arrow-up uicon-collapse"
+        />
+        <span
+          class="numeric-text-box-arrow-down uicon-expand"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NumericTextBox SNAPSHOTS controllable mode should render max 1`] = `
+<div>
+  <div
+    class="numeric-text-box-wrapper"
+  >
+    <div
+      class="numeric-text-box-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="numeric-text-box-input"
+        inputmode="numeric"
+        value="7,3"
+      />
+      <div
+        class="numeric-text-box-arrow-buttons"
+      >
+        <span
+          class="numeric-text-box-arrow-up uicon-collapse"
+        />
+        <span
+          class="numeric-text-box-arrow-down uicon-expand"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NumericTextBox SNAPSHOTS controllable mode should render min 1`] = `
+<div>
+  <div
+    class="numeric-text-box-wrapper"
+  >
+    <div
+      class="numeric-text-box-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="numeric-text-box-input"
+        inputmode="numeric"
+        value="-2"
+      />
+      <div
+        class="numeric-text-box-arrow-buttons"
+      >
+        <span
+          class="numeric-text-box-arrow-up uicon-collapse"
+        />
+        <span
+          class="numeric-text-box-arrow-down uicon-expand"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NumericTextBox SNAPSHOTS controllable mode should render min 2`] = `
+<div>
+  <div
+    class="numeric-text-box-wrapper"
+  >
+    <div
+      class="numeric-text-box-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="numeric-text-box-input"
+        inputmode="numeric"
+        value="-6,2"
+      />
+      <div
+        class="numeric-text-box-arrow-buttons"
+      >
+        <span
+          class="numeric-text-box-arrow-up uicon-collapse"
+        />
+        <span
+          class="numeric-text-box-arrow-down uicon-expand"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NumericTextBox SNAPSHOTS controllable mode should render step 1`] = `
+<div>
+  <div
+    class="numeric-text-box-wrapper"
+  >
+    <div
+      class="numeric-text-box-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="numeric-text-box-input"
+        inputmode="numeric"
+        value="2"
+      />
+      <div
+        class="numeric-text-box-arrow-buttons"
+      >
+        <span
+          class="numeric-text-box-arrow-up uicon-collapse"
+        />
+        <span
+          class="numeric-text-box-arrow-down uicon-expand"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NumericTextBox SNAPSHOTS controllable mode should render step 2`] = `
+<div>
+  <div
+    class="numeric-text-box-wrapper"
+  >
+    <div
+      class="numeric-text-box-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="numeric-text-box-input"
+        inputmode="numeric"
+        value="1,9"
+      />
+      <div
+        class="numeric-text-box-arrow-buttons"
+      >
+        <span
+          class="numeric-text-box-arrow-up uicon-collapse"
+        />
+        <span
+          class="numeric-text-box-arrow-down uicon-expand"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NumericTextBox SNAPSHOTS controllable mode should render value 1`] = `
+<div>
+  <div
+    class="numeric-text-box-wrapper"
+  >
+    <div
+      class="numeric-text-box-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="numeric-text-box-input"
+        inputmode="numeric"
+        value="0,24 %"
+      />
+      <div
+        class="numeric-text-box-arrow-buttons"
+      >
+        <span
+          class="numeric-text-box-arrow-up uicon-collapse"
+        />
+        <span
+          class="numeric-text-box-arrow-down uicon-expand"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NumericTextBox SNAPSHOTS controllable mode should render value 2`] = `
+<div>
+  <div
+    class="numeric-text-box-wrapper"
+  >
+    <div
+      class="numeric-text-box-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="numeric-text-box-input"
+        inputmode="numeric"
+        value="0,69 %"
+      />
+      <div
+        class="numeric-text-box-arrow-buttons"
+      >
+        <span
+          class="numeric-text-box-arrow-up uicon-collapse"
+        />
+        <span
+          class="numeric-text-box-arrow-down uicon-expand"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NumericTextBox SNAPSHOTS different component states should render placeholder 1`] = `
+<div>
+  <div
+    class="numeric-text-box-wrapper"
+  >
+    <div
+      class="numeric-text-box-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="numeric-text-box-input"
+        inputmode="numeric"
+        placeholder="placeholder"
+        value=""
+      />
+      <div
+        class="numeric-text-box-arrow-buttons"
+      >
+        <span
+          class="numeric-text-box-arrow-up uicon-collapse"
+        />
+        <span
+          class="numeric-text-box-arrow-down uicon-expand"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NumericTextBox SNAPSHOTS should render 1`] = `
+<div>
+  <div
+    class="numeric-text-box-wrapper"
+  >
+    <div
+      class="numeric-text-box-input-wrapper"
+    >
+      <input
+        aria-invalid="false"
+        class="numeric-text-box-input"
+        inputmode="numeric"
+        value=""
+      />
+      <div
+        class="numeric-text-box-arrow-buttons"
+      >
+        <span
+          class="numeric-text-box-arrow-up uicon-collapse"
+        />
+        <span
+          class="numeric-text-box-arrow-down uicon-expand"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

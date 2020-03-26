@@ -12,7 +12,7 @@ export const Tab = React.forwardRef((props: TabProps, ref: React.Ref<TabRefCurre
   } = React.useContext(TabsContext);
 
   const {
-    tabKey, title, className, style, theme: themeProp, tabRender: childTabRender,
+    isDisabled, tabKey, title, className, style, theme: themeProp, tabRender: childTabRender,
   } = mergeClassNames<TabProps>(props);
 
   const tabRender = childTabRender ?? parentTabRender;
@@ -25,6 +25,7 @@ export const Tab = React.forwardRef((props: TabProps, ref: React.Ref<TabRefCurre
   const combinedClassNames = getClassNames(
     theme.tab,
     { [theme.tabActive]: isTabActive },
+    { [theme.tabDisabled]: isDisabled },
     className,
   );
 
@@ -35,11 +36,17 @@ export const Tab = React.forwardRef((props: TabProps, ref: React.Ref<TabRefCurre
     props,
   );
 
+  const handleClick: React.MouseEventHandler<HTMLLIElement> = React.useCallback((event) => {
+    if (!isDisabled) {
+      onTabSelect(event, tabKey);
+    }
+  }, [onTabSelect, isDisabled, tabKey]);
+
   return (
     <TabItem
       className={combinedClassNames}
       stye={style}
-      onClick={(ev) => onTabSelect(ev, tabKey)}
+      onClick={handleClick}
       ref={ref && ((component) => bindFunctionalRef(component, ref, component && {
         wrapper: component.wrapper,
       }))}

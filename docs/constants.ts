@@ -9,4 +9,11 @@ export enum Urls {
   CustomizationElements = '/customization/elements',
   FormsDifferences = '/forms/differences',
   ValidationDifferences = '/validation/differences',
+  StatusBarApi = '/layout/statusbar/api',
+}
+
+export enum Themes {
+  Light = 'light',
+  Dark = 'dark',
+  // more themes todo
 }

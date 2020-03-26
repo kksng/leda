@@ -10,8 +10,11 @@ import { createChangeHandler, createClickHandler } from './handlers';
 import { DropZoneFiles } from './DropZoneFiles';
 import { RejectedFilesList } from './RejectedFilesList';
 import * as messages from '../../messages';
-import { DropZoneProps, DropZoneRefCurrent, DropZoneState } from './types';
+import {
+  ChangeEventHandler, DropZoneProps, DropZoneRefCurrent, DropZoneState,
+} from './types';
 import { useCustomElements } from './hooks';
+import { useValidation } from '../Validation';
 
 export const DropZone = React.forwardRef((props: DropZoneProps, ref: React.Ref<DropZoneRefCurrent>): React.ReactElement => {
   const {
@@ -40,9 +43,15 @@ export const DropZone = React.forwardRef((props: DropZoneProps, ref: React.Ref<D
 
   const handleChange = createChangeHandler(props, stateValue, setStateValue);
 
+  const state = React.useMemo(() => ({ value: stateValue }), [stateValue]);
+
+  const extra = React.useMemo(() => ({ reset: () => handleChange([], []) }), [handleChange]);
+
+  const { isValid, InvalidMessage, validateCurrent } = useValidation(props, state, extra);
+
   const handleClick = createClickHandler(props, stateValue, dropZoneRef);
 
-  const combinedClassNames = getClassNames(className, theme.wrapper, { [theme.disabled]: isDisabled });
+  const combinedClassNames = getClassNames(className, theme.wrapper, { [theme.disabled]: isDisabled, [theme.invalid]: !isValid });
 
   const combinedButtonClassNames = getClassNames(theme.button, { [theme.disabled]: isDisabled });
 
@@ -51,7 +60,10 @@ export const DropZone = React.forwardRef((props: DropZoneProps, ref: React.Ref<D
   const singleMode = maxFilesNumber && maxFilesNumber <= 1;
 
   const { getRootProps, getInputProps, open } = useDropzone({
-    onDrop: handleChange as DropzoneOptions['onDrop'],
+    onDrop: (...args) => {
+      const newValue = handleChange(...args as Parameters<ChangeEventHandler>);
+      validateCurrent(newValue);
+    },
     accept: allowedFiles,
     maxSize: maxFileSize,
     multiple: !singleMode,
@@ -115,6 +127,7 @@ export const DropZone = React.forwardRef((props: DropZoneProps, ref: React.Ref<D
           </Info>
         </Div>
       </Wrapper>
+      <InvalidMessage />
       <RejectedFiles
         className={theme.rejectedFilesWrapper}
       >

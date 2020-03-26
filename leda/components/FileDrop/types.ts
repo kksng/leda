@@ -2,6 +2,7 @@ import * as React from 'react';
 import { CustomRender, CustomEventHandler } from '../../commonTypes';
 import { GlobalDefaultTheme, PartialGlobalDefaultTheme } from '../../utils/useTheme';
 import { COMPONENTS_NAMESPACES } from '../../constants';
+import { ValidationProps } from '../Validation/types';
 
 export interface FileType extends File {
   /** Код ошибки, подробнее можно посмотреть в leda/constants.ts */
@@ -34,7 +35,7 @@ export interface LoadingData {
   total: number,
 }
 
-export interface FileDropProps {
+export interface FileDropProps extends ValidationProps {
   /** Разрешенные типы файлов, см. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#Attributes. Передача нескольких типов файлов происходит через запятую (.png, image/jpeg). allowedFiles и forbiddenFiles вместе не могут находиться. */
   allowedFiles?: string,
   /** Классы, применяемые к компоненту */
@@ -104,8 +105,8 @@ export interface ChangeEventHandler {
   (
     accepted: FileType[],
     rejected: FileType[],
-    ev: React.DragEvent<HTMLDivElement> | React.MouseEvent<HTMLAnchorElement>,
-    removedFile: FileType
+    ev?: React.DragEvent<HTMLDivElement> | React.MouseEvent<HTMLAnchorElement>,
+    removedFile?: FileType
   ): void,
 }
 

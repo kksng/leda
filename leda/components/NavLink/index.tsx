@@ -27,10 +27,8 @@ export const NavLink = React.forwardRef((props: NavLinkProps, ref?: React.Ref<Na
     href,
   } = mergeClassNames(props);
 
-  if (isHidden) return null;
   // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
   const path = href && href.replace(/([.+*?=^!:${}()[\]|/\\])/g, '\\$1');
-
   const Icon = useElement(
     'Icon',
     React.Fragment,
@@ -44,6 +42,8 @@ export const NavLink = React.forwardRef((props: NavLinkProps, ref?: React.Ref<Na
     dropDownRender,
     props,
   );
+
+  if (isHidden) return null;
 
   return (
     <Route

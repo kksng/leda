@@ -49,9 +49,25 @@ export const getField = (formName?: string, fieldName?: string): Field | undefin
   return currentField;
 };
 
-export const requiredValidator: Validator = (value) => value !== null
-  && value !== undefined
-  && value.length !== 0;
+export const requiredValidator: Validator = (value) => {
+  if (value == null) {
+    return false;
+  }
+
+  if (isString(value) && value.length === 0) {
+    return false;
+  }
+
+  if (value.acceptedFiles && value.acceptedFiles.length === 0) { // DropZone value
+    return false;
+  }
+
+  if (value.errorCode && value.errorCode !== 0) { // FileDrop rejected file
+    return false;
+  }
+
+  return true;
+};
 
 export const validate = (formName: string | undefined, fieldName?: string, externalValue?: unknown): boolean => {
   const forms: Form[] = getForms();
@@ -73,6 +89,7 @@ export const validate = (formName: string | undefined, fieldName?: string, exter
   let isValid = true;
 
   const value = externalValue === undefined ? currentField.value : externalValue;
+
   // не проверяем валидаторы если поле обязательное и пустое
   if (currentField.isRequired && !requiredValidator(value)) {
     isValid = false;

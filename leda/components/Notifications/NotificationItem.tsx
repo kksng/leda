@@ -5,7 +5,7 @@ import { NotificationItemProps } from './types';
 import { getClassNames, useElement } from '../../utils';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { LedaContext } from '../LedaProvider';
-import { DEFAULT_NOTIFICATION_LIFETIME } from './constants';
+import { ChangeMethods, DEFAULT_NOTIFICATION_LIFETIME } from './constants';
 
 export const NotificationItem = (props: NotificationItemProps): React.ReactElement => {
   const {
@@ -14,14 +14,15 @@ export const NotificationItem = (props: NotificationItemProps): React.ReactEleme
     theme,
     contentRender,
     iconRender,
+    actionButtonRender,
   } = props;
 
   const timeIdRef = React.useRef<number | undefined>();
 
-  const handleChange = () => {
+  const handleChange = (method: ChangeMethods) => {
     clearTimeout(timeIdRef.current);
 
-    onChange(item);
+    onChange(item, method);
   };
 
   React.useEffect((): void | (() => void) => {
@@ -32,7 +33,7 @@ export const NotificationItem = (props: NotificationItemProps): React.ReactEleme
 
     // let the notification with zero delay stay until close icon is clicked
     if (delay > 0) {
-      timeIdRef.current = setTimeout(handleChange, delay) as unknown as number;
+      timeIdRef.current = setTimeout(() => handleChange(ChangeMethods.Delay), delay) as unknown as number;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -53,6 +54,13 @@ export const NotificationItem = (props: NotificationItemProps): React.ReactEleme
     props,
   );
 
+  const ActionButton = useElement(
+    'ActionButton',
+    (data) => <>{data.children}</>,
+    actionButtonRender || notificationsRenders.actionButtonRender,
+    props,
+  );
+
   const wrapperClassNames = getClassNames(theme.notificationWrapper, item.className);
 
   const iconClassNames = getClassNames(theme.notificationIcon, item.iconClassName);
@@ -60,8 +68,11 @@ export const NotificationItem = (props: NotificationItemProps): React.ReactEleme
   return (
     <Div className={wrapperClassNames}>
       <Icon className={iconClassNames} />
-      <Content className={theme.notificationContent} dangerouslySetInnerHTML={{ __html: item.text }} />
-      <Div className={theme.notificationCloseIcon} onClick={handleChange} />
+      <Content className={theme.notificationContent}>
+        <Div dangerouslySetInnerHTML={{ __html: item.text }} />
+        <ActionButton />
+      </Content>
+      <Div className={theme.notificationCloseIcon} onClick={() => handleChange(ChangeMethods.CloseIconClick)} />
     </Div>
   );
 };

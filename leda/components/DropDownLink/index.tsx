@@ -1,6 +1,4 @@
-import React, {
-  useState, useCallback,
-} from 'react';
+import React from 'react';
 import { isEqual, isFunction, isObject } from 'lodash';
 import {
   mergeClassNames, bindFunctionalRef, useTheme, useElement, useAdaptivePosition,
@@ -39,9 +37,7 @@ export const DropDownLink = React.forwardRef((props: DropDownLinkProps, ref?: Re
 
   const theme = useTheme(props.theme, COMPONENTS_NAMESPACES.dropDownLink);
 
-  if (!data) return null;
-
-  const [isOpenState, setIsOpen] = useState(false);
+  const [isOpenState, setIsOpen] = React.useState(false);
 
   const isOpen = isOpenProp ?? isOpenState;
 
@@ -55,15 +51,17 @@ export const DropDownLink = React.forwardRef((props: DropDownLinkProps, ref?: Re
 
   useAdaptivePosition({ elRef: containerRef, isOpen, classNames: classMap });
 
-  const handleClick = useCallback((ev: ClickEvent): void => {
+  const handleClick = React.useCallback((ev: ClickEvent): void => {
     setIsOpen(false);
     if (isFunction(onChange)) onChange(ev);
   }, [onChange]);
 
-  const handleMouseEnter = useCallback((ev): void => {
+  const handleMouseEnter = React.useCallback((ev): void => {
     setIsOpen(true);
     if (isFunction(onMouseEnter)) onMouseEnter(ev);
   }, [onMouseEnter]);
+
+  if (!data) return null;
 
   const currentItem = (data as (DataObject | string)[]).find((item) => isEqual(item, value));
 
