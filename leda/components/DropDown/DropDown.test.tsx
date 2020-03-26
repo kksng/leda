@@ -1,72 +1,103 @@
-// @ts-nocheck
 import React from 'react';
-import toJson from 'enzyme-to-json';
-import { mount, shallow } from 'enzyme';
-
+import {
+  render, screen,
+} from '@testing-library/react';
 import { DropDown } from './index';
 
 describe('DropDown SNAPSHOTS', () => {
   it('should render', () => {
-    const wrapper = mount(<DropDown />);
+    const wrapper = render((
+      <DropDown />
+    ));
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 });
 
 describe('DropDown ATTRIBUTES', () => {
   describe('className prop', () => {
-    const wrapper = mount(<DropDown _box>default</DropDown>);
-
     it('should have className given by prop', () => {
-      expect(wrapper.find('span').hasClass('box')).toBeTruthy();
+      render((
+        <DropDown _box>test</DropDown>
+      ));
+
+      expect(screen.queryByText('test')).toHaveClass('box');
     });
 
     it('should change classes through props', () => {
-      wrapper.setProps({ _active: true, _box: false });
+      render((
+        <DropDown _active>test</DropDown>
+      ));
 
-      expect(wrapper.find('span').hasClass('box')).toBeFalsy();
+      expect(screen.queryByText('test')).not.toHaveClass('box');
 
-      expect(wrapper.find('span').hasClass('active')).toBeTruthy();
+      expect(screen.queryByText('test')).toHaveClass('active');
     });
 
     it('className should not change prop-classes', () => {
-      wrapper.setProps({ className: 'testClass' });
+      render((
+        <DropDown _active className="test">test</DropDown>
+      ));
 
-      expect(wrapper.find('span').hasClass('box')).toBeFalsy();
+      expect(screen.queryByText('test')).not.toHaveClass('box');
 
-      expect(wrapper.find('span').hasClass('active')).toBeTruthy();
+      expect(screen.queryByText('test')).toHaveClass('active');
 
-      expect(wrapper.find('span').hasClass('testClass')).toBeTruthy();
+      expect(screen.queryByText('test')).toHaveClass('test');
     });
   });
 
   it('should be wrapped in wrapper', () => {
-    const wrapper = mount(<DropDown wrapperRender={() => <span />} />);
+    const wrapper = render((
+      <DropDown />
+    ));
 
-    expect(wrapper.getDOMNode().tagName).toEqual('SPAN');
+    wrapper.rerender((
+      <DropDown
+        wrapperRender={() => (
+          <span />
+        )}
+      />
+    ));
 
-    wrapper.setProps({ wrapperRender: () => <div /> });
+    expect(document.querySelector('span')).toBeInTheDocument();
 
-    expect(wrapper.getDOMNode().tagName).toEqual('DIV');
+    wrapper.rerender((
+      <DropDown
+        wrapperRender={() => (
+          <div />
+        )}
+      />
+    ));
 
-    wrapper.setProps({ wrapperRender: () => <p /> });
+    expect(document.querySelector('div')).toBeInTheDocument();
 
-    expect(wrapper.getDOMNode().tagName).toEqual('P');
+    wrapper.rerender((
+      <DropDown
+        wrapperRender={() => (
+          <p />
+        )}
+      />
+    ));
+
+    expect(document.querySelector('p')).toBeInTheDocument();
   });
 
   it('should have children prop', () => {
-    const wrapper = mount(<DropDown><div className="lvl1"><span className="lvl2">TEXT</span></div></DropDown>);
+    render((
+      <DropDown>
+        <div className="level-1"><span className="level-2">test</span></div>
+      </DropDown>
+    )).debug();
 
-    expect(wrapper.props().children).toBeDefined();
+    expect(screen.getByText('test').textContent).toEqual('test');
 
-    expect(wrapper.props().children.type).toEqual('div');
+    expect(screen.getByText('test').tagName).toEqual('SPAN');
 
-    expect(wrapper.props().children.props.className).toEqual('lvl1');
+    expect(screen.getByText('test').className).toEqual('level-2');
 
-    expect(wrapper.props().children.props.children.type).toEqual('span');
+    expect(screen.getByText('test').parentElement?.tagName).toEqual('DIV');
 
-    expect(wrapper.props().children.props.children.props.className).toEqual('lvl2');
-
-    expect(wrapper.props().children.props.children.props.children).toEqual('TEXT');
+    expect(screen.getByText('test').parentElement?.className).toEqual('level-1');
   });
 });
