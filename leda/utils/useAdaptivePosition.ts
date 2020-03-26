@@ -36,7 +36,7 @@ export const useAdaptivePosition = ({
   React.useEffect(() => {
     const visibleClass = classNames.visible;
 
-    if (!visibleClass || !isOpen) {
+    if (!isOpen || !visibleClass) {
       return undefined;
     }
 
@@ -78,11 +78,11 @@ export const useAdaptivePosition = ({
       }
     };
 
-    const throttleUpdatePosition = throttle(updatePosition, 125);
-
-    throttleUpdatePosition();
+    updatePosition();
 
     const element = elRef.current?.wrapper;
+
+    const throttleUpdatePosition = throttle(updatePosition, 125);
 
     element?.classList.add(visibleClass);
 
