@@ -18,7 +18,7 @@ export const DropDown = React.forwardRef((props: DropDownProps, ref?: React.Ref<
     theme: themeProp,
     wrapperRender,
     ...restProps
-  } = useProps<DropDownProps>(props);
+  } = useProps(props);
 
   const [isOpenState, setIsOpen] = React.useState(false);
 

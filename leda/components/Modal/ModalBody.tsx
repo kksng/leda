@@ -8,7 +8,7 @@ import { ModalElementsProps } from './types';
 export const ModalBody: React.FC<ModalElementsProps> = (props: ModalElementsProps): React.ReactElement => {
   const {
     className, children, wrapperRender, ...restProps
-  } = useProps<ModalElementsProps>(props);
+  } = useProps(props);
 
   const modalContext = React.useContext(ModalContext);
 

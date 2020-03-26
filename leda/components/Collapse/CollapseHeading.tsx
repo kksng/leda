@@ -6,7 +6,7 @@ import { CollapsePanelContext } from './CollapseContext';
 import { HeadingProps, HeadingRefCurrent } from './types';
 
 export const Heading = React.forwardRef((props: HeadingProps, ref?: React.Ref<HeadingRefCurrent>): React.ReactElement => {
-  const { children, className } = useProps<HeadingProps>(props);
+  const { children, className } = useProps(props);
 
   const context = React.useContext(CollapsePanelContext);
 

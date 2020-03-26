@@ -27,7 +27,7 @@ export const StatusBar = React.forwardRef((props: StatusBarProps, ref?: React.Re
     onClick,
     currentStepProgress,
     ...restProps
-  } = useProps<StatusBarProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.statusBar);
 

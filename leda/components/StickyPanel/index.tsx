@@ -16,7 +16,7 @@ export const StickyPanel = React.forwardRef((props: StickyPanelProps, ref?: Reac
     offsetTop = 0,
     className,
     ...restProps
-  } = useProps<StickyPanelProps>(props);
+  } = useProps(props);
 
   const panelRef = React.useRef<HTMLDivElement | null>(null);
 

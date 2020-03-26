@@ -12,7 +12,7 @@ export const Panel: React.FC<PanelProps> = (props: PanelProps): React.ReactEleme
     className,
     name,
     isDisabled,
-  } = useProps<PanelProps>(props);
+  } = useProps(props);
 
   const [isClicked, setClicked] = React.useState(false);
 

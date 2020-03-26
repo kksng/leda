@@ -42,7 +42,7 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
     theme: themeProp,
     thousandsSeparator = ' ',
     value: valueProp,
-  } = useProps<NumericTextBoxProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.numericTextBox);
 

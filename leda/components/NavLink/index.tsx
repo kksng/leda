@@ -25,7 +25,7 @@ export const NavLink = React.forwardRef((props: NavLinkProps, ref?: React.Ref<Na
     location = getLocationPath(),
     target,
     href,
-  } = useProps<NavLinkProps>(props);
+  } = useProps(props);
 
   // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
   const path = href && href.replace(/([.+*?=^!:${}()[\]|/\\])/g, '\\$1');

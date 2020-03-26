@@ -63,7 +63,7 @@ export const DateTimeInput = React.forwardRef((props: DateTimeInputProps, ref: R
     wrapperRender,
     yearViewRender,
     ...restProps
-  } = useProps<DateTimeInputProps>(props);
+  } = useProps(props);
 
   handleErrors(props);
 

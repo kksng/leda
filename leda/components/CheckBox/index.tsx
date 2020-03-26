@@ -22,7 +22,7 @@ export const CheckBox = React.forwardRef((props: CheckBoxProps, ref?: React.Ref<
     value: valueProp,
     wrapperRender,
     ...restProps
-  } = useProps<CheckBoxProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(props.theme, COMPONENTS_NAMESPACES.checkBox);
 

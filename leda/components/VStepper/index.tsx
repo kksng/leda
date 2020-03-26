@@ -12,7 +12,7 @@ import { VStepperItemProps, VStepperProps, VStepperRefCurrent } from './types';
 export const VStepper = React.forwardRef((props: VStepperProps, ref?: React.Ref<VStepperRefCurrent>): React.ReactElement => {
   const {
     className, theme: themeProp, children, value, ...restProps
-  } = useProps<VStepperProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.vstepper);
 

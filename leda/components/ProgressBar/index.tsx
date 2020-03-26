@@ -12,7 +12,7 @@ export const ProgressBar = React.forwardRef((props: ProgressBarProps, ref?: Reac
     className,
     theme: themeProp,
     ...restProps
-  } = useProps<ProgressBarProps>(props);
+  } = useProps(props);
 
   const width = `${value}%`;
 

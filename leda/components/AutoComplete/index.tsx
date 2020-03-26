@@ -69,7 +69,7 @@ export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: Rea
     validator,
     value: propValue,
     ...restProps
-  } = useProps<AutoCompleteProps>(props);
+  } = useProps(props);
 
   // todo handle props format errors
 

@@ -37,7 +37,7 @@ export const NumericRange = React.forwardRef((props: NumericRangeProps, ref?: Re
     value: valueProp,
     wrapperRender,
     ...restProps
-  } = useProps<NumericRangeProps>(props);
+  } = useProps(props);
   // вернет value из props или value из state, функция setUncontrolledState сработает только в неконтролируемом режиме
   const [value, setUncontrolledValue] = useValue<NumericRangeState['value']>(getControlledValue(valueProp), [null, null]);
 

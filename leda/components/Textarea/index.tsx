@@ -36,7 +36,7 @@ export const Textarea = React.forwardRef((props: TextareaProps, ref: React.Ref<T
     value: valueProp,
     wrapperRender,
     ...restProps
-  } = useProps<TextareaProps>(props);
+  } = useProps(props);
 
   const [isFocused, setIsFocused] = React.useState<boolean>(false);
 

@@ -18,7 +18,7 @@ export const Tags = React.forwardRef((props: TagsProps, ref?: React.Ref<TagsRefC
     wrapperRender,
     theme: themeProp,
     ...restProps
-  } = useProps<TagsProps>(props);
+  } = useProps(props);
 
   const { renders: { [COMPONENTS_NAMESPACES.tags]: tagsRenders } } = React.useContext(LedaContext);
 

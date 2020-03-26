@@ -49,7 +49,7 @@ export const DateTimeInputRange = React.forwardRef((props: DateTimeInputRangePro
     yearViewRender,
     calendarWrapperRender,
     ...restProps
-  } = useProps<DateTimeInputRangeProps>(props);
+  } = useProps(props);
 
   handleErrors(props);
 

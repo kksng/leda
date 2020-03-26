@@ -59,7 +59,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     value: valueProp,
     wrapperRender,
     ...restProps
-  } = useProps<MultiSelectProps>(props);
+  } = useProps(props);
 
   const [valueState, setValue] = React.useState<Value[]>(defaultValue || []);
 

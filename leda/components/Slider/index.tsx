@@ -42,7 +42,7 @@ export const Slider = React.forwardRef((props: SliderProps, ref?: React.Ref<Slid
     step,
     theme: themeProp,
     value: valueProp,
-  } = useProps<SliderProps>(props);
+  } = useProps(props);
 
   const [valueState, setValueState] = React.useState<SliderValue>(defaultValue || 0);
 

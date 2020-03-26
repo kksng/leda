@@ -24,7 +24,7 @@ export const ModalWindow = (props: ModalWindowProps): React.ReactElement => {
     wrapperRender,
     iconRender,
     ...restProp
-  } = useProps<ModalWindowProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.modal);
 

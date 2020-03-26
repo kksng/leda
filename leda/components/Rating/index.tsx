@@ -18,7 +18,7 @@ export const Rating = React.forwardRef((props: RatingProps, ref?: React.Ref<Rati
     onClick,
     theme: themeProp,
     ...restProps
-  } = useProps<RatingProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.rating);
 

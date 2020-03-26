@@ -39,7 +39,7 @@ export const MaskedInput = React.forwardRef((props: MaskedInputProps, ref: React
     validator,
     value: valueProp,
     ...restProps
-  } = useProps<MaskedInputProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.maskedInput);
 

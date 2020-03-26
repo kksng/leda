@@ -17,7 +17,7 @@ export const Collapsible = React.forwardRef((props: CollapsibleProps, ref: React
     onOpen,
     onToggle,
     transition = DEFAULT_TRANSITION,
-  } = useProps<CollapsibleProps>(props);
+  } = useProps(props);
 
   const onRest = (): void => {
     if (isOpen && isFunction(onOpen)) {

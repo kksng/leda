@@ -45,7 +45,7 @@ export const Input = React.forwardRef((props: InputProps, ref: React.Ref<InputRe
     wrapperRender,
     invalidMessageRender,
     ...restProps
-  } = useProps<InputProps>(props);
+  } = useProps(props);
 
   const [isFocused, setFocused] = React.useState(false);
 

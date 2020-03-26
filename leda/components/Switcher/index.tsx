@@ -20,7 +20,7 @@ export const Switcher = React.forwardRef((props: SwitcherProps, ref: React.Ref<S
     theme: themeProp,
     wrapperRender,
     ...restProps
-  } = useProps<SwitcherProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.switcher);
 

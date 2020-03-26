@@ -26,7 +26,7 @@ export const DropDownLink = React.forwardRef((props: DropDownLinkProps, ref?: Re
     value = '',
     isOpen: isOpenProp,
     ...restProps
-  } = useProps<DropDownLinkProps>(props);
+  } = useProps(props);
 
   const Title = useElement<DropDownLinkProps, {}, TitleProps>(
     'Title',

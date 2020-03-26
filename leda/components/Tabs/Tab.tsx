@@ -13,7 +13,7 @@ export const Tab = React.forwardRef((props: TabProps, ref: React.Ref<TabRefCurre
 
   const {
     isDisabled, tabKey, title, className, style, theme: themeProp, tabRender: childTabRender,
-  } = useProps<TabProps>(props);
+  } = useProps(props);
 
   const tabRender = childTabRender ?? parentTabRender;
 

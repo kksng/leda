@@ -38,7 +38,7 @@ export const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: Reac
     form,
     validator,
     ...restProps
-  } = useProps<ButtonGroupProps>(props);
+  } = useProps(props);
 
   const [value, setUncontrolledValue] = useValue(valueProp, defaultValue);
 

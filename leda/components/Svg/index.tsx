@@ -13,7 +13,7 @@ export const Svg = React.forwardRef((props: SvgProps, ref?: React.Ref<SvgRefCurr
     className,
     noIconClass,
     ...restProps
-  } = useProps<SvgProps>(props);
+  } = useProps(props);
 
   const { id, namespace, ...wrapperProps } = extractIdAndNamespace(restProps);
 

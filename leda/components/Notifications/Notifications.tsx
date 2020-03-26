@@ -20,7 +20,7 @@ export const Notifications = React.forwardRef((
     iconRender,
     theme: themeProp,
     actionButtonRender,
-  } = useProps<NotificationsProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.notifications);
 

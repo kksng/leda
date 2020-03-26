@@ -27,7 +27,7 @@ export const DropZone = React.forwardRef((props: DropZoneProps, ref: React.Ref<D
     maxFilesNumber,
     minFileSize = MIN_FILE_SIZE,
     value: valueProps,
-  } = useProps<DropZoneProps>(props);
+  } = useProps(props);
 
 
   const dropZoneRef = React.useRef<DropzoneRef | null>(null);

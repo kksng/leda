@@ -20,7 +20,7 @@ export const RadioButton = React.forwardRef((props: RadioButtonProps, ref?: Reac
     value,
     name,
     ...restProps
-  } = useProps<RadioButtonProps & PropsFromParent>(props as RadioButtonProps & PropsFromParent);
+  } = useProps(props as RadioButtonProps & PropsFromParent);
 
   const Wrapper = useElement(
     'Wrapper',

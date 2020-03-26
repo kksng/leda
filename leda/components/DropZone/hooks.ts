@@ -104,7 +104,7 @@ export const useDropZoneRestProps = (props: DropZoneProps): {} => {
     wrapperRender,
     // конец того, что не должно попасть в restProps
     ...restProps
-  } = useProps<DropZoneProps>(props);
+  } = useProps(props);
 
   return restProps;
 };

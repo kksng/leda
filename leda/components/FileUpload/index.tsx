@@ -29,7 +29,7 @@ export const FileUpload = React.forwardRef((props: FileUploadProps, ref: React.R
     invalidMessageRender,
     requiredMessage,
     ...restProps
-  } = useProps<FileUploadProps>(props);
+  } = useProps(props);
 
   const fileUploadRef = React.useRef<DropzoneRef | undefined>();
 

@@ -19,7 +19,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref: React.Ref<Butto
     shouldValidateUnmounted,
     theme: themeProp,
     ...restProps
-  } = useProps<ButtonProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.button);
 

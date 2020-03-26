@@ -28,7 +28,7 @@ export const MaskedInputBase = React.forwardRef((props: MaskedInputBaseProps, re
     onKeyDown,
     onMouseDown,
     ...restProps
-  } = useProps<MaskedInputBaseProps>(props);
+  } = useProps(props);
 
   const [isFocused, setFocused] = React.useState<boolean>(false);
 

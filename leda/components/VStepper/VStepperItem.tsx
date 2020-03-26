@@ -21,7 +21,7 @@ export const VStepperItem: React.FC<VStepperItemProps> = (props: VStepperItemPro
     item,
     isDisabled,
     typeField,
-  } = useProps<VStepperItemProps>(props);
+  } = useProps(props);
 
   const [isOpenState, setIsOpenState] = React.useState(false);
 

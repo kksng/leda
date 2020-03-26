@@ -11,7 +11,7 @@ import { useCollapse } from './useCollapse';
 export const Body = React.forwardRef((props: BodyProps, ref?: React.Ref<BodyRefCurrent>): React.ReactElement => {
   const {
     onOpen, onCloseByClick, onClose, isLoading, transition, children, className,
-  } = useProps<BodyProps>(props);
+  } = useProps(props);
 
   const {
     isExpanded, isClicked, onBodyRest, panelKey,

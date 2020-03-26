@@ -25,7 +25,7 @@ export const Pagination = React.forwardRef((props: PaginationProps, ref: React.R
     isLoading = false,
     onChange,
     onPageSizeChange,
-  } = useProps<PaginationProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.pagination);
 

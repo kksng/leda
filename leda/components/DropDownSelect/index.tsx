@@ -64,7 +64,7 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     value: valueProp,
     wrapperRender,
     ...restProps
-  } = useProps<DropDownSelectProps>(props);
+  } = useProps(props);
 
   const [state, mergeState] = React.useReducer((oldState: DropDownSelectState, newState: Partial<DropDownSelectState>) => ({
     ...oldState, ...newState,

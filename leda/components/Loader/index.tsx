@@ -16,7 +16,7 @@ export const Loader = React.forwardRef((props: LoaderProps, ref?: React.Ref<Load
     isLoading = true,
     theme: themeProp,
     ...restProps
-  } = useProps<LoaderProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.loader);
 

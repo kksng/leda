@@ -19,7 +19,7 @@ export const RadioGroup = React.forwardRef((props: RadioGroupProps, ref?: React.
     value: valueProp,
     wrapperRender,
     isDisabled,
-  } = useProps<RadioGroupProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(props.theme, COMPONENTS_NAMESPACES.radio);
 

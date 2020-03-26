@@ -20,7 +20,7 @@ export const FileDrop = React.forwardRef((props: FileDropProps, ref: React.Ref<F
     isDisabled,
     maxFileSize = MAX_FILE_SIZE,
     value,
-  } = useProps<FileDropProps>(props);
+  } = useProps(props);
 
   const fileDropRef = React.useRef<DropzoneRef | null>(null);
 

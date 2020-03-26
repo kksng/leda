@@ -19,7 +19,7 @@ export const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<TabsRefC
     className,
     style,
     tabRender,
-  } = useProps<TabsProps>(props);
+  } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.tabs);
 

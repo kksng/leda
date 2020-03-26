@@ -18,7 +18,7 @@ export const Tag = React.forwardRef((props: TagProps, ref?: React.Ref<TagsRefCur
     onIconClick,
     theme = globalDefaultTheme[COMPONENTS_NAMESPACES.tags],
     ...restProps
-  } = useProps<TagProps>(props);
+  } = useProps(props);
 
   const { renders: { [COMPONENTS_NAMESPACES.tags]: tagsRenders } } = React.useContext(LedaContext);
 

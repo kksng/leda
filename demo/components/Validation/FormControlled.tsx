@@ -55,7 +55,8 @@ export const FormControlled = () => {
           <Label>
             ButtonGroup
           </Label>
-          <L.ButtonGroup _grow1
+          <L.ButtonGroup
+            _grow1
             isRequired
             form={formName}
             name="button-group"
@@ -231,6 +232,7 @@ export const FormControlled = () => {
           </Label>
           <L.Textarea _grow1
             form={formName}
+            isRequired
             name="textarea"
             value={valueOfTextarea}
             onChange={(event) => {
@@ -249,6 +251,15 @@ export const FormControlled = () => {
             onClick={(event) => {
               console.log(event);
               L.form(formName).reset();
+            }}
+          >
+            Remove
+          </L.Button>
+          {' '}
+          <L.Button _warning
+            onClick={(event) => {
+              console.log(event);
+              L.form(formName, 'textarea').remove();
             }}
           >
             Reset

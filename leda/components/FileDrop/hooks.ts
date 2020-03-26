@@ -75,7 +75,7 @@ export const useFileDropRestProps = (props: FileDropProps): {} => {
     shouldValidateUnmounted,
     // конец того, что не должно попасть в restProps
     ...restProps
-  } = useProps<FileDropProps>(props);
+  } = useProps(props);
 
   return restProps;
 };
