@@ -1,23 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DropDown SNAPSHOTS should render 1`] = `
-<DropDown>
-  <Wrapper
-    className="dropdown-wrapper"
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
-  >
-    <Span
-      className="dropdown-wrapper"
-      onMouseLeave={[Function]}
-      onMouseOver={[Function]}
-    >
-      <span
-        className="dropdown-wrapper"
-        onMouseLeave={[Function]}
-        onMouseOver={[Function]}
-      />
-    </Span>
-  </Wrapper>
-</DropDown>
+<div>
+  <span
+    class="dropdown-wrapper"
+  />
+</div>
 `;
