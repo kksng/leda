@@ -1,4 +1,5 @@
 import * as React from 'react';
+import isNil from 'lodash/isNil';
 import throttle from 'lodash/throttle';
 import { DivRefCurrent } from '../components/Div';
 
@@ -15,16 +16,15 @@ interface AdaptivePositionProps {
   boundingContainerRef?: React.RefObject<HTMLElement | { wrapper: HTMLElement | null}>,
 }
 
-const getElementRectFromRef = (ref?: React.RefObject<HTMLElement | {
-  wrapper: HTMLElement | null,
-}>) => {
-  if (ref == null) {
-    return null;
-  }
+const getElRectFromRef = (ref?: React.RefObject<HTMLElement | { wrapper: HTMLElement | null }>) => {
+  if (isNil(ref)) return null;
 
-  const boundingElement = ref.current instanceof HTMLElement ? ref.current : ref.current?.wrapper;
+  const boundingEl = (() => {
+    if (ref.current instanceof HTMLElement) return ref.current;
+    return ref.current?.wrapper;
+  })();
 
-  return boundingElement?.getBoundingClientRect();
+  return boundingEl?.getBoundingClientRect();
 };
 
 export const useAdaptivePosition = ({
@@ -33,65 +33,69 @@ export const useAdaptivePosition = ({
   classNames,
   boundingContainerRef,
 }: AdaptivePositionProps) => {
-  React.useEffect(() => {
-    const visibleClass = classNames.visible;
+  React.useEffect((): () => void => {
+    const onScroll = () => {
+      const el = elRef.current?.wrapper;
+      const parent = el?.parentElement;
 
-    if (!isOpen || !visibleClass) {
-      return undefined;
-    }
+      const rect = el?.getBoundingClientRect();
+      const parentRect = parent?.getBoundingClientRect();
 
-    const updatePosition = () => {
-      const element = elRef.current?.wrapper;
-      const wrapper = element?.parentElement;
+      if (!isOpen || !rect || !parentRect) return;
 
-      if (!element || !wrapper) {
-        return;
+      const boundingElRect = getElRectFromRef(boundingContainerRef);
+
+      const isOutOfRight = (() => {
+        if (boundingElRect) return (rect.right - boundingElRect.right) > 0;
+
+        return rect.right > window.innerWidth;
+      })();
+
+      const isEnoughPlaceOnRight = (() => {
+        if (boundingElRect) return rect.right + (rect.width - parentRect.width - boundingElRect.right) < 0;
+
+        return rect.right + (rect.width - parentRect.width) < window.innerWidth;
+      })();
+
+      const isOutOfBottom = (() => {
+        if (boundingElRect) return (rect.bottom - boundingElRect.bottom) > 0;
+        return rect.bottom > window.innerHeight;
+      })();
+
+      const isEnoughPlaceOnBottom = (() => {
+        if (boundingElRect) return (rect.bottom + rect.height + parentRect.height - boundingElRect.bottom) < 0;
+        return rect.bottom + rect.height + parentRect.height < window.innerHeight;
+      })();
+
+      if (isOutOfRight && classNames.right && !el?.classList.contains(classNames.right)) {
+        el?.classList.add(classNames.right);
+      } else if (isEnoughPlaceOnRight && classNames.right) {
+        el?.classList.remove(classNames.right);
       }
 
-      const elementRect = element?.getBoundingClientRect();
-      const wrapperRect = wrapper?.getBoundingClientRect();
-
-      const boundingElRect = getElementRectFromRef(boundingContainerRef);
-
-      const bottomOrHeight = boundingElRect?.bottom ?? window.innerHeight;
-
-      const rightOrWidth = boundingElRect?.right ?? window.innerWidth;
-
-      const isOutOfBottom = bottomOrHeight < elementRect.bottom;
-
-      const isEnoughPlaceOnBottom = elementRect.bottom + elementRect.height + wrapperRect.height < bottomOrHeight;
-
-      const isOutOfRight = rightOrWidth < elementRect.right;
-
-      const isEnoughPlaceOnRight = elementRect.right + elementRect.width < wrapperRect.width + rightOrWidth;
-
-      if (classNames.top && isOutOfBottom) {
-        element?.classList.add(classNames.top);
-      } else if (classNames.top && isEnoughPlaceOnBottom) {
-        element?.classList.remove(classNames.top);
-      }
-
-      if (classNames.right && isOutOfRight) {
-        element?.classList.add(classNames.right);
-      } else if (classNames.right && isEnoughPlaceOnRight) {
-        element?.classList.remove(classNames.right);
+      if (isOutOfBottom && classNames.top && !el?.classList.contains(classNames.top)) {
+        el?.classList.add(classNames.top);
+      } else if (isEnoughPlaceOnBottom && classNames.top) {
+        el?.classList.remove(classNames.top);
       }
     };
 
-    updatePosition();
+    onScroll();
 
-    const element = elRef.current?.wrapper;
+    const handler = throttle(onScroll, 200);
 
-    const throttleUpdatePosition = throttle(updatePosition, 125);
+    const el = elRef.current?.wrapper;
 
-    element?.classList.add(visibleClass);
+    if (isOpen && classNames.visible) {
+      el?.classList.add(classNames.visible);
 
-    window.addEventListener('scroll', throttleUpdatePosition);
+      window.addEventListener('scroll', handler);
+    }
 
     return () => {
-      element?.classList.remove(visibleClass);
+      if (classNames.visible) el?.classList.remove(classNames.visible);
 
-      window.removeEventListener('scroll', throttleUpdatePosition);
+      window.removeEventListener('scroll', handler);
     };
   }, [boundingContainerRef, classNames, elRef, isOpen]);
 };
