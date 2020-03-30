@@ -42,7 +42,7 @@
     "history": "4.10.1",
     "html-webpack-plugin": "3.2.0",
     "lodash": "4.17.15",
-    "react-dropzone": "10.2.1",
+    "react-dropzone": "10.2.2",
     "react-slider": "1.0.1",
     "svgxuse": "1.2.6"
   },
