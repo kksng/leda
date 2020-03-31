@@ -2,7 +2,6 @@ import * as React from 'react';
 import { PartialGlobalDefaultTheme } from '../../utils/useTheme';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { CustomRender } from '../../commonTypes';
-import { SpanProps } from '../Span';
 
 export interface ProgressBarProps {
   /** Тема компонента */
@@ -18,8 +17,9 @@ export interface ProgressBarProps {
 }
 
 export interface ValueLabelProps {
-  children: React.ReactNode,
   'data-value': number,
+  children: React.ReactNode,
+  className: string,
 }
 
 export interface ProgressBarRefCurrent {
