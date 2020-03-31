@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Div } from '../Div';
 import {
-  bindFunctionalRef, getClassNames, useProps, useTheme,
+  bindFunctionalRef, getClassNames, useElement, useProps, useTheme,
 } from '../../utils';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { ProgressBarProps, ProgressBarRefCurrent } from './types';
+import { Span } from '../Span';
+import { LedaContext } from '../LedaProvider';
 
 export const ProgressBar = React.forwardRef((props: ProgressBarProps, ref?: React.Ref<ProgressBarRefCurrent>) => {
   const {
     value,
     className,
     theme: themeProp,
+    valueRender,
     ...restProps
   } = useProps(props);
 
@@ -18,7 +21,16 @@ export const ProgressBar = React.forwardRef((props: ProgressBarProps, ref?: Reac
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.progressBar);
 
+  const { renders: { progressBar: customRenders } } = useContext(LedaContext);
+
   const wrapperClassNames = getClassNames(className, theme.wrapper);
+
+  const Value = useElement(
+    'Value',
+    Span,
+    valueRender ?? customRenders.valueRender,
+    props,
+  );
 
   return (
     <Div
@@ -29,7 +41,9 @@ export const ProgressBar = React.forwardRef((props: ProgressBarProps, ref?: Reac
       }))}
     >
       <div className={theme.fill} style={{ width }}>
-        {value > 10 && width}
+        <Value data-value={value}>
+          {value > 10 && width}
+        </Value>
       </div>
     </Div>
   );
