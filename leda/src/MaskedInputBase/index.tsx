@@ -52,6 +52,9 @@ export const MaskedInputBase = React.forwardRef((props: MaskedInputBaseProps, re
   });
 
   const handleBlur = createBlurHandler(props, {
+    inputValue,
+    mask,
+    placeholderChar,
     setFocused,
     setInputValue,
   });

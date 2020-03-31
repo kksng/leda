@@ -197,7 +197,12 @@ export const createFocusHandler = (
 
   setFocused(true);
 
-  const newInputValue = maskValue(valueProp, mask, placeholderChar);
+  const newInputValue = (() => {
+    if (!valueProp && inputValue) { // the input is neither completely filled nor empty
+      return inputValue;
+    }
+    return maskValue(valueProp, mask, placeholderChar);
+  })();
 
   setInputValue(newInputValue);
 
@@ -237,11 +242,18 @@ export const createBlurHandler = (
     onBlur, value,
   } = props;
 
-  const { setFocused, setInputValue } = extraData;
+  const {
+    inputValue, setFocused, setInputValue, placeholderChar, mask,
+  } = extraData;
 
   setFocused(false);
 
-  setInputValue('');
+  const emptyValue = getEmptyValue(mask, placeholderChar);
+
+  // user didn't enter anything
+  if (emptyValue === inputValue) {
+    setInputValue('');
+  }
 
   if (isFunction(onBlur)) {
     const customEvent = {

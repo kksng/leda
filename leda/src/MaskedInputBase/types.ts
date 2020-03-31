@@ -100,6 +100,9 @@ export interface FocusData {
 }
 
 export interface BlurData {
+  inputValue: string,
+  mask: string,
+  placeholderChar: string,
   setFocused: SetState<boolean>,
   setInputValue: SetState<string>,
 }
