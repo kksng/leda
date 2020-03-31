@@ -41,7 +41,7 @@ export const ProgressBar = React.forwardRef((props: ProgressBarProps, ref?: Reac
       }))}
     >
       <div className={theme.fill} style={{ width }}>
-        <Value data-value={value}>
+        <Value data-value={value} className={theme.value}>
           {value > 10 && width}
         </Value>
       </div>
