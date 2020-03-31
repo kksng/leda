@@ -12,9 +12,14 @@ export interface ProgressBarProps {
   /** Реф */
   ref?: React.Ref<ProgressBarRefCurrent>,
   /** Кастомный рендер для цифр со значением компонента, если цифры не нужны - передайте () => null */
-  valueRender?: CustomRender<ProgressBarProps, {}, SpanProps>,
+  valueRender?: CustomRender<ProgressBarProps, {}, ValueLabelProps>,
   /** Классы переданные через _ */
   [x: string]: unknown,
+}
+
+export interface ValueLabelProps {
+  children: React.ReactNode,
+  'data-value': number,
 }
 
 export interface ProgressBarRefCurrent {
