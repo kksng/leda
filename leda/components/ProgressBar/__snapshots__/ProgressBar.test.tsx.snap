@@ -18,7 +18,19 @@ exports[`ProgressBar SNAPSHOTS should render 1`] = `
           }
         }
       >
-        40%
+        <Value
+          data-value={40}
+        >
+          <Span
+            data-value={40}
+          >
+            <span
+              data-value={40}
+            >
+              40%
+            </span>
+          </Span>
+        </Value>
       </div>
     </div>
   </Div>
@@ -43,7 +55,19 @@ exports[`ProgressBar SNAPSHOTS should render value in controllable mode 1`] = `
           }
         }
       >
-        40%
+        <Value
+          data-value={40}
+        >
+          <Span
+            data-value={40}
+          >
+            <span
+              data-value={40}
+            >
+              40%
+            </span>
+          </Span>
+        </Value>
       </div>
     </div>
   </Div>
@@ -68,7 +92,19 @@ exports[`ProgressBar SNAPSHOTS should render value in controllable mode 2`] = `
           }
         }
       >
-        50%
+        <Value
+          data-value={50}
+        >
+          <Span
+            data-value={50}
+          >
+            <span
+              data-value={50}
+            >
+              50%
+            </span>
+          </Span>
+        </Value>
       </div>
     </div>
   </Div>
