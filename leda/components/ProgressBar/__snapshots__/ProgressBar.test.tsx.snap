@@ -19,12 +19,15 @@ exports[`ProgressBar SNAPSHOTS should render 1`] = `
         }
       >
         <Value
+          className="progressbar-value"
           data-value={40}
         >
           <Span
+            className="progressbar-value"
             data-value={40}
           >
             <span
+              className="progressbar-value"
               data-value={40}
             >
               40%
@@ -56,12 +59,15 @@ exports[`ProgressBar SNAPSHOTS should render value in controllable mode 1`] = `
         }
       >
         <Value
+          className="progressbar-value"
           data-value={40}
         >
           <Span
+            className="progressbar-value"
             data-value={40}
           >
             <span
+              className="progressbar-value"
               data-value={40}
             >
               40%
@@ -93,12 +99,15 @@ exports[`ProgressBar SNAPSHOTS should render value in controllable mode 2`] = `
         }
       >
         <Value
+          className="progressbar-value"
           data-value={50}
         >
           <Span
+            className="progressbar-value"
             data-value={50}
           >
             <span
+              className="progressbar-value"
               data-value={50}
             >
               50%
