@@ -5,6 +5,8 @@ import { COMPONENTS_NAMESPACES } from '../../constants';
 import { globalDefaultTheme } from '../LedaProvider';
 import { ValidationProps } from '../Validation/types';
 
+export { FileErrorCodes } from '../../constants';
+
 export interface ExternalFile {
   /** Имя файла. Необходимо для отображения в списке и удаления */
   name: string,

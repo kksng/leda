@@ -4,6 +4,8 @@ import { GlobalDefaultTheme, PartialGlobalDefaultTheme } from '../../utils/useTh
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { ValidationProps } from '../Validation/types';
 
+export { FileErrorCodes } from '../../constants';
+
 export interface FileType extends File {
   /** Дата последнего изменения */
   lastModified: number,

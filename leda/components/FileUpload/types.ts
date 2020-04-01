@@ -2,6 +2,8 @@ import * as React from 'react';
 import { RenderEvent } from '../../commonTypes';
 import { ValidationProps } from '../Validation/types';
 
+export { FileErrorCodes } from '../../constants';
+
 export interface RejectedFileType extends File {
   errorCode?: number,
 }
