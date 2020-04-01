@@ -1,5 +1,5 @@
 import accept from 'attr-accept';
-import { MAX_FILE_SIZE, MIN_FILE_SIZE } from '../../constants';
+import { FileErrorCodes, MAX_FILE_SIZE, MIN_FILE_SIZE } from '../../constants';
 import { FileUploadProps } from './types';
 
 export const getErrorCode = (file: File, props: FileUploadProps): number => {
@@ -13,7 +13,7 @@ export const getErrorCode = (file: File, props: FileUploadProps): number => {
       type: file.type,
     }, allowedFiles);
 
-    if (!isAccepted) return 3;
+    if (!isAccepted) return FileErrorCodes.WrongFileFormat;
   }
   // Проверка на запрещенные типы файлов
   if (forbiddenFiles) {
@@ -22,11 +22,11 @@ export const getErrorCode = (file: File, props: FileUploadProps): number => {
       type: file.type,
     }, forbiddenFiles);
 
-    if (isAcceptedForbiddenFiles) return 3;
+    if (isAcceptedForbiddenFiles) return FileErrorCodes.WrongFileFormat;
   }
 
-  if (file.size < minFileSize) return 1;
-  if (file.size > maxFileSize) return 2;
+  if (file.size < minFileSize) return FileErrorCodes.FileIsTooSmall;
+  if (file.size > maxFileSize) return FileErrorCodes.FileIsTooBig;
 
-  return 0; // неизвестная ошибка
+  return FileErrorCodes.None; // неизвестная ошибка
 };

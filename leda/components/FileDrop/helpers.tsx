@@ -2,7 +2,7 @@ import * as React from 'react';
 import accept from 'attr-accept';
 import { isString, isNumber } from 'lodash';
 import {
-  COMPONENTS_NAMESPACES, ERROR_MESSAGES, MAX_FILE_SIZE, MIN_FILE_SIZE,
+  COMPONENTS_NAMESPACES, ERROR_MESSAGES, FileErrorCodes, MAX_FILE_SIZE, MIN_FILE_SIZE,
 } from '../../constants';
 import { Div } from '../Div';
 import {
@@ -38,7 +38,7 @@ export const getErrorCode = (props: FileDropProps, file: FileType): number => {
   } = props;
 
   // Ошибка - файл уже существует
-  if (checkForAddedFile(props, file)) return 4;
+  if (checkForAddedFile(props, file)) return FileErrorCodes.AlreadyLoaded;
 
   // Ошибка типа
   if (allowedFiles) {
@@ -46,7 +46,7 @@ export const getErrorCode = (props: FileDropProps, file: FileType): number => {
       name: file.name,
       type: file.type,
     }, allowedFiles);
-    if (!isAccepted) return 3;
+    if (!isAccepted) return FileErrorCodes.WrongFileFormat;
   }
 
   // Ошибка типа. Запрещенные файлы
@@ -56,20 +56,20 @@ export const getErrorCode = (props: FileDropProps, file: FileType): number => {
       type: file.type,
     }, forbiddenFiles);
 
-    if (isAcceptedForbidden) return 3;
+    if (isAcceptedForbidden) return FileErrorCodes.WrongFileFormat;
   }
 
   // Ошибка по минимальному размеру
-  if (file.size < minFileSize) return 1;
+  if (file.size < minFileSize) return FileErrorCodes.FileIsTooSmall;
 
   // Ошибка по максимальному размеру
-  if (file.size > maxFileSize) return 2;
+  if (file.size > maxFileSize) return FileErrorCodes.FileIsTooBig;
 
   // Ошибка по максимальной длине имени файла
-  if (file.name.length > maxFileNameLength) return 6;
+  if (file.name.length > maxFileNameLength) return FileErrorCodes.NameIsTooLong;
 
   // Ошибка не найдена
-  return 0;
+  return FileErrorCodes.None;
 };
 
 export const errorCodeToMessage = (errorCode: number): string => {
@@ -98,8 +98,8 @@ export const checkFiles = (
     return {
       file: rejectedFile,
       error: {
-        errorCode: 5,
-        errorMessage: errorCodeToMessage(5),
+        errorCode: FileErrorCodes.TooManyFiles,
+        errorMessage: errorCodeToMessage(FileErrorCodes.TooManyFiles),
       },
     };
   }

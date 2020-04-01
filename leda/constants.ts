@@ -66,12 +66,23 @@ export const COMPONENTS_NAMESPACES = {
   vstepper: 'vstepper',
 } as const;
 
+/** Error codes for DropZone, FileDrop и FileUpload */
+export enum FileErrorCodes {
+  None,
+  FileIsTooSmall,
+  FileIsTooBig,
+  WrongFileFormat,
+  AlreadyLoaded,
+  TooManyFiles,
+  NameIsTooLong,
+}
+
 /** Ошибки DropZone, FileDrop и FileUpload */
 export const ERROR_MESSAGES = [
-  { errorCode: 1, message: 'Файл меньше допустимого размера' },
-  { errorCode: 2, message: 'Превышен максимальный размер файла' },
-  { errorCode: 3, message: 'Недопустимый формат файла' },
-  { errorCode: 4, message: 'Файл уже загружен' },
-  { errorCode: 5, message: 'Превышено максимальное количество файлов' },
-  { errorCode: 6, message: 'Превышена максимальная длина имени файла' },
+  { errorCode: FileErrorCodes.FileIsTooSmall, message: 'Файл меньше допустимого размера' },
+  { errorCode: FileErrorCodes.FileIsTooBig, message: 'Превышен максимальный размер файла' },
+  { errorCode: FileErrorCodes.WrongFileFormat, message: 'Недопустимый формат файла' },
+  { errorCode: FileErrorCodes.AlreadyLoaded, message: 'Файл уже загружен' },
+  { errorCode: FileErrorCodes.TooManyFiles, message: 'Превышено максимальное количество файлов' },
+  { errorCode: FileErrorCodes.NameIsTooLong, message: 'Превышена максимальная длина имени файла' },
 ];
