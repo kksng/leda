@@ -3,7 +3,7 @@ import { DropZoneViewTypes } from './constants';
 import { ProgressLoader } from './ProgressLoader';
 import { Span } from '../Span';
 import { Button } from '../Button';
-import { createDownloadLink, DescriptionMessage, getError } from './helpers';
+import { createDownloadLink, DescriptionMessage, getErrorMessage } from './helpers';
 import * as messages from '../../messages';
 import {
   FileType, SingleFileViewProps,
@@ -13,23 +13,18 @@ import { Div } from '../Div';
 
 export const SingleFileView = (props: SingleFileViewProps): React.ReactElement | null => {
   const {
-    value, loadingData, theme, handleRetry, UploadButton, Info, isDisabled, minFileSize, allowedFiles, forbiddenFiles, maxFileSize,
+    error, value, isLoading, loadingProgress, theme, handleRetry, UploadButton, Info, isDisabled, minFileSize, allowedFiles, forbiddenFiles, maxFileSize,
   } = props;
 
   const combinedButtonClassNames = getClassNames(theme.button, { [theme.disabled]: isDisabled });
 
-  const file = value ?? {} as Partial<FileType>;
-
-  const blob = new Blob([file.name ?? ''], { type: file.type });
-
-  const downloadLink = file.link || createDownloadLink(blob, file.name, theme);
-
   const currentView = (() => {
-    if (loadingData?.error || value?.errorCode) return DropZoneViewTypes.Error;
+    if (error) return DropZoneViewTypes.Error;
 
-    if ((loadingData && loadingData.loaded === loadingData.total) || (!loadingData && value)) return DropZoneViewTypes.Success;
+    if (isLoading) return DropZoneViewTypes.Loading;
 
-    if (loadingData) return DropZoneViewTypes.Loading;
+    // todo: handle uncontrolled
+    if (value) return DropZoneViewTypes.Success;
 
     return DropZoneViewTypes.Default;
   })();
@@ -37,13 +32,19 @@ export const SingleFileView = (props: SingleFileViewProps): React.ReactElement |
   if (currentView === DropZoneViewTypes.Loading) {
     return (
       <Div className={theme.description}>
-        <ProgressLoader loadingData={loadingData} isLoading theme={theme} />
+        <ProgressLoader loadingProgress={loadingProgress} isLoading theme={theme} />
         <Span>Загрузка...</Span>
       </Div>
     );
   }
 
   if (currentView === DropZoneViewTypes.Success) {
+    const file = value ?? {} as Partial<FileType>;
+
+    const blob = new Blob([file.name ?? ''], { type: file.type });
+
+    const downloadLink = file.link || createDownloadLink(blob, file.name, theme);
+
     return (
       <Div className={theme.description}>
         <Span className={theme.successIcon} />
@@ -64,7 +65,9 @@ export const SingleFileView = (props: SingleFileViewProps): React.ReactElement |
   }
 
   if (currentView === DropZoneViewTypes.Error) {
-    const errorMessage = (value && getError(value)?.message) ?? loadingData?.error?.message;
+    if (error == null) return null;
+
+    const errorMessage = getErrorMessage(error);
     return (
       <Div className={theme.description}>
         <Span className={theme.errorIcon} />
