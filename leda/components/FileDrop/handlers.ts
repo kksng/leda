@@ -30,7 +30,7 @@ export const createChangeHandler = (
   const customEvent = {
     ...ev,
     component: {
-      error: error?.errorMessage,
+      error,
       name,
       value: file,
     },
