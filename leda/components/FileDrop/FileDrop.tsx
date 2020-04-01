@@ -17,6 +17,7 @@ export const FileDrop = React.forwardRef((props: FileDropProps, ref: React.Ref<F
   const {
     allowedFiles,
     className,
+    error,
     isDisabled,
     maxFileSize = MAX_FILE_SIZE,
     value,
@@ -41,7 +42,7 @@ export const FileDrop = React.forwardRef((props: FileDropProps, ref: React.Ref<F
   const { getRootProps, getInputProps, open } = useDropzone({
     onDrop: (acceptedFiles, rejectedFiles, event) => {
       const newValue = handleChange(acceptedFiles, rejectedFiles, event as React.DragEvent<HTMLDivElement>);
-      validateCurrent(newValue);
+      validateCurrent(error ? null : newValue);
     },
     accept: allowedFiles,
     maxSize: maxFileSize,

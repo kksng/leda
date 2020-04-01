@@ -18,11 +18,6 @@ export const checkIsFilled = (value: any): boolean => {
     return value.acceptedFiles.length === 0;
   }
 
-  // FileDrop
-  if (value.errorCode) {
-    return false;
-  }
-
   return true;
 };
 
