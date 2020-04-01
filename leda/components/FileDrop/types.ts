@@ -44,16 +44,16 @@ export interface FileDropProps extends ValidationProps {
   /** Классы, применяемые к компоненту */
   className?: string,
   /** Ошибка загрузки файла */
-  error?: FileDropExternalError | FileDropInnerError,
+  error: FileDropExternalError | FileDropInnerError,
   /** Запрещенные типы файлов. см. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#Attributes. Передача нескольких типов файлов происходит через запятую (.png, image/jpeg). allowedFiles и forbiddenFiles вместе не могут находиться. */
   forbiddenFiles?: string,
   /** Кастомизация описания компонента */
   infoRender?: CustomRender<FileDropProps, {}, InfoProps>,
   /** Признак отключения дропзоны */
   isDisabled?: boolean,
-  /**  */
+  /** Состояние загрузки */
   isLoading?: boolean,
-  /**  */
+  /** Прогресс загрузки, число от 1 до 100 */
   loadingProgress?: number,
   /* Максимальная длина имени файла, по-умолчанию 255 символов */
   maxFileNameLength?: number,
@@ -71,8 +71,8 @@ export interface FileDropProps extends ValidationProps {
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.fileDrop],
   /** Текст кнопки загрузки файла, может принимать JSX */
   uploadButtonRender?: CustomRender<FileDropProps, {}, UploadButtonProps>,
-  /** Список загруженных файлов */
-  value?: FileType | null,
+  /** Загруженный файл */
+  value: FileType | null,
   /** Кастомизация враппера */
   wrapperRender?: CustomRender<FileDropProps, {}, WrapperProps>,
   /** Классы переданные через _ */
