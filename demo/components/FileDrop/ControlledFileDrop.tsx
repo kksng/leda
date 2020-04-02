@@ -5,7 +5,7 @@ import { FileDropExternalError, FileDropInnerError } from '../../../leda/compone
 
 export const ControlledFileDrop = () => {
   const [file, setFile] = React.useState<File | null>(null);
-  const [error, setError] = React.useState<FileDropInnerError | FileDropExternalError | undefined>(null);
+  const [error, setError] = React.useState<FileDropInnerError | FileDropExternalError>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [shouldError, setShouldError] = React.useState<boolean>(false);
   const [loaded, setLoaded] = React.useState<number>(0);

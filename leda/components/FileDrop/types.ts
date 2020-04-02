@@ -34,7 +34,7 @@ export type FileDropError = FileDropInnerError | FileDropExternalError;
 
 export interface ChangeEvent {
   component: {
-    error?: FileDropInnerError | null,
+    error: FileDropInnerError | null,
     name?: string,
     value: FileType | null,
   },
