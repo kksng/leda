@@ -11,7 +11,7 @@ export const Radio = (): React.ReactElement => {
       <L.Div style={{ display: 'flex' }}>
         <L.RadioGroup
           name="radio"
-          wrapperRender={({ elementProps }) => <L.Section {...elementProps} />}
+          wrapperRender={({ elementProps }) => <L.Div {...elementProps} />}
           value={value}
           onChange={ev => {
             console.log('ev.component.value', ev.component.value);

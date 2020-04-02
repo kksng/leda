@@ -2,6 +2,7 @@ import * as React from 'react';
 import { GlobalDefaultTheme, PartialGlobalDefaultTheme } from '../../utils/useTheme';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { CustomRender, CustomEventHandler } from '../../commonTypes';
+import { DivProps } from '../Div';
 
 export interface ChangeEvent extends React.ChangeEvent {
   component: {
@@ -51,7 +52,6 @@ export interface RadioButtonProps extends React.HTMLAttributes<HTMLInputElement>
 
 export interface WrapperProps {
   className?: string,
-  ref?: React.Ref<RadioGroupRefCurrent>,
   [x: string]: unknown,
 }
 
