@@ -30,6 +30,8 @@ export interface FileDropInnerError {
 
 export type FileDropExternalError = Error | string | null;
 
+export type FileDropError = FileDropInnerError | FileDropExternalError;
+
 export interface ChangeEvent {
   component: {
     error?: FileDropInnerError | null,
@@ -44,7 +46,7 @@ export interface FileDropProps extends ValidationProps {
   /** Классы, применяемые к компоненту */
   className?: string,
   /** Ошибка загрузки файла */
-  error: FileDropExternalError | FileDropInnerError,
+  error: FileDropError,
   /** Запрещенные типы файлов. см. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#Attributes. Передача нескольких типов файлов происходит через запятую (.png, image/jpeg). allowedFiles и forbiddenFiles вместе не могут находиться. */
   forbiddenFiles?: string,
   /** Кастомизация описания компонента */
