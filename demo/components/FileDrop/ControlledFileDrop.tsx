@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as L from '../../../leda';
 import { useInterval } from '../../../leda/utils';
-import { FileDropExternalError, FileDropInnerError } from '../../../leda/components/FileDrop/types';
+import { FileDropError } from '../../../leda/components/FileDrop/types';
 
 export const ControlledFileDrop = () => {
   const [file, setFile] = React.useState<File | null>(null);
-  const [error, setError] = React.useState<FileDropInnerError | FileDropExternalError>(null);
+  const [error, setError] = React.useState<FileDropError>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [shouldError, setShouldError] = React.useState<boolean>(false);
   const [loaded, setLoaded] = React.useState<number>(0);
