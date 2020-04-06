@@ -86,6 +86,15 @@ export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: Rea
   const [highlightedSuggestion, setHighlightedSuggestion] = React.useState<Suggestion>(null);
   const [lastCorrectValue, setLastCorrectValue] = React.useState('');
 
+  const autoCompleteState = {
+    highlightedSuggestion,
+    isFocused,
+    lastCorrectValue,
+    selectedSuggestion,
+    stateValue,
+  };
+
+
   const {
     isValid, validateCurrent, InvalidMessage,
   } = useValidation(props, {
@@ -176,7 +185,7 @@ export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: Rea
     'input' as unknown as React.FC<React.InputHTMLAttributes<HTMLInputElement>>,
     inputRender ?? autoCompleteRenders.inputRender,
     props,
-    {},
+    autoCompleteState,
   );
 
   return (

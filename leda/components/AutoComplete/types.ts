@@ -119,7 +119,7 @@ export interface AutoCompleteProps<T extends Suggestion = Suggestion> extends Va
   /** Кастомизация внешнего вида элемента выпадающего списка. */
   itemRender?: CustomRender<SuggestionItemProps, {}, LiProps>,
   /** Кастомизация внешнего вида выпадающего списка. */
-  inputRender?: CustomRender<AutoCompleteProps, {}, InputElementProps>,
+  inputRender?: CustomRender<AutoCompleteProps, AutoCompleteState, InputElementProps>,
   /** Обязательное поле или нет */
   isRequired?: boolean,
   /** Кастомизация внешнего вида выпадающего списка. */
@@ -154,6 +154,14 @@ export interface AutoCompleteProps<T extends Suggestion = Suggestion> extends Va
   value?: string | null,
   /** Классы переданные через _ */
   [x: string]: unknown,
+}
+
+export interface AutoCompleteState {
+  highlightedSuggestion: Suggestion,
+  isFocused: boolean,
+  lastCorrectValue: string,
+  selectedSuggestion: Suggestion,
+  stateValue: string,
 }
 
 export interface SuggestionsVal {
