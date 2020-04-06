@@ -14,6 +14,7 @@ export const Basic = (componentProps: any) => {
     <L.Div _box _inner _demoBg>
       <L.Password
         minPasswordEvaluationLength={5}
+        passwordRules="Задайте хороший пароль"
         passwordEvaluators={[
           {
             strengthLevel: PasswordStrength.Low,
@@ -64,6 +65,7 @@ export const Basic = (componentProps: any) => {
           update('Blur', ev);
         }}
         isRequired
+        requiredMessage="Пароль обязателен!"
         validator="password"
         _width30
         {...props}

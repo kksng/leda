@@ -93,6 +93,8 @@ export interface PasswordProps extends ValidationProps {
   onFocus?: (ev: FocusEvent) => void,
   /** Правила для оценки сложности пароля */
   passwordEvaluators?: PasswordEvaluator[],
+  /** Правила для пароля */
+  passwordRules?: string,
   /** Кастомизация иконки видимости пароля */
   passwordVisibilityRender?: CustomRender<PasswordProps, PasswordState, PasswordVisibilityIconProps>,
   /** Реф */
@@ -124,6 +126,7 @@ export interface PasswordMessageProps {
   theme: typeof defaultPasswordTheme,
   minPasswordEvaluationLength: number,
   passwordEvaluators?: PasswordEvaluator[],
+  passwordRules?: string,
 }
 
 export interface PasswordVisibilityIconProps {

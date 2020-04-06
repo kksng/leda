@@ -76,13 +76,7 @@ export const getPasswordStrength = (value = '', passwordEvaluators?: PasswordEva
       message: 'Слабый пароль',
     };
   }
-  // todo: clarify this conditional
-  if (validate.password(value) && value.length > 12) {
-    return {
-      strengthLevel: PasswordStrength.Strong,
-      message: 'Отличный пароль',
-    };
-  }
+
   if (validate.password(value)) {
     return {
       strengthLevel: PasswordStrength.Medium,

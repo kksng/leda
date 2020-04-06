@@ -42,9 +42,8 @@ export const Password = React.forwardRef((props: PasswordProps, ref: React.Ref<P
     onChange,
     onEnterPress,
     onFocus,
-    passwordEvaluationRender,
     passwordEvaluators,
-    passwordRulesRender,
+    passwordRules,
     passwordVisibilityRender,
     requiredMessage,
     shouldValidateUnmounted,
@@ -177,6 +176,7 @@ export const Password = React.forwardRef((props: PasswordProps, ref: React.Ref<P
           theme={theme}
           minPasswordEvaluationLength={minPasswordEvaluationLength}
           passwordEvaluators={passwordEvaluators}
+          passwordRules={passwordRules}
         />
       )}
       {!isFocused && !isDisabled && (

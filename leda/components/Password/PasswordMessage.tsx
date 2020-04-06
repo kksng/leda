@@ -5,7 +5,7 @@ import { getPasswordStrength, strengthLevelToCssClass } from './helpers';
 
 export const PasswordMessage = (props: PasswordMessageProps) => {
   const {
-    value, theme, minPasswordEvaluationLength, passwordEvaluators,
+    value, theme, minPasswordEvaluationLength, passwordEvaluators, passwordRules,
   } = props;
 
   if (
@@ -16,7 +16,7 @@ export const PasswordMessage = (props: PasswordMessageProps) => {
       <Div
         className={theme?.messageDefault}
       >
-        Не меньше 5 символов и со знаком препинания - нам важна ваша безопасность
+        { passwordRules ?? 'Используйте строчные и прописные латинские буквы и цифры, не менее 8 символов' }
       </Div>
     );
   }
@@ -24,7 +24,6 @@ export const PasswordMessage = (props: PasswordMessageProps) => {
   const { strengthLevel, message } = getPasswordStrength(value, passwordEvaluators);
 
   return (
-    // todo: объединить в один компонент
     <Div
       className={strengthLevelToCssClass({ theme, strengthLevel })}
     >
