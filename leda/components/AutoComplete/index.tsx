@@ -86,13 +86,13 @@ export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: Rea
   const [highlightedSuggestion, setHighlightedSuggestion] = React.useState<Suggestion>(null);
   const [lastCorrectValue, setLastCorrectValue] = React.useState('');
 
-  const autoCompleteState = {
+  const autoCompleteState = React.useMemo(() => ({
     highlightedSuggestion,
     isFocused,
     lastCorrectValue,
     selectedSuggestion,
     stateValue,
-  };
+  }), [highlightedSuggestion, isFocused, lastCorrectValue, selectedSuggestion, stateValue]);
 
 
   const {
