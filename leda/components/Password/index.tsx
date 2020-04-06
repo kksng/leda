@@ -18,6 +18,7 @@ import { getValue } from './helpers';
 import { PasswordMessage } from './PasswordMessage';
 import { PasswordVisibilityIcon } from './PasswordVisibilityIcon';
 import { DEFAULT_MIN_PASSWORD_EVALUATION_LENGTH } from './constants';
+import { LedaContext } from '../LedaProvider';
 
 export const Password = React.forwardRef((props: PasswordProps, ref: React.Ref<PasswordRefCurrent>): React.ReactElement => {
   const {
@@ -106,10 +107,12 @@ export const Password = React.forwardRef((props: PasswordProps, ref: React.Ref<P
     value, isFocused, isPasswordVisible, isValid,
   };
 
+  const { renders: { [COMPONENTS_NAMESPACES.password]: passwordRenders } } = React.useContext(LedaContext);
+
   const Wrapper = useElement(
     'Wrapper',
     Div,
-    wrapperRender,
+    wrapperRender ?? passwordRenders.wrapperRender,
     props,
     state,
   );
@@ -117,7 +120,7 @@ export const Password = React.forwardRef((props: PasswordProps, ref: React.Ref<P
   const InputElement = useElement(
     'Input',
     'input' as unknown as React.FC<React.InputHTMLAttributes<HTMLInputElement>>,
-    inputRender,
+    inputRender ?? passwordRenders.inputRender,
     props,
     state,
   );
@@ -125,7 +128,7 @@ export const Password = React.forwardRef((props: PasswordProps, ref: React.Ref<P
   const PasswordVisibilityElement = useElement(
     'PasswordVisibilityIcon',
     PasswordVisibilityIcon,
-    passwordVisibilityRender,
+    passwordVisibilityRender ?? passwordRenders.passwordVisibilityRender,
     props,
     state,
   );
