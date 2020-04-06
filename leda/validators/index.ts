@@ -15,6 +15,7 @@ import {
 import { validateKpp as kpp } from './kpp';
 import { validateOkpo as okpo } from './okpo';
 import { validateBankCardNumber as bankCardNumber } from './bankCardNumber';
+import { validatePassword as password } from './password';
 
 export const validate = {
   cadastralNumber,
@@ -27,6 +28,7 @@ export const validate = {
   ogrn,
   ogrnIp,
   okpo,
+  password,
   postalCode,
   snils,
   bankCardNumber,

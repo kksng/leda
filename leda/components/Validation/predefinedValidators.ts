@@ -22,6 +22,10 @@ export const PREDEFINED_VALIDATORS: Record<PredefinedValidator, NormalizedValida
     validator: validate.innPrivate,
     invalidMessage: 'Введите ИНН физического лица',
   },
+  password: {
+    validator: validate.password,
+    invalidMessage: 'Пароль должен содержать не менее 8-и символов, латинские строчные, прописные буквы и цифры',
+  },
   postalCode: {
     validator: validate.postalCode,
     invalidMessage: 'Введите почтовый индекс',

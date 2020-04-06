@@ -29,6 +29,7 @@ export { Navigation } from './Navigation';
 export { Notifications } from './Notifications';
 export { NumericRange } from './NumericRange';
 export { NumericTextBox } from './NumericTextBox';
+export { Password } from './Password';
 export { Pagination } from './Pagination';
 export { ProgressBar } from './ProgressBar';
 export { Radio } from './Radio';

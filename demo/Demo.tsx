@@ -5,7 +5,7 @@ import * as L from '../leda';
 import {
   AutoComplete, ButtonGroup, CheckBox, DatePicker, DateRange,
   DropDown, DropDownSelect, Input, A, LedaProvider, Loader, MaskedInput, Modal,
-  MultiSelect, Notifications, NumericRange, NumericTextBox,
+  MultiSelect, Notifications, NumericRange, NumericTextBox, Password,
   Pagination, Radio, ProgressBar, Slider, StatusBar, StickyPanel, Switcher,
   Tabs, Tags, DropZone, Textarea, DateTimePicker, TimePicker,
   DateTimeRange, TimeRange, DropDownLink, Currency, Rating,
@@ -54,6 +54,7 @@ export const Demo = hot(() => (
       <NumericRange />
       <NumericTextBox />
       <Pagination />
+      <Password />
       <ProgressBar />
       <Radio />
       <Rating />

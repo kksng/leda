@@ -58,6 +58,7 @@ import { NumericTextBox } from './components/NumericTextBox';
 import { Ol } from './components/Ol';
 import { P } from './components/Paragraph';
 import { Pagination } from './components/Pagination';
+import { Password } from './components/Password';
 import { ProgressBar } from './components/ProgressBar';
 import { RadioGroup, RadioButton } from './components/Radio';
 import { Rating } from './components/Rating';
@@ -103,6 +104,7 @@ import * as NotificationsTypes from './components/Notifications/types';
 import * as NumericRangeTypes from './components/NumericRange/types';
 import * as NumericTextBoxTypes from './components/NumericTextBox/types';
 import * as PaginationTypes from './components/Pagination/types';
+import * as PasswordTypes from './components/Password/types';
 import * as RadioTypes from './components/Radio/types';
 import * as StatusBarTypes from './components/StatusBar/types';
 import * as StickyPanelTypes from './components/StickyPanel/types';
@@ -149,6 +151,7 @@ export {
   NumericRangeTypes,
   NumericTextBoxTypes,
   PaginationTypes,
+  PasswordTypes,
   RadioTypes,
   StatusBarTypes,
   StickyPanelTypes,
@@ -214,6 +217,7 @@ export {
   Ol,
   P,
   Pagination,
+  Password,
   ProgressBar,
   RadioGroup, RadioButton,
   Rating,

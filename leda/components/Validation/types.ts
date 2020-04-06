@@ -79,6 +79,7 @@ export type PredefinedValidator =
   | 'inn'
   | 'innCorp'
   | 'innPrivate'
+  | 'password'
   | 'postalCode'
   | 'snils'
   | 'url'

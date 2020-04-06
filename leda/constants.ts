@@ -51,6 +51,7 @@ export const COMPONENTS_NAMESPACES = {
   numericRange: 'numericRange',
   numericTextBox: 'numericTextBox',
   pagination: 'pagination',
+  password: 'password',
   progressBar: 'progressBar',
   radio: 'radio',
   rating: 'rating',
@@ -86,3 +87,11 @@ export const ERROR_MESSAGES = [
   { errorCode: FileErrorCodes.TooManyFiles, message: 'Превышено максимальное количество файлов' },
   { errorCode: FileErrorCodes.NameIsTooLong, message: 'Превышена максимальная длина имени файла' },
 ];
+
+export const predefinedAllowedSymbols = {
+  numbers: /\d/,
+};
+
+export const predefinedForbiddenSymbols = {
+  numbers: /\d/,
+};
