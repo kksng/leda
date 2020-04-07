@@ -52,6 +52,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     placeholder,
     requiredMessage,
     shouldValidateUnmounted,
+    shouldKeepSuggestions,
     tagRender,
     textField,
     theme: themeProp,
@@ -167,11 +168,14 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     data,
     filterRule,
     filterValue,
+    shouldKeepSuggestions,
     textField,
     value,
   });
 
   const isMaxItemsSelected = !isNil(maxSelected) && value.length === maxSelected;
+
+  const selectedSuggestions = shouldKeepSuggestions ? value : undefined;
 
   return (
     <Wrapper
@@ -235,6 +239,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
           itemRender={itemRender}
           listRender={listRender}
           noSuggestionsRender={noSuggestionsRender}
+          selectedSuggestion={selectedSuggestions}
           shouldAllowEmpty={false}
           textField={textField}
           theme={theme}

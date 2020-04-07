@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isObject } from 'lodash';
+import { isArray, isObject } from 'lodash';
 import { SomeObject } from '../../commonTypes';
 import { GetSuggestionItemProps, SuggestionItemComputedProps } from './types';
 import { checkIsTheSameObject } from '../../utils';
@@ -53,11 +53,20 @@ export const getSuggestionItemProps = ({
     obj1: suggestion,
     obj2: highlightedSuggestion,
   });
-  const isSelected = checkIsTheSameObject({
-    compareObjectsBy,
-    obj1: suggestion,
-    obj2: selectedSuggestion,
-  });
+  const isSelected = (() => {
+    if (isArray(selectedSuggestion)) {
+      return selectedSuggestion.some((selected) => checkIsTheSameObject({
+        compareObjectsBy,
+        obj1: suggestion,
+        obj2: selected,
+      }));
+    }
+    return checkIsTheSameObject({
+      compareObjectsBy,
+      obj1: suggestion,
+      obj2: selectedSuggestion,
+    });
+  })();
 
   // является ли текущий элемент целью scrollToSuggestion
   const isScrollTarget = highlightedSuggestion ? isHighlighted : isSelected;

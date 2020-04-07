@@ -120,10 +120,12 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   onFocus?: (event: FocusEvent) => void,
   /** Плейсхолдер инпута */
   placeholder?: string,
-  /** Имя поля объекта, данные из которого будут рендериться в качестве элементов списка */
-  textField?: T extends object ? string : never,
   /** Реф */
   ref?: React.Ref<MultiSelectRefCurrent>,
+  /** Постоянный список, элементы не исчезают при клике */
+  shouldKeepSuggestions?: boolean,
+  /** Имя поля объекта, данные из которого будут рендериться в качестве элементов списка */
+  textField?: T extends object ? string : never,
   /** Тема */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.multiSelect],
   /** Устанавливает значение в инпуте (будет отображенио в виде выбранных тегов) */
@@ -193,6 +195,7 @@ export interface FilterDataParams {
   data: MultiSelectProps['data'],
   filterRule?: FilterRules,
   filterValue: string,
+  shouldKeepSuggestions?: boolean,
   textField?: string,
   value: MultiSelectValue,
 }

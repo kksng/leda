@@ -22,7 +22,7 @@ export interface SuggestionListProps {
   groupLabelRender?: CustomRender<{}, {}, LiProps>,
   groupWrapperRender?: CustomRender<{}, {}, DivProps>,
   highlightedSuggestion?: Value,
-  selectedSuggestion?: Value,
+  selectedSuggestion?: Value | Value[],
   isLoading?: boolean,
   isOpen: boolean,
   itemRender?: CustomRender<SuggestionItemProps, {}, LiProps>,
@@ -63,7 +63,7 @@ export interface GetSuggestionItemProps {
   compareObjectsBy?: ((suggestionListItem: SomeObject) => any) | string,
   highlightedSuggestion?: Value,
   placeholder?: string,
-  selectedSuggestion?: Value,
+  selectedSuggestion?: Value | Value[],
   suggestion: Value,
   textField?: string,
 }
