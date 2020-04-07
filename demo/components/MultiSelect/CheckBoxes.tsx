@@ -27,8 +27,9 @@ export const CheckBoxes = (args): React.ReactElement => {
           console.log('ev.component.value', ev.component.value);
           setValue(ev.component.value as string[]);
         }}
-        itemRender={({ Element, elementProps }) => {
-          const { isSelected, onClick } = elementProps;
+        itemRender={({ componentProps, Element, elementProps }) => {
+          const { onClick } = elementProps;
+          const { isSelected } = componentProps;
           return (
             <L.Div _flex-row>
               <L.CheckBox value={!!isSelected} onClick={onClick} _margin-left/>

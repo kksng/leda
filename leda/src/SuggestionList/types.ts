@@ -40,11 +40,8 @@ export interface SuggestionListProps {
 
 export interface SuggestionElementProps {
   className?: string,
-  isHighlighted?: boolean,
-  isPlaceholder: boolean,
-  isSelected?: boolean,
-  onClick?: CustomEventHandler<React.MouseEvent<HTMLElement> & SuggestionTarget>,
-  ref?: React.Ref<CommonRefCurrent>,
+  onClick?: CustomEventHandler<any>,
+  ref?: React.Ref<any>,
 }
 
 export interface SuggestionItemProps {

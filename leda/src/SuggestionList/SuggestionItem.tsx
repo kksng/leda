@@ -45,9 +45,6 @@ export const SuggestionItem = (props: SuggestionItemProps): React.ReactElement =
   return (
     <Suggestion
       className={suggestionClassNames}
-      isHighlighted={isHighlighted}
-      isPlaceholder={isPlaceholder}
-      isSelected={isSelected}
       onClick={handleClick}
       ref={(component) => {
         if (isScrollTarget) {
