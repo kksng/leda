@@ -2,8 +2,7 @@ import * as React from 'react';
 import { FILTER_RULES } from '../../utils';
 import { ValidationProps } from '../Validation/types';
 import { CustomRender, Values } from '../../commonTypes';
-import { LiProps } from '../Li';
-import { SuggestionItemProps, SuggestionListProps } from '../../src/SuggestionList/types';
+import { SuggestionListProps } from '../../src/SuggestionList/types';
 import { UlProps } from '../Ul';
 import { PartialGlobalDefaultTheme } from '../../utils/useTheme';
 import { COMPONENTS_NAMESPACES } from '../../constants';
@@ -117,7 +116,7 @@ export interface AutoCompleteProps<T extends Suggestion = Suggestion> extends Va
   /** Рендерить компонент с открытым выпадающим списком */
   isOpen?: boolean,
   /** Кастомизация внешнего вида элемента выпадающего списка. */
-  itemRender?: CustomRender<SuggestionItemProps, {}, LiProps>,
+  itemRender?: SuggestionListProps['itemRender'],
   /** Кастомизация внешнего вида выпадающего списка. */
   inputRender?: CustomRender<AutoCompleteProps, AutoCompleteState, InputElementProps>,
   /** Обязательное поле или нет */

@@ -27,6 +27,15 @@ export const CheckBoxes = (args): React.ReactElement => {
           console.log('ev.component.value', ev.component.value);
           setValue(ev.component.value as string[]);
         }}
+        itemRender={({ Element, elementProps }) => {
+          const { isSelected, onClick } = elementProps;
+          return (
+            <L.Div _flex-row>
+              <L.CheckBox value={!!isSelected} onClick={onClick} _margin-left/>
+              <Element {...elementProps} _width-100/>
+            </L.Div>
+          )
+        }}
         value={value}
       >
       </L.MultiSelect>

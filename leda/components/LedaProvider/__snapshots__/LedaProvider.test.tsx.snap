@@ -217,14 +217,23 @@ exports[`LEDA THEME PROVIDER should be isOpen 1`] = `
                       >
                         <Suggestion
                           className="suggestion-item"
+                          isHighlighted={false}
+                          isPlaceholder={false}
+                          isSelected={false}
                           onClick={[Function]}
                         >
                           <Li
                             className="suggestion-item"
+                            isHighlighted={false}
+                            isPlaceholder={false}
+                            isSelected={false}
                             onClick={[Function]}
                           >
                             <li
                               className="suggestion-item"
+                              isHighlighted={false}
+                              isPlaceholder={false}
+                              isSelected={false}
                               onClick={[Function]}
                             >
                               text1
@@ -280,14 +289,23 @@ exports[`LEDA THEME PROVIDER should be isOpen 1`] = `
                       >
                         <Suggestion
                           className="suggestion-item"
+                          isHighlighted={false}
+                          isPlaceholder={false}
+                          isSelected={false}
                           onClick={[Function]}
                         >
                           <Li
                             className="suggestion-item"
+                            isHighlighted={false}
+                            isPlaceholder={false}
+                            isSelected={false}
                             onClick={[Function]}
                           >
                             <li
                               className="suggestion-item"
+                              isHighlighted={false}
+                              isPlaceholder={false}
+                              isSelected={false}
                               onClick={[Function]}
                             >
                               text2
@@ -343,14 +361,23 @@ exports[`LEDA THEME PROVIDER should be isOpen 1`] = `
                       >
                         <Suggestion
                           className="suggestion-item"
+                          isHighlighted={false}
+                          isPlaceholder={false}
+                          isSelected={false}
                           onClick={[Function]}
                         >
                           <Li
                             className="suggestion-item"
+                            isHighlighted={false}
+                            isPlaceholder={false}
+                            isSelected={false}
                             onClick={[Function]}
                           >
                             <li
                               className="suggestion-item"
+                              isHighlighted={false}
+                              isPlaceholder={false}
+                              isSelected={false}
                               onClick={[Function]}
                             >
                               text3

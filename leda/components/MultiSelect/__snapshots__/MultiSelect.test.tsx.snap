@@ -235,14 +235,23 @@ exports[`MultiSelect ATTRIBUTES should list isOpen 1`] = `
                     >
                       <Suggestion
                         className="suggestion-item"
+                        isHighlighted={false}
+                        isPlaceholder={false}
+                        isSelected={false}
                         onClick={[Function]}
                       >
                         <Li
                           className="suggestion-item"
+                          isHighlighted={false}
+                          isPlaceholder={false}
+                          isSelected={false}
                           onClick={[Function]}
                         >
                           <li
                             className="suggestion-item"
+                            isHighlighted={false}
+                            isPlaceholder={false}
+                            isSelected={false}
                             onClick={[Function]}
                           >
                             2
@@ -291,14 +300,23 @@ exports[`MultiSelect ATTRIBUTES should list isOpen 1`] = `
                     >
                       <Suggestion
                         className="suggestion-item"
+                        isHighlighted={false}
+                        isPlaceholder={false}
+                        isSelected={false}
                         onClick={[Function]}
                       >
                         <Li
                           className="suggestion-item"
+                          isHighlighted={false}
+                          isPlaceholder={false}
+                          isSelected={false}
                           onClick={[Function]}
                         >
                           <li
                             className="suggestion-item"
+                            isHighlighted={false}
+                            isPlaceholder={false}
+                            isSelected={false}
                             onClick={[Function]}
                           >
                             3
@@ -796,14 +814,23 @@ exports[`MultiSelect ATTRIBUTES should render noData template 1`] = `
                     >
                       <Suggestion
                         className="suggestion-item"
+                        isHighlighted={false}
+                        isPlaceholder={false}
+                        isSelected={false}
                         onClick={[Function]}
                       >
                         <Li
                           className="suggestion-item"
+                          isHighlighted={false}
+                          isPlaceholder={false}
+                          isSelected={false}
                           onClick={[Function]}
                         >
                           <li
                             className="suggestion-item"
+                            isHighlighted={false}
+                            isPlaceholder={false}
+                            isSelected={false}
                             onClick={[Function]}
                           >
                             2
@@ -852,14 +879,23 @@ exports[`MultiSelect ATTRIBUTES should render noData template 1`] = `
                     >
                       <Suggestion
                         className="suggestion-item"
+                        isHighlighted={false}
+                        isPlaceholder={false}
+                        isSelected={false}
                         onClick={[Function]}
                       >
                         <Li
                           className="suggestion-item"
+                          isHighlighted={false}
+                          isPlaceholder={false}
+                          isSelected={false}
                           onClick={[Function]}
                         >
                           <li
                             className="suggestion-item"
+                            isHighlighted={false}
+                            isPlaceholder={false}
+                            isSelected={false}
                             onClick={[Function]}
                           >
                             3
@@ -1798,14 +1834,23 @@ exports[`MultiSelect HANDLERS should test onChange 1`] = `
                     >
                       <Suggestion
                         className="suggestion-item"
+                        isHighlighted={false}
+                        isPlaceholder={false}
+                        isSelected={false}
                         onClick={[Function]}
                       >
                         <Li
                           className="suggestion-item"
+                          isHighlighted={false}
+                          isPlaceholder={false}
+                          isSelected={false}
                           onClick={[Function]}
                         >
                           <li
                             className="suggestion-item"
+                            isHighlighted={false}
+                            isPlaceholder={false}
+                            isSelected={false}
                             onClick={[Function]}
                           >
                             3
@@ -2371,14 +2416,23 @@ exports[`MultiSelect HANDLERS should test onDeselect 2`] = `
                     >
                       <Suggestion
                         className="suggestion-item"
+                        isHighlighted={false}
+                        isPlaceholder={false}
+                        isSelected={false}
                         onClick={[Function]}
                       >
                         <Li
                           className="suggestion-item"
+                          isHighlighted={false}
+                          isPlaceholder={false}
+                          isSelected={false}
                           onClick={[Function]}
                         >
                           <li
                             className="suggestion-item"
+                            isHighlighted={false}
+                            isPlaceholder={false}
+                            isSelected={false}
                             onClick={[Function]}
                           >
                             1
@@ -2427,14 +2481,23 @@ exports[`MultiSelect HANDLERS should test onDeselect 2`] = `
                     >
                       <Suggestion
                         className="suggestion-item"
+                        isHighlighted={false}
+                        isPlaceholder={false}
+                        isSelected={false}
                         onClick={[Function]}
                       >
                         <Li
                           className="suggestion-item"
+                          isHighlighted={false}
+                          isPlaceholder={false}
+                          isSelected={false}
                           onClick={[Function]}
                         >
                           <li
                             className="suggestion-item"
+                            isHighlighted={false}
+                            isPlaceholder={false}
+                            isSelected={false}
                             onClick={[Function]}
                           >
                             3
@@ -2752,14 +2815,23 @@ exports[`MultiSelect HANDLERS should test onDeselect by clear button 1`] = `
                     >
                       <Suggestion
                         className="suggestion-item"
+                        isHighlighted={false}
+                        isPlaceholder={false}
+                        isSelected={false}
                         onClick={[Function]}
                       >
                         <Li
                           className="suggestion-item"
+                          isHighlighted={false}
+                          isPlaceholder={false}
+                          isSelected={false}
                           onClick={[Function]}
                         >
                           <li
                             className="suggestion-item"
+                            isHighlighted={false}
+                            isPlaceholder={false}
+                            isSelected={false}
                             onClick={[Function]}
                           >
                             3
@@ -3050,14 +3122,23 @@ exports[`MultiSelect HANDLERS should test onFocus 1`] = `
                     >
                       <Suggestion
                         className="suggestion-item"
+                        isHighlighted={false}
+                        isPlaceholder={false}
+                        isSelected={false}
                         onClick={[Function]}
                       >
                         <Li
                           className="suggestion-item"
+                          isHighlighted={false}
+                          isPlaceholder={false}
+                          isSelected={false}
                           onClick={[Function]}
                         >
                           <li
                             className="suggestion-item"
+                            isHighlighted={false}
+                            isPlaceholder={false}
+                            isSelected={false}
                             onClick={[Function]}
                           >
                             2
@@ -3106,14 +3187,23 @@ exports[`MultiSelect HANDLERS should test onFocus 1`] = `
                     >
                       <Suggestion
                         className="suggestion-item"
+                        isHighlighted={false}
+                        isPlaceholder={false}
+                        isSelected={false}
                         onClick={[Function]}
                       >
                         <Li
                           className="suggestion-item"
+                          isHighlighted={false}
+                          isPlaceholder={false}
+                          isSelected={false}
                           onClick={[Function]}
                         >
                           <li
                             className="suggestion-item"
+                            isHighlighted={false}
+                            isPlaceholder={false}
+                            isSelected={false}
                             onClick={[Function]}
                           >
                             3
