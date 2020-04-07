@@ -67,6 +67,7 @@ export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: Rea
     shouldCorrectValue,
     shouldShowAllSuggestions,
     shouldValidateUnmounted,
+    sortSuggestions,
     textField,
     theme: themeProp,
     validator,
@@ -234,6 +235,7 @@ export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: Rea
         onClick={suggestionClickHandler}
         placeholder={placeholder}
         shouldAllowEmpty={false}
+        sortSuggestions={sortSuggestions}
         textField={textField}
         theme={theme}
         value={suggestionListValue}

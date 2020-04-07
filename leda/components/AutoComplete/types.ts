@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FILTER_RULES } from '../../utils';
 import { ValidationProps } from '../Validation/types';
 import { CustomRender, Values } from '../../commonTypes';
-import { SuggestionListProps } from '../../src/SuggestionList/types';
+import { SuggestionItemComputedProps, SuggestionListProps } from '../../src/SuggestionList/types';
 import { UlProps } from '../Ul';
 import { PartialGlobalDefaultTheme } from '../../utils/useTheme';
 import { COMPONENTS_NAMESPACES } from '../../constants';
@@ -143,6 +143,8 @@ export interface AutoCompleteProps<T extends Suggestion = Suggestion> extends Va
   shouldShowAllSuggestions?: boolean,
   /** Поля, в которых содержатся данные для поиска */
   searchFields?: string[],
+  /** Сортировка выпадающего списка */
+  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => 1 | 0 |-1,
   /** Устанавливает поле из data, которое будет использоваться для отображения если передан объект. Значение в поле объекта также должно быть типом string. Если data - массив примитивов, не задавайте эту настройку */
   textField?: T extends object ? string : never,
   /** Реф */

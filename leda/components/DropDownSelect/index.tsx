@@ -58,6 +58,7 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     shouldAllowEmpty = false,
     shouldFilterValues = false,
     shouldValidateUnmounted,
+    sortSuggestions,
     textField,
     theme: themeProp,
     validator,
@@ -195,6 +196,7 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
         placeholder={placeholder}
         selectedSuggestion={selectedSuggestion}
         shouldAllowEmpty={shouldAllowEmpty}
+        sortSuggestions={sortSuggestions}
         textField={textField}
         theme={theme}
         value={value}
