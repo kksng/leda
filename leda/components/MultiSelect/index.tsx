@@ -53,6 +53,8 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     requiredMessage,
     shouldValidateUnmounted,
     shouldKeepSuggestions,
+    shouldSelectedGoFirst,
+    sortSuggestions,
     tagRender,
     textField,
     theme: themeProp,
@@ -244,6 +246,8 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
           textField={textField}
           theme={theme}
           value={value}
+          sortSuggestions={sortSuggestions}
+          shouldSelectedGoFirst={shouldSelectedGoFirst}
         />
       )}
       {!isFocused && !isDisabled && (

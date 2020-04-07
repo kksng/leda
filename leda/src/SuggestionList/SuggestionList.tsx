@@ -6,7 +6,7 @@ import { Li } from '../../components/Li';
 import { Ul } from '../../components/Ul';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { useAdaptivePosition, useElement, useTheme } from '../../utils';
-import { getSuggestionItemProps, scrollToSuggestion } from './helpers';
+import { getSuggestionItemProps, scrollToSuggestion, sortSelectedFirst } from './helpers';
 import { SuggestionItem } from './SuggestionItem';
 import { SuggestionListProps, GroupedSomeObject, Value } from './types';
 import { NoSuggestions } from './NoSuggestions';
@@ -29,6 +29,8 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
     onClick,
     placeholder,
     shouldAllowEmpty,
+    shouldSelectedGoFirst,
+    sortSuggestions,
     textField,
     theme: themeProp,
     value,
@@ -158,6 +160,22 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
     ? [placeholder, ...resultedData]
     : resultedData;
 
+  const suggestionItems = suggestions.map((suggestion) => {
+    const suggestionItemComputedProps = getSuggestionItemProps({
+      compareObjectsBy,
+      highlightedSuggestion,
+      placeholder,
+      selectedSuggestion,
+      suggestion,
+      textField,
+    });
+
+    return suggestionItemComputedProps;
+  });
+
+  if (sortSuggestions) suggestionItems.sort(sortSuggestions);
+  if (shouldSelectedGoFirst) suggestionItems.sort(sortSelectedFirst);
+
   return (
     <Div className={theme.container} onMouseDown={(ev) => ev.preventDefault()} ref={wrapperRef}>
       <List
@@ -166,7 +184,8 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
           containerRef.current = component && component.wrapper;
         }}
       >
-        {suggestions?.map((suggestion, index) => {
+        {groupBy && suggestions?.map((suggestion, index) => {
+          // todo: переделать группировку списков
           if ((suggestion as GroupedSomeObject)?.key) {
             const groupedSomeObject = suggestion as GroupedSomeObject;
             return (
@@ -178,9 +197,19 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
               </GroupWrapper>
             );
           }
-
           return renderSuggestion(suggestion);
         })}
+
+        {!groupBy && suggestionItems.map((suggestionItem) => (
+          <SuggestionItem
+            itemRender={itemRender}
+            onClick={onClick}
+            suggestionRef={suggestionRef}
+            textField={textField}
+            theme={theme}
+            {...suggestionItem}
+          />
+        ))}
       </List>
     </Div>
   );

@@ -6,7 +6,7 @@ import {
 } from '../../commonTypes';
 import { ValidationProps } from '../Validation/types';
 import { FilterRules } from '../DropDownSelect/types';
-import { SuggestionListProps, SuggestionTarget } from '../../src/SuggestionList/types';
+import { SuggestionItemComputedProps, SuggestionListProps, SuggestionTarget } from '../../src/SuggestionList/types';
 import { DivProps } from '../Div';
 import { TagProps } from '../Tags/types';
 
@@ -124,6 +124,10 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   ref?: React.Ref<MultiSelectRefCurrent>,
   /** Постоянный список, элементы не исчезают при клике */
   shouldKeepSuggestions?: boolean,
+  /** Выводить сначала выбранные значения в списке */
+  shouldSelectedGoFirst?: boolean,
+  /** Сортировка выпадающего списка */
+  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => 1 | 0 |-1,
   /** Имя поля объекта, данные из которого будут рендериться в качестве элементов списка */
   textField?: T extends object ? string : never,
   /** Тема */

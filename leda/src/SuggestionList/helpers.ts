@@ -85,3 +85,6 @@ export const getSuggestionItemProps = ({
     item,
   };
 };
+
+// sort suggestions list so that selected suggestions go first
+export const sortSelectedFirst = (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => (!!a.isSelected > !!b.isSelected ? -1 : 1);

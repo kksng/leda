@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  CustomRender, CustomEventHandler, SomeObject, CommonRefCurrent,
+  CustomRender, CustomEventHandler, SomeObject,
 } from '../../commonTypes';
 import { DivProps } from '../../components/Div';
 import { LiProps } from '../../components/Li';
@@ -33,6 +33,10 @@ export interface SuggestionListProps {
   onClick?: CustomEventHandler<React.MouseEvent<HTMLElement> & SuggestionTarget>,
   placeholder?: string,
   shouldAllowEmpty: boolean,
+  /** Выводить сначала выбранные значения в списке */
+  shouldSelectedGoFirst?: boolean,
+  /** Сортировка выпадающего списка */
+  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => 1 | 0 |-1,
   textField?: string,
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.suggestionList],
   value: string | number | SomeObject | null | (string[] | number[] | SomeObject[]),

@@ -20,6 +20,8 @@ export const CheckBoxes = (args): React.ReactElement => {
           'Moscow',
         ]}
         shouldKeepSuggestions
+        sortSuggestions={(a, b) => a.text > b.text ? 1 : -1}
+        shouldSelectedGoFirst
         _width40
         isOpen={true}
         onChange={ev => {
