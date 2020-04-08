@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as L from '../../../leda';
+import { getWordEnding } from '../../../leda/utils';
 
 export const CheckBoxes = (args): React.ReactElement => {
   const [value, setValue] = React.useState<string[]>(['London', 'Paris']);
@@ -36,6 +37,15 @@ export const CheckBoxes = (args): React.ReactElement => {
               <L.CheckBox value={!!isSelected} onClick={onClick} _margin-left/>
               <Element {...elementProps} _width-100/>
             </L.Div>
+          )
+        }}
+        tagsUnionRender={({ elementProps, Element }) => {
+          const { theme, value } = elementProps;
+          const word = getWordEnding({ count: value.length, one: 'раз', two: 'раза', five: 'раз' });
+          return (
+            <div className={theme.tagsUnion}>
+              всем привет {value.length} {word}
+            </div>
           )
         }}
         value={value}

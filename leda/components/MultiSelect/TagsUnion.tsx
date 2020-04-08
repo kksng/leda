@@ -4,9 +4,10 @@ import { Div } from '../Div';
 
 export const TagsUnion = (props: TagsUnionProps): React.ReactElement | null => {
   const { value, theme } = props;
+
   return (
     <Div className={theme.tagsUnion}>
-      {value.length} tags
+      Выбрано {value.length}
     </Div>
   );
 };

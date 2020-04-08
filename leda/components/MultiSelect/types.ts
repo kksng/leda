@@ -135,6 +135,8 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   value?: T,
   /** Кастомный рендер тегов */
   tagRender?: CustomRender<MultiSelectProps, MultiSelectState, TagProps>,
+  /** Кастомный сообщения об объединённых тегах */
+  tagsUnionRender?: CustomRender<MultiSelectProps, MultiSelectState, TagsUnionProps>,
   /** Кастомный рендер враппера */
   wrapperRender?: CustomRender<MultiSelectProps, MultiSelectState, DivProps>,
   /** Кастомный рендер инпута */

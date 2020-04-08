@@ -55,6 +55,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     shouldValidateUnmounted,
     shouldKeepSuggestions,
     tagRender,
+    tagsUnionRender,
     textField,
     theme: themeProp,
     uniteTags,
@@ -165,6 +166,14 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     state,
   );
 
+  const TagsUnionElement = useElement(
+    'TagUnion',
+    TagsUnion,
+    tagsUnionRender || multiSelectRenders.tagsUnionRender,
+    props,
+    state,
+  );
+
   const filteredData = filterData({
     compareObjectsBy,
     data,
@@ -193,7 +202,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
         className={inputWrapperClassNames}
         onMouseDown={handleMouseDown}
       >
-        {shouldUniteTags && <TagsUnion value={value} theme={theme} />}
+        {shouldUniteTags && <TagsUnionElement value={value} theme={theme} />}
         {!shouldUniteTags && (
           <TagsContainer
             value={value}
