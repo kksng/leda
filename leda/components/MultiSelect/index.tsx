@@ -57,7 +57,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     tagsUnionRender,
     textField,
     theme: themeProp,
-    uniteTags,
+    maxTags,
     validator,
     value: valueProp,
     wrapperRender,
@@ -187,7 +187,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
 
   const selectedSuggestions = shouldKeepSuggestions ? value : undefined;
 
-  const shouldUniteTags = uniteTags != null && value.length >= uniteTags;
+  const shouldUniteTags = maxTags != null && value.length >= maxTags;
 
   return (
     <Wrapper

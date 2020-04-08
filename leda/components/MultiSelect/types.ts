@@ -107,6 +107,8 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   listRender?: SuggestionListProps['listRender'],
   /** Ограничение на количество выбранных элементов. После достижения лимита выпадающее окно перестает появляться */
   maxSelected?: number,
+  /** Количество тегов, после которого они будут объединены в один "выбрано n значений" */
+  maxTags?: number,
   /** Имя компонента */
   name?: string,
   /** Атрибут рендера выпадающего списка, если в data нет значений, равных содержимому инпута. Принимает JSX */
@@ -129,8 +131,6 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   textField?: T extends object ? string : never,
   /** Тема */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.multiSelect],
-  /** Количество тегов, после которого они будут объединены в один "выбрано n значений" */
-  uniteTags?: number,
   /** Устанавливает значение в инпуте (будет отображенио в виде выбранных тегов) */
   value?: T,
   /** Кастомный рендер тегов */

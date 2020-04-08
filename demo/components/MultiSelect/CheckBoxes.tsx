@@ -20,7 +20,7 @@ export const CheckBoxes = (args): React.ReactElement => {
           'Ottawa',
           'Moscow',
         ]}
-        uniteTags={3}
+        maxTags={3}
         shouldKeepSuggestions
         _width40
         isOpen={true}
