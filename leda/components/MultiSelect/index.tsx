@@ -21,7 +21,7 @@ import { TagsContainer } from './TagsContainer';
 import { Div } from '../Div';
 import { LedaContext } from '../LedaProvider';
 import { Tag } from '../Tags';
-import { filterData, getValue } from './helpers';
+import { filterData, getShouldUniteTags, getValue } from './helpers';
 
 export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React.Ref<MultiSelectRefCurrent>): React.ReactElement => {
   const {
@@ -187,7 +187,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
 
   const selectedSuggestions = shouldKeepSuggestions ? value : undefined;
 
-  const shouldUniteTags = maxTags != null && value.length >= maxTags;
+  const shouldUniteTags = getShouldUniteTags({ maxTags, value });
 
   return (
     <Wrapper

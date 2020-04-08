@@ -39,3 +39,5 @@ export const getValue = (valueProp: Value[] | null | undefined, valueState: Valu
 
   return valueProp;
 };
+
+export const getShouldUniteTags = ({ maxTags, value }: { maxTags?: number, value: Value[] }) => maxTags != null && value.length >= maxTags;
