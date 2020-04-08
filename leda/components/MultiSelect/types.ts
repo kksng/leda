@@ -127,7 +127,7 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   /** Выводить сначала выбранные значения в списке */
   shouldSelectedGoFirst?: boolean,
   /** Сортировка выпадающего списка */
-  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => 1 | 0 |-1,
+  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => number,
   /** Имя поля объекта, данные из которого будут рендериться в качестве элементов списка */
   textField?: T extends object ? string : never,
   /** Тема */

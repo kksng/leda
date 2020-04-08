@@ -36,7 +36,7 @@ export interface SuggestionListProps {
   /** Выводить сначала выбранные значения в списке */
   shouldSelectedGoFirst?: boolean,
   /** Сортировка выпадающего списка */
-  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => 1 | 0 |-1,
+  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => number,
   textField?: string,
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.suggestionList],
   value: string | number | SomeObject | null | (string[] | number[] | SomeObject[]),

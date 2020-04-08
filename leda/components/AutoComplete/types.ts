@@ -144,7 +144,7 @@ export interface AutoCompleteProps<T extends Suggestion = Suggestion> extends Va
   /** Поля, в которых содержатся данные для поиска */
   searchFields?: string[],
   /** Сортировка выпадающего списка */
-  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => 1 | 0 |-1,
+  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => number,
   /** Устанавливает поле из data, которое будет использоваться для отображения если передан объект. Значение в поле объекта также должно быть типом string. Если data - массив примитивов, не задавайте эту настройку */
   textField?: T extends object ? string : never,
   /** Реф */

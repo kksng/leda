@@ -82,7 +82,7 @@ export interface DropDownSelectProps<T extends Value = Value> extends Validation
   shouldAllowEmpty?: boolean,
   shouldFilterValues?: boolean,
   /** Сортировка выпадающего списка */
-  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => 1 | 0 |-1,
+  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => number,
   textField?: T extends object ? string : never,
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.dropDownSelect],
   value?: T,
