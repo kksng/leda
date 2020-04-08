@@ -129,13 +129,13 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   textField?: T extends object ? string : never,
   /** Тема */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.multiSelect],
-  /** Количество тегов, которые будут объединены в одну запись */
+  /** Количество тегов, после которого они будут объединены в один "выбрано n значений" */
   uniteTags?: number,
   /** Устанавливает значение в инпуте (будет отображенио в виде выбранных тегов) */
   value?: T,
   /** Кастомный рендер тегов */
   tagRender?: CustomRender<MultiSelectProps, MultiSelectState, TagProps>,
-  /** Кастомный сообщения об объединённых тегах */
+  /** Кастомное сообщение об объединённых тегах */
   tagsUnionRender?: CustomRender<MultiSelectProps, MultiSelectState, DivProps>,
   /** Кастомный рендер враппера */
   wrapperRender?: CustomRender<MultiSelectProps, MultiSelectState, DivProps>,
