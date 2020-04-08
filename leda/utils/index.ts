@@ -47,3 +47,5 @@ export { useAdaptivePosition } from './useAdaptivePosition';
 export { useInterval } from './useInterval';
 
 export { checkIsTheSameObject } from './checkIsTheSameObject';
+
+export { getWordEnding } from './getWordEnding';
