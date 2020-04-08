@@ -9,6 +9,7 @@ import { FilterRules } from '../DropDownSelect/types';
 import { SuggestionListProps, SuggestionTarget } from '../../src/SuggestionList/types';
 import { DivProps } from '../Div';
 import { TagProps } from '../Tags/types';
+import { defaultMultiSelectTheme } from './theme';
 
 export type Value = SomeObject | string | number | null;
 
@@ -128,6 +129,8 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   textField?: T extends object ? string : never,
   /** Тема */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.multiSelect],
+  /** Количество тегов, которые будут объединены в одну запись */
+  uniteTags?: number,
   /** Устанавливает значение в инпуте (будет отображенио в виде выбранных тегов) */
   value?: T,
   /** Кастомный рендер тегов */
@@ -155,6 +158,11 @@ export interface TagsContainerProps {
   textField?: string,
   theme: GlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.multiSelect],
   value: MultiSelectValue,
+}
+
+export interface TagsUnionProps {
+  theme: typeof defaultMultiSelectTheme,
+  value: Value[],
 }
 
 export interface MultiSelectRefCurrent {

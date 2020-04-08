@@ -11,6 +11,7 @@ export const defaultMultiSelectTheme = {
   inputWrapperInvalid:       'danger',
   wrapper:                   'multiselect-wrapper',
   tagsContainer:             'multiselect-tags-container',
+  tagsUnion:                 'multiselect-tags-union',
   /** SuggestionList theme */
   ...defaultSuggestionListTheme,
 };

@@ -22,6 +22,7 @@ import { Div } from '../Div';
 import { LedaContext } from '../LedaProvider';
 import { Tag } from '../Tags';
 import { filterData, getValue } from './helpers';
+import { TagsUnion } from './TagsUnion';
 
 export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React.Ref<MultiSelectRefCurrent>): React.ReactElement => {
   const {
@@ -56,6 +57,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     tagRender,
     textField,
     theme: themeProp,
+    uniteTags,
     validator,
     value: valueProp,
     wrapperRender,
@@ -177,6 +179,8 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
 
   const selectedSuggestions = shouldKeepSuggestions ? value : undefined;
 
+  const shouldUniteTags = uniteTags != null && value.length >= uniteTags;
+
   return (
     <Wrapper
       className={wrapperClassNames}
@@ -189,17 +193,20 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
         className={inputWrapperClassNames}
         onMouseDown={handleMouseDown}
       >
-        <TagsContainer
-          value={value}
-          theme={theme}
-          onTagClick={handleSelect}
-          onClearIconClick={handleClear}
-          onMouseDown={handleMouseDown}
-          textField={textField}
-          hasClearButton={hasClearButton}
-        >
-          <TagItem />
-        </TagsContainer>
+        {shouldUniteTags && <TagsUnion value={value} theme={theme} />}
+        {!shouldUniteTags && (
+          <TagsContainer
+            value={value}
+            theme={theme}
+            onTagClick={handleSelect}
+            onClearIconClick={handleClear}
+            onMouseDown={handleMouseDown}
+            textField={textField}
+            hasClearButton={hasClearButton}
+          >
+            <TagItem />
+          </TagsContainer>
+        )}
         <Input
           {...restProps}
           className={theme.input}
