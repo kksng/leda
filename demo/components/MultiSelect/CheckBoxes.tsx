@@ -39,13 +39,13 @@ export const CheckBoxes = (args): React.ReactElement => {
             </L.Div>
           )
         }}
-        tagsUnionRender={({ elementProps, Element }) => {
-          const { theme, value } = elementProps;
-          const word = getWordEnding({ count: value.length, one: 'раз', two: 'раза', five: 'раз' });
+        tagsUnionRender={({ elementProps, componentProps, Element }) => {
+          const { value } = componentProps;
+          const word = getWordEnding({ count: value?.length ?? 0, one: 'раз', two: 'раза', five: 'раз' });
           return (
-            <div className={theme.tagsUnion}>
-              всем привет {value.length} {word}
-            </div>
+            <Element {...elementProps}>
+              всем привет {value?.length} {word}
+            </Element>
           )
         }}
         value={value}

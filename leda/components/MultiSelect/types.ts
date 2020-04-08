@@ -136,7 +136,7 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   /** Кастомный рендер тегов */
   tagRender?: CustomRender<MultiSelectProps, MultiSelectState, TagProps>,
   /** Кастомный сообщения об объединённых тегах */
-  tagsUnionRender?: CustomRender<MultiSelectProps, MultiSelectState, TagsUnionProps>,
+  tagsUnionRender?: CustomRender<MultiSelectProps, MultiSelectState, DivProps>,
   /** Кастомный рендер враппера */
   wrapperRender?: CustomRender<MultiSelectProps, MultiSelectState, DivProps>,
   /** Кастомный рендер инпута */
@@ -160,11 +160,6 @@ export interface TagsContainerProps {
   textField?: string,
   theme: GlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.multiSelect],
   value: MultiSelectValue,
-}
-
-export interface TagsUnionProps {
-  theme: typeof defaultMultiSelectTheme,
-  value: Value[],
 }
 
 export interface MultiSelectRefCurrent {

@@ -22,7 +22,6 @@ import { Div } from '../Div';
 import { LedaContext } from '../LedaProvider';
 import { Tag } from '../Tags';
 import { filterData, getValue } from './helpers';
-import { TagsUnion } from './TagsUnion';
 
 export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React.Ref<MultiSelectRefCurrent>): React.ReactElement => {
   const {
@@ -168,7 +167,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
 
   const TagsUnionElement = useElement(
     'TagUnion',
-    TagsUnion,
+    Div,
     tagsUnionRender || multiSelectRenders.tagsUnionRender,
     props,
     state,
@@ -202,7 +201,11 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
         className={inputWrapperClassNames}
         onMouseDown={handleMouseDown}
       >
-        {shouldUniteTags && <TagsUnionElement value={value} theme={theme} />}
+        {shouldUniteTags && (
+          <TagsUnionElement className={theme.tagsUnion}>
+            Выбрано {value.length}
+          </TagsUnionElement>
+        )}
         {!shouldUniteTags && (
           <TagsContainer
             value={value}
