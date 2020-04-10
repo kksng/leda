@@ -19,12 +19,22 @@ export const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<TabsRefC
     className,
     style,
     tabContentNode,
+    tabContentRef,
     tabRender,
   } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.tabs);
 
   const [activeTabKeyState, setActiveTabKeyState] = React.useState<string | number>(0);
+
+  // tabContentRef is passed, wait until it's current is filled
+  const [shouldRenderTabContent, setShouldRenderTabContent] = React.useState<boolean>(!tabContentRef);
+
+  React.useEffect(() => {
+    if (tabContentRef?.current) {
+      setShouldRenderTabContent(true);
+    }
+  }, [tabContentRef?.current]);
 
   // если не передано activeTabKey - работать в неконтролируемом режиме
   const activeTabKey = isNil(activeTabKeyProp)
@@ -67,11 +77,13 @@ export const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<TabsRefC
           })}
         </TabsContext.Provider>
       </Heading>
-      <Content className={theme.content} tabContentNode={tabContentNode}>
-        <TabContent activeTabKey={activeTabKey} key={activeTabKey}>
-          {children}
-        </TabContent>
-      </Content>
+      {shouldRenderTabContent && (
+        <Content className={theme.content} tabContentNode={tabContentNode} tabContentRef={tabContentRef}>
+          <TabContent activeTabKey={activeTabKey} key={activeTabKey}>
+            {children}
+          </TabContent>
+        </Content>
+      )}
     </Wrapper>
   );
 }) as React.FC<TabsProps>;
