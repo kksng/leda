@@ -15,14 +15,14 @@ export interface TabsProps {
   headingRender?: CustomRender<TabsProps, TabsState, HeadingProps>,
   /** Обработчик выбора таба */
   onChange?: (event: ChangeEvent) => void,
+  /** Reference */
+  ref?: React.Ref<TabsRefCurrent>,
   /** DOM-узел, в который будет помещено содержимое вкладки */
   tabContentNode?: Element | null,
   /** Кастомный tab */
   tabRender?: CustomRender<TabProps, {}, LiProps>,
   /** Тема компонента */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.tabs],
-  /** Reference */
-  ref?: React.Ref<TabsRefCurrent>,
   /** Кастомный wrapper */
   wrapperRender?: CustomRender<TabsProps, TabsState, WrapperProps>,
   /** Классы переданные через _ */

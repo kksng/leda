@@ -21,10 +21,10 @@ export interface CollapseProps {
   activePanelKey?: string | string[] | null,
   /** Дочерние элементы */
   children: React.ReactNode,
-  /** Обработчик клика на панель */
-  onSelect?: CustomEventHandler<SelectEvent>,
   /** Признак возможности открытия нескольких панелей для неконтролируемого режима */
   isAccordion?: boolean,
+  /** Обработчик клика на панель */
+  onSelect?: CustomEventHandler<SelectEvent>,
   /** Тема */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.collapse],
 }
@@ -32,14 +32,14 @@ export interface CollapseProps {
 export interface HeadingProps {
   /** Дочерние элементы */
   children: React.ReactNode,
-  /** Обработчик клика */
-  onClick?: React.MouseEventHandler<HTMLDivElement>,
   /** Иконка возле заголовка */
   iconRender?: CustomRender<HeadingProps, { }, IconProps>,
-  /** Компонент-обертка в который будет помещен Collapse.Heading. Передавать в виде <Wrapper props />. По умолчанию - <Div /> */
-  wrapperRender?: CustomRender<HeadingProps, { }, HeadingWrapperProps>,
+  /** Обработчик клика */
+  onClick?: React.MouseEventHandler<HTMLDivElement>,
   /** Реф */
   ref?: React.Ref<HeadingRefCurrent>,
+  /** Компонент-обертка в который будет помещен Collapse.Heading. Передавать в виде <Wrapper props />. По умолчанию - <Div /> */
+  wrapperRender?: CustomRender<HeadingProps, { }, HeadingWrapperProps>,
   /** Классы переданные через _ */
   [x: string]: unknown,
 }
@@ -55,10 +55,10 @@ export interface BodyProps {
   onCloseByClick?: CustomEventHandler<BodyClickCustomEvent>,
   /** Функция обратного вызова на открытие коллапса */
   onOpen?: CustomEventHandler<BodyClickCustomEvent>,
-  /** Описание открытия/закрытия коллапса. Описывается как CSS Transition. См. https://developer.mozilla.org/ru/docs/Web/CSS/transition. По умолчанию height 250ms cubic-bezier(.4, 0, .2, 1) */
-  transition?: string,
   /** Реф */
   ref?: React.Ref<BodyRefCurrent>,
+  /** Описание открытия/закрытия коллапса. Описывается как CSS Transition. См. https://developer.mozilla.org/ru/docs/Web/CSS/transition. По умолчанию height 250ms cubic-bezier(.4, 0, .2, 1) */
+  transition?: string,
   /** Компонент-обертка в который будет помещен Collapse.Body. Передавать в виде <Wrapper props />. По умолчанию - <Div /> */
   wrapperRender?: CustomRender<BodyProps, { }, BodyWrapperProps>,
   /** Классы переданные через _ */
@@ -68,12 +68,12 @@ export interface BodyProps {
 export interface PanelProps {
   /** Дочерние элементы */
   children: React.ReactNode,
+  /** Отключение панели */
+  isDisabled?: boolean,
   /** Имя панели */
   name?: string,
   /** Идентификатор события панели, данное значение передается в activeKey компонента Collapse */
   panelKey: string,
-  /** Отключение панели */
-  isDisabled?: boolean,
   /** Компонент-обертка для панели, например Div. Передавать в виде <Wrapper props /> */
   wrapperRender?: CustomRender<PanelProps, { isClicked: boolean }, PanelWrapperProps>,
   /** Классы переданные через _ */

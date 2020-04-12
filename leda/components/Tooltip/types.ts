@@ -3,7 +3,6 @@ import { COMPONENTS_NAMESPACES } from '../../constants';
 import { PartialGlobalDefaultTheme } from '../../utils/useTheme';
 
 export interface TooltipProps {
-  ref?: React.Ref<TooltipRefCurrent>,
   /** Размер стрелки тултипа в px */
   arrowSize?: number,
   /** Дочерние элементы */
@@ -12,6 +11,8 @@ export interface TooltipProps {
   isOpen?: boolean,
   /** Расположение тултипа, одно из: top, right, bottom, left. По-умолчанию - top */
   position?: TooltipPosition,
+  /** Реф */
+  ref?: React.Ref<TooltipRefCurrent>,
   /** Тема компонента */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.tooltip],
   /** Заголовок принимается в виде строки, html, JSX */

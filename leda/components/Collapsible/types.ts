@@ -14,10 +14,10 @@ export interface CollapsibleProps extends React.HTMLAttributes<HTMLDivElement> {
   isOpen: boolean,
   /** Функция обратного вызова при окончании закрытия коллапса */
   onClose?: () => void,
-  /** Функция обратного вызова при окончании анимации коллапса */
-  onToggle?: () => void,
   /** Функция обратного вызова при окончании открытия коллапса */
   onOpen?: () => void,
+  /** Функция обратного вызова при окончании анимации коллапса */
+  onToggle?: () => void,
   /** Реф */
   ref?: React.Ref<CollapsibleRefCurrent>,
   /** Описание открытия/закрытия коллапса. Описывается как CSS Transition. См. https://developer.mozilla.org/en-US/docs/Web/CSS/transition. По умолчанию height 250ms cubic-bezier(.4, 0, .2, 1) */

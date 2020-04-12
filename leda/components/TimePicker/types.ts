@@ -9,10 +9,10 @@ export interface TimePickerProps extends DateTimeInputProps {
   date?: Date | null,
   /** Формат отображаемого и вводимого времени. По-умолчанию "hh:mm" */
   format?: string,
-  /** Признак принудительного открытия списка времени */
-  isOpen?: boolean,
   /** Признак отключения инпута */
   isDisabled?: boolean,
+  /** Признак принудительного открытия списка времени */
+  isOpen?: boolean,
   /** Имя поля ввода */
   name?: string,
   /** Функция обратного вызова при потере фокуса */
@@ -25,12 +25,12 @@ export interface TimePickerProps extends DateTimeInputProps {
   onFocus?: (ev: FocusEvent) => void,
   /** Плейсхолдер для поля ввода */
   placeholder?: string,
+  /** Реф */
+  ref?: React.Ref<DateTimeInputRefCurrent>,
   /** Минимальное время */
   timeMin?: [number, number],
   /** Максимальное время */
   timeMax?: [number, number],
-  /** Реф */
-  ref?: React.Ref<DateTimeInputRefCurrent>,
   /** Значение поля ввода */
   value?: string | Date | null,
   /** Классы переданные через _ */

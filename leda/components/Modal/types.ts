@@ -7,22 +7,22 @@ import { DivRefCurrent } from '../Div';
 export type WindowSizeType = 'sm' | 'md' | 'lg';
 
 export interface ModalProps {
-  /** Имена классов */
-  className?: string,
   /** Дочерние элементы */
   children?: React.ReactNode,
+  /** Имена классов */
+  className?: string,
+  /** Кастомный рендер для иконки закрытия */
+  iconRender?: CustomRender<ModalWindowProps, {}, IconProps>,
   /** Признак состояния. Обязательное, т.к. всегда нужен стейт для отслеживания состояния */
   isOpen: boolean,
   /** Обработчик закрытия модалки по клику на оверлей, нажатию на крестик или нажатию Escape */
   onClose?: (ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void,
-  /** Обработчик клика за пределами модального окна */
-  onOverlayClick?: CustomEventHandler<React.MouseEvent<HTMLElement>>,
   /** Наличие кнопки закрытия окна и обработчик */
   onCloseButtonClick?: CustomEventHandler<React.MouseEvent<HTMLElement>>,
   /** Закрытие окна по escape и обработчик */
   onEscapePress?: CustomEventHandler<React.KeyboardEvent<HTMLElement>>,
-  /** Темизация компонента */
-  theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.modal],
+  /** Обработчик клика за пределами модального окна */
+  onOverlayClick?: CustomEventHandler<React.MouseEvent<HTMLElement>>,
   /** Реф */
   ref?: React.Ref<ModalRefCurrent>,
   /** Размер окна.
@@ -30,10 +30,10 @@ export interface ModalProps {
    * Принимает строку вида "50%", "50px", "50rem"
    * Если не задан, то устанавливается значение md=608 */
   size?: WindowSizeType | string,
+  /** Темизация компонента */
+  theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.modal],
   /** Кастомный рендер для wrapper */
   wrapperRender?: CustomRender<ModalWindowProps, {}, WrapperProps>,
-  /** Кастомный рендер для иконки закрытия */
-  iconRender?: CustomRender<ModalWindowProps, {}, IconProps>,
   /** Классы переданные через _ */
   [x: string]: unknown,
 }
@@ -41,16 +41,16 @@ export interface ModalProps {
 export type ModalWindowProps = ModalProps & { innerRef?: React.Ref<ModalRefCurrent> };
 
 export interface ModalElementsProps {
-  className?: string,
   children?: React.ReactNode,
+  className?: string,
   wrapperRender?: CustomRender<ModalElementsProps, {}, React.HTMLAttributes<HTMLDivElement>>,
   [x: string]: unknown,
 }
 
 export interface ModalContextType {
-  headerClassName: string,
   bodyClassName: string,
   footerClassName: string,
+  headerClassName: string,
 }
 
 export interface ModalRefCurrent {
@@ -58,8 +58,8 @@ export interface ModalRefCurrent {
 }
 
 export interface CustomElements {
-  Wrapper: React.FC<WrapperProps>,
   Icon: React.FC<IconProps>,
+  Wrapper: React.FC<WrapperProps>,
 }
 
 export interface WrapperProps extends ModalElementsProps {

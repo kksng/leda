@@ -23,14 +23,14 @@ export interface ResetEvent {
 export type ChangeEvent = BaseChangeEvent | ResetEvent;
 
 export interface MaskedInputProps extends ValidationProps {
-  /** Отключить поле ввода */
-  isDisabled?: boolean,
-  /** Кастомный рендер инпута (Заменяет MaskedInputBase!) */
-  inputRender?: CustomRender<MaskedInputProps, MaskedInputState, MaskedInputBaseProps>,
-  /** Маска ввода. Задается по правилам, описанным в mask.md */
-  mask: string,
   /** Значение по-умолчанию, для неконтролируемого режима */
   defaultValue?: string,
+  /** Кастомный рендер инпута (Заменяет MaskedInputBase!) */
+  inputRender?: CustomRender<MaskedInputProps, MaskedInputState, MaskedInputBaseProps>,
+  /** Отключить поле ввода */
+  isDisabled?: boolean,
+  /** Маска ввода. Задается по правилам, описанным в mask.md */
+  mask: string,
   /** имя компонента для использования в формах */
   name?: string,
   /** Обработчик изменения значения */

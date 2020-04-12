@@ -35,6 +35,8 @@ export interface NumericRangeProps {
   isDisabled?: boolean | [boolean, boolean],
   /** Являются ли поля обязательными */
   isRequired?: boolean | [boolean, boolean],
+  /** Внешняя валидация */
+  isValid?: boolean,
   /** Максимальное значение для всего диапазона */
   max?: number,
   /** Минимальное значение для всего диапазона */
@@ -57,8 +59,6 @@ export interface NumericRangeProps {
   thousandsSeparator?: string,
   /** Тема для компонента */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.numericRange],
-  /** Внешняя валидация */
-  isValid?: boolean,
   /** Значение для нумериков ОТ и ДО */
   value?: [number | null, number | null] | null,
   /** Кастомный рендер для враппера */

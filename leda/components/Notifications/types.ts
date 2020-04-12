@@ -27,37 +27,37 @@ export interface ChangeEvent {
 }
 
 export interface NotificationItemProps {
-  /** Объект с уведомлением */
-  item: Item,
-  /** Кастомизация иконки */
-  iconRender?: CustomRender<NotificationItemProps, {}, DivProps>,
   /** Кастомизация кнопки внутри оповещения, по-умолчанию не отображается */
   actionButtonRender?: CustomRender<NotificationItemProps, {}, React.PropsWithChildren<{}>>,
-  /** Обработчик изменения, срабатывает при клике по крестику или по таймауту */
-  onChange: (item: Item, method: ChangeMethods) => void,
   /** Сообщение внутри оповещения. Принимается функция. */
   contentRender?: CustomRender<NotificationItemProps, {}, DivProps>,
+  /** Кастомизация иконки */
+  iconRender?: CustomRender<NotificationItemProps, {}, DivProps>,
+  /** Объект с уведомлением */
+  item: Item,
+  /** Обработчик изменения, срабатывает при клике по крестику или по таймауту */
+  onChange: (item: Item, method: ChangeMethods) => void,
   /** Тема компонента */
   theme: GlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.notifications],
 }
 
 export interface NotificationsProps {
+  /** Кастомизация кнопки внутри оповещения, по-умолчанию не отображается */
+  actionButtonRender?: CustomRender<NotificationItemProps, {}, React.PropsWithChildren<{}>>,
   /** Сообщение внутри оповещения. Принимается функция. */
   contentRender?: CustomRender<NotificationItemProps, {}, DivProps>,
   /** Кастомизация иконки */
   iconRender?: CustomRender<NotificationItemProps, {}, DivProps>,
-  /** Кастомизация кнопки внутри оповещения, по-умолчанию не отображается */
-  actionButtonRender?: CustomRender<NotificationItemProps, {}, React.PropsWithChildren<{}>>,
-  /** Уведомления, если передано больше, чем maxItems - отображаются в порядке очереди */
-  value: Item[],
   /** Максимальное количество оповещений на экране, по-умолчанию 3 */
   maxItems?: number,
-  /** Реф */
-  ref?: React.Ref<NotificationRefCurrent>,
   /** Обработчик изменения, срабатывает при клике по крестику или по таймауту  */
   onChange: (event: ChangeEvent) => void,
+  /** Реф */
+  ref?: React.Ref<NotificationRefCurrent>,
   /** Тема компонента */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.notifications],
+  /** Уведомления, если передано больше, чем maxItems - отображаются в порядке очереди */
+  value: Item[],
   /** Классы, переданные через _ */
   [x: string]: unknown,
 }

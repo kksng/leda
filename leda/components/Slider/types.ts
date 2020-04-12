@@ -38,16 +38,16 @@ export interface SliderProps {
   onChange?: (event: ChangeEvent) => void,
   /** Обработчик события перемещения ползунка */
   onMove?: (event: ChangeEvent) => void,
+  /** Реф компонента */
+  ref?: React.Ref<SliderRefCurrent>,
   /** Шаг изменения значения. По умолчанию - 1. */
   step?: number,
   /** Тема компонента */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.slider],
-  /** Реф компонента */
-  ref?: React.Ref<SliderRefCurrent>,
-  /** Текущее значение */
-  value?: SliderValue | null,
   /** Единицы измерения для лейблов */
   unitsRender?: CustomRender<SliderProps, SliderState, {}>,
+  /** Текущее значение */
+  value?: SliderValue | null,
   /** Классы переданные через _ */
   [x: string]: unknown,
 }

@@ -9,6 +9,7 @@ export interface LoaderProps extends React.HTMLAttributes<HTMLDivElement> {
   isGlobal?: boolean,
   /** Показывается ли лоадер */
   isLoading?: boolean,
+  /** Реф */
   ref?: React.Ref<LoaderRefCurrent>,
   /** Тема компонента */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.loader],
