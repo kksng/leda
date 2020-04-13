@@ -18,9 +18,7 @@ export interface TabsProps {
   /** Reference */
   ref?: React.Ref<TabsRefCurrent>,
   /** DOM-узел, в который будет помещено содержимое вкладки */
-  tabContentNode?: Element | null,
-  /** DOM-узел, в который будет помещено содержимое вкладки */
-  tabContentRef?: React.RefObject<any>,
+  tabContentNode?: HTMLElement | null,
   /** Кастомный tab */
   tabRender?: CustomRender<TabProps, {}, LiProps>,
   /** Тема компонента */
@@ -95,7 +93,6 @@ export interface ContentProps {
   className?: string,
   children?: React.ReactNode,
   tabContentNode?: Element | null,
-  tabContentRef?: React.RefObject<any>,
 }
 
 export interface HeadingProps {

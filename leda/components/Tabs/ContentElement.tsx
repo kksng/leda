@@ -3,20 +3,16 @@ import * as ReactDOM from 'react-dom';
 import { ContentProps } from './types';
 import { Div } from '../Div';
 
-export const ContentElement = (props: ContentProps) => {
+export const ContentElement = (props: ContentProps): React.ReactElement | null => {
   const {
-    children, tabContentNode, tabContentRef, ...restProps
+    children, tabContentNode, ...restProps
   } = props;
 
-  if (tabContentRef) {
-    if (tabContentRef.current) {
-      const node = tabContentRef.current.wrapper ?? tabContentRef.current;
-      return ReactDOM.createPortal(children, node);
-    }
-    return null;
+  if (tabContentNode === undefined) {
+    return <Div {...restProps}>{children}</Div>;
   }
 
   if (tabContentNode) return ReactDOM.createPortal(children, tabContentNode);
 
-  return <Div {...restProps}>{children}</Div>;
+  return null;
 };

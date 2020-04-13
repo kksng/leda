@@ -1,33 +1,27 @@
 import * as React from 'react';
 import * as L from '../../../leda';
-import { DivRefCurrent } from '../../../leda/components/Div';
+import { useElementRef } from '../../../leda/utils';
 
 export const TabsNode = (props: any) => {
   const [selected, setSelected] = React.useState<string | number>(0);
-  const [isVisible, setIsVisible] = React.useState(false);
-  const contentRef = React.useRef<DivRefCurrent>(null);
 
-  React.useEffect(() => {
-    setIsVisible(true);
-  },[]);
+  const [Element, ref] = useElementRef();
 
   return (
     <L.Div _inner>
       <L.Tabs
         activeTabKey={selected}
         onChange={(ev) => setSelected(ev.component.value)}
-        tabContentNode={contentRef.current?.wrapper}
+        tabContentNode={Element}
       >
         <L.Tab title="Tab 1" tabKey={0}>
-          {isVisible && (
-            <L.Div _inner>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Non sodales neque sodales ut etiam sit. Phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet. Morbi blandit cursus risus at.
-              Accumsan sit amet nulla facilisi morbi tempus iaculis. Feugiat nibh sed pulvinar proin gravida hendrerit. Nulla facilisi etiam dignissim diam
-              quis enim lobortis. Leo integer malesuada nunc vel risus commodo viverra maecenas. Pellentesque habitant morbi tristique senectus et netus et
-              malesuada fames. Non odio euismod lacinia at quis risus. Nibh nisl condimentum id venenatis a condimentum.
-            </L.Div>
-          )}
+          <L.Div _inner>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Non sodales neque sodales ut etiam sit. Phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet. Morbi blandit cursus risus at.
+            Accumsan sit amet nulla facilisi morbi tempus iaculis. Feugiat nibh sed pulvinar proin gravida hendrerit. Nulla facilisi etiam dignissim diam
+            quis enim lobortis. Leo integer malesuada nunc vel risus commodo viverra maecenas. Pellentesque habitant morbi tristique senectus et netus et
+            malesuada fames. Non odio euismod lacinia at quis risus. Nibh nisl condimentum id venenatis a condimentum.
+          </L.Div>
         </L.Tab>
         <L.Tab title="Tab 2" tabKey={1}>
           <L.Div _inner>
@@ -60,7 +54,7 @@ export const TabsNode = (props: any) => {
       <L.Div
         _inner
         _box
-        ref={contentRef}
+        ref={ref}
       />
 
     </L.Div>

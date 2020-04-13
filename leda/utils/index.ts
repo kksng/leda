@@ -51,3 +51,5 @@ export { checkIsTheSameObject } from './checkIsTheSameObject';
 export { getWordEnding } from './getWordEnding';
 
 export { getIsEmptyAndRequired } from './getIsEmptyAndRequired';
+
+export { useElementRef } from './useElementRef';
