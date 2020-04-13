@@ -9,6 +9,7 @@ export const defaultMultiSelectTheme = {
   inputWrapperFocused:       'focused',
   inputWrapperDisabled:      'disabled',
   inputWrapperInvalid:       'danger',
+  inputWrapperRequired:      'required',
   wrapper:                   'multiselect-wrapper',
   tagsContainer:             'multiselect-tags-container',
   tagsUnion:                 'multiselect-tags-union',

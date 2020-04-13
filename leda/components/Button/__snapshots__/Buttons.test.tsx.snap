@@ -57,10 +57,10 @@ exports[`Button SNAPSHOTS should render with validation 1`] = `
           className="input-wrapper"
         >
           <Div
-            className="input-element-wrapper"
+            className="input-element-wrapper required"
           >
             <div
-              className="input-element-wrapper"
+              className="input-element-wrapper required"
             >
               <Input
                 aria-invalid={false}

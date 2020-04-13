@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import {
-  bindFunctionalRef, getClassNames, useProps, useTheme, useValue,
+  bindFunctionalRef, getClassNames, getIsEmptyAndRequired, useProps, useTheme, useValue,
 } from '../../utils';
 import { Div } from '../Div';
 import { Span } from '../Span';
@@ -81,6 +81,7 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
       [theme.inputWrapperInvalid]: !isFocused && !isValid,
       [theme.inputWrapperFocused]: isFocused,
       [theme.inputWrapperDisabled]: isDisabled,
+      [theme.inputWrapperRequired]: getIsEmptyAndRequired(value, isRequired),
     },
   );
 

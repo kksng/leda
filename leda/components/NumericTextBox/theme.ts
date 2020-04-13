@@ -11,5 +11,6 @@ export const defaultNumericTextBoxTheme = {
   inputWrapperDisabled:     'disabled',
   inputWrapperFocused:      'focused',
   inputWrapperInvalid:      'danger',
+  inputWrapperRequired:     'required',
 };
 /* eslint-enable key-spacing */

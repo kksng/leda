@@ -115,6 +115,7 @@ exports[`DropZone ATTRIBUTES should customize description text 1`] = `
               "invalid": "danger",
               "rejectedFilesWrapper": "rejected-list margin-none",
               "rejectedMessage": "dropzone-rejected-message txt-danger",
+              "required": "required",
               "status": "dropzone-status",
               "wrapper": "dropzone-wrapper",
             }
@@ -151,6 +152,7 @@ exports[`DropZone ATTRIBUTES should customize description text 1`] = `
             "invalid": "danger",
             "rejectedFilesWrapper": "rejected-list margin-none",
             "rejectedMessage": "dropzone-rejected-message txt-danger",
+            "required": "required",
             "status": "dropzone-status",
             "wrapper": "dropzone-wrapper",
           }
@@ -308,6 +310,7 @@ exports[`DropZone ATTRIBUTES should customize upload button 1`] = `
               "invalid": "danger",
               "rejectedFilesWrapper": "rejected-list margin-none",
               "rejectedMessage": "dropzone-rejected-message txt-danger",
+              "required": "required",
               "status": "dropzone-status",
               "wrapper": "dropzone-wrapper",
             }
@@ -344,6 +347,7 @@ exports[`DropZone ATTRIBUTES should customize upload button 1`] = `
             "invalid": "danger",
             "rejectedFilesWrapper": "rejected-list margin-none",
             "rejectedMessage": "dropzone-rejected-message txt-danger",
+            "required": "required",
             "status": "dropzone-status",
             "wrapper": "dropzone-wrapper",
           }
@@ -506,6 +510,7 @@ exports[`DropZone SNAPSHOTS should render 1`] = `
               "invalid": "danger",
               "rejectedFilesWrapper": "rejected-list margin-none",
               "rejectedMessage": "dropzone-rejected-message txt-danger",
+              "required": "required",
               "status": "dropzone-status",
               "wrapper": "dropzone-wrapper",
             }
@@ -542,6 +547,7 @@ exports[`DropZone SNAPSHOTS should render 1`] = `
             "invalid": "danger",
             "rejectedFilesWrapper": "rejected-list margin-none",
             "rejectedMessage": "dropzone-rejected-message txt-danger",
+            "required": "required",
             "status": "dropzone-status",
             "wrapper": "dropzone-wrapper",
           }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { DropzoneRef, useDropzone } from 'react-dropzone';
 import {
-  bindFunctionalRef, getClassNames, useProps, useTheme,
+  bindFunctionalRef, getClassNames, getIsEmptyAndRequired, useProps, useTheme,
 } from '../../utils';
 import { MAX_FILE_SIZE } from '../../constants';
 import { Div } from '../Div';
@@ -19,6 +19,7 @@ export const FileDrop = React.forwardRef((props: FileDropProps, ref: React.Ref<F
     className,
     error,
     isDisabled,
+    isRequired,
     maxFileSize = MAX_FILE_SIZE,
     value,
   } = useProps(props);
@@ -50,7 +51,15 @@ export const FileDrop = React.forwardRef((props: FileDropProps, ref: React.Ref<F
     disabled: isDisabled,
   });
 
-  const combinedClassNames = getClassNames(className, theme.wrapper, { [theme.disabled]: isDisabled, [theme.invalid]: !isValid });
+  const combinedClassNames = getClassNames(
+    className,
+    theme.wrapper,
+    {
+      [theme.disabled]: isDisabled,
+      [theme.invalid]: !isValid,
+      [theme.required]: getIsEmptyAndRequired(value, isRequired),
+    },
+  );
 
   fileDropRef.current = { open };
 

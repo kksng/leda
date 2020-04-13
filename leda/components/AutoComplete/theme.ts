@@ -9,6 +9,7 @@ export const defaultAutoCompleteTheme = {
   inputWrapperDisabled:       'disabled',
   inputWrapperFocused:        'focused',
   inputWrapperInvalid:        'danger',
+  inputWrapperRequired:       'required',
   sectionContainer:           'autocomplete__section-container',
   sectionContainerFirst:      'first',
   sectionTitle:               'autocomplete-section-title',

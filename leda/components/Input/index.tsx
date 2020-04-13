@@ -1,7 +1,7 @@
 import React from 'react';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import {
-  getClassNames, bindFunctionalRef, useTheme, useElement, useProps,
+  getClassNames, bindFunctionalRef, useTheme, useElement, useProps, getIsEmptyAndRequired,
 } from '../../utils';
 import { useValidation } from '../Validation';
 import { InputProps, InputRefCurrent } from './types';
@@ -84,6 +84,7 @@ export const Input = React.forwardRef((props: InputProps, ref: React.Ref<InputRe
       [theme.inputWrapperFocused]: isFocused,
       [theme.inputWrapperDisabled]: isDisabled,
       [theme.inputWrapperInvalid]: !isValid,
+      [theme.inputWrapperRequired]: getIsEmptyAndRequired(value, isRequired),
     },
   );
 

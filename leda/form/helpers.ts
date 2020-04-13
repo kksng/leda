@@ -4,6 +4,7 @@ import {
 import { PREDEFINED_VALIDATORS } from '../components/Validation/predefinedValidators';
 import * as Types from './types';
 
+// todo: types for value
 export const checkIsFilled = (value: any): boolean => {
   if (value == null) {
     return false;

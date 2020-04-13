@@ -5,5 +5,6 @@ export const defaultTextAreaTheme = {
   inputFocused:           'focused',
   inputDisabled:          'disabled',
   inputInvalid:           'danger',
+  inputRequired:          'required',
 };
 /* eslint-enable key-spacing */

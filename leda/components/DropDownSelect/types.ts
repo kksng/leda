@@ -111,7 +111,9 @@ export interface GetComponentClassNames {
     isDisabled?: boolean,
     isFocused?: boolean,
     isOpen?: boolean,
+    isRequired?: boolean,
     isValid?: boolean,
+    value: string | number | SomeObject | null,
   }): {
     inputWrapperClassNames?: string,
     selectIconClassNames?: string,

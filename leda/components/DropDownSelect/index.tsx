@@ -101,7 +101,7 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     selectIconClassNames,
     wrapperClassNames,
   } = getComponentClassNames({
-    theme, className, isDisabled, isFocused, isOpen, isValid,
+    theme, className, isDisabled, isFocused, isOpen, isValid, isRequired, value,
   });
 
   const handlerData = {

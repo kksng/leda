@@ -4,7 +4,7 @@ import {
   MultiSelectComponent, MultiSelectProps, MultiSelectRefCurrent, Value,
 } from './types';
 import {
-  bindFunctionalRef, getClassNames, useElement, useProps, useTheme,
+  bindFunctionalRef, getClassNames, getIsEmptyAndRequired, useElement, useProps, useTheme,
 } from '../../utils';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { useValidation } from '../Validation';
@@ -133,6 +133,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     [theme.inputFocused]: isFocused,
     [theme.inputWrapperDisabled]: isDisabled,
     [theme.inputWrapperInvalid]: !isValid,
+    [theme.inputWrapperRequired]: getIsEmptyAndRequired(value, isRequired),
   });
 
   const { renders: { [COMPONENTS_NAMESPACES.multiSelect]: multiSelectRenders } } = React.useContext(LedaContext);

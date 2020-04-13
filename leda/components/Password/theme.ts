@@ -9,6 +9,7 @@ export const defaultPasswordTheme = {
   inputWrapperDisabled:     'disabled',
   inputWrapperFocused:      'focused',
   inputWrapperInvalid:      'danger',
+  inputWrapperRequired:     'required',
   messageDefault:           'password-message-default',
   messageWeak:              'password-message-weak',
   messageMedium:            'password-message-medium',

@@ -179,7 +179,7 @@ exports[`AutoComplete SNAPSHOTS should render validation required validation 1`]
     class="autocomplete-wrapper"
   >
     <div
-      class="autocomplete-input-wrapper danger"
+      class="autocomplete-input-wrapper danger required"
     >
       <input
         aria-invalid="true"

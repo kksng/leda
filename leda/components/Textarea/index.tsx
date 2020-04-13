@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  getClassNames, useTheme, bindFunctionalRef, useProps,
+  getClassNames, useTheme, bindFunctionalRef, useProps, getIsEmptyAndRequired,
 } from '../../utils';
 import { useValidation } from '../Validation';
 import { COMPONENTS_NAMESPACES } from '../../constants';
@@ -40,7 +40,9 @@ export const Textarea = React.forwardRef((props: TextareaProps, ref: React.Ref<T
 
   const [isFocused, setIsFocused] = React.useState<boolean>(false);
 
-  const [value, setValue] = React.useState(defaultValue || '');
+  const [valueState, setValueState] = React.useState(defaultValue || '');
+
+  const value = getValue(valueProp, valueState);
 
   const {
     isValid, validateCurrent, InvalidMessage,
@@ -48,11 +50,11 @@ export const Textarea = React.forwardRef((props: TextareaProps, ref: React.Ref<T
     value,
   }, {
     reset: createResetHandler({
-      props, setValue, value: defaultValue || '',
+      props, setValue: setValueState, value: defaultValue || '',
     }),
   });
 
-  const handleChange = createChangeHandler(props, setValue);
+  const handleChange = createChangeHandler(props, setValueState);
 
   const handleBlur = createBlurHandler(props, validateCurrent, setIsFocused);
 
@@ -72,6 +74,7 @@ export const Textarea = React.forwardRef((props: TextareaProps, ref: React.Ref<T
     { [theme.inputFocused]: isFocused },
     { [theme.inputInvalid]: !isValid },
     { [theme.inputDisabled]: isDisabled },
+    { [theme.inputRequired]: getIsEmptyAndRequired(value, isRequired) },
   );
 
   const { Wrapper } = useCustomElements(props);

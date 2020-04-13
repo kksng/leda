@@ -7,6 +7,7 @@ import { SuggestionList } from '../../src/SuggestionList';
 import {
   bindFunctionalRef,
   getClassNames,
+  getIsEmptyAndRequired,
   useElement,
   useProps,
   useTheme,
@@ -176,6 +177,7 @@ export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: Rea
       [theme.inputWrapperDisabled]: isDisabled,
       [theme.inputWrapperFocused]: isFocused,
       [theme.inputWrapperInvalid]: !isValid,
+      [theme.inputWrapperRequired]: getIsEmptyAndRequired(value, isRequired),
     },
   );
 

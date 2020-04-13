@@ -9,6 +9,7 @@ export const defaultDateTimeInputTheme = {
   calendarIcon:         'datepicker-calendar-icon',
   inputWrapperFocused:  'focused',
   inputWrapperInvalid:  'danger',
+  inputWrapperRequired: 'required',
   wrapper:              'datepicker-wrapper',
   wrapperDisabled:      'disabled-state',
 };

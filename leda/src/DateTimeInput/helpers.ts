@@ -3,7 +3,7 @@ import {
   isNil, isFunction, isString, isDate,
 } from 'lodash';
 import { Values } from '../../commonTypes';
-import { getClassNames } from '../../utils';
+import { getClassNames, getIsEmptyAndRequired } from '../../utils';
 import { GlobalDefaultTheme } from '../../utils/useTheme';
 import { COMPONENT_TYPES } from './constants';
 import {
@@ -153,12 +153,17 @@ export const createMask = (format: string, type: Values<typeof COMPONENT_TYPES>)
   return '##.##.####';
 };
 
-export const getInputWrapperClassNames = (theme: GlobalDefaultTheme['dateTimeInput'], props: DateTimeInputProps, state: DateTimeInputState, isValid: boolean): string | undefined => getClassNames(
-  theme.inputWrapper,
-  { [theme.inputWrapperFocused]: state.isFocused },
-  { [theme.inputWrapperInvalid]: !isValid },
-  { [theme.wrapperDisabled]: props.isDisabled },
-);
+export const getInputWrapperClassNames = (theme: GlobalDefaultTheme['dateTimeInput'], props: DateTimeInputProps, state: DateTimeInputState, isValid: boolean): string | undefined => {
+  const value = props.value ?? state.value;
+
+  return getClassNames(
+    theme.inputWrapper,
+    { [theme.inputWrapperFocused]: state.isFocused },
+    { [theme.inputWrapperInvalid]: !isValid },
+    { [theme.inputWrapperRequired]: getIsEmptyAndRequired(value, props.isRequired) },
+    { [theme.wrapperDisabled]: props.isDisabled },
+  );
+};
 
 export const convertToDate = (dateValue?: DateWithToDateMethod): DateWithToDateMethod | undefined => {
   if (!isNil(dateValue) && isFunction(dateValue.toDate)) {

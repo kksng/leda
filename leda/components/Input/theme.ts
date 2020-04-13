@@ -9,6 +9,7 @@ export const defaultInputTheme = {
   inputWrapperDisabled:     'disabled',
   inputWrapperFocused:      'focused',
   inputWrapperInvalid:      'danger',
+  inputWrapperRequired:     'required',
   prefix:                   'input-prefix',
   suffix:                   'input-suffix',
   wrapper:                  'input-wrapper',

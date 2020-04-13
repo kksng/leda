@@ -9,7 +9,7 @@ exports[`DateRange ATTRIBUTES should show different requiredMessage when isRequi
       class="datepicker-wrapper"
     >
       <div
-        class="datepicker-input-wrapper danger"
+        class="datepicker-input-wrapper danger required"
       >
         <input
           aria-invalid="true"
@@ -47,7 +47,7 @@ exports[`DateRange ATTRIBUTES should show different requiredMessage when isRequi
       class="datepicker-wrapper"
     >
       <div
-        class="datepicker-input-wrapper danger"
+        class="datepicker-input-wrapper danger required"
       >
         <input
           aria-invalid="true"
@@ -89,7 +89,7 @@ exports[`DateRange ATTRIBUTES should show requiredMessage when isRequired and in
       class="datepicker-wrapper"
     >
       <div
-        class="datepicker-input-wrapper danger"
+        class="datepicker-input-wrapper danger required"
       >
         <input
           aria-invalid="true"
@@ -127,7 +127,7 @@ exports[`DateRange ATTRIBUTES should show requiredMessage when isRequired and in
       class="datepicker-wrapper"
     >
       <div
-        class="datepicker-input-wrapper danger"
+        class="datepicker-input-wrapper danger required"
       >
         <input
           aria-invalid="true"

@@ -3,7 +3,7 @@ import { isObject } from 'lodash';
 import { Div } from '../Div';
 import { Button as DefaultButton } from '../Button';
 import {
-  bindFunctionalRef, getClassNames, useTheme, useValue, useElement, useProps,
+  bindFunctionalRef, getClassNames, useTheme, useValue, useElement, useProps, getIsEmptyAndRequired,
 } from '../../utils';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { createChangeHandler, createResetHandler } from './handlers';
@@ -56,11 +56,13 @@ export const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: Reac
     validateCurrent,
   });
 
+  const isEmptyAndRequired = getIsEmptyAndRequired(value, isRequired);
+
   const theme = useTheme(props.theme, COMPONENTS_NAMESPACES.buttonGroup);
 
   const wrapperClassNames = getClassNames(className, theme.wrapper);
 
-  const buttonsWrapperClassNames = getClassNames(theme.buttonsWrapper, { [theme.wrapperDisabled]: isDisabled });
+  const buttonsWrapperClassNames = getClassNames(theme.buttonsWrapper, { [theme.wrapperDisabled]: isDisabled, [theme.wrapperRequired]: isEmptyAndRequired });
 
   const Wrapper = useElement(
     'Wrapper',

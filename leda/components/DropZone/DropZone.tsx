@@ -1,7 +1,7 @@
 import React from 'react';
 import { DropzoneRef, useDropzone } from 'react-dropzone';
 import {
-  getClassNames, bindFunctionalRef, useTheme, useProps,
+  getClassNames, bindFunctionalRef, useTheme, useProps, getIsEmptyAndRequired,
 } from '../../utils';
 import { MAX_FILE_SIZE, MIN_FILE_SIZE } from '../../constants';
 import { Div } from '../Div';
@@ -23,6 +23,7 @@ export const DropZone = React.forwardRef((props: DropZoneProps, ref: React.Ref<D
     dropZoneFilesNode,
     forbiddenFiles,
     isDisabled,
+    isRequired,
     maxFileSize = MAX_FILE_SIZE,
     maxFilesNumber,
     minFileSize = MIN_FILE_SIZE,
@@ -51,7 +52,15 @@ export const DropZone = React.forwardRef((props: DropZoneProps, ref: React.Ref<D
 
   const handleClick = createClickHandler(props, stateValue, dropZoneRef);
 
-  const combinedClassNames = getClassNames(className, theme.wrapper, { [theme.disabled]: isDisabled, [theme.invalid]: !isValid });
+  const combinedClassNames = getClassNames(
+    className,
+    theme.wrapper,
+    {
+      [theme.disabled]: isDisabled,
+      [theme.invalid]: !isValid,
+      [theme.required]: getIsEmptyAndRequired(value, isRequired),
+    },
+  );
 
   const combinedButtonClassNames = getClassNames(theme.button, { [theme.disabled]: isDisabled });
 

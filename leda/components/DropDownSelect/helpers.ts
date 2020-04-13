@@ -1,11 +1,11 @@
 import { isNil } from 'lodash';
 import { SomeObject } from '../../commonTypes';
 import { getText } from '../../src/SuggestionList/helpers';
-import { filterSuggestionByRule, getClassNames } from '../../utils';
+import { filterSuggestionByRule, getClassNames, getIsEmptyAndRequired } from '../../utils';
 import { DropDownSelectProps, FilterRules, GetComponentClassNames } from './types';
 /** классы для элементов компонента */
 export const getComponentClassNames: GetComponentClassNames = ({
-  theme, className, isDisabled, isFocused, isOpen, isValid,
+  theme, className, isDisabled, isFocused, isOpen, isValid, isRequired, value,
 }) => {
   const wrapperClassNames = getClassNames(
     theme.wrapper,
@@ -18,6 +18,7 @@ export const getComponentClassNames: GetComponentClassNames = ({
       [theme.inputWrapperDisabled]: isDisabled,
       [theme.inputWrapperFocused]: isFocused,
       [theme.inputWrapperInvalid]: !isValid,
+      [theme.inputWrapperRequired]: getIsEmptyAndRequired(value, isRequired),
     },
   );
 

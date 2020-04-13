@@ -2,15 +2,17 @@
 export const defaultDropZoneTheme = {
   button:               'dropzone-button',
   content:              'dropzone-content',
-  disabled:             'disabled',
-  fileDeleteIcon:       'dropzone-delete-icon',
   description:          'dropzone-description',
-  fileDownloadLink:     'dropzone-file-download internal',
+  fileDeleteIcon:       'dropzone-delete-icon',
   fileDeleteLink:       'dropzone-file-delete internal',
+  fileDownloadLink:     'dropzone-file-download internal',
   rejectedFilesWrapper: 'rejected-list margin-none',
   rejectedMessage:      'dropzone-rejected-message txt-danger',
   status:               'dropzone-status',
-  invalid:              'danger',
   wrapper:              'dropzone-wrapper',
+
+  disabled:             'disabled',
+  invalid:              'danger',
+  required:             'required',
 };
 /* eslint-enable key-spacing */

@@ -8,6 +8,7 @@ export const defaultDropDownSelectTheme = {
   inputWrapperDisabled:       'disabled',
   inputWrapperFocused:        'focused',
   inputWrapperInvalid:        'danger',
+  inputWrapperRequired:       'required',
   clearIcon:                  'dropdownselect-clear-icon',
   selectIcon:                 'dropdownselect-select-icon',
   selectIconClosed:           'closed',

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  getClassNames, useTheme, bindFunctionalRef, toStringOrEmpty, useProps,
+  getClassNames, useTheme, bindFunctionalRef, toStringOrEmpty, useProps, getIsEmptyAndRequired,
 } from '../../utils';
 import { Div } from '../Div';
 import { MaskedInputProps, MaskedInputRefCurrent } from './types';
@@ -119,6 +119,7 @@ export const MaskedInput = React.forwardRef((props: MaskedInputProps, ref: React
       [theme.inputWrapperInvalid]: !isValid,
       [theme.inputWrapperDisabled]: isDisabled,
       [theme.inputWrapperFocused]: isFocused,
+      [theme.inputWrapperRequired]: getIsEmptyAndRequired(value, isRequired),
     },
   );
 
