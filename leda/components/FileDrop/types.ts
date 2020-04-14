@@ -79,8 +79,16 @@ export interface FileDropProps extends ValidationProps {
   wrapperRender?: CustomRender<FileDropProps, {}, WrapperProps>,
   /** Классы переданные через _ */
   [x: string]: unknown,
+  /** Кастомизация верстки ошибки */
+  customErrorLayout?: CustomRender<FileDropProps, {}, ErrorLayoutProps>,
 }
 
+export interface ErrorLayoutProps {
+  children?: React.ReactNode,
+  className?: string,
+  onClick?: CustomEventHandler<React.MouseEvent>,
+  [x: string]: unknown,
+}
 export interface UploadButtonProps {
   children?: React.ReactNode,
   className?: string,
@@ -130,4 +138,10 @@ export interface SingleFileViewProps extends FileDropProps {
   UploadButton: React.FC<UploadButtonProps>,
   Info: React.FC<InfoProps>,
   handleRetry: CustomEventHandler<React.MouseEvent<HTMLElement>>,
+}
+
+export interface ErrorComponentProps extends FileDropProps {
+  theme: GlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.fileDrop],
+  handleRetry: CustomEventHandler<React.MouseEvent<HTMLElement>>,
+  errorMessage: string,
 }

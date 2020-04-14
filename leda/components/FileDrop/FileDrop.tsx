@@ -21,6 +21,7 @@ export const FileDrop = React.forwardRef((props: FileDropProps, ref: React.Ref<F
     isDisabled,
     maxFileSize = MAX_FILE_SIZE,
     value,
+    customErrorLayout,
   } = useProps(props);
 
   const fileDropRef = React.useRef<DropzoneRef | null>(null);
@@ -92,6 +93,7 @@ export const FileDrop = React.forwardRef((props: FileDropProps, ref: React.Ref<F
             handleRetry={handleRetry}
             UploadButton={UploadButton}
             Info={Info}
+            customErrorLayout={customErrorLayout}
           />
         </Div>
       </Wrapper>

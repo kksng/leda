@@ -10,10 +10,11 @@ import {
 } from './types';
 import { getClassNames } from '../../utils';
 import { Div } from '../Div';
+import { ErrorComponent } from './ErrorComponent';
 
 export const SingleFileView = (props: SingleFileViewProps): React.ReactElement | null => {
   const {
-    error, value, isLoading, loadingProgress, theme, handleRetry, UploadButton, Info, isDisabled, minFileSize, allowedFiles, forbiddenFiles, maxFileSize,
+    error, value, customErrorLayout, isLoading, loadingProgress, theme, handleRetry, UploadButton, Info, isDisabled, minFileSize, allowedFiles, forbiddenFiles, maxFileSize,
   } = props;
 
   const combinedButtonClassNames = getClassNames(theme.button, { [theme.disabled]: isDisabled });
@@ -69,18 +70,10 @@ export const SingleFileView = (props: SingleFileViewProps): React.ReactElement |
 
     const errorMessage = getErrorMessage(error);
     return (
-      <Div className={theme.description}>
-        <Span className={theme.errorIcon} />
-        <Span>
-          Не удалось загрузить файл
-          {errorMessage ? `. ${errorMessage}` : null}
-        </Span>
-        <Button className={theme.retryButton} onClick={handleRetry}>
-          <Span className={theme.retryIcon} />
-          {' '}
-          Заменить файл
-        </Button>
-      </Div>
+      <ErrorComponent
+        {...props}
+        errorMessage={errorMessage}
+      />
     );
   }
 

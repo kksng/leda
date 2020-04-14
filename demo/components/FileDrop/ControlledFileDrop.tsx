@@ -14,6 +14,10 @@ export const ControlledFileDrop = () => {
     setLoaded(loaded + 5);
   }, isLoading ? 100 : null);
 
+  const fiascoBratan = () => {
+    return <L.Div _txtCenter><L.P>Это фиаско, братан :(</L.P><L.Button>Попробовать снова</L.Button></L.Div>;
+  };
+
   return (
     <L.Div _box _inner>
       <L.FileDrop
@@ -28,6 +32,7 @@ export const ControlledFileDrop = () => {
         loadingProgress={loaded}
         error={error}
         maxFileNameLength={250}
+        customErrorLayout={fiascoBratan}
         // infoRender={({ Element, elementProps}) => (
         //   <Element {...elementProps}>
         //     Загрузите чтото-там <L.Button>тык</L.Button>
