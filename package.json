@@ -107,7 +107,6 @@
   },
   "peerDependencies": {
     "react": ">= 16.8.0 < 17.0.0",
-    "react-dom": ">= 16.8.0 < 17.0.0",
-    "react-router-dom": ">= 5.0.1 < 6.0.0"
+    "react-dom": ">= 16.8.0 < 17.0.0"
   }
 }

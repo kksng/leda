@@ -2,7 +2,7 @@ import React from 'react';
 import * as L from '../../leda';
 import { Styles } from './Styles';
 
-const themes: string[] = ['Nova', 'Sber', 'Bootstrap'];
+const themes: string[] = ['Nova', 'Bootstrap'];
 
 export const Navigation = () => {
   const [theme, setTheme] = React.useState<string>();
@@ -29,9 +29,9 @@ export const Navigation = () => {
       </L.Div>
       <L.Nav _row _demoNav>
         <L.Span _colMd2 _ledaLogo />
-        <L.NavLink _colMd2 isExact href="/">
+        <L.A _colMd2 href="/">
             Main Demo
-        </L.NavLink>
+        </L.A>
       </L.Nav>
     </L.Header>
   );

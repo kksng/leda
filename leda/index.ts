@@ -63,7 +63,6 @@ import {
 } from './components/Modal';
 import { MultiSelect } from './components/MultiSelect';
 import { Nav } from './components/Nav';
-import { NavLink } from './components/NavLink';
 import { Notifications } from './components/Notifications';
 import { NumericRange } from './components/NumericRange';
 import { NumericTextBox } from './components/NumericTextBox';
@@ -229,7 +228,6 @@ export {
   Modal, ModalHeader, ModalBody, ModalFooter,
   MultiSelect,
   Nav,
-  NavLink,
   Notifications,
   NumericRange,
   NumericTextBox,
