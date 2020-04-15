@@ -26,7 +26,7 @@ export const DateTimeInputRange = React.forwardRef((props: DateTimeInputRangePro
     format = 'dd.MM.yyyy',
     form,
     iconRender,
-    inputRender,
+    inputsRender,
     isDisabled: disabledProp,
     isOpen: openProp,
     isRequired: requiredProp,
@@ -118,7 +118,7 @@ export const DateTimeInputRange = React.forwardRef((props: DateTimeInputRangePro
         format={format}
         form={form}
         iconRender={iconRender}
-        inputRender={inputRender}
+        inputRender={inputsRender?.[0] ?? undefined}
         isDisabled={disabled[0]}
         isOpen={open[0]}
         isRequired={required[0]}
@@ -149,7 +149,7 @@ export const DateTimeInputRange = React.forwardRef((props: DateTimeInputRangePro
         format={format}
         form={form}
         iconRender={iconRender}
-        inputRender={inputRender}
+        inputRender={inputsRender?.[1] ?? undefined}
         isDisabled={disabled[1]}
         isOpen={open[1]}
         isRequired={required[1]}

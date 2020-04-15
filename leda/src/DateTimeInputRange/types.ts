@@ -17,7 +17,6 @@ import { CustomRender, Values } from '../../commonTypes';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { PartialGlobalDefaultTheme } from '../../utils/useTheme';
 import { COMPONENT_TYPES } from '../DateTimeInput/constants';
-import { MaskedInputBaseProps } from '../MaskedInputBase/types';
 
 export interface DateTimeInputRangeProps {
   boundingContainerRef?: React.RefObject<HTMLElement | { wrapper: HTMLElement }>,
@@ -47,8 +46,8 @@ export interface DateTimeInputRangeProps {
   wrapperRender?: CustomRender<DateTimeInputProps, DateTimeInputState, WrapperProps>,
   /** Кастомная иконка календаря */
   iconRender?: CustomRender<DateTimeInputProps, DateTimeInputState, IconProps>,
-  /** Кастомный инпут */
-  inputRender?: CustomRender<DateTimeInputProps, DateTimeInputState, MaskedInputBaseProps>,
+  /** Рендеры для инпутов, [render, render] */
+  inputsRender?: [DateTimeInputProps['inputRender'] | null, DateTimeInputProps['inputRender'] | null],
   /** Кастомная ячейка с датой */
   dateCellRender?: CustomRender<DateCellProps, {}, DateCellItemProps>,
   /** Кастомный список дней недели (строка "Пн Вт Ср Чт Пт Сб Вс") */
