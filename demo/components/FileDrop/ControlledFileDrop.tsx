@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as L from '../../../leda';
 import { useInterval } from '../../../leda/utils';
 import { FileDropError } from '../../../leda/components/FileDrop/types';
+import { DescriptionMessage } from "../../../leda/components/FileDrop/helpers";
+import * as messages from "../../../leda/messages";
 
 export const ControlledFileDrop = () => {
   const [file, setFile] = React.useState<File | null>(null);
@@ -23,20 +25,41 @@ export const ControlledFileDrop = () => {
         name="file"
         isRequired
         requiredMessage="Файл обязателен, сэр"
-        maxFileSize={100000}
+        maxFileSize={1000000}
         isLoading={isLoading}
         loadingProgress={loaded}
         error={error}
         maxFileNameLength={250}
-        errorRender={
-          ({ Element, elementProps, componentProps }: any) => {
-            const { error, handleRetry } = componentProps;
+        defaultRender={
+          ({ Element, elementProps, componentProps }) => {
+            const { minFileSize, maxFileSize, allowedFiles, forbiddenFiles } = componentProps;
+            console.log(componentProps)
             return (
               <Element {...elementProps}>
-                <L.Ul>
-                  <L.Li>Не удалось загрузить файл{error.errorMessage ? `. ${error.errorMessage}` : null}</L.Li>
-                  <L.Li><L.Button onClick={handleRetry} _warning>Заменить файл</L.Button></L.Li>
-                </L.Ul>
+                <L.Span>
+                  Перетащите сюда файл для загрузки
+                </L.Span>
+                <L.Span>
+                  или
+                  {' '}
+                  <L.Button>
+                    выберите файл
+                  </L.Button>
+                  {' '}
+                  на вашем компьютере
+                </L.Span>
+                {' '}
+                <DescriptionMessage>
+                  {messages.getFileSizeDescription(minFileSize, maxFileSize, 'byte')}
+                </DescriptionMessage>
+                {' '}
+                <DescriptionMessage>
+                  {messages.getFormatsDescription(allowedFiles)}
+                </DescriptionMessage>
+                {' '}
+                <DescriptionMessage>
+                  {messages.getForbiddenFormatsDescription(forbiddenFiles)}
+                </DescriptionMessage>
               </Element>
             );
           }

@@ -85,6 +85,8 @@ export interface FileDropProps extends ValidationProps {
   successRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
   /** Кастомизация верстки стартовой панели */
   defaultRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
+  downloadLink?: string | null | React.ReactElement,
+  handleRetry?: CustomEventHandler<React.MouseEvent<HTMLElement>>,
 }
 
 export interface UploadButtonProps {
