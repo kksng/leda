@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as L from '../../../leda';
 import { useInterval } from '../../../leda/utils';
 import { FileDropError } from '../../../leda/components/FileDrop/types';
-import { DescriptionMessage } from "../../../leda/components/FileDrop/helpers";
-import * as messages from "../../../leda/messages";
+import { DescriptionMessage } from '../../../leda/components/FileDrop/helpers';
+import * as messages from '../../../leda/messages';
 
 export const ControlledFileDrop = () => {
   const [file, setFile] = React.useState<File | null>(null);
@@ -33,7 +33,7 @@ export const ControlledFileDrop = () => {
         defaultRender={
           ({ Element, elementProps, componentProps }) => {
             const { minFileSize, maxFileSize, allowedFiles, forbiddenFiles } = componentProps;
-            console.log(componentProps)
+            console.log(componentProps);
             return (
               <Element {...elementProps}>
                 <L.Span>

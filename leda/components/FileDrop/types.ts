@@ -78,13 +78,16 @@ export interface FileDropProps extends ValidationProps {
   /** Классы переданные через _ */
   [x: string]: unknown,
   /** Кастомизация верстки ошибки */
-  errorRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
+  errorRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
   /** Кастомизация верстки состояния загрузки */
-  loadingRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
+  loadingRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
   /** Кастомизация верстки удачной загрузки */
-  successRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
+  successRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
   /** Кастомизация верстки стартовой панели */
-  defaultRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
+  defaultRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
+}
+
+export interface LayoutRenderProps extends FileDropProps {
   downloadLink?: string | null | React.ReactElement,
   handleRetry?: CustomEventHandler<React.MouseEvent<HTMLElement>>,
 }
