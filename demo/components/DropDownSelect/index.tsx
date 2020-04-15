@@ -6,6 +6,7 @@ import { Filterable } from './Filterable';
 import { GroupedObjectsData } from './GroupedObjectsData';
 import { BoundingElementRef } from './BoundingElementRef';
 import { CompareObjectsBy } from './CompareObjectsBy';
+import { SearchFields } from './SearchFields';
 
 export const DropDownSelect = () => (
   <Story title="DropDownSelect">
@@ -15,5 +16,6 @@ export const DropDownSelect = () => (
     <GroupedObjectsData title="Сгруппированные списки" />
     <BoundingElementRef title="Позиционирование" />
     <CompareObjectsBy title="Сравнение" />
+    <SearchFields title="Поиск по полям объекта" />
   </Story>
 );

@@ -1,4 +1,4 @@
-import { isNil } from 'lodash';
+import { isNil, isArray, isObject } from 'lodash';
 import { SomeObject } from '../../commonTypes';
 import { getText } from '../../src/SuggestionList/helpers';
 import { filterSuggestionByRule, getClassNames, getIsEmptyAndRequired } from '../../utils';
@@ -49,10 +49,19 @@ export const getInputValue = (value: string | number | SomeObject | null, filter
   return (getText(value, textField) || '').toString();
 };
 
-export const filterData = (data: DropDownSelectProps['data'], filterValue: string | null, textField?: string, filterRule?: FilterRules): DropDownSelectProps['data'] => {
+export const filterData = (data: DropDownSelectProps['data'], filterValue: string | null, textField?: string, filterRule?: FilterRules, searchFields?: string[]): DropDownSelectProps['data'] => {
   if (!data) return undefined;
 
-  const filteredData = data.filter((item) => filterSuggestionByRule(getText(item, textField), filterValue || '', filterRule));
+  const filteredData = data.filter((item) => {
+    const isValueMatchingTextField = filterSuggestionByRule(getText(item, textField), filterValue ?? '', filterRule);
+
+    if (isArray(searchFields) && textField && isObject(item)) {
+      const isValueMatchingSearchFields = searchFields.some((searchField) => filterSuggestionByRule(item[searchField].toString(), filterValue ?? '', filterRule));
+      return isValueMatchingTextField || isValueMatchingSearchFields;
+    }
+
+    return isValueMatchingTextField;
+  });
 
   if (filteredData.length === 0) return undefined;
 

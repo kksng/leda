@@ -55,6 +55,7 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     onFocus,
     placeholder,
     requiredMessage,
+    searchFields,
     shouldAllowEmpty = false,
     shouldFilterValues = false,
     shouldValidateUnmounted,
@@ -133,7 +134,7 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
   const shouldRenderClearIcon = !isDisabled && hasClearButton && (value !== null || filterValue !== null);
 
   const suggestionListData = shouldFilterValues
-    ? filterData(data, filterValue, textField, filterRule)
+    ? filterData(data, filterValue, textField, filterRule, searchFields)
     : data;
 
   const handleInputClick = () => {

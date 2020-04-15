@@ -79,6 +79,8 @@ export interface DropDownSelectProps<T extends Value = Value> extends Validation
   onFocus?: CustomEventHandler<FocusEvent<T>>,
   placeholder?: string,
   ref?: React.Ref<DropDownSelectRefCurrent>,
+  /** Поля, в которых содержатся данные для поиска */
+  searchFields?: string[],
   shouldAllowEmpty?: boolean,
   shouldFilterValues?: boolean,
   /** Сортировка выпадающего списка */
