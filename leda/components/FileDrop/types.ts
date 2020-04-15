@@ -78,13 +78,13 @@ export interface FileDropProps extends ValidationProps {
   /** Классы переданные через _ */
   [x: string]: unknown,
   /** Кастомизация верстки ошибки */
-  customErrorRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
+  errorRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
   /** Кастомизация верстки состояния загрузки */
-  customLoadingRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
+  loadingRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
   /** Кастомизация верстки удачной загрузки */
-  customSuccessRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
+  successRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
   /** Кастомизация верстки стартовой панели */
-  customDefaultRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
+  defaultRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
 }
 
 export interface UploadButtonProps {
@@ -95,26 +95,6 @@ export interface UploadButtonProps {
 }
 
 export interface CustomItemProps {
-  children?: React.ReactNode,
-  className?: string,
-}
-
-export interface ErrorItemProps {
-  children?: React.ReactNode,
-  className?: string,
-}
-
-export interface LoadingItemProps {
-  children?: React.ReactNode,
-  className?: string,
-}
-
-export interface SuccessItemProps {
-  children?: React.ReactNode,
-  className?: string,
-}
-
-export interface DefaultItemProps {
   children?: React.ReactNode,
   className?: string,
 }

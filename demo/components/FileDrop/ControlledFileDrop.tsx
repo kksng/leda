@@ -14,19 +14,6 @@ export const ControlledFileDrop = () => {
     setLoaded(loaded + 5);
   }, isLoading ? 100 : null);
 
-  const customErrorRenderItem = ({ Element, elementProps, componentProps }: any) => {
-    const { error, handleRetry } = componentProps;
-    console.log(componentProps)
-    return (
-      <Element {...elementProps}>
-        <L.Ul>
-          <L.Li>Не удалось загрузить файл{error.errorMessage ? `. ${error.errorMessage}` : null}</L.Li>
-          <L.Li><L.Button onClick={handleRetry} _warning>Заменить файл</L.Button></L.Li>
-        </L.Ul>
-      </Element>
-    );
-  };
-
   return (
     <L.Div _box _inner>
       <L.FileDrop
@@ -41,7 +28,19 @@ export const ControlledFileDrop = () => {
         loadingProgress={loaded}
         error={error}
         maxFileNameLength={250}
-        customErrorRender={customErrorRenderItem}
+        errorRender={
+          ({ Element, elementProps, componentProps }: any) => {
+            const { error, handleRetry } = componentProps;
+            return (
+              <Element {...elementProps}>
+                <L.Ul>
+                  <L.Li>Не удалось загрузить файл{error.errorMessage ? `. ${error.errorMessage}` : null}</L.Li>
+                  <L.Li><L.Button onClick={handleRetry} _warning>Заменить файл</L.Button></L.Li>
+                </L.Ul>
+              </Element>
+            );
+          }
+        }
         onChange={(ev) => {
           console.log('droped', ev.component);
           setFile(ev.component.value);

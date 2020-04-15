@@ -11,10 +11,10 @@ import { COMPONENTS_NAMESPACES } from '../../constants';
 
 export const useCustomElements = (props: FileDropProps): CustomElements => {
   const {
-    customErrorRender,
-    customLoadingRender,
-    customSuccessRender,
-    customDefaultRender,
+    errorRender,
+    loadingRender,
+    successRender,
+    defaultRender,
     uploadButtonRender,
     wrapperRender,
   } = props;
@@ -31,28 +31,28 @@ export const useCustomElements = (props: FileDropProps): CustomElements => {
   const ErrorItem = useElement(
     'ErrorItem',
     Div,
-    customErrorRender || context.renders[COMPONENTS_NAMESPACES.dropZone].errorItemRender,
+    errorRender || context.renders[COMPONENTS_NAMESPACES.dropZone].errorItemRender,
     props,
   );
 
   const LoadingItem = useElement(
     'LoadingItem',
     Div,
-    customLoadingRender || context.renders[COMPONENTS_NAMESPACES.dropZone].loadingItemRender,
+    loadingRender || context.renders[COMPONENTS_NAMESPACES.dropZone].loadingItemRender,
     props,
   );
 
   const SuccessItem = useElement(
     'SuccessItem',
     Div,
-    customSuccessRender || context.renders[COMPONENTS_NAMESPACES.dropZone].successItemRender,
+    successRender || context.renders[COMPONENTS_NAMESPACES.dropZone].successItemRender,
     props,
   );
 
   const DefaultItem = useElement(
     'DefaultItem',
     Div,
-    customDefaultRender || context.renders[COMPONENTS_NAMESPACES.dropZone].defaultItemRender,
+    defaultRender || context.renders[COMPONENTS_NAMESPACES.dropZone].defaultItemRender,
     props,
   );
 
@@ -81,10 +81,10 @@ export const useFileDropRestProps = (props: FileDropProps): {} => {
     className,
     dropZoneFilesNode,
     forbiddenFiles,
-    customErrorRender,
-    customLoadingRender,
-    customSuccessRender,
-    customDefaultRender,
+    errorRender,
+    loadingRender,
+    successRender,
+    defaultRender,
     invalidMessage,
     invalidMessageRender,
     isDisabled,
