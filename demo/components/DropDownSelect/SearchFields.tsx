@@ -7,6 +7,11 @@ export const SearchFields = (args: SomeObject): React.ReactElement => {
 
   return (
     <L.Div _box _inner _demoBg>
+
+      <p>
+        Поиск по назваанию страны или её столицы.
+      </p>
+
       <L.DropDownSelect
         data={[
           { country: 'England', capital: 'London' },
@@ -18,14 +23,6 @@ export const SearchFields = (args: SomeObject): React.ReactElement => {
         searchFields={['capital']}
         textField="country"
         shouldFilterValues
-        itemRender={({ Element, elementProps, componentProps }: any) => {
-          return (
-            <L.Div>
-              <Element {...elementProps} {...componentProps} />
-              <L.Small _txtSmall _marginLeft _txtGray>{componentProps.item.capital}</L.Small>
-            </L.Div>
-          );
-        }}
         _width30
       />
     </L.Div>
