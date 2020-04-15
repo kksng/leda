@@ -11,7 +11,12 @@ import { COMPONENTS_NAMESPACES } from '../../constants';
 
 export const useCustomElements = (props: FileDropProps): CustomElements => {
   const {
-    infoRender, uploadButtonRender, wrapperRender,
+    customErrorRender,
+    customLoadingRender,
+    customSuccessRender,
+    customDefaultRender,
+    uploadButtonRender,
+    wrapperRender,
   } = props;
 
   const context = React.useContext(LedaContext);
@@ -23,10 +28,31 @@ export const useCustomElements = (props: FileDropProps): CustomElements => {
     props,
   );
 
-  const Info = useElement(
-    'Info',
-    Span,
-    infoRender || context.renders[COMPONENTS_NAMESPACES.dropZone].infoRender,
+  const ErrorItem = useElement(
+    'ErrorItem',
+    Div,
+    customErrorRender || context.renders[COMPONENTS_NAMESPACES.dropZone].errorItemRender,
+    props,
+  );
+
+  const LoadingItem = useElement(
+    'LoadingItem',
+    Div,
+    customLoadingRender || context.renders[COMPONENTS_NAMESPACES.dropZone].loadingItemRender,
+    props,
+  );
+
+  const SuccessItem = useElement(
+    'SuccessItem',
+    Div,
+    customSuccessRender || context.renders[COMPONENTS_NAMESPACES.dropZone].successItemRender,
+    props,
+  );
+
+  const DefaultItem = useElement(
+    'DefaultItem',
+    Div,
+    customDefaultRender || context.renders[COMPONENTS_NAMESPACES.dropZone].defaultItemRender,
     props,
   );
 
@@ -39,8 +65,11 @@ export const useCustomElements = (props: FileDropProps): CustomElements => {
 
   return {
     UploadButton,
-    Info,
     Wrapper,
+    ErrorItem,
+    LoadingItem,
+    SuccessItem,
+    DefaultItem,
   };
 };
 
@@ -52,7 +81,10 @@ export const useFileDropRestProps = (props: FileDropProps): {} => {
     className,
     dropZoneFilesNode,
     forbiddenFiles,
-    infoRender,
+    customErrorRender,
+    customLoadingRender,
+    customSuccessRender,
+    customDefaultRender,
     invalidMessage,
     invalidMessageRender,
     isDisabled,

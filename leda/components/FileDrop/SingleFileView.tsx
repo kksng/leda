@@ -1,20 +1,22 @@
 import * as React from 'react';
 import { DropZoneViewTypes } from './constants';
-import { ProgressLoader } from './ProgressLoader';
-import { Span } from '../Span';
-import { Button } from '../Button';
-import { createDownloadLink, DescriptionMessage, getErrorMessage } from './helpers';
-import * as messages from '../../messages';
+import { createDownloadLink, getErrorMessage } from './helpers';
 import {
   FileType, SingleFileViewProps,
 } from './types';
 import { getClassNames } from '../../utils';
-import { Div } from '../Div';
 import { ErrorComponent } from './ErrorComponent';
+import { SuccessComponent } from './SuccessComponent';
+import { LoadingComponent } from './LoadingComponent';
+import { DefaultComponent } from './DefaultComponent';
 
 export const SingleFileView = (props: SingleFileViewProps): React.ReactElement | null => {
   const {
-    error, value, customErrorLayout, isLoading, loadingProgress, theme, handleRetry, UploadButton, Info, isDisabled, minFileSize, allowedFiles, forbiddenFiles, maxFileSize,
+    error,
+    value,
+    isLoading,
+    theme,
+    isDisabled,
   } = props;
 
   const combinedButtonClassNames = getClassNames(theme.button, { [theme.disabled]: isDisabled });
@@ -32,10 +34,7 @@ export const SingleFileView = (props: SingleFileViewProps): React.ReactElement |
 
   if (currentView === DropZoneViewTypes.Loading) {
     return (
-      <Div className={theme.description}>
-        <ProgressLoader loadingProgress={loadingProgress} isLoading theme={theme} />
-        <Span>Загрузка...</Span>
-      </Div>
+      <LoadingComponent {...props} />
     );
   }
 
@@ -47,21 +46,7 @@ export const SingleFileView = (props: SingleFileViewProps): React.ReactElement |
     const downloadLink = file.link || createDownloadLink(blob, file.name, theme);
 
     return (
-      <Div className={theme.description}>
-        <Span className={theme.successIcon} />
-        <Span>
-          Файл
-          {' '}
-          {downloadLink}
-          {' '}
-          успешно загружен
-        </Span>
-        <Button className={theme.retryButton} onClick={handleRetry}>
-          <Span className={theme.retryIcon} />
-          {' '}
-          Заменить файл
-        </Button>
-      </Div>
+      <SuccessComponent {...props} downloadLink={downloadLink} />
     );
   }
 
@@ -78,34 +63,6 @@ export const SingleFileView = (props: SingleFileViewProps): React.ReactElement |
   }
 
   return (
-    <Info className={theme.description}>
-      <Div className={theme.cloudIcon} />
-      <Span>
-        Перетащите сюда файл для загрузки
-      </Span>
-      <Span>
-        или
-        {' '}
-        <UploadButton
-          className={combinedButtonClassNames}
-        >
-          выберите файл
-        </UploadButton>
-        {' '}
-        на вашем компьютере
-      </Span>
-      {' '}
-      <DescriptionMessage>
-        {messages.getFileSizeDescription(minFileSize, maxFileSize, 'byte')}
-      </DescriptionMessage>
-      {' '}
-      <DescriptionMessage>
-        {messages.getFormatsDescription(allowedFiles)}
-      </DescriptionMessage>
-      {' '}
-      <DescriptionMessage>
-        {messages.getForbiddenFormatsDescription(forbiddenFiles)}
-      </DescriptionMessage>
-    </Info>
+    <DefaultComponent {...props} combinedButtonClassNames={combinedButtonClassNames} />
   );
 };

@@ -49,8 +49,6 @@ export interface FileDropProps extends ValidationProps {
   error: FileDropError,
   /** Запрещенные типы файлов. см. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#Attributes. Передача нескольких типов файлов происходит через запятую (.png, image/jpeg). allowedFiles и forbiddenFiles вместе не могут находиться. */
   forbiddenFiles?: string,
-  /** Кастомизация описания компонента */
-  infoRender?: CustomRender<FileDropProps, {}, InfoProps>,
   /** Признак отключения дропзоны */
   isDisabled?: boolean,
   /** Состояние загрузки */
@@ -80,15 +78,15 @@ export interface FileDropProps extends ValidationProps {
   /** Классы переданные через _ */
   [x: string]: unknown,
   /** Кастомизация верстки ошибки */
-  customErrorLayout?: CustomRender<FileDropProps, {}, ErrorLayoutProps>,
+  customErrorRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
+  /** Кастомизация верстки состояния загрузки */
+  customLoadingRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
+  /** Кастомизация верстки удачной загрузки */
+  customSuccessRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
+  /** Кастомизация верстки стартовой панели */
+  customDefaultRender?: CustomRender<FileDropProps, {}, CustomItemProps>,
 }
 
-export interface ErrorLayoutProps {
-  children?: React.ReactNode,
-  className?: string,
-  onClick?: CustomEventHandler<React.MouseEvent>,
-  [x: string]: unknown,
-}
 export interface UploadButtonProps {
   children?: React.ReactNode,
   className?: string,
@@ -96,7 +94,27 @@ export interface UploadButtonProps {
   [x: string]: unknown,
 }
 
-export interface InfoProps {
+export interface CustomItemProps {
+  children?: React.ReactNode,
+  className?: string,
+}
+
+export interface ErrorItemProps {
+  children?: React.ReactNode,
+  className?: string,
+}
+
+export interface LoadingItemProps {
+  children?: React.ReactNode,
+  className?: string,
+}
+
+export interface SuccessItemProps {
+  children?: React.ReactNode,
+  className?: string,
+}
+
+export interface DefaultItemProps {
   children?: React.ReactNode,
   className?: string,
 }
@@ -108,7 +126,10 @@ export interface WrapperProps {
 }
 
 export interface CustomElements {
-  Info: React.FC<InfoProps>,
+  ErrorItem: React.FC<CustomItemProps>,
+  LoadingItem: React.FC<CustomItemProps>,
+  SuccessItem: React.FC<CustomItemProps>,
+  DefaultItem: React.FC<CustomItemProps>,
   UploadButton: React.FC<UploadButtonProps>,
   Wrapper: React.FC<WrapperProps>,
 }
@@ -136,12 +157,17 @@ export interface ProgressLoaderProps {
 export interface SingleFileViewProps extends FileDropProps {
   theme: GlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.fileDrop],
   UploadButton: React.FC<UploadButtonProps>,
-  Info: React.FC<InfoProps>,
+  ErrorItem: React.FC<CustomItemProps>,
+  LoadingItem: React.FC<CustomItemProps>,
+  SuccessItem: React.FC<CustomItemProps>,
+  DefaultItem: React.FC<CustomItemProps>,
   handleRetry: CustomEventHandler<React.MouseEvent<HTMLElement>>,
 }
 
-export interface ErrorComponentProps extends FileDropProps {
-  theme: GlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.fileDrop],
-  handleRetry: CustomEventHandler<React.MouseEvent<HTMLElement>>,
+export interface ErrorComponentProps extends SingleFileViewProps {
   errorMessage: string,
+}
+
+export interface DefaultComponentProps extends SingleFileViewProps {
+  combinedButtonClassNames: string | undefined,
 }

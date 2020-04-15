@@ -14,8 +14,17 @@ export const ControlledFileDrop = () => {
     setLoaded(loaded + 5);
   }, isLoading ? 100 : null);
 
-  const fiascoBratan = () => {
-    return <L.Div _txtCenter><L.P>Это фиаско, братан :(</L.P><L.Button>Попробовать снова</L.Button></L.Div>;
+  const customErrorRenderItem = ({ Element, elementProps, componentProps }: any) => {
+    const { error, handleRetry } = componentProps;
+    console.log(componentProps)
+    return (
+      <Element {...elementProps}>
+        <L.Ul>
+          <L.Li>Не удалось загрузить файл{error.errorMessage ? `. ${error.errorMessage}` : null}</L.Li>
+          <L.Li><L.Button onClick={handleRetry} _warning>Заменить файл</L.Button></L.Li>
+        </L.Ul>
+      </Element>
+    );
   };
 
   return (
@@ -32,12 +41,7 @@ export const ControlledFileDrop = () => {
         loadingProgress={loaded}
         error={error}
         maxFileNameLength={250}
-        customErrorLayout={fiascoBratan}
-        // infoRender={({ Element, elementProps}) => (
-        //   <Element {...elementProps}>
-        //     Загрузите чтото-там <L.Button>тык</L.Button>
-        //   </Element>
-        // )}
+        customErrorRender={customErrorRenderItem}
         onChange={(ev) => {
           console.log('droped', ev.component);
           setFile(ev.component.value);
