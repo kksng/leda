@@ -64,7 +64,11 @@ export interface BlurEvent extends React.FocusEvent<HTMLInputElement> {
 export type SelectionType = [number, number];
 
 export interface MaskedInputBaseProps {
+  className?: string,
+  isDisabled?: boolean,
   mask: string,
+  maxLength?: number,
+  name?: string,
   onBlur?: (event: BlurEvent) => void,
   onChange: (event: ChangeEvent) => void,
   onFocus?: (event: FocusEvent) => void,
@@ -73,12 +77,8 @@ export interface MaskedInputBaseProps {
   onMouseDown?: (event: MouseEvent) => void,
   placeholder?: string,
   placeholderChar?: string,
-  maxLength?: number,
-  value: string,
   ref?: React.Ref<HTMLInputElement | null>,
-  isDisabled?: boolean,
-  name?: string,
-  className?: string,
+  value: string,
 }
 
 export interface ChangeData {
