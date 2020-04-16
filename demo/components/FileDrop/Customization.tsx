@@ -5,7 +5,7 @@ import { FileDropError } from '../../../leda/components/FileDrop/types';
 import { DescriptionMessage } from '../../../leda/components/FileDrop/helpers';
 import * as messages from '../../../leda/messages';
 
-export const ControlledFileDrop = (props: { title: string }) => {
+export const Customization = (props: { title: string }) => {
   const [file, setFile] = React.useState<File | null>(null);
   const [error, setError] = React.useState<FileDropError>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -30,6 +30,48 @@ export const ControlledFileDrop = (props: { title: string }) => {
         loadingProgress={loaded}
         error={error}
         maxFileNameLength={250}
+        successRender={({ Element, elementProps }) => {
+          return (
+            <>
+              <Element {...elementProps} />
+              <L.Div _txt-success>Успех!</L.Div>
+            </>
+          )
+        }}
+        defaultRender={
+          ({ Element, elementProps, componentProps }) => {
+            const { minFileSize, maxFileSize, allowedFiles, forbiddenFiles } = componentProps;
+            console.log(componentProps);
+            return (
+              <Element {...elementProps}>
+                <L.Span>
+                  Перетащите сюда файл для загрузки
+                </L.Span>
+                <L.Span>
+                  или
+                  {' '}
+                  <L.Button>
+                    выберите файл
+                  </L.Button>
+                  {' '}
+                  на вашем компьютере
+                </L.Span>
+                {' '}
+                <DescriptionMessage>
+                  {messages.getFileSizeDescription(minFileSize, maxFileSize, 'byte')}
+                </DescriptionMessage>
+                {' '}
+                <DescriptionMessage>
+                  {messages.getFormatsDescription(allowedFiles)}
+                </DescriptionMessage>
+                {' '}
+                <DescriptionMessage>
+                  {messages.getForbiddenFormatsDescription(forbiddenFiles)}
+                </DescriptionMessage>
+              </Element>
+            );
+          }
+        }
         onChange={(ev) => {
           console.log('droped', ev.component);
           setFile(ev.component.value);
