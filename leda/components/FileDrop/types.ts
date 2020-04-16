@@ -45,12 +45,10 @@ export interface FileDropProps extends ValidationProps {
   allowedFiles?: string,
   /** Классы, применяемые к компоненту */
   className?: string,
-  /** Кастомизация верстки стартовой панели */
-  defaultRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
   /** Ошибка загрузки файла */
   error: FileDropError,
   /** Кастомизация верстки ошибки */
-  errorRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
+  errorViewRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
   /** Запрещенные типы файлов. см. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#Attributes. Передача нескольких типов файлов происходит через запятую (.png, image/jpeg). allowedFiles и forbiddenFiles вместе не могут находиться. */
   forbiddenFiles?: string,
   /** Признак отключения дропзоны */
@@ -60,7 +58,7 @@ export interface FileDropProps extends ValidationProps {
   /** Прогресс загрузки, число от 1 до 100 */
   loadingProgress?: number,
   /** Кастомизация верстки состояния загрузки */
-  loadingRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
+  loadingViewRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
   /* Максимальная длина имени файла, по-умолчанию 255 символов */
   maxFileNameLength?: number,
   /** Максимальный размер файла, в байтах */
@@ -73,8 +71,10 @@ export interface FileDropProps extends ValidationProps {
   onClick?: (event: React.MouseEvent) => void,
   /** Реф */
   ref?: React.Ref<FileDropRefCurrent>,
+  /** Кастомизация верстки стартовой панели */
+  startViewRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
   /** Кастомизация верстки удачной загрузки */
-  successRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
+  successViewRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
   /** Тема для компонента */
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.fileDrop],
   /** Текст кнопки загрузки файла, может принимать JSX */

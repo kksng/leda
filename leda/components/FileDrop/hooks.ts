@@ -4,17 +4,16 @@ import {
 } from './types';
 import { useElement, useProps } from '../../utils';
 import { Div } from '../Div';
-import { Span } from '../Span';
 import { Button } from '../Button';
 import { LedaContext } from '../LedaProvider';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 
 export const useCustomElements = (props: FileDropProps): CustomElements => {
   const {
-    errorRender,
-    loadingRender,
-    successRender,
-    defaultRender,
+    errorViewRender,
+    loadingViewRender,
+    startViewRender,
+    successViewRender,
     uploadButtonRender,
     wrapperRender,
   } = props;
@@ -31,28 +30,28 @@ export const useCustomElements = (props: FileDropProps): CustomElements => {
   const ErrorItem = useElement(
     'ErrorItem',
     Div,
-    errorRender || context.renders[COMPONENTS_NAMESPACES.dropZone].errorItemRender,
+    errorViewRender || context.renders[COMPONENTS_NAMESPACES.dropZone].errorViewRender,
     props,
   );
 
   const LoadingItem = useElement(
     'LoadingItem',
     Div,
-    loadingRender || context.renders[COMPONENTS_NAMESPACES.dropZone].loadingItemRender,
+    loadingViewRender || context.renders[COMPONENTS_NAMESPACES.dropZone].loadingViewRender,
     props,
   );
 
   const SuccessItem = useElement(
     'SuccessItem',
     Div,
-    successRender || context.renders[COMPONENTS_NAMESPACES.dropZone].successItemRender,
+    successViewRender || context.renders[COMPONENTS_NAMESPACES.dropZone].successViewRender,
     props,
   );
 
   const DefaultItem = useElement(
     'DefaultItem',
     Div,
-    defaultRender || context.renders[COMPONENTS_NAMESPACES.dropZone].defaultItemRender,
+    startViewRender || context.renders[COMPONENTS_NAMESPACES.dropZone].startViewRender,
     props,
   );
 
@@ -64,12 +63,12 @@ export const useCustomElements = (props: FileDropProps): CustomElements => {
   );
 
   return {
-    UploadButton,
-    Wrapper,
+    DefaultItem,
     ErrorItem,
     LoadingItem,
     SuccessItem,
-    DefaultItem,
+    UploadButton,
+    Wrapper,
   };
 };
 
@@ -80,11 +79,8 @@ export const useFileDropRestProps = (props: FileDropProps): {} => {
     allowedFiles,
     className,
     dropZoneFilesNode,
+    errorViewRender,
     forbiddenFiles,
-    errorRender,
-    loadingRender,
-    successRender,
-    defaultRender,
     invalidMessage,
     invalidMessageRender,
     isDisabled,
@@ -93,6 +89,7 @@ export const useFileDropRestProps = (props: FileDropProps): {} => {
     isValid,
     loadingData,
     loadingProgress,
+    loadingViewRender,
     maxFileNameLength,
     maxFileSize,
     maxFilesNumber,
@@ -103,6 +100,8 @@ export const useFileDropRestProps = (props: FileDropProps): {} => {
     rejectedFilesRender,
     requiredMessage,
     shouldValidateUnmounted,
+    startViewRender,
+    successViewRender,
     theme,
     uploadButtonRender,
     validator,
