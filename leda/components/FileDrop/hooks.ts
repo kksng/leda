@@ -11,8 +11,8 @@ import { COMPONENTS_NAMESPACES } from '../../constants';
 export const useCustomElements = (props: FileDropProps): CustomElements => {
   const {
     errorViewRender,
+    infoRender,
     loadingViewRender,
-    startViewRender,
     successViewRender,
     uploadButtonRender,
     wrapperRender,
@@ -51,7 +51,7 @@ export const useCustomElements = (props: FileDropProps): CustomElements => {
   const DefaultItem = useElement(
     'DefaultItem',
     Div,
-    startViewRender || context.renders[COMPONENTS_NAMESPACES.dropZone].startViewRender,
+    infoRender || context.renders[COMPONENTS_NAMESPACES.dropZone].infoRender,
     props,
   );
 
@@ -100,7 +100,7 @@ export const useFileDropRestProps = (props: FileDropProps): {} => {
     rejectedFilesRender,
     requiredMessage,
     shouldValidateUnmounted,
-    startViewRender,
+    infoRender,
     successViewRender,
     theme,
     uploadButtonRender,

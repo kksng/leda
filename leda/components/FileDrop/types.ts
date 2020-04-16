@@ -72,7 +72,7 @@ export interface FileDropProps extends ValidationProps {
   /** Реф */
   ref?: React.Ref<FileDropRefCurrent>,
   /** Кастомизация верстки стартовой панели */
-  startViewRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
+  infoRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
   /** Кастомизация верстки удачной загрузки */
   successViewRender?: CustomRender<LayoutRenderProps, {}, CustomItemProps>,
   /** Тема для компонента */

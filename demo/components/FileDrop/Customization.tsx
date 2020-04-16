@@ -38,7 +38,7 @@ export const Customization = (props: { title: string }) => {
             </>
           )
         }}
-        startViewRender={
+        infoRender={
           ({ Element, elementProps, componentProps }) => {
             const { minFileSize, maxFileSize, allowedFiles, forbiddenFiles } = componentProps;
             console.log(componentProps);
