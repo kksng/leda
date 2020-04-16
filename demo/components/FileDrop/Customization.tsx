@@ -30,7 +30,7 @@ export const Customization = (props: { title: string }) => {
         loadingProgress={loaded}
         error={error}
         maxFileNameLength={250}
-        successRender={({ Element, elementProps }) => {
+        successViewRender={({ Element, elementProps }) => {
           return (
             <>
               <Element {...elementProps} />
@@ -38,7 +38,7 @@ export const Customization = (props: { title: string }) => {
             </>
           )
         }}
-        defaultRender={
+        startViewRender={
           ({ Element, elementProps, componentProps }) => {
             const { minFileSize, maxFileSize, allowedFiles, forbiddenFiles } = componentProps;
             console.log(componentProps);
