@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react';
 import * as L from '../../../leda';
+import { StoryProps } from '../../types';
 
 const Label = ({ children }) => (
   <L.Span
@@ -11,7 +12,7 @@ const Label = ({ children }) => (
   </L.Span>
 );
 
-export const RequiredSubmit = () => {
+export const RequiredSubmit = (props: StoryProps) => {
   const [textValue, setTextValue] = React.useState<string>('');
   const [numberValue, setNumberValue] = React.useState<number | null>(null);
 

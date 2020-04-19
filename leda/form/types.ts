@@ -6,20 +6,20 @@ export {
   Form, Field,
 };
 
-export interface UnifiedValidator {
+export interface FunctionalValidator {
   (value: any): boolean,
 }
 
-export type Validator = UnifiedValidator | PredefinedValidator | RegExp;
+export type Validator = FunctionalValidator | PredefinedValidator | RegExp;
 
 export type InvalidMessage = string;
 
-export interface UnifiedValidatorWrapper {
-  validate: UnifiedValidator,
+export interface SingleFunctionValidator {
+  validate: FunctionalValidator,
   invalidMessage?: InvalidMessage,
 }
 
-export interface ValidatorWrapper {
+export interface ExternalValidator {
   validator: Validator | Validator[],
   invalidMessage?: string,
 }
@@ -27,7 +27,7 @@ export interface ValidatorWrapper {
 export interface FormFieldHelpers {
   get: () => Field | undefined,
   reset: () => boolean,
-  validate: (warpedValidator?: ValidatorWrapper | ValidatorWrapper[]) => Field | undefined,
+  validate: (warpedValidator?: ExternalValidator | ExternalValidator[]) => Field | undefined,
 }
 
 export interface FormFieldsHelpers {

@@ -2,9 +2,12 @@ import {
   isArray, isFunction, isRegExp, isString,
 } from 'lodash';
 import { PREDEFINED_VALIDATORS } from '../components/Validation/predefinedValidators';
-import * as Types from './types';
+import {
+  ExternalValidator, Field, Form, SingleFunctionValidator,
+} from './types';
 
 // todo: types for value
+// todo: check is working for all components
 export const checkIsFilled = (value: any): boolean => {
   if (value == null) {
     return false;
@@ -22,29 +25,29 @@ export const checkIsFilled = (value: any): boolean => {
   return true;
 };
 
-export const getForm = (name: string): Types.Form | undefined => {
+export const getForm = (name: string): Form | undefined => {
   // @ts-ignore
-  const forms: Types.Form[] = window[Symbol.for('leda/validation-forms')] || [];
+  const forms: Form[] = window[Symbol.for('leda/validation-forms')] || [];
   return forms.find(({
     name: formName,
   }) => name === formName);
 };
 
-const getFormFields = (formName: string): Types.Field[] => getForm(formName)?.fields ?? [];
+const getFormFields = (formName: string): Field[] => getForm(formName)?.fields ?? [];
 
 export const pickField = (
-  fields: Types.Field[], fieldName: string,
-): Types.Field | undefined => fields.find((formField: Types.Field) => fieldName === formField.name);
+  fields: Field[], fieldName: string,
+): Field | undefined => fields.find((formField: Field) => fieldName === formField.name);
 
-export const getField = (formName: string, fieldName: string): Types.Field | undefined => {
+export const getField = (formName: string, fieldName: string): Field | undefined => {
   const fields = getFormFields(formName);
   return pickField(fields, fieldName);
 };
 
-export const getFields = (formName: string, fieldNames?: string[]): Types.Field[] => {
+export const getFields = (formName: string, fieldNames?: string[]): Field[] => {
   const fields = getFormFields(formName);
   if (fieldNames) {
-    return fieldNames.reduce<Types.Field[]>((accumulator, fieldName: string) => {
+    return fieldNames.reduce<Field[]>((accumulator, fieldName: string) => {
       const field = pickField(fields, fieldName);
       if (field) {
         accumulator.push(field);
@@ -55,33 +58,33 @@ export const getFields = (formName: string, fieldNames?: string[]): Types.Field[
   return fields;
 };
 
-export const unifyValidatorWrapper = (validatorWrapper: Types.ValidatorWrapper): Types.UnifiedValidatorWrapper => {
+export const externalToSingleFunctionValidator = (externalValidator: ExternalValidator): SingleFunctionValidator => {
   const {
     validator,
-  } = validatorWrapper;
-  const unifiedValidatorWrapper: Types.UnifiedValidatorWrapper = {
+  } = externalValidator;
+  const singleFunctionValidator: SingleFunctionValidator = {
     validate: () => true,
   };
   if (Array.isArray(validator)) {
-    unifiedValidatorWrapper.validate = (value) => validator.every((element) => {
-      const validate = unifyValidatorWrapper({
+    singleFunctionValidator.validate = (value) => validator.every((element) => {
+      const validate = externalToSingleFunctionValidator({
         validator: element,
       });
       return validate.validate(value);
     });
   } else if (isFunction(validator)) {
-    unifiedValidatorWrapper.validate = validator;
+    singleFunctionValidator.validate = validator;
   } else if (isRegExp(validator)) {
-    unifiedValidatorWrapper.validate = (value: string) => value.match(validator) != null;
+    singleFunctionValidator.validate = (value: string) => value.match(validator) != null;
   } else if (isString(validator)) {
     const predefinedValidator = PREDEFINED_VALIDATORS[validator];
-    unifiedValidatorWrapper.validate = predefinedValidator.validator;
-    if (validatorWrapper.invalidMessage == null && predefinedValidator.invalidMessage) {
-      unifiedValidatorWrapper.invalidMessage = predefinedValidator.invalidMessage;
+    singleFunctionValidator.validate = predefinedValidator.validator;
+    if (externalValidator.invalidMessage == null && predefinedValidator.invalidMessage) {
+      singleFunctionValidator.invalidMessage = predefinedValidator.invalidMessage;
     }
   }
-  if (unifiedValidatorWrapper.invalidMessage == null && validatorWrapper.invalidMessage) {
-    unifiedValidatorWrapper.invalidMessage = validatorWrapper.invalidMessage;
+  if (singleFunctionValidator.invalidMessage == null && externalValidator.invalidMessage) {
+    singleFunctionValidator.invalidMessage = externalValidator.invalidMessage;
   }
-  return unifiedValidatorWrapper;
+  return singleFunctionValidator;
 };

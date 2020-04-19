@@ -1,46 +1,42 @@
 import { isString } from 'lodash';
 import * as helpers from './helpers';
-import * as Types from './types';
+import {
+  ExternalValidator, Field, FormFieldHelpers, FormFieldsHelpers,
+} from './types';
+import { validate } from '../components/Validation';
 
-const validate = (
-  field: Types.Field, validatorWrappers?: Types.ValidatorWrapper[] | Types.ValidatorWrapper,
-): Types.Field => {
+const validateFieldUsingExternalValidator = (
+  field: Field, externalValidators: ExternalValidator[] | ExternalValidator,
+): Field => {
   const invalidMessages: string[] = [];
-  const unifiedValidatorWrappers = ((): Types.ValidatorWrapper[] => {
-    if (field.isRequired) {
-      return [{
-        validator: helpers.checkIsFilled,
-        invalidMessage: field.requiredMessage,
-      }];
-    }
-    if (field.value == null || field.value.length === 0) {
-      return [];
-    }
-    if (validatorWrappers == null) {
-      return field.validators;
-    }
-    if (!Array.isArray(validatorWrappers)) {
-      return [validatorWrappers];
-    }
-    return validatorWrappers;
-  })().map(helpers.unifyValidatorWrapper);
-  unifiedValidatorWrappers.forEach((unifiedValidatorWrapper) => {
-    if (!unifiedValidatorWrapper.validate(field.value)) {
+
+  const externalValidatorsArray = Array.isArray(externalValidators) ? externalValidators : [externalValidators];
+
+  const singleFunctionValidators = externalValidatorsArray.map(helpers.externalToSingleFunctionValidator);
+
+  singleFunctionValidators.forEach((validator) => {
+    if (!validator.validate(field.value)) {
       field.isValid = false;
-      if (unifiedValidatorWrapper.invalidMessage) {
-        invalidMessages.push(unifiedValidatorWrapper.invalidMessage);
+      if (validator.invalidMessage) {
+        invalidMessages.push(validator.invalidMessage);
       }
+    } else {
+      field.isValid = true;
     }
   });
+
   if (!field.isValid) {
     field.invalidMessages = invalidMessages;
   }
+
   field.setIsValid(field.isValid);
   field.setMessages(field.invalidMessages);
+
   return field;
 };
 
-const getFormFieldHelpers = (formName: string, fieldName: string): Types.FormFieldHelpers => {
+
+const getFormFieldHelpers = (formName: string, fieldName: string): FormFieldHelpers => {
   const getField = () => helpers.getField(formName, fieldName);
   return {
     get: getField,
@@ -55,17 +51,24 @@ const getFormFieldHelpers = (formName: string, fieldName: string): Types.FormFie
       }
       return true;
     },
-    validate: (wrappedValidator) => {
+    validate: (externalValidators) => {
       const field = getField();
       if (field == null) {
         return undefined;
       }
-      return validate(field, wrappedValidator);
+
+      if (externalValidators) {
+        return validateFieldUsingExternalValidator(field, externalValidators);
+      }
+
+      validate(formName, fieldName);
+
+      return getField();
     },
   };
 };
 
-const getFormFieldsHelpers = (formName: string, fieldNames?: string[]): Types.FormFieldsHelpers => {
+const getFormFieldsHelpers = (formName: string, fieldNames?: string[]): FormFieldsHelpers => {
   const getFields = () => helpers.getFields(formName, fieldNames);
   return {
     get: getFields,
@@ -83,20 +86,29 @@ const getFormFieldsHelpers = (formName: string, fieldNames?: string[]): Types.Fo
       return true;
     },
     validate: () => {
+      // validation of the whole form with an external validator is not provided by design
+      if (fieldNames) {
+        fieldNames?.forEach((field) => {
+          validate(formName, field);
+        });
+      } else {
+        validate(formName);
+      }
+
       const fields = getFields();
-      return fields.map((field: Types.Field) => validate(field));
+      return fields;
     },
   };
 };
 
 const form: {
-  (name: string, field: string): Types.FormFieldHelpers,
-  (name: string, fields?: string[]): Types.FormFieldsHelpers,
-} = (formName: string, fieldPick?: string | string[]): any => {
-  if (isString(fieldPick)) {
-    return getFormFieldHelpers(formName, fieldPick);
+  (name: string, field: string): FormFieldHelpers,
+  (name: string, fields?: string[]): FormFieldsHelpers,
+} = (formName: string, fieldNames?: string | string[]): any => {
+  if (isString(fieldNames)) {
+    return getFormFieldHelpers(formName, fieldNames);
   }
-  return getFormFieldsHelpers(formName, fieldPick);
+  return getFormFieldsHelpers(formName, fieldNames);
 };
 
 export {

@@ -3,6 +3,7 @@
 
 import * as React from 'react';
 import * as L from '../../../leda';
+import { StoryProps } from '../../types';
 
 const Label = (props: {
   children: string,
@@ -16,7 +17,7 @@ const Label = (props: {
   </L.Span>
 );
 
-export const FormUncontrolled = () => {
+export const FormUncontrolled = (props: StoryProps) => {
   const formName = 'form-name';
   const handleChange = (event: {
     component: {},

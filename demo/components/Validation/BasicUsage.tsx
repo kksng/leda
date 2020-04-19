@@ -1,27 +1,10 @@
 /* eslint-disable react/prop-types, no-console */
 import * as React from 'react';
 import * as L from '../../../leda';
-
-const exampleCode = `
-export const BasicUsage = () => {
-  const [value, setValue] = React.useState('');
-
-  return (
-    <L.Div _box _inner>
-      <L.Input
-        form="personal-data"
-        name="name"
-        isRequired
-        onChange={(ev: React.ChangeEvent<HTMLInputElement>): void => setValue(ev.component.value)}
-        value={value}
-      />
-    </L.Div>
-  );
-};
-`;
+import { StoryProps } from '../../types';
 
 
-export const BasicUsage = (props: { title: string }) => {
+export const BasicUsage = (props: StoryProps) => {
   const [value, setValue] = React.useState('');
 
   return (

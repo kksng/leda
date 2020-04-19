@@ -17,6 +17,7 @@ import { RequiredSubmit } from './RequiredSubmit';
 import { FormControlled } from './FormControlled';
 import { FormUncontrolled } from './FormUncontrolled';
 import { MixedValidation } from './MixedValidation';
+import { Refactoring } from './Refactoring';
 
 export const Validation = () => (
   <>
@@ -36,6 +37,7 @@ export const Validation = () => (
       <ValidationMessageRender title="custom validation message" />
     </Story>
     <Story title="Валидация - упоротые кейсы">
+      <Refactoring title="Refactoring" />
       <IsValid title="outer isValid" />
       <ShouldValidateUnmounted title="validate unmounted" />
       <TriggerValidation title="trigger validation" />

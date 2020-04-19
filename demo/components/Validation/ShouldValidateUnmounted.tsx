@@ -2,73 +2,10 @@
 import * as React from 'react';
 import * as L from '../../../leda';
 import { Form } from '../../../leda/components/Validation/types';
+import { StoryProps } from '../../types';
 
-const exampleCode = `
-export const BlockElements = () => (
-  <L.Div>
-    <L.Tabs
-      activeTabKey={selected}
-      onSelect={ev => setSelected(ev.component.value)}
-    >
-      <L.Tab title="Tab 1" tabKey={0}>
-        <L.Div _inner>
-          <L.Div _inner>
-            <L.Input
-              value={value1}
-              onChange={ev => setValue1(ev.component.value)}
-              validator="email"
-              form="unmountedForm"
-              name="Input1"
-              isRequired
-              placeholder="unmounted 1"
-              shouldValidateUnmounted
-            />
-          </L.Div>
-        </L.Div>
-      </L.Tab>
-      <L.Tab title="Tab 2" tabKey={1}>
-        <L.Div _inner>
-          <L.Div _inner>
-            <L.Input
-              value={value2}
-              onChange={ev => setValue2(ev.component.value)}
-              validator="email"
-              form="unmountedForm"
-              name="Input2"
-              isRequired
-              placeholder="unmounted 2"
-              shouldValidateUnmounted
-            />
-          </L.Div>
-        </L.Div>
-      </L.Tab>
-    </L.Tabs>
-  
-    <L.Div>
-      <L.Div _inner>
-        <L.Button
-          form="unmountedForm"
-          onClick={() => {
-            setInvalidFormData(null);
-          }}
-          onValidationFail={ev => {
-            setInvalidFormData(ev.invalidForms);
-          }}
-          _warning
-        >
-          Validate unmounted components
-        </L.Button>
-      </L.Div>
-    </L.Div>
-  
-    <L.Div _inner _txtSuccess={isValid} _txtDanger={!isValid}>
-      {invalidFormInfo}
-    </L.Div>
-  </L.Div>
-);
-`;
 
-export const ShouldValidateUnmounted = () => {
+export const ShouldValidateUnmounted = (props: StoryProps) => {
   const [selected, setSelected] = React.useState(0);
   const [invalidFormInfo, setInvalidFormInfo] = React.useState('');
   const [isValid, setIsValid] = React.useState(false);

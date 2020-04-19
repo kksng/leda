@@ -2,34 +2,10 @@
 import * as React from 'react';
 import * as L from '../../../leda';
 import { validate } from '../../../leda/components/Validation';
+import { StoryProps } from '../../types';
 
-const exampleCode = `
-export const BlockElements = () => (
-  <L.Div>
-    <L.Div _inner>
-      <L.Input
-        invalidMessage="Wrong email format"
-        form="triggerValidation"
-        name="Input1"
-        isRequired
-        validator="email"
-        placeholder="trigger email validation"
-        ref={inputEl}
-      />
-    </L.Div>
-    <L.Div _inner>
-      <L.Button
-        onClick={() => inputEl.current && inputEl.current.triggerValidation && inputEl.current.triggerValidation()}
-        _warning
-      >
-        trigger validation
-      </L.Button>
-    </L.Div>
-  </L.Div>
-);
-`;
 
-export const TriggerValidation = () => (
+export const TriggerValidation = (props: StoryProps) => (
   <L.Div _box _inner>
     <L.Div>
       <L.Div _inner>

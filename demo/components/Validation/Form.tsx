@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react';
 import * as L from '../../../leda';
+import { StoryProps } from '../../types';
 
-export const Form = () => (
+export const Form = (props: StoryProps) => (
   <L.Div _box _inner>
     <L.Div>
       <L.Div _inner>

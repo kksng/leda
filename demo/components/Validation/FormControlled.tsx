@@ -3,6 +3,7 @@
 
 import * as React from 'react';
 import * as L from '../../../leda';
+import { StoryProps } from '../../types';
 
 const Label = (props: {
   children: string,
@@ -16,7 +17,7 @@ const Label = (props: {
   </L.Span>
 );
 
-export const FormControlled = () => {
+export const FormControlled = (props: StoryProps) => {
   const formName = 'form-name';
   const [valueOfAutoComplete, setValueOfAutoComplete] = React.useState<string | null>(null);
   const [valueOfButtonGroup, setValueOfButtonGroup] = React.useState<L.ButtonGroupTypes.Value | undefined>(null);
