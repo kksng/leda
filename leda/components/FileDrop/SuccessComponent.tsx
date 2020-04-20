@@ -1,15 +1,17 @@
 import * as React from 'react';
-import { SingleFileViewProps } from './types';
+import { SuccessComponentProps } from './types';
 import { Span } from '../Span';
 import { Button } from '../Button';
 
 
-export const SuccessComponent = (props: SingleFileViewProps) => {
+export const SuccessComponent = (props: SuccessComponentProps) => {
   const {
     theme,
     downloadLink,
     handleRetry,
     SuccessItem,
+    combinedButtonClassNames,
+    isDisabled,
   } = props;
 
   return (
@@ -22,7 +24,11 @@ export const SuccessComponent = (props: SingleFileViewProps) => {
         {' '}
         успешно загружен
       </Span>
-      <Button className={theme.retryButton} onClick={handleRetry}>
+      <Button
+        className={combinedButtonClassNames}
+        onClick={handleRetry}
+        isDisabled={isDisabled}
+      >
         <Span className={theme.retryIcon} />
         {' '}
         Заменить файл

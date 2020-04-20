@@ -5,7 +5,7 @@ import { ErrorComponentProps } from './types';
 
 export const ErrorComponent = (props: ErrorComponentProps) => {
   const {
-    theme, handleRetry, errorMessage, ErrorItem,
+    theme, handleRetry, errorMessage, ErrorItem, isDisabled, combinedButtonClassNames,
   } = props;
 
   return (
@@ -15,7 +15,11 @@ export const ErrorComponent = (props: ErrorComponentProps) => {
         Не удалось загрузить файл
         {errorMessage ? `. ${errorMessage}` : null}
       </Span>
-      <Button className={theme.retryButton} onClick={handleRetry}>
+      <Button
+        className={combinedButtonClassNames}
+        onClick={handleRetry}
+        isDisabled={isDisabled}
+      >
         <Span className={theme.retryIcon} />
         {' '}
         Заменить файл

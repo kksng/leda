@@ -11,6 +11,7 @@ export const ControlledFileDrop = (props: { title: string }) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [shouldError, setShouldError] = React.useState<boolean>(false);
   const [loaded, setLoaded] = React.useState<number>(0);
+  const [isDisabledUploading, setIsDisabledUploading] = React.useState<boolean>(false);
 
   useInterval(() => {
     setLoaded(loaded + 5);
@@ -27,6 +28,7 @@ export const ControlledFileDrop = (props: { title: string }) => {
         requiredMessage="Файл обязателен, сэр"
         maxFileSize={1000000}
         isLoading={isLoading}
+        isDisabled={isDisabledUploading}
         loadingProgress={loaded}
         error={error}
         maxFileNameLength={250}
@@ -50,6 +52,8 @@ export const ControlledFileDrop = (props: { title: string }) => {
       <br />
       <br />
       <L.Switcher value={shouldError} onChange={() => setShouldError(!shouldError)}>should fail</L.Switcher>
+      <br />
+      <L.Switcher value={isDisabledUploading} onChange={() => setIsDisabledUploading(!isDisabledUploading)}>no more uploads</L.Switcher>
       <br />
       <br />
       <L.Button

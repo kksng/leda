@@ -46,7 +46,11 @@ export const SingleFileView = (props: SingleFileViewProps): React.ReactElement |
     const downloadLink = file.link || createDownloadLink(blob, file.name, theme);
 
     return (
-      <SuccessComponent {...props} downloadLink={downloadLink} />
+      <SuccessComponent
+        {...props}
+        downloadLink={downloadLink}
+        combinedButtonClassNames={combinedButtonClassNames}
+      />
     );
   }
 
@@ -58,6 +62,7 @@ export const SingleFileView = (props: SingleFileViewProps): React.ReactElement |
       <ErrorComponent
         {...props}
         errorMessage={errorMessage}
+        combinedButtonClassNames={combinedButtonClassNames}
       />
     );
   }

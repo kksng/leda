@@ -151,8 +151,13 @@ export interface SingleFileViewProps extends FileDropProps {
 
 export interface ErrorComponentProps extends SingleFileViewProps {
   errorMessage: string,
+  combinedButtonClassNames: string | undefined,
 }
 
 export interface DefaultComponentProps extends SingleFileViewProps {
+  combinedButtonClassNames: string | undefined,
+}
+
+export interface SuccessComponentProps extends SingleFileViewProps {
   combinedButtonClassNames: string | undefined,
 }
