@@ -12,16 +12,17 @@ export const BasicUsage = (args: any) => {
   return (
     <L.Div _demoStory>
       <L.NumericTextBox
-        format="#.##"
+        format="#.####"
         name="numer"
         data-test="numerictextbox"
         max={20000000000000}
         min={-100000000000}
         step={1}
+        // shouldTrimTrailingZeros
         invalidMessage="Число не должно быть отрицательным!"
         requiredMessage="Обязательное поле!"
         onClick={ev => {
-          update('Click', ev);
+           //update('Click', ev);
           console.log('Click ev.target', ev.target);
         }}
         onChange={ev => {

@@ -131,6 +131,7 @@ export interface NumericTextBoxProps extends ValidationProps {
   wrapperRender?: CustomRender<NumericTextBoxProps, NumericTextBoxState, WrapperProps>,
   /** Классы переданные через _ */
   [x: string]: unknown,
+  shouldTrimTrailingZeros?: boolean,
 }
 
 export interface NumericTextBoxState {
@@ -153,6 +154,7 @@ export interface NumericHandlers {
   handleKeyDown: CustomEventHandler<React.KeyboardEvent<HTMLInputElement>>,
   handlePaste: CustomEventHandler<React.ClipboardEvent<HTMLInputElement>>,
   handleArrowButtonClick: (type: 'increase' | 'decrease') => CustomEventHandler<React.MouseEvent<HTMLElement>>,
+  shouldTrimTrailingZeros: boolean,
 }
 
 export interface WrapperProps extends React.HTMLAttributes<HTMLDivElement> {

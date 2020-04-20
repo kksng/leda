@@ -1,4 +1,3 @@
-import { isNil } from 'lodash';
 import { NumericTextBoxProps, WrapperProps, NormalizeParameters } from './types';
 import { DEFAULT_VALUES } from './constants';
 
@@ -44,7 +43,7 @@ export const getSeparator = (format: string): string | null => {
 
 // форматирует значение (значение при блюре)
 // "1200.05" -> "1 200.05 Руб."
-export const formatValue = (value?: number | null, format = '#', thousandSeparator = ' '): string => {
+export const formatValue = (value?: number | null, format = '#', thousandSeparator = ' ', shouldTrimTrailingZeros?: boolean): string => {
   if (value == null) return '';
 
   const isNegative = value < 0;
@@ -53,7 +52,7 @@ export const formatValue = (value?: number | null, format = '#', thousandSeparat
 
   const numberStartIndex = format.indexOf('#');
 
-  const precision = getNumberPrecision(format, numberStartIndex);
+  const precision = shouldTrimTrailingZeros ? 0 : getNumberPrecision(format, numberStartIndex);
 
   const separator = getSeparator(format) || '';
 
@@ -63,7 +62,7 @@ export const formatValue = (value?: number | null, format = '#', thousandSeparat
 
   return format
     .replace(/#/, `${isNegative ? '-' : ''}${addThousandSeparator(integerPart, thousandSeparator)}`)
-    .replace(/.#+/, precision === 0 ? '' : `${separator}${decimalPart.toString().padStart(precision, '0')}`);
+    .replace(/.#+/, `${precision === 0 ? '' : (separator + decimalPart.toString().padStart(precision, '0'))}`);
 };
 
 // выбирает какое значение отобразить (formatted или inputValue)
@@ -73,6 +72,7 @@ export const getValue = (
   format: string,
   isFocused: boolean,
   thousandsSeparator: string,
+  shouldTrimTrailingZeros?: boolean,
 ): string => {
   const separator = getSeparator(format);
 
@@ -92,7 +92,7 @@ export const getValue = (
     return inputValue;
   }
 
-  return formatValue(value, format, thousandsSeparator);
+  return formatValue(value, format, thousandsSeparator, shouldTrimTrailingZeros);
 };
 
 // извлекает из строки число

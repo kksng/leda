@@ -53,6 +53,7 @@ export const createBlurHandler = (
   min?: number,
   max?: number,
   name?: string,
+  shouldTrimTrailingZeros?: boolean,
 ): NumericHandlers['handleBlur'] => (event) => {
   const normalizeValueParams: NormalizeParameters = {
     value,
@@ -63,7 +64,7 @@ export const createBlurHandler = (
 
   const newValue = normalizeValue(normalizeValueParams);
 
-  const formattedValue = formatValue(newValue, format, thousandsSeparator);
+  const formattedValue = formatValue(newValue, format, thousandsSeparator, shouldTrimTrailingZeros);
 
   if (newValue !== value) {
     onChange?.({
