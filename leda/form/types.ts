@@ -26,12 +26,14 @@ export interface ExternalValidator {
 
 export interface FormFieldHelpers {
   get: () => Field | undefined,
+  remove: () => void,
   reset: () => boolean,
   validate: (warpedValidator?: ExternalValidator | ExternalValidator[]) => Field | undefined,
 }
 
 export interface FormFieldsHelpers {
   get: () => Field[],
+  remove: () => void,
   reset: () => boolean,
   validate: () => Field[],
 }

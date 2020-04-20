@@ -3,7 +3,8 @@ import * as helpers from './helpers';
 import {
   ExternalValidator, Field, FormFieldHelpers, FormFieldsHelpers,
 } from './types';
-import { validate } from '../components/Validation';
+import { removeField, validate } from '../components/Validation';
+import { removeForm } from '../components/Validation/helpers';
 
 const validateFieldUsingExternalValidator = (
   field: Field, externalValidators: ExternalValidator[] | ExternalValidator,
@@ -40,6 +41,9 @@ const getFormFieldHelpers = (formName: string, fieldName: string): FormFieldHelp
   const getField = () => helpers.getField(formName, fieldName);
   return {
     get: getField,
+    remove: () => {
+      removeField(formName, fieldName, { shouldRemoveUnmounted: true });
+    },
     reset: () => {
       const field = getField();
       try {
@@ -72,6 +76,16 @@ const getFormFieldsHelpers = (formName: string, fieldNames?: string[]): FormFiel
   const getFields = () => helpers.getFields(formName, fieldNames);
   return {
     get: getFields,
+    remove: () => {
+      if (fieldNames) {
+        fieldNames.forEach((fieldName) => {
+          removeField(formName, fieldName, { shouldRemoveUnmounted: true });
+        });
+        return;
+      }
+
+      removeForm(formName);
+    },
     reset: () => {
       const fields = getFields();
       try {

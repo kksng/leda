@@ -115,3 +115,7 @@ export interface UpdateFieldData {
 export interface ValidationExtra {
   reset: () => void,
 }
+
+export interface RemoveFieldOptions {
+  shouldRemoveUnmounted?: boolean,
+}

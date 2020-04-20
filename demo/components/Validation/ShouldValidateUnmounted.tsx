@@ -6,7 +6,7 @@ import { StoryProps } from '../../types';
 
 
 export const ShouldValidateUnmounted = (props: StoryProps) => {
-  const [selected, setSelected] = React.useState(0);
+  const [selected, setSelected] = React.useState<number | string>(0);
   const [invalidFormInfo, setInvalidFormInfo] = React.useState('');
   const [isValid, setIsValid] = React.useState(false);
   const [value1, setValue1] = React.useState('');
@@ -31,7 +31,7 @@ export const ShouldValidateUnmounted = (props: StoryProps) => {
       <L.Div>
         <L.Tabs
           activeTabKey={selected}
-          onSelect={ev => setSelected(ev.component.value)}
+          onChange={ev => setSelected(ev.component.value)}
         >
           <L.Tab title="Tab 1" tabKey={0}>
             <L.Div _inner>
@@ -39,10 +39,11 @@ export const ShouldValidateUnmounted = (props: StoryProps) => {
                 <L.Input
                   value={value1}
                   onChange={ev => setValue1(ev.component.value)}
-                  validator="email"
+                  validator="postalCode"
                   form="unmountedForm"
                   name="Input1"
                   isRequired
+                  requiredMessage={'kjhkjgfdff'}
                   placeholder="unmounted 1"
                   shouldValidateUnmounted
                 />
@@ -55,7 +56,7 @@ export const ShouldValidateUnmounted = (props: StoryProps) => {
                 <L.Input
                   value={value2}
                   onChange={ev => setValue2(ev.component.value)}
-                  validator="email"
+                  validator="postalCode"
                   form="unmountedForm"
                   name="Input2"
                   isRequired
@@ -82,6 +83,33 @@ export const ShouldValidateUnmounted = (props: StoryProps) => {
               _warning
             >
               Validate unmounted components
+            </L.Button>
+
+            <br />
+            <br />
+
+            <L.Button
+              onClick={() => {
+                L.form('unmountedForm', 'Input1').remove();
+              }}
+            >
+              L.form('unmountedForm', 'Input1').remove()
+            </L.Button>
+            {' '}
+            <L.Button
+              onClick={() => {
+                L.form('unmountedForm', ['Input1', 'Input2']).remove();
+              }}
+            >
+              L.form('unmountedForm', ['Input1', 'Input2']).remove()
+            </L.Button>
+            {' '}
+            <L.Button
+              onClick={() => {
+                L.form('unmountedForm').remove();
+              }}
+            >
+              L.form('unmountedForm').remove()
             </L.Button>
           </L.Div>
         </L.Div>
