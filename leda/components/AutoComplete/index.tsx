@@ -123,7 +123,12 @@ export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: Rea
     if (isBoolean(isOpen)) return isOpen;
 
     // do not show dropdown list until minimal input length is reached
-    if (minSearchLength && minSearchLength > 0 && safeTrim(value).length < minSearchLength) return false;
+    if (
+      minSearchLength && minSearchLength > 0 && value != null
+      && value.length < minSearchLength
+    ) {
+      return false;
+    }
 
     return isFocused;
   })();

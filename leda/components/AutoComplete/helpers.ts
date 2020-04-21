@@ -65,7 +65,12 @@ export const getSuggestions = ({
   if (trimmedValue === '') return [];
 
   // do not perform search until minimal input length is reached
-  if (minSearchLength && minSearchLength > 0 && trimmedValue.length < minSearchLength) return [];
+  if (
+    minSearchLength && minSearchLength > 0 && value != null
+    && value.length < minSearchLength
+  ) {
+    return [];
+  }
 
   if (shouldShowAllSuggestions) return data;
 
