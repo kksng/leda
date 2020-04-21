@@ -17,6 +17,8 @@ export interface TabsProps {
   onChange?: (event: ChangeEvent) => void,
   /** Reference */
   ref?: React.Ref<TabsRefCurrent>,
+  /** Скролл для табов */
+  shouldScrollTabs?: boolean,
   /** DOM-узел, в который будет помещено содержимое вкладки */
   tabContentNode?: HTMLElement | null,
   /** Кастомный tab */
