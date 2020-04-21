@@ -52,17 +52,24 @@ export const formatValue = (value?: number | null, format = '#', thousandSeparat
 
   const numberStartIndex = format.indexOf('#');
 
-  const precision = shouldTrimTrailingZeros ? 0 : getNumberPrecision(format, numberStartIndex);
+  const precision = getNumberPrecision(format, numberStartIndex);
 
   const separator = getSeparator(format) || '';
 
   const integerPart = Math.floor(number);
 
-  const decimalPart = Math.ceil(Math.floor((number % 1) * (10 ** (precision + 1))) / 10);
+  const decimalPart = () => {
+    const decimal = Math.ceil(Math.floor((number % 1) * (10 ** (precision + 1))) / 10);
+    const convertedDecimal = separator + decimal.toString().padStart(precision, '0');
+    if (shouldTrimTrailingZeros) {
+      return decimal === 0 ? '' : convertedDecimal;
+    }
+    return convertedDecimal;
+  };
 
   return format
     .replace(/#/, `${isNegative ? '-' : ''}${addThousandSeparator(integerPart, thousandSeparator)}`)
-    .replace(/.#+/, `${precision === 0 ? '' : (separator + decimalPart.toString().padStart(precision, '0'))}`);
+    .replace(/.#+/, `${precision === 0 ? '' : decimalPart()}`);
 };
 
 // выбирает какое значение отобразить (formatted или inputValue)
