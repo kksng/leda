@@ -285,6 +285,8 @@ export const updateField = ({
     if (!isNil(isValidProp)) return isValidProp;
     // если значение поменялось - снять невалидность
     if (value !== currentField.value) return true;
+    // если изменилась обязательность поля - снять невалидность
+    if (isRequired !== currentField.isRequired) return true;
     // ничего не делать
     return currentField.isValid;
   })();

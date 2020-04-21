@@ -18,11 +18,13 @@ import { FormControlled } from './FormControlled';
 import { FormUncontrolled } from './FormUncontrolled';
 import { MixedValidation } from './MixedValidation';
 import { Refactoring } from './Refactoring';
+import { IsRequired } from './IsRequired';
 
 export const Validation = () => (
   <>
     <Story title="Validation various">
       <BasicUsage title="Playground" />
+      <IsRequired title="isRequired changes" />
     </Story>
     <Story title="Валидация">
       <FormUncontrolled title="reset uncontrolled" />
