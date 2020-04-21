@@ -8,7 +8,7 @@ export const formatNumber = (CurrencySymbol: React.FC<CurrencySymbolProps>, numb
   if (!Intl && !Intl.NumberFormat) {
     return (
       <>
-      `${number.toFixed(precision || 2)}`
+        `${number.toFixed(precision || 2)}`
         <CurrencySymbol>₽</CurrencySymbol>
       </>
     );

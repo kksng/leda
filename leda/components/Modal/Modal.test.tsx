@@ -189,7 +189,7 @@ describe('Modal ATTRIBUTES', () => {
             <h1>Bread all over the Head</h1>
           </ModalHeader>
           <ModalBody>
-          Body
+            Body
           </ModalBody>
         </Modal>
       );
@@ -205,7 +205,7 @@ describe('Modal ATTRIBUTES', () => {
             <h1>Bread all over the Head</h1>
           </ModalHeader>
           <ModalBody>
-          Body
+            Body
           </ModalBody>
         </Modal>
       );
@@ -221,7 +221,7 @@ describe('Modal ATTRIBUTES', () => {
             <h1>Bread all over the Head</h1>
           </ModalHeader>
           <ModalBody>
-          Body
+            Body
           </ModalBody>
         </Modal>
       );

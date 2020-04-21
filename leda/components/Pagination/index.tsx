@@ -124,7 +124,7 @@ export const Pagination = React.forwardRef((props: PaginationProps, ref: React.R
         title="Предыдущие страницы"
         onClick={handlePageChange}
       >
-            ...
+        ...
       </PaginationControl>
       )}
       <PagesList
@@ -141,7 +141,7 @@ export const Pagination = React.forwardRef((props: PaginationProps, ref: React.R
         title="Следующие страницы"
         onClick={handlePageChange}
       >
-            ...
+        ...
       </PaginationControl>
       )}
       <PaginationControl
