@@ -38,11 +38,11 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
     onBlur,
     onChange,
     onClick,
+    shouldTrimTrailingZeros,
     step = 1,
     theme: themeProp,
     thousandsSeparator = ' ',
     value: valueProp,
-    shouldTrimTrailingZeros,
   } = useProps(props);
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.numericTextBox);
@@ -57,7 +57,7 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
 
   const [value, setUncontrolledValue] = useValue<number | null>(valueProp, normalizeValue(normalizeValueParams));
 
-  const [inputValue, setInputValue] = React.useState<string>(formatInputValue(formatValue(value, format, thousandsSeparator), format));
+  const [inputValue, setInputValue] = React.useState<string>(formatInputValue(formatValue({ value, format, thousandsSeparator }), format));
 
   const inputRef = React.useRef<HTMLInputElement | null>(null);
 
@@ -101,6 +101,11 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
 
   useSyncedValue(valueProp, isFocused, format, thousandsSeparator, setInputValue);
 
+  const getValueComponent = React.useMemo(
+    () => getValue(value, inputValue, format, isFocused, thousandsSeparator, shouldTrimTrailingZeros),
+    [handleBlur, handleChange, handleFocus, handlePaste, handleKeyDown],
+  );
+
   return (
     <Wrapper
       className={wrapperClassNames}
@@ -128,7 +133,7 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
           onKeyDown={handleKeyDown}
           onPaste={handlePaste}
           ref={inputRef}
-          value={getValue(value, inputValue, format, isFocused, thousandsSeparator, shouldTrimTrailingZeros)}
+          value={getValueComponent}
         />
         <ArrowButtons className={theme.arrowButtons} onClick={(event) => event.stopPropagation()}>
           <Span

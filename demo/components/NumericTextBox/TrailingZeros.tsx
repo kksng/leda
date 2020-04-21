@@ -4,8 +4,8 @@ import * as L from '../../../leda';
 import { StateButtonGroup } from '../StateButtonGroup';
 import { useEventSpy } from '../../useEventSpy';
 
-export const BasicUsage = (args: any) => {
-  const [props, setProps] = React.useState<{ isDisabled?: boolean }>({});
+export const TrailingZeros = (args: any) => {
+  const [props, setProps] = React.useState<{ shouldTrimTrailingZeros?: boolean }>({});
 
   const { update, EventInfo } = useEventSpy(['formattedValue']);
 
@@ -18,6 +18,7 @@ export const BasicUsage = (args: any) => {
         max={20000000000000}
         min={-100000000000}
         step={1}
+        shouldTrimTrailingZeros={false}
         invalidMessage="Число не должно быть отрицательным!"
         requiredMessage="Обязательное поле!"
         onChange={ev => {
@@ -45,11 +46,12 @@ export const BasicUsage = (args: any) => {
         {...props}
       />
       <br />
+        <L.Switcher onClick={() => { setProps({ ...props, shouldTrimTrailingZeros: !props.shouldTrimTrailingZeros }); }}>Удалить нули</L.Switcher>
       <br />
       <br />
       <L.Button onClick={() => { setProps({}); }}>Defaults</L.Button>
       {'  '}
-      <L.Button onClick={() => { setProps({ ...props, isDisabled: !props.isDisabled }); }} _warning={props.isDisabled}>Toggle isDisabled</L.Button>
+
       <br />
       <br />
       <StateButtonGroup

@@ -32,7 +32,18 @@ export const createNumericChangeHandler = ({
     component: {
       value: newValue,
       name,
-      formattedValue: [formatValue(newValue[0], format, thousandsSeparator), formatValue(newValue[1])] as [string, string],
+      formattedValue: [formatValue(
+        {
+          value: newValue[0],
+          format,
+          thousandsSeparator,
+        },
+      ),
+      formatValue({
+        value: newValue[1],
+        format,
+        thousandsSeparator,
+      })] as [string, string],
     },
   };
 

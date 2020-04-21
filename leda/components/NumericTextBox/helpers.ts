@@ -1,4 +1,9 @@
-import { NumericTextBoxProps, WrapperProps, NormalizeParameters } from './types';
+import {
+  NumericTextBoxProps,
+  WrapperProps,
+  NormalizeParameters,
+  formatValueType,
+} from './types';
 import { DEFAULT_VALUES } from './constants';
 
 export const getNumberPrecision = (format: string, numberStartIndex: number): number => {
@@ -11,7 +16,7 @@ export const getNumberPrecision = (format: string, numberStartIndex: number): nu
   return (decimalPart.match(/#/g) || []).length;
 };
 
-const addThousandSeparator = (number: number, separator: string): string => {
+const addThousandsSeparator = (number: number, separator: string): string => {
   const value = number.toString();
 
   if (value.length < 3) return value;
@@ -43,7 +48,12 @@ export const getSeparator = (format: string): string | null => {
 
 // форматирует значение (значение при блюре)
 // "1200.05" -> "1 200.05 Руб."
-export const formatValue = (value?: number | null, format = '#', thousandSeparator = ' ', shouldTrimTrailingZeros?: boolean): string => {
+export const formatValue = ({
+  value,
+  format = '#',
+  thousandsSeparator = ' ',
+  shouldTrimTrailingZeros,
+}: formatValueType): string => {
   if (value == null) return '';
 
   const isNegative = value < 0;
@@ -58,18 +68,18 @@ export const formatValue = (value?: number | null, format = '#', thousandSeparat
 
   const integerPart = Math.floor(number);
 
-  const decimalPart = () => {
+  const decimalPart = (() => {
     const decimal = Math.ceil(Math.floor((number % 1) * (10 ** (precision + 1))) / 10);
-    const convertedDecimal = separator + decimal.toString().padStart(precision, '0');
+    const formattedDecimalPart = separator + decimal.toString().padStart(precision, '0');
     if (shouldTrimTrailingZeros) {
-      return decimal === 0 ? '' : convertedDecimal;
+      return decimal === 0 ? '' : formattedDecimalPart.replace(/0*$/, '');
     }
-    return convertedDecimal;
-  };
+    return formattedDecimalPart;
+  })();
 
   return format
-    .replace(/#/, `${isNegative ? '-' : ''}${addThousandSeparator(integerPart, thousandSeparator)}`)
-    .replace(/.#+/, `${precision === 0 ? '' : decimalPart()}`);
+    .replace(/#/, `${isNegative ? '-' : ''}${addThousandsSeparator(integerPart, thousandsSeparator)}`)
+    .replace(/.#+/, precision === 0 ? '' : decimalPart);
 };
 
 // выбирает какое значение отобразить (formatted или inputValue)
@@ -99,7 +109,14 @@ export const getValue = (
     return inputValue;
   }
 
-  return formatValue(value, format, thousandsSeparator, shouldTrimTrailingZeros);
+  return formatValue(
+    {
+      value,
+      format,
+      thousandsSeparator,
+      shouldTrimTrailingZeros,
+    },
+  );
 };
 
 // извлекает из строки число

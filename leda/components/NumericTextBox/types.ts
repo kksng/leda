@@ -119,6 +119,8 @@ export interface NumericTextBoxProps extends ValidationProps {
   onFocus?: (event: FocusEvent) => void,
   /** Реф */
   ref?: React.Ref<NumericRefCurrent>,
+  /** Условие обрезки нулей в форматированной строке  */
+  shouldTrimTrailingZeros?: boolean,
   /** Шаговое значение */
   step?: number,
   /** Тема компонента */
@@ -131,7 +133,6 @@ export interface NumericTextBoxProps extends ValidationProps {
   wrapperRender?: CustomRender<NumericTextBoxProps, NumericTextBoxState, WrapperProps>,
   /** Классы переданные через _ */
   [x: string]: unknown,
-  shouldTrimTrailingZeros?: boolean,
 }
 
 export interface NumericTextBoxState {
@@ -154,6 +155,9 @@ export interface NumericHandlers {
   handleKeyDown: CustomEventHandler<React.KeyboardEvent<HTMLInputElement>>,
   handlePaste: CustomEventHandler<React.ClipboardEvent<HTMLInputElement>>,
   handleArrowButtonClick: (type: 'increase' | 'decrease') => CustomEventHandler<React.MouseEvent<HTMLElement>>,
+}
+
+export interface HandleBlur extends NumericHandlers {
   shouldTrimTrailingZeros: boolean,
 }
 
@@ -184,4 +188,11 @@ export type NormalizeParameters = {
   format?: string,
   sign?: number,
   step?: number,
+};
+
+export type formatValueType = {
+  value?: number | null,
+  format: string,
+  thousandsSeparator: string,
+  shouldTrimTrailingZeros?: boolean,
 };

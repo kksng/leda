@@ -49,7 +49,7 @@ export const useCustomElements = (props: NumericTextBoxProps, state: NumericText
 export const useSyncedValue = (value: NumericTextBoxProps['value'], isFocused: boolean, format: string, thousandsSeparator: string, setInputValue: SetState<string>): void => {
   React.useEffect((): void => {
     if (value !== undefined && !isFocused) {
-      const newValue = formatValue(value, format, thousandsSeparator);
+      const newValue = formatValue({ value, format, thousandsSeparator });
 
       const newInputValue = formatInputValue(newValue, format);
 
