@@ -87,7 +87,7 @@ export interface DropDownSelectProps<T extends Value = Value> extends Validation
   sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => number,
   textField?: T extends object ? string : never,
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.dropDownSelect],
-  value?: T,
+  value?: T | null,
   wrapperRender?: CustomRender<DropDownSelectProps<T>, DropDownSelectState, DivProps>,
   [x: string]: unknown,
 }
