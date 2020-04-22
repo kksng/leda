@@ -59,6 +59,7 @@ export const NumericRange = React.forwardRef((props: NumericRangeProps, ref?: Re
     onBlur,
     onFocus,
     isValid,
+    shouldTrimTrailingZeros,
     thousandsSeparator,
   };
 
@@ -107,7 +108,6 @@ export const NumericRange = React.forwardRef((props: NumericRangeProps, ref?: Re
         name={name[0]}
         onChange={handleChange('from')}
         placeholder={placeholder[0]}
-        shouldTrimTrailingZeros={shouldTrimTrailingZeros}
         theme={theme.to}
         value={value[0]}
         {...commonProps}
@@ -122,7 +122,6 @@ export const NumericRange = React.forwardRef((props: NumericRangeProps, ref?: Re
         name={name[1]}
         onChange={handleChange('to')}
         placeholder={placeholder[1]}
-        shouldTrimTrailingZeros={shouldTrimTrailingZeros}
         theme={theme.from}
         value={value[1]}
         {...commonProps}
