@@ -101,9 +101,9 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
 
   useSyncedValue(valueProp, isFocused, format, thousandsSeparator, setInputValue);
 
-  const getValueComponent = React.useMemo(
+  const getComponentValue = React.useMemo(
     () => getValue(value, inputValue, format, isFocused, thousandsSeparator, shouldTrimTrailingZeros),
-    [handleBlur, handleChange, handleFocus, handlePaste, handleKeyDown],
+    [value, inputValue, isFocused, shouldTrimTrailingZeros],
   );
 
   return (
@@ -133,7 +133,7 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
           onKeyDown={handleKeyDown}
           onPaste={handlePaste}
           ref={inputRef}
-          value={getValueComponent}
+          value={getComponentValue}
         />
         <ArrowButtons className={theme.arrowButtons} onClick={(event) => event.stopPropagation()}>
           <Span

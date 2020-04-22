@@ -2,7 +2,7 @@ import {
   NumericTextBoxProps,
   WrapperProps,
   NormalizeParameters,
-  formatValueType,
+  formatValueProps,
 } from './types';
 import { DEFAULT_VALUES } from './constants';
 
@@ -53,7 +53,7 @@ export const formatValue = ({
   format = '#',
   thousandsSeparator = ' ',
   shouldTrimTrailingZeros,
-}: formatValueType): string => {
+}: formatValueProps): string => {
   if (value == null) return '';
 
   const isNegative = value < 0;
@@ -69,10 +69,12 @@ export const formatValue = ({
   const integerPart = Math.floor(number);
 
   const decimalPart = (() => {
-    const decimal = Math.ceil(Math.floor((number % 1) * (10 ** (precision + 1))) / 10);
-    const formattedDecimalPart = separator + decimal.toString().padStart(precision, '0');
+    /* Округление и приведение к целочисленному значению дробной части числа */
+    const unformattedDecimalPart = Math.ceil(Math.floor((number % 1) * (10 ** (precision + 1))) / 10);
+    /* Форматирование дробной части числа в соответствии с маской */
+    const formattedDecimalPart = separator + unformattedDecimalPart.toString().padStart(precision, '0');
     if (shouldTrimTrailingZeros) {
-      return decimal === 0 ? '' : formattedDecimalPart.replace(/0*$/, '');
+      return unformattedDecimalPart === 0 ? '' : formattedDecimalPart.replace(/0*$/, '');
     }
     return formattedDecimalPart;
   })();

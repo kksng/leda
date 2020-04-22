@@ -11,7 +11,6 @@ import {
   EnterPressEvent,
   NormalizeParameters,
   NumericTextBoxProps,
-  HandleBlur,
 } from './types';
 
 export const createFocusHandler = (
@@ -55,7 +54,7 @@ export const createBlurHandler = (
   max?: number,
   name?: string,
   shouldTrimTrailingZeros?: boolean,
-): HandleBlur['handleBlur'] => (event) => {
+): NumericHandlers['handleBlur'] => (event) => {
   const normalizeValueParams: NormalizeParameters = {
     value,
     min,

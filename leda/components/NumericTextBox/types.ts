@@ -157,10 +157,6 @@ export interface NumericHandlers {
   handleArrowButtonClick: (type: 'increase' | 'decrease') => CustomEventHandler<React.MouseEvent<HTMLElement>>,
 }
 
-export interface HandleBlur extends NumericHandlers {
-  shouldTrimTrailingZeros: boolean,
-}
-
 export interface WrapperProps extends React.HTMLAttributes<HTMLDivElement> {
   ref?: React.Ref<DivRefCurrent>,
 }
@@ -190,9 +186,9 @@ export type NormalizeParameters = {
   step?: number,
 };
 
-export type formatValueType = {
-  value?: number | null,
+export type formatValueProps = {
   format: string,
-  thousandsSeparator: string,
   shouldTrimTrailingZeros?: boolean,
+  thousandsSeparator: string,
+  value?: number | null,
 };
