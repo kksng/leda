@@ -53,6 +53,8 @@ export interface NumericRangeProps {
   placeholder?: [string | undefined, string | undefined] | string,
   /** Реф для компонента */
   ref?: NumericRangeRefCurrent,
+  /** Условие обрезки нулей в форматированной строке  */
+  shouldTrimTrailingZeros?: boolean,
   /** Шаговое значение */
   step?: number,
   /** Разделитель разрядов */
