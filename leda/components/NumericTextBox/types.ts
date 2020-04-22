@@ -192,3 +192,12 @@ export type FormatValueProps = {
   thousandsSeparator: string,
   value?: number | null,
 };
+
+export type GetValueProps = {
+  inputValue: string,
+  isFocused: boolean,
+  format: string,
+  shouldTrimTrailingZeros?: boolean,
+  thousandsSeparator: string,
+  value: number | null,
+}

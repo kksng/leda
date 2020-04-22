@@ -3,6 +3,7 @@ import {
   WrapperProps,
   NormalizeParameters,
   FormatValueProps,
+  GetValueProps,
 } from './types';
 import { DEFAULT_VALUES } from './constants';
 
@@ -85,13 +86,14 @@ export const formatValue = ({
 };
 
 // выбирает какое значение отобразить (formatted или inputValue)
-export const getValue = (
-  value: number | null,
-  inputValue: string,
-  format: string,
-  isFocused: boolean,
-  thousandsSeparator: string,
-  shouldTrimTrailingZeros?: boolean,
+export const getValue = ({
+  value,
+  inputValue,
+  format,
+  isFocused,
+  thousandsSeparator,
+  shouldTrimTrailingZeros,
+  }: GetValueProps
 ): string => {
   const separator = getSeparator(format);
 
