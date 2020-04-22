@@ -2,7 +2,7 @@ import {
   NumericTextBoxProps,
   WrapperProps,
   NormalizeParameters,
-  formatValueProps,
+  FormatValueProps,
 } from './types';
 import { DEFAULT_VALUES } from './constants';
 
@@ -53,7 +53,7 @@ export const formatValue = ({
   format = '#',
   thousandsSeparator = ' ',
   shouldTrimTrailingZeros,
-}: formatValueProps): string => {
+}: FormatValueProps): string => {
   if (value == null) return '';
 
   const isNegative = value < 0;

@@ -186,7 +186,7 @@ export type NormalizeParameters = {
   step?: number,
 };
 
-export type formatValueProps = {
+export type FormatValueProps = {
   format: string,
   shouldTrimTrailingZeros?: boolean,
   thousandsSeparator: string,
