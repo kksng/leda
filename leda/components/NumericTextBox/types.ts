@@ -200,4 +200,4 @@ export type GetValueProps = {
   shouldTrimTrailingZeros?: boolean,
   thousandsSeparator: string,
   value: number | null,
-}
+};

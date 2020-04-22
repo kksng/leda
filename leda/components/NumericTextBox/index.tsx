@@ -102,7 +102,14 @@ export const NumericTextBox = React.forwardRef((props: NumericTextBoxProps, ref:
   useSyncedValue(valueProp, isFocused, format, thousandsSeparator, setInputValue);
 
   const getComponentValue = React.useMemo(
-    () => getValue({ value, inputValue, format, isFocused, thousandsSeparator, shouldTrimTrailingZeros }),
+    () => getValue({
+      value,
+      inputValue,
+      format,
+      isFocused,
+      thousandsSeparator,
+      shouldTrimTrailingZeros,
+    }),
     [value, inputValue, format, isFocused, thousandsSeparator, shouldTrimTrailingZeros],
   );
 

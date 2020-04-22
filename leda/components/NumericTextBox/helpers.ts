@@ -93,8 +93,7 @@ export const getValue = ({
   isFocused,
   thousandsSeparator,
   shouldTrimTrailingZeros,
-  }: GetValueProps
-): string => {
+}: GetValueProps): string => {
   const separator = getSeparator(format);
 
   if (separator === thousandsSeparator) {
