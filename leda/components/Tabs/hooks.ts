@@ -4,7 +4,7 @@ import { useElement, useElementRef } from '../../utils';
 import { Div } from '../Div';
 import { LedaContext } from '../LedaProvider';
 import { Ul } from '../Ul';
-import { CustomElements, TabsProps } from './types';
+import { CustomElements, TabsProps, TabsScroll } from './types';
 import { ContentElement } from './ContentElement';
 
 export const useCustomElements = (props: TabsProps, state: { activeTabKey: string | number }): CustomElements => {
@@ -45,13 +45,20 @@ export const useCustomElements = (props: TabsProps, state: { activeTabKey: strin
   };
 };
 
-export const useTabsScroll = ({ shouldScrollTabs }: { shouldScrollTabs?: boolean }) => {
-  const [Element, elementRef] = useElementRef();
+export const useTabsScroll = ({ shouldScrollTabs }: { shouldScrollTabs?: boolean }): TabsScroll => {
+  const [Element, containerRef] = useElementRef();
   const [hasScroll, setHasScroll] = React.useState(false);
+  const [hasLeftArrow, setHasLeftArrow] = React.useState(false);
+  const [hasRightArrow, setHasRightArrow] = React.useState(false);
+  const [timeStamp, setTimeStamp] = React.useState(0);
   const mainElementRect = Element?.getBoundingClientRect();
   const tabsContainer = Element?.querySelector(':last-child');
   const tabs = Element?.querySelectorAll('.tabs-item');
 
+  const scrollHandler = (ev: any) => {
+    // todo: add throttling
+    setTimeStamp(ev.timeStamp);
+  };
 
   const onRightClick = () => {
     if (tabsContainer == null || mainElementRect == null) return;
@@ -86,14 +93,34 @@ export const useTabsScroll = ({ shouldScrollTabs }: { shouldScrollTabs?: boolean
   };
 
   React.useEffect(() => {
-    if (
-      shouldScrollTabs && Element && tabsContainer
-      && tabsContainer.getBoundingClientRect().width > Element.getBoundingClientRect().width
-    ) {
-      setHasScroll(true);
-      Element.style.overflowX = 'scroll';
-    }
-  }, [Element]);
+    if (shouldScrollTabs && Element && tabsContainer) {
+      const tabsContainerRect = tabsContainer.getBoundingClientRect();
+      const elementRect = Element.getBoundingClientRect();
 
-  return [elementRef, hasScroll, onRightClick, onLeftClick];
+      if (tabsContainerRect.width > elementRect.width) {
+        setHasScroll(true);
+        Element.style.overflowX = 'scroll';
+
+        setHasLeftArrow(tabsContainerRect.left < elementRect.left);
+        setHasRightArrow(Math.round(tabsContainerRect.right) > elementRect.right);
+      }
+    }
+  }, [Element, timeStamp]);
+
+  React.useEffect(() => {
+    Element?.addEventListener('scroll', scrollHandler);
+
+    return () => {
+      Element?.removeEventListener('scroll', scrollHandler);
+    };
+  });
+
+  return {
+    containerRef,
+    hasScroll,
+    hasLeftArrow,
+    hasRightArrow,
+    onRightClick,
+    onLeftClick,
+  };
 };

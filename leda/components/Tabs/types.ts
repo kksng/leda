@@ -116,3 +116,17 @@ export interface TabsRefCurrent {
 export interface TabRefCurrent {
   wrapper: HTMLLIElement | null,
 }
+
+export interface ArrowProps {
+  onClick: React.MouseEventHandler,
+  theme: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.tabs],
+}
+
+export interface TabsScroll {
+  containerRef: React.Ref<any>,
+  hasScroll: boolean,
+  hasLeftArrow: boolean,
+  hasRightArrow: boolean,
+  onRightClick: React.MouseEventHandler,
+  onLeftClick: React.MouseEventHandler,
+}

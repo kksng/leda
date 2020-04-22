@@ -6,7 +6,7 @@ import { useCustomElements, useTabsScroll } from './hooks';
 import { TabContent } from './TabContent';
 import { Tab } from './Tab';
 import {
-  bindFunctionalRef, getClassNames, useElementRef, useProps, useTheme,
+  bindFunctionalRef, getClassNames, useProps, useTheme,
 } from '../../utils';
 import { TabsContext } from './TabsContext';
 import { TabsProps, TabsRefCurrent } from './types';
@@ -48,12 +48,19 @@ export const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<TabsRefC
     Heading,
   } = useCustomElements(props, { activeTabKey: activeTabKeyState });
 
-  const [
-    elementRef,
+  const {
+    containerRef,
     hasScroll,
+    hasLeftArrow,
+    hasRightArrow,
     onRightClick,
     onLeftClick,
-  ] = useTabsScroll({ shouldScrollTabs });
+  } = useTabsScroll({ shouldScrollTabs });
+
+  const containerClassNames = getClassNames(
+    theme.container,
+    hasScroll && theme.scroll,
+  );
 
   if (!children) return null;
 
@@ -67,28 +74,24 @@ export const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<TabsRefC
       }))}
     >
       <Div
-        ref={elementRef}
-        style={{
-          width: '100%',
-        }}
+        ref={containerRef}
+        className={containerClassNames}
       >
-        {hasScroll && (
-          <>
-            <ArrowRight
-              onClick={onRightClick}
-            />
-            <ArrowLeft
-              onClick={onLeftClick}
-            />
-          </>
+        {hasLeftArrow && (
+          <ArrowLeft
+            onClick={onLeftClick}
+            theme={theme}
+          />
         )}
 
-        <ul
-          className={theme.tabsBar}
-          style={{
-            display: 'inline-flex',
-          }}
-        >
+        {hasRightArrow && (
+          <ArrowRight
+            onClick={onRightClick}
+            theme={theme}
+          />
+        )}
+
+        <Heading className={theme.tabsBar}>
           <TabsContext.Provider value={tabsContext}>
             {React.Children.map(children, (child) => {
               if (!React.isValidElement(child)) return null;
@@ -98,7 +101,7 @@ export const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<TabsRefC
               );
             })}
           </TabsContext.Provider>
-        </ul>
+        </Heading>
       </Div>
       <Content className={theme.content} tabContentNode={tabContentNode}>
         <TabContent activeTabKey={activeTabKey} key={activeTabKey}>

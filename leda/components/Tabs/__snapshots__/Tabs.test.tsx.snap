@@ -13,62 +13,100 @@ exports[`Tabs SNAPSHOTS should render 1`] = `
       <div
         className="tabs-wrapper"
       >
-        <Heading
-          className="tabs-bar"
+        <Div
+          className="tabs-container"
         >
-          <Ul
-            className="tabs-bar"
+          <div
+            className="tabs-container"
           >
-            <ul
+            <Heading
               className="tabs-bar"
             >
-              <Tab
-                key=".0"
-                tabKey={0}
-                title="Tab1"
+              <Ul
+                className="tabs-bar"
               >
-                <TabItem
-                  className="tabs-item active"
-                  onClick={[Function]}
+                <ul
+                  className="tabs-bar"
                 >
-                  <Li
-                    className="tabs-item active"
-                    onClick={[Function]}
+                  <Tab
+                    key=".0"
+                    tabKey={0}
+                    title="Tab1"
                   >
-                    <li
+                    <TabItem
                       className="tabs-item active"
                       onClick={[Function]}
+                      style={
+                        Object {
+                          "whiteSpace": "nowrap",
+                        }
+                      }
                     >
-                      Tab1
-                    </li>
-                  </Li>
-                </TabItem>
-              </Tab>
-              <Tab
-                key=".1"
-                tabKey={1}
-                title="Tab2"
-              >
-                <TabItem
-                  className="tabs-item"
-                  onClick={[Function]}
-                >
-                  <Li
-                    className="tabs-item"
-                    onClick={[Function]}
+                      <Li
+                        className="tabs-item active"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "whiteSpace": "nowrap",
+                          }
+                        }
+                      >
+                        <li
+                          className="tabs-item active"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "whiteSpace": "nowrap",
+                            }
+                          }
+                        >
+                          Tab1
+                        </li>
+                      </Li>
+                    </TabItem>
+                  </Tab>
+                  <Tab
+                    key=".1"
+                    tabKey={1}
+                    title="Tab2"
                   >
-                    <li
+                    <TabItem
                       className="tabs-item"
                       onClick={[Function]}
+                      style={
+                        Object {
+                          "whiteSpace": "nowrap",
+                        }
+                      }
                     >
-                      Tab2
-                    </li>
-                  </Li>
-                </TabItem>
-              </Tab>
-            </ul>
-          </Ul>
-        </Heading>
+                      <Li
+                        className="tabs-item"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "whiteSpace": "nowrap",
+                          }
+                        }
+                      >
+                        <li
+                          className="tabs-item"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "whiteSpace": "nowrap",
+                            }
+                          }
+                        >
+                          Tab2
+                        </li>
+                      </Li>
+                    </TabItem>
+                  </Tab>
+                </ul>
+              </Ul>
+            </Heading>
+          </div>
+        </Div>
         <Content
           className="tabs-content"
         >
