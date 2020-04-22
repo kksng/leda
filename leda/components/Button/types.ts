@@ -24,6 +24,8 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>, Va
   onValidationFail?: (ev: ValidationFailEvent) => void,
   /** Реф */
   ref?: React.Ref<ButtonRefCurrent>,
+  /** Задержкаа перед скроллм к невалидным полям */
+  scrollDelay?: number,
   /** Дополнительный сдвиг в px при скролинге к кнопке */
   scrollOffset?: number,
   /** Если передано false, компонент не будет рендериться */

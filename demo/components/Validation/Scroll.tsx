@@ -64,6 +64,19 @@ export const Scroll = (props: StoryProps) => (
             Click me
         </L.Button>
       </L.Div>
+      <L.Div _inner>
+        <L.Button
+          shouldScrollToInvalidFields
+          scrollOffset={64}
+          scrollDelay={1000}
+          form={['scroll', 'scroll2', 'scroll3']}
+          onClick={() => console.log('submitted')}
+          onValidationFail={ev => console.log('failed', ev.invalidForms)}
+          _warning
+        >
+            Click me (delayed scroll)
+        </L.Button>
+      </L.Div>
     </L.Div>
   </L.Div>
 );

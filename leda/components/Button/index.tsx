@@ -15,6 +15,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref: React.Ref<Butto
     isLoading,
     form,
     onValidationFail,
+    scrollDelay,
     scrollOffset,
     shouldRender,
     shouldScrollToInvalidFields,

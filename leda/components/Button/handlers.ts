@@ -6,7 +6,7 @@ import { fromFormArraytoFormObject } from './helpers';
 
 export const createClickHandler = (props: ButtonProps) => (ev: React.MouseEvent<HTMLButtonElement>): void => {
   const {
-    onClick, onValidationFail, isDisabled, isLoading,
+    onClick, onValidationFail, isDisabled, isLoading, scrollDelay,
     scrollOffset, form: formProp, shouldScrollToInvalidFields,
   } = props;
 
@@ -52,7 +52,7 @@ export const createClickHandler = (props: ButtonProps) => (ev: React.MouseEvent<
               });
             }
           }
-        }, 0);
+        }, scrollDelay ?? 0);
       }
 
       return;
