@@ -18,10 +18,13 @@ export const VStepper = React.forwardRef((props: VStepperProps, ref?: React.Ref<
 
   const isCustom = React.Children
     .toArray(children as unknown as React.ReactElement<VStepperItemProps>)
-    .some((child: React.ReactElement<VStepperItemProps>): boolean => {
-      const { item, typeField, type } = child.props;
+    .some((child): boolean => {
+      if ((child as React.ReactElement).props) {
+        const { item, typeField, type } = (child as React.ReactElement).props;
 
-      return item ? typeField && item[typeField] : type;
+        return item ? typeField && item[typeField] : type;
+      }
+      return false;
     });
 
   return (

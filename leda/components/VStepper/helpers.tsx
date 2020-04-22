@@ -55,7 +55,12 @@ export const getItemClassNames = (props: VStepperItemProps, theme: NonNullable<R
 };
 
 export const getChildren = (children: React.ReactElement, value?: SomeObject | null): React.ReactNode => {
-  const currentIndex = React.Children.toArray(children).findIndex((child) => child.props.item === value);
+  const currentIndex = React.Children.toArray(children).findIndex((child) => {
+    if ((child as React.ReactElement).props) {
+      return (child as React.ReactElement).props.item === value;
+    }
+    return false;
+  });
 
   return React.Children.map(children, (child, index) => {
     const type: StepTypes | undefined = (() => {
