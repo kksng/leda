@@ -21,6 +21,8 @@ export const Loader = () => {
         <p>Content</p>
         <p>Content</p>
       </L.Loader>
+      <br />
+      <br />
       <StateButtonGroup
         data={[
           { text: 'Default', props: { } },
@@ -31,13 +33,14 @@ export const Loader = () => {
         setProps={setProps}
         theme={{ activeButton: 'warning' }}
       />
+      <br />
+      <br />
       <L.Button
         _warning
         onClick={() => {
           setProps(prevProps => ({ ...prevProps, isGlobal: true }));
           setTimeout(() => { setProps(prevProps => ({ ...prevProps, isGlobal: false })); alert('Полноэкранный лоадер отключен'); }, 6000);
         }}
-        style={{ marginLeft: '20px' }}
       >
         Включить глобальный лоадер на 6 сек
       </L.Button>

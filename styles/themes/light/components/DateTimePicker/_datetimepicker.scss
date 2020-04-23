@@ -58,7 +58,8 @@
 
       &::before {
         content: "\f073";
-        font-family: FontAwesome;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 400;
         color: $black-03;
         display: block;
         width: 14px;

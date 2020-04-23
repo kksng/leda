@@ -27,11 +27,12 @@
     height: 58px;
     text-align: center;
     &::before {
-      content: "\f0ee";
+      content: "\f382";
       font-size: 48px;
       line-height: 1.4;
       color: $black-05;
-      font-family: FontAwesome;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
     }
   }
 
@@ -42,8 +43,9 @@
       width: 20px;
       height: 20px;
       color: $black-03;
-      font-family: FontAwesome;
-      font-size: 20px;
+      font-family: "Font Awesome 5 Free";
+      font-size: 13px;
+      font-weight: 900;
     }
   }
 
@@ -54,26 +56,24 @@
 
   &-ok-icon {
     text-align: center;
-    width: 138px;
-    height: 138px;
     &::before {
       content: "\f058";
-      font-family: FontAwesome;
+      font-family: "Font Awesome 5 Free";
       line-height: 1.5;
-      font-size: 90px;
+      font-size: 60px;
+      font-weight: 400;
       color: $brand-primary;
     }
   }
 
   &-not-ok-icon {
     text-align: center;
-    width: 138px;
-    height: 138px;
     &::before {
       content: "\f119";
-      font-family: FontAwesome;
+      font-family: "Font Awesome 5 Free";
       line-height: 1.5;
-      font-size: 90px;
+      font-size: 60px;
+      font-weight: 400;
       color: $brand-danger;
     }
   }

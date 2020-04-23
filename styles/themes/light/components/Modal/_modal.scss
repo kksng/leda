@@ -32,7 +32,7 @@
 
   &-cross {
     position: absolute;
-    top: 25px;
+    top: 18px;
     right: -20px;
     display: block;
     width: 35px;
@@ -41,7 +41,8 @@
     cursor: pointer;
     &::before {
       content: "\00D7";
-      font-family: fontAwesome;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 400;
       color: $white;
       font-size: 32px;
     }

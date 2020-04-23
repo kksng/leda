@@ -9,7 +9,7 @@
     display: inline-flex;
     align-items: center;
     min-width: 20px;
-    padding: 2px 16px;
+    padding: 2px 2px 2px 16px;
     margin-right: 8px;
     height: 24px;
     background-color: $black-07;
@@ -40,9 +40,16 @@
     &.icon-default {
       @extend %common-dropdown-icon;
       color: $black-03;
+      width: 20px;
+      height: 20px;
+      position: relative;
 
       &:before {
         content: "\00D7";
+        font-family: "Font Awesome 5 Free";
+        position: absolute;
+        top: -1px;
+        left: 4px;
       }
 
       &:hover {

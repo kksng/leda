@@ -32,10 +32,10 @@ export const Demo = hot(() => (
       <Collapse />
       <Collapsible />
       <Currency />
-      <DatePicker />
-      <DateRange />
       <DateTimePicker />
       <DateTimeRange />
+      <DatePicker />
+      <DateRange />
       <Div />
       <Dl />
       <DropDown />

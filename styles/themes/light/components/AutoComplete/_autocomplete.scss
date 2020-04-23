@@ -49,16 +49,16 @@
     height: 30px;
     cursor: pointer;
     position: relative;
+    font-style: normal;
 
     &::before {
       content: "\00D7";
+      font-family: "Font Awesome 5 Free";
       color: $black-03;
       position: absolute;
-      top: 50%;
+      top: 43%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 20px;
-      height: 20px;
       display: block;
     }
   }

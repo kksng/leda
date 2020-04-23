@@ -31,7 +31,8 @@
       width: 1em;
       height: 1em;
       -webkit-font-smoothing: antialiased;
-      font-family: fontAwesome;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 400;
       display: inline-block;
       font-style: normal;
       line-height: 1;
@@ -84,7 +85,8 @@
 
         &:before {
           content: "\f104";
-
+          font-family: "Font Awesome 5 Free";
+          font-weight: 900;
         }
       }
 
@@ -93,6 +95,8 @@
 
         &:before {
           content: "\f105";
+          font-family: "Font Awesome 5 Free";
+          font-weight: 900;
         }
       }
 
@@ -277,12 +281,14 @@
     .calendar-prev-icon {
       width: 1em;
       height: 1em;
-      font-family: fontAwesome;
       font-size: 18px;
       color: $black-03;
 
       &:before {
         content: "\f104";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+
       }
     }
   }
@@ -291,12 +297,14 @@
     .calendar-next-icon {
       width: 1em;
       height: 1em;
-      font-family: fontAwesome;
       font-size: 18px;
       color: $black-03;
 
       &:before {
         content: "\f105";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+
       }
     }
   }

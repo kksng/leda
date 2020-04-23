@@ -67,7 +67,8 @@
     &::before {
       transform: rotate(180deg);
       content: "\f107";
-      font-family: fontAwesome;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       color: $black-03;
       display: block;
       position: absolute;
@@ -81,7 +82,9 @@
 
     &::before {
       content: "\f107";
-      font-family: fontAwesome;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      color: $black-03;
       display: block;
       position: absolute;
       top: 14px;

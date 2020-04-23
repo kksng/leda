@@ -90,13 +90,22 @@
 
     &.danger .v-stepper-icon.sign-stop::after {
       content: '\00D7';
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       color: $white;
+      position: absolute;
+      left: 5px;
+      top: -1px;
     }
 
     &.success .v-stepper-icon.sign-check::after {
       content: '\f107';
-      font-family: FontAwesome;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       color: $white;
+      position: absolute;
+      left: 4px;
+      top: 2px;
     }
 
     &.danger {
@@ -184,14 +193,16 @@
   &-heading-icon {
     &::after {
       content: '\f107';
-      font-family: fontAwesome;
+      font-family: "Font Awesome 5 Free";
       font-size: 14px;
+      font-weight: 900;
       vertical-align: middle;
       position: absolute;
       top: 0;
       right: 20px;
       transform: rotate(0deg);
       transition: transform 0.3s;
+      color: $black-03;
     }
 
     &.open::after {

@@ -6,17 +6,18 @@
   &-item {
     cursor: pointer;
 
-    &::after {
+    &::before {
       display: block;
       content: '\f005';
-      font-family: fontAwesome;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 400;
       color: $black-03;
       width: 40px;
-      font-size: 40px;
+      font-size: 28px;
       height: 40px;
     }
 
-    &.filled::after {
+    &.filled::before {
       color: $accent-02;
     }
   }

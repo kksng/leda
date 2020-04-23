@@ -56,13 +56,14 @@
 
   &-clear-icon {
     position: absolute;
-    right: 5px;
+    right: 11px;
     top: 5px;
     font-size: 18px;
     cursor: pointer;
 
     &::before {
       content: "\00D7";
+      font-family: "Font Awesome 5 Free";
       color: $black-03;
     }
   }

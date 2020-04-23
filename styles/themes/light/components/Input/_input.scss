@@ -35,14 +35,13 @@
     right: 0;
 
     &::before {
+      font-family: "Font Awesome 5 Free";
       content: "\00D7";
       color: $black-03;
       position: absolute;
-      top: 50%;
+      top: 45%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 20px;
-      height: 20px;
       display: block;
       font-style: normal;
     }
