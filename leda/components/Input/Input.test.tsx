@@ -124,22 +124,25 @@ describe('Input ATTRIBUTES', () => {
 
   it('should have maxLength limit', () => {
     const handleChange = jest.fn();
+    const value = 'new v';
+    const eventMatcher = expect.objectContaining({
+      component: expect.objectContaining({
+        value,
+      }),
+      target: expect.objectContaining({
+        value,
+      }),
+    });
 
     render((
       <Input onChange={handleChange} maxLength={5} onBlur={jest.fn()} />
     ));
 
-    userEvent.type(screen.getByRole('textbox'), 'value', {
-      allAtOnce: true,
-    });
-
-    expect(handleChange).toBeCalledTimes(1);
-
     userEvent.type(screen.getByRole('textbox'), 'new value', {
       allAtOnce: true,
     });
 
-    expect(handleChange).toBeCalledTimes(1);
+    expect(handleChange).lastCalledWith(eventMatcher);
   });
 
   it.skip('should throw error if no predefined allowedSymbols found', () => {
