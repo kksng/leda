@@ -13,7 +13,7 @@ export { isElementInViewport } from './isElementInViewport';
 export { scrollIntoView } from './scrollIntoView';
 
 export {
-  fixJSON, bindFunctionalRef, getComputedTheme, getFileWordEnding, getClassNames,
+  fixJSON, bindFunctionalRef, getComputedTheme, getFileWordEnding, getClassNames, stringToMaxLength,
 } from './helpers';
 
 export {

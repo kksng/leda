@@ -2,6 +2,7 @@ import { isFunction } from 'lodash';
 import React from 'react';
 import { TextareaProps } from './types';
 import { SetState } from '../../commonTypes';
+import { stringToMaxLength } from '../../utils';
 
 export const createChangeHandler = (
   props: TextareaProps, setValue: SetState<string>,
@@ -12,13 +13,13 @@ export const createChangeHandler = (
 
   const { value: eventValue } = ev.target;
 
-  if (maxLength && eventValue.length > maxLength) return;
+  const maxLengthAdjustedValue = stringToMaxLength(eventValue, maxLength);
 
   if (isFunction(onChange)) {
     const customEvent = {
       ...ev,
       component: {
-        value: eventValue,
+        value: maxLengthAdjustedValue,
         name,
       },
     };
@@ -26,7 +27,7 @@ export const createChangeHandler = (
     onChange(customEvent);
   }
 
-  if (valueProp === undefined) setValue(eventValue);
+  if (valueProp === undefined) setValue(maxLengthAdjustedValue);
 };
 
 export const createBlurHandler = (

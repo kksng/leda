@@ -16,6 +16,13 @@ export const getFileWordEnding = (number: number): string => {
   return 'ов';
 };
 
+export const stringToMaxLength = (str: string, maxLength?: number) => {
+  if (maxLength != null && maxLength < str.length) {
+    return str.substring(0, maxLength);
+  }
+  return str;
+};
+
 const initRef = <T, C>(ref: React.Ref<T> | React.MutableRefObject<T>, current: C): void => {
   if (isFunction(ref)) {
     ref(current as unknown as T);

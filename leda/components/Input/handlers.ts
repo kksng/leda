@@ -2,6 +2,7 @@ import * as React from 'react';
 import { CustomEventHandler, SetState } from '../../commonTypes';
 import { InputProps } from './types';
 import { isSymbolAllowed, isSymbolForbidden, transformToCase } from './helpers';
+import { stringToMaxLength } from '../../utils';
 
 export const createChangeHandler = (
   props: InputProps,
@@ -16,12 +17,7 @@ export const createChangeHandler = (
 
   if (!isSymbolAllowed(value, allowedSymbols)) return;
 
-  const maxLengthAdjustedValue = (() => {
-    if (maxLength != null && maxLength < value.length) {
-      return value.substring(0, maxLength);
-    }
-    return value;
-  })();
+  const maxLengthAdjustedValue = stringToMaxLength(value, maxLength);
 
   const newValue = letterCase ? transformToCase(maxLengthAdjustedValue, letterCase) : maxLengthAdjustedValue;
 
