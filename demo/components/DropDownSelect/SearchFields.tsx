@@ -9,7 +9,7 @@ export const SearchFields = (args: SomeObject): React.ReactElement => {
     <L.Div _box _inner _demoBg>
 
       <p>
-        Поиск по назваанию страны или её столицы.
+        Поиск по названию страны или её столицы.
       </p>
 
       <L.DropDownSelect

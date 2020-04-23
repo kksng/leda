@@ -149,14 +149,15 @@ export const createKeyDownHandler = ({
 }: HandlerCreatorData): KeyDownHandler => (ev) => {
   const {
     data,
-    onChange,
+    filterRule,
     name,
-    placeholder,
-    shouldAllowEmpty,
+    onChange,
     onFilterChange,
+    placeholder,
+    searchFields,
+    shouldAllowEmpty,
     shouldFilterValues,
     textField,
-    filterRule,
   } = props;
 
   const {
@@ -167,7 +168,14 @@ export const createKeyDownHandler = ({
 
   const filterValue = isNil(props.filterValue) ? state.filterValue : props.filterValue;
 
-  const filteredData = shouldFilterValues ? filterData(data, filterValue, textField, filterRule) || [] : data;
+  const filteredData = (() => {
+    if (shouldFilterValues != null) {
+      return filterData({
+        data, filterValue, textField, filterRule, searchFields,
+      }) || [];
+    }
+    return data;
+  })();
 
   const fullData = placeholder && shouldAllowEmpty ? [placeholder, ...filteredData] : filteredData;
 

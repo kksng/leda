@@ -153,3 +153,11 @@ export interface CustomElements {
 }
 
 export type FilterRules = 'smart' | 'startsWith' | 'includes';
+
+export interface FilterDataProps {
+  data: DropDownSelectProps['data'],
+  filterValue: string | null,
+  textField?: string,
+  filterRule?: FilterRules,
+  searchFields?: string[],
+}

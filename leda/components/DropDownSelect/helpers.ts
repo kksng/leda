@@ -2,7 +2,8 @@ import { isNil, isArray, isObject } from 'lodash';
 import { SomeObject } from '../../commonTypes';
 import { getText } from '../../src/SuggestionList/helpers';
 import { filterSuggestionByRule, getClassNames, getIsEmptyAndRequired } from '../../utils';
-import { DropDownSelectProps, FilterRules, GetComponentClassNames } from './types';
+import { DropDownSelectProps, FilterDataProps, GetComponentClassNames } from './types';
+
 /** классы для элементов компонента */
 export const getComponentClassNames: GetComponentClassNames = ({
   theme, className, isDisabled, isFocused, isOpen, isValid, isRequired, value,
@@ -49,7 +50,13 @@ export const getInputValue = (value: string | number | SomeObject | null, filter
   return (getText(value, textField) || '').toString();
 };
 
-export const filterData = (data: DropDownSelectProps['data'], filterValue: string | null, textField?: string, filterRule?: FilterRules, searchFields?: string[]): DropDownSelectProps['data'] => {
+export const filterData = ({
+  data,
+  filterRule,
+  filterValue,
+  searchFields,
+  textField,
+}: FilterDataProps): DropDownSelectProps['data'] => {
   if (!data) return undefined;
 
   const filteredData = data.filter((item) => {

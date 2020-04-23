@@ -21,7 +21,7 @@ export const useSyncedHighlightedValue = ({
 }): void => {
   React.useEffect((): void => {
     if (shouldFilterValues && data && filterValue) {
-      const filteredData = filterData(data, filterValue) || [];
+      const filteredData = filterData({ data, filterValue }) || [];
       // обновляем highlighted value
       mergeState({
         highlightedSuggestion: getText(filteredData[0]) || null,
