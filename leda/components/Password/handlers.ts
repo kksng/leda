@@ -4,6 +4,7 @@ import { PasswordProps } from './types';
 import { transformToCase } from './helpers';
 import { isSymbolAllowed } from '../../utils/isSymbolAllowed';
 import { isSymbolForbidden } from '../../utils/isSymbolForbidden';
+import { stringToMaxLength } from '../../utils';
 
 export const createChangeHandler = (
   props: PasswordProps,
@@ -13,13 +14,13 @@ export const createChangeHandler = (
     allowedSymbols, forbiddenSymbols, letterCase, maxLength, name, onChange, value,
   } = props;
 
-  if (maxLength && maxLength < event.target.value.length) return;
-
   if (isSymbolForbidden({ forbiddenSymbols, value: event.target.value, componentName: 'Password' })) return;
 
   if (!isSymbolAllowed({ allowedSymbols, value: event.target.value, componentName: 'Password' })) return;
 
-  const newValue = letterCase ? transformToCase(event.target.value, letterCase) : event.target.value;
+  const maxLengthAdjustedValue = stringToMaxLength(event.target.value, maxLength);
+
+  const newValue = letterCase ? transformToCase(maxLengthAdjustedValue, letterCase) : maxLengthAdjustedValue;
 
   if (value === undefined) {
     setValue(newValue);
