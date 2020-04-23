@@ -56,7 +56,10 @@ export const filterData = (data: DropDownSelectProps['data'], filterValue: strin
     const isValueMatchingTextField = filterSuggestionByRule(getText(item, textField), filterValue ?? '', filterRule);
 
     if (isArray(searchFields) && textField && isObject(item)) {
-      const isValueMatchingSearchFields = searchFields.some((searchField) => filterSuggestionByRule(item[searchField].toString(), filterValue ?? '', filterRule));
+      const isValueMatchingSearchFields = searchFields.some((searchField) => {
+        if (item[searchField] === undefined) return false;
+        return filterSuggestionByRule(item[searchField].toString(), filterValue ?? '', filterRule);
+      });
       return isValueMatchingTextField || isValueMatchingSearchFields;
     }
 

@@ -19,8 +19,9 @@ export const SearchFields = (args: SomeObject): React.ReactElement => {
           { country: 'France', capital: 'Paris' },
           { country: 'Sweden', capital: 'Stockholm' },
           { country: 'Spain', capital: 'Madrid' },
+          { country: 'Vatican' },
         ]}
-        searchFields={['capital']}
+        searchFields={['capital', 'id']}
         textField="country"
         shouldFilterValues
         _width30
