@@ -52,36 +52,46 @@
 
   &-arrow-left {
     position: absolute;
+    top: 10px;
     left: 0;
     padding: 10px;
-    background: red;
+    background: white;
+    box-shadow: 0px 0px 5px 2px $black-03;
     border-radius: 50%;
+    cursor: pointer;
     width: 1rem;
     height: 1rem;
+    font-style: normal;
     &::before {
       font-family: "Font Awesome 5 Free";
-      font-weight: normal;
-      content: "\f105";
+      font-weight: 900;
+      content: "\f104";
       position: absolute;
-      left: .5rem;
-      top: 1rem;
+      left: 6px;
+      top: 0;
+      color: $black-03;
     }
   }
   &-arrow-right {
     position: absolute;
+    top: 10px;
     right: 0;
     padding: 10px;
-    background: red;
+    background: white;
+    box-shadow: 0px 0px 5px 2px $black-03;
     border-radius: 50%;
+    cursor: pointer;
     width: 1rem;
     height: 1rem;
+    font-style: normal;
     &::before {
       font-family: "Font Awesome 5 Free";
-      font-weight: normal;
-      content: "\f104";
+      font-weight: 900;
+      content: "\f105";
       position: absolute;
-      left: .5rem;
-      top: 1rem;
+      left: 7px;
+      top: 0;
+      color: $black-03;
     }
   }
 }
