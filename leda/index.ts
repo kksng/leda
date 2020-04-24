@@ -30,7 +30,6 @@ import { Collapsible } from './components/Collapsible';
 import {
   Currency, RUB, EUR, USD,
 } from './components/Currency';
-import { Donut } from './components/Donut';
 import { DatePicker } from './components/DatePicker';
 import { DateRange } from './components/DateRange';
 import { DateTimePicker } from './components/DateTimePicker';
@@ -197,7 +196,6 @@ export {
   RUB,
   EUR,
   USD,
-  Donut,
   DatePicker,
   DateRange,
   DateTimePicker,
