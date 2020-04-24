@@ -52,14 +52,22 @@ export const useTabsScroll = ({ shouldScrollTabs, theme }: TabsScrollProps): Tab
   const [hasScroll, setHasScroll] = React.useState(false);
   const [hasLeftArrow, setHasLeftArrow] = React.useState(false);
   const [hasRightArrow, setHasRightArrow] = React.useState(false);
-  const [timeStamp, setTimeStamp] = React.useState(0);
   const mainElementRect = Element?.getBoundingClientRect();
   const tabsContainer = Element?.querySelector(`.${theme.tabsBar}`);
   const tabs = Element?.querySelectorAll(`.${theme.tab}`);
+  const elementRect = Element?.getBoundingClientRect();
 
-  const scrollHandler = (ev: any) => {
-    // todo: add throttling
-    setTimeStamp(ev.timeStamp);
+  const setScrollControls = () => {
+    if (shouldScrollTabs && Element && elementRect && tabsContainer) {
+      const tabsContainerRect = tabsContainer.getBoundingClientRect();
+
+      if (tabsContainerRect.width > elementRect.width) {
+        setHasScroll(true);
+
+        setHasLeftArrow(tabsContainerRect.left < elementRect.left);
+        setHasRightArrow(Math.round(tabsContainerRect.right) > elementRect.right);
+      }
+    }
   };
 
   const onRightClick = () => {
@@ -94,25 +102,13 @@ export const useTabsScroll = ({ shouldScrollTabs, theme }: TabsScrollProps): Tab
     });
   };
 
-  React.useEffect(() => {
-    if (shouldScrollTabs && Element && tabsContainer) {
-      const tabsContainerRect = tabsContainer.getBoundingClientRect();
-      const elementRect = Element.getBoundingClientRect();
-
-      if (tabsContainerRect.width > elementRect.width) {
-        setHasScroll(true);
-
-        setHasLeftArrow(tabsContainerRect.left < elementRect.left);
-        setHasRightArrow(Math.round(tabsContainerRect.right) > elementRect.right);
-      }
-    }
-  }, [Element, timeStamp]);
+  React.useEffect(setScrollControls, [Element]);
 
   React.useEffect(() => {
-    Element?.addEventListener('scroll', scrollHandler);
+    Element?.addEventListener('scroll', setScrollControls);
 
     return () => {
-      Element?.removeEventListener('scroll', scrollHandler);
+      Element?.removeEventListener('scroll', setScrollControls);
     };
   });
 
