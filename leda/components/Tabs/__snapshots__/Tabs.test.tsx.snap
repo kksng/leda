@@ -36,29 +36,14 @@ exports[`Tabs SNAPSHOTS should render 1`] = `
                     <TabItem
                       className="tabs-item active"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "whiteSpace": "nowrap",
-                        }
-                      }
                     >
                       <Li
                         className="tabs-item active"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "whiteSpace": "nowrap",
-                          }
-                        }
                       >
                         <li
                           className="tabs-item active"
                           onClick={[Function]}
-                          style={
-                            Object {
-                              "whiteSpace": "nowrap",
-                            }
-                          }
                         >
                           Tab1
                         </li>
@@ -73,29 +58,14 @@ exports[`Tabs SNAPSHOTS should render 1`] = `
                     <TabItem
                       className="tabs-item"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "whiteSpace": "nowrap",
-                        }
-                      }
                     >
                       <Li
                         className="tabs-item"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "whiteSpace": "nowrap",
-                          }
-                        }
                       >
                         <li
                           className="tabs-item"
                           onClick={[Function]}
-                          style={
-                            Object {
-                              "whiteSpace": "nowrap",
-                            }
-                          }
                         >
                           Tab2
                         </li>
