@@ -4,7 +4,9 @@ import { useElement, useElementRef } from '../../utils';
 import { Div } from '../Div';
 import { LedaContext } from '../LedaProvider';
 import { Ul } from '../Ul';
-import { CustomElements, TabsProps, TabsScroll } from './types';
+import {
+  CustomElements, TabsProps, TabsScroll, TabsScrollProps,
+} from './types';
 import { ContentElement } from './ContentElement';
 
 export const useCustomElements = (props: TabsProps, state: { activeTabKey: string | number }): CustomElements => {
@@ -45,15 +47,15 @@ export const useCustomElements = (props: TabsProps, state: { activeTabKey: strin
   };
 };
 
-export const useTabsScroll = ({ shouldScrollTabs }: { shouldScrollTabs?: boolean }): TabsScroll => {
+export const useTabsScroll = ({ shouldScrollTabs, theme }: TabsScrollProps): TabsScroll => {
   const [Element, containerRef] = useElementRef();
   const [hasScroll, setHasScroll] = React.useState(false);
   const [hasLeftArrow, setHasLeftArrow] = React.useState(false);
   const [hasRightArrow, setHasRightArrow] = React.useState(false);
   const [timeStamp, setTimeStamp] = React.useState(0);
   const mainElementRect = Element?.getBoundingClientRect();
-  const tabsContainer = Element?.querySelector(':last-child');
-  const tabs = Element?.querySelectorAll('.tabs-item');
+  const tabsContainer = Element?.querySelector(`.${theme.tabsBar}`);
+  const tabs = Element?.querySelectorAll(`.${theme.tab}`);
 
   const scrollHandler = (ev: any) => {
     // todo: add throttling
@@ -99,7 +101,6 @@ export const useTabsScroll = ({ shouldScrollTabs }: { shouldScrollTabs?: boolean
 
       if (tabsContainerRect.width > elementRect.width) {
         setHasScroll(true);
-        Element.style.overflowX = 'scroll';
 
         setHasLeftArrow(tabsContainerRect.left < elementRect.left);
         setHasRightArrow(Math.round(tabsContainerRect.right) > elementRect.right);
@@ -117,10 +118,10 @@ export const useTabsScroll = ({ shouldScrollTabs }: { shouldScrollTabs?: boolean
 
   return {
     containerRef,
-    hasScroll,
     hasLeftArrow,
     hasRightArrow,
-    onRightClick,
+    hasScroll,
     onLeftClick,
+    onRightClick,
   };
 };

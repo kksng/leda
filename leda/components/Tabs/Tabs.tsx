@@ -55,7 +55,7 @@ export const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<TabsRefC
     hasRightArrow,
     onRightClick,
     onLeftClick,
-  } = useTabsScroll({ shouldScrollTabs });
+  } = useTabsScroll({ shouldScrollTabs, theme });
 
   const containerClassNames = getClassNames(
     theme.container,

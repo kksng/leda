@@ -3,6 +3,7 @@ import { CustomRender } from '../../commonTypes';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { GlobalDefaultTheme, PartialGlobalDefaultTheme } from '../../utils/useTheme';
 import { LiProps } from '../Li';
+import { defaultTabsTheme } from './theme';
 
 export interface TabsProps {
   /** Устанавливает номер выбранного таба */
@@ -129,4 +130,9 @@ export interface TabsScroll {
   hasRightArrow: boolean,
   onRightClick: React.MouseEventHandler,
   onLeftClick: React.MouseEventHandler,
+}
+
+export interface TabsScrollProps {
+  shouldScrollTabs?: boolean,
+  theme: typeof defaultTabsTheme,
 }
