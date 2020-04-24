@@ -10,6 +10,9 @@ export const Scroll = (props: any) => {
         activeTabKey={selected}
         onChange={(ev) => setSelected(ev.component.value)}
         shouldScrollTabs
+        tabRender={({ Element, elementProps }) => {
+          return <Element {...elementProps} style={{ whiteSpace: 'nowrap' }} />;
+        }}
       >
         <L.Tab title="Tab 1" tabKey={0}>
           <L.Div _inner>
