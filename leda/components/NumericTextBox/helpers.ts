@@ -213,6 +213,7 @@ export const getRestProps = (props: NumericTextBoxProps): WrapperProps => {
     isDisabled,
     isRequired,
     isValid: isValidProp,
+    shouldTrimTrailingZeros,
     shouldValidateUnmounted,
     thousandsSeparator,
     requiredMessage,

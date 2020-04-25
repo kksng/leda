@@ -32,9 +32,6 @@ export const Controlled = (args: SomeObject): React.ReactElement => {
           console.log('ev.component.value', ev.component.value);
           setValue(ev.component.value as string[]);
         }}
-        onEnterPress={event => {
-          console.log(event);
-        }}
         isDisabled={isDisabled}
         value={value}
       >
