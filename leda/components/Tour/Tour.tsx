@@ -43,7 +43,7 @@ export const Tour = (props: TourProps): React.ReactElement | null => {
       window.scrollTo({ top, left: 0, behavior: 'smooth' });
 
       document.body.style.overflow = 'hidden';
-      if (window.pageYOffset === top || top < window.innerHeight) { // прокрутки нет - отображаем тур сразу
+      if (document.body.scrollHeight <= window.innerHeight || window.pageYOffset === top) { // прокрутки нет - отображаем тур сразу
         setSvgPath(createOverlaySvgPath(activeItem?.element, borderRadius));
       } else { // иначе отобразим тур после скролла
         setIsScrolling(true);
