@@ -1,4 +1,3 @@
-import 'element-closest/browser';
 import * as React from 'react';
 import {
   isString, isBoolean,
