@@ -38,11 +38,12 @@ export const Tour = (props: TourProps): React.ReactElement | null => {
     const prevOverflow = document.body.style.overflow; // реализация как в Modal
 
     if (activeItem?.element) {
-      const top = activeItem.element.offsetTop - (activeItem.offsetTop ?? 200);
+      const offsetTop = activeItem.offsetTop ?? 200;
+      const top = activeItem.element.offsetTop >= offsetTop ? activeItem.element.offsetTop - offsetTop : activeItem.element.offsetTop;
       window.scrollTo({ top, left: 0, behavior: 'smooth' });
 
       document.body.style.overflow = 'hidden';
-      if (window.pageYOffset === top) { // прокрутки нет - отображаем тур сразу
+      if (window.pageYOffset === top || top < window.innerHeight) { // прокрутки нет - отображаем тур сразу
         setSvgPath(createOverlaySvgPath(activeItem?.element, borderRadius));
       } else { // иначе отобразим тур после скролла
         setIsScrolling(true);
