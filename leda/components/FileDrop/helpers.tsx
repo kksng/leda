@@ -6,12 +6,12 @@ import {
 } from '../../constants';
 import { Div } from '../Div';
 import {
-  FileType, FileDropProps, FileDropInnerError,
+  FileDropProps, FileDropInnerError,
 } from './types';
 import { A } from '../A';
 import { globalDefaultTheme } from '../LedaProvider';
 
-export const compareFiles = (firstFile: FileType, secondFile: FileType): boolean => {
+export const compareFiles = (firstFile: File, secondFile: File): boolean => {
   if (firstFile.size !== secondFile.size) return false;
 
   const firstFileDate = new Date(firstFile.lastModified);
@@ -22,13 +22,13 @@ export const compareFiles = (firstFile: FileType, secondFile: FileType): boolean
 };
 
 // Проверка не добавлен ли уже один из выбранных файлов
-export const checkForAddedFile = (props: FileDropProps, file: FileType): boolean => {
+export const checkForAddedFile = (props: FileDropProps, file: File): boolean => {
   const { value } = props;
   // Если файл найден по имени, то проверяем равен по размеру и дате последнего изменения
   return !!value && !compareFiles(value, file);
 };
 
-export const getErrorCode = (props: FileDropProps, file: FileType): number => {
+export const getErrorCode = (props: FileDropProps, file: File): number => {
   const {
     allowedFiles,
     forbiddenFiles,
@@ -88,9 +88,9 @@ export const getErrorMessage = (error: FileDropInnerError | Error | string): str
 // Проверка на количество файлов и уже добавленные файлы
 export const checkFiles = (
   props: FileDropProps,
-  accepted: FileType[],
-  rejected: FileType[],
-): { file: FileType, error: FileDropInnerError | null } => {
+  accepted: File[],
+  rejected: File[],
+): { file: File, error: FileDropInnerError | null } => {
   const rejectedFile = rejected[0];
 
   if (rejected.length > 1) {
@@ -144,14 +144,14 @@ export const DescriptionMessage = (props: { children: string }): React.ReactElem
   return (shouldWrapMessage ? <Div _block-inline _txt-gray _txt-small>{message}</Div> : message) as React.ReactElement;
 };
 
-export const createDownloadLink = (blob: Blob, fileName: string | undefined, theme: typeof globalDefaultTheme[typeof COMPONENTS_NAMESPACES.fileDrop]): React.ReactElement | null => {
+export const createDownloadLink = (file: File, fileName: string | undefined, theme: typeof globalDefaultTheme[typeof COMPONENTS_NAMESPACES.fileDrop]): React.ReactElement | null => {
   if (!fileName) return null;
 
   const isIE = !!window.navigator?.msSaveOrOpenBlob;
 
   const linkProps = isIE
-    ? { onClick: (): boolean => window.navigator.msSaveOrOpenBlob(blob, fileName) }
-    : { href: URL.createObjectURL(blob), download: fileName };
+    ? { onClick: (): boolean => window.navigator.msSaveOrOpenBlob(file, fileName) }
+    : { href: URL.createObjectURL(file), download: fileName };
 
   return (
     <A theme={theme.fileDownloadLink} {...linkProps}>

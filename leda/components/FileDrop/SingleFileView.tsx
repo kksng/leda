@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DropZoneViewTypes } from './constants';
 import { createDownloadLink, getErrorMessage } from './helpers';
 import {
-  FileType, SingleFileViewProps,
+  SingleFileViewProps,
 } from './types';
 import { getClassNames } from '../../utils';
 import { ErrorComponent } from './ErrorComponent';
@@ -39,16 +39,14 @@ export const SingleFileView = (props: SingleFileViewProps): React.ReactElement |
   }
 
   if (currentView === DropZoneViewTypes.Success) {
-    const file = value ?? {} as Partial<FileType>;
+    if (value == null) throw new Error('L.FileDrop: unexpected null value in success case');
 
-    const blob = new Blob([file.name ?? ''], { type: file.type });
-
-    const downloadLink = file.link || createDownloadLink(blob, file.name, theme);
+    const downloadLinkComponent = createDownloadLink(value, value.name, theme);
 
     return (
       <SuccessComponent
         {...props}
-        downloadLink={downloadLink}
+        downloadLink={downloadLinkComponent}
         combinedButtonClassNames={combinedButtonClassNames}
       />
     );

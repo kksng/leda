@@ -6,21 +6,6 @@ import { ValidationProps } from '../Validation/types';
 
 export { FileErrorCodes } from '../../constants';
 
-export interface FileType extends File {
-  /** Дата последнего изменения */
-  lastModified: number,
-  /** Ссылка на скачивание файла. При наличии, файл будет отображен в списке, как скачиваемый */
-  link?: string,
-  /** Имя файла. Необходимо для отображения в списке и удаления */
-  name: string,
-  /** Синоним имени файла. Необходимо для отображения в списке и удаления */
-  path?: string,
-  /** Предварительный просмотр */
-  preview?: string,
-  /** Тип файла */
-  type: string,
-}
-
 export interface FileDropInnerError {
   /** Код ошибки, подробнее можно посмотреть в leda/constants.ts */
   errorCode: number,
@@ -36,7 +21,7 @@ export interface ChangeEvent {
   component: {
     error: FileDropInnerError | null,
     name?: string,
-    value: FileType | null,
+    value: File | null,
   },
 }
 
@@ -80,7 +65,7 @@ export interface FileDropProps extends ValidationProps {
   /** Текст кнопки загрузки файла, может принимать JSX */
   uploadButtonRender?: CustomRender<FileDropProps, {}, UploadButtonProps>,
   /** Загруженный файл */
-  value: FileType | null,
+  value: File | null,
   /** Кастомизация враппера */
   wrapperRender?: CustomRender<FileDropProps, {}, WrapperProps>,
   /** Классы переданные через _ */
@@ -121,10 +106,10 @@ export interface CustomElements {
 
 export interface ChangeEventHandler {
   (
-    accepted: FileType[],
-    rejected: FileType[],
+    accepted: File[],
+    rejected: File[],
     ev?: React.DragEvent<HTMLDivElement> | React.MouseEvent<HTMLAnchorElement>,
-    removedFile?: FileType
+    removedFile?: File
   ): void,
 }
 

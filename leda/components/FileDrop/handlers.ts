@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DropzoneRef } from 'react-dropzone';
 import { checkFiles } from './helpers';
 import {
-  ChangeEventHandler, FileDropInnerError, FileDropProps, FileType,
+  ChangeEventHandler, FileDropInnerError, FileDropProps,
 } from './types';
 
 export const createClickHandler = (
@@ -21,7 +21,7 @@ export const createChangeHandler = (
   accepted,
   rejected,
   ev,
-): { file: FileType, error: FileDropInnerError | null } => {
+): { file: File, error: FileDropInnerError | null } => {
   const { name, onChange } = props;
 
   // В обработчик передаем только те принятые файлы, которые еще не были добавлены
