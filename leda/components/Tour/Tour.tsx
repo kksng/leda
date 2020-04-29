@@ -39,7 +39,7 @@ export const Tour = (props: TourProps): React.ReactElement | null => {
 
     if (activeItem?.element) {
       const scrollOffsetTop = activeItem.offsetTop ?? 200;
-      const viewportOffsetTop = activeItem.element.getBoundingClientRect().top;
+      const viewportOffsetTop = Math.ceil(activeItem.element.getBoundingClientRect().top);
       const documentOffsetTop = viewportOffsetTop + window.scrollY;
       const shiftedDocumentOffsetTop = documentOffsetTop > scrollOffsetTop ? documentOffsetTop - scrollOffsetTop : documentOffsetTop; // позиция элемента со смещением
       const bodyScrollHeight = document.body.scrollHeight;
