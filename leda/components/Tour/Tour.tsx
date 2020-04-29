@@ -38,12 +38,16 @@ export const Tour = (props: TourProps): React.ReactElement | null => {
     const prevOverflow = document.body.style.overflow; // реализация как в Modal
 
     if (activeItem?.element) {
-      const offsetTop = activeItem.offsetTop ?? 200;
-      const top = activeItem.element.offsetTop >= offsetTop ? activeItem.element.offsetTop - offsetTop : activeItem.element.offsetTop;
-      window.scrollTo({ top, left: 0, behavior: 'smooth' });
+      const scrollOffsetTop = activeItem.offsetTop ?? 200;
+      const viewportOffsetTop = activeItem.element.getBoundingClientRect().top;
+      const documentOffsetTop = viewportOffsetTop + window.scrollY;
+      const shiftedDocumentOffsetTop = documentOffsetTop > scrollOffsetTop ? documentOffsetTop - scrollOffsetTop : documentOffsetTop; // позиция элемента со смещением
+      const bodyScrollHeight = document.body.scrollHeight;
+
+      window.scrollTo({ top: shiftedDocumentOffsetTop, left: 0, behavior: 'smooth' });
 
       document.body.style.overflow = 'hidden';
-      if (document.body.scrollHeight <= window.innerHeight || window.pageYOffset === top) { // прокрутки нет - отображаем тур сразу
+      if (bodyScrollHeight <= window.innerHeight || window.scrollY === shiftedDocumentOffsetTop) { // прокрутки нет - отображаем тур сразу
         setSvgPath(createOverlaySvgPath(activeItem?.element, borderRadius));
       } else { // иначе отобразим тур после скролла
         setIsScrolling(true);
@@ -51,7 +55,7 @@ export const Tour = (props: TourProps): React.ReactElement | null => {
 
         const scrollHandler = () => {
           // прокрутка закончилась
-          if (window.pageYOffset === top) {
+          if (window.scrollY === shiftedDocumentOffsetTop) {
             setSvgPath(createOverlaySvgPath(activeItem?.element, borderRadius));
             setIsScrolling(false);
             window.removeEventListener('scroll', scrollHandler); // remove listener
