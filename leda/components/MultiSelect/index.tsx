@@ -44,6 +44,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     itemRender,
     listRender,
     maxSelected,
+    maxTags,
     name,
     noSuggestionsRender,
     onBlur,
@@ -51,15 +52,15 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     onFocus,
     placeholder,
     requiredMessage,
-    shouldValidateUnmounted,
+    shouldHideInput,
     shouldKeepSuggestions,
     shouldSelectedGoFirst,
+    shouldValidateUnmounted,
     sortSuggestions,
     tagRender,
     tagsUnionRender,
     textField,
     theme: themeProp,
-    maxTags,
     validator,
     value: valueProp,
     wrapperRender,
@@ -111,8 +112,8 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
 
   const handleKeyDown = createKeyDownHandler(props, {
     filterValue,
-    highlightedSuggestion,
     handleSelect,
+    highlightedSuggestion,
     setFocused,
     setHighlightedSuggestion,
     value,
@@ -236,10 +237,11 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
           form={form}
           value={filterValue}
           onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+            if (shouldHideInput) return;
             setFilterValue(ev.target.value);
           }}
           onKeyDown={handleKeyDown}
-          style={isMaxItemsSelected
+          style={(isMaxItemsSelected || shouldHideInput)
             ? {
               position: 'absolute',
               opacity: 0,
