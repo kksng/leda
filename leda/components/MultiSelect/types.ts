@@ -92,6 +92,8 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   filterRule?: FilterRules,
   /** Ключ для группировки */
   groupBy?: (option: Value) => string | undefined,
+  /** Чекбоксы в выпадающем списке. */
+  hasCheckBoxes?: boolean,
   /** Кнопка очистки данных в инпуте. Появляется только в непустом инпуте. */
   hasClearButton?: boolean,
   /** Кастомный рендер инпута */

@@ -22,6 +22,7 @@ import { Div } from '../Div';
 import { LedaContext } from '../LedaProvider';
 import { Tag } from '../Tags';
 import { filterData, getShouldUniteTags, getValue } from './helpers';
+import { createCheckBoxesRender } from './renders';
 
 export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React.Ref<MultiSelectRefCurrent>): React.ReactElement => {
   const {
@@ -32,6 +33,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     filterRule,
     form,
     groupBy,
+    hasCheckBoxes,
     hasClearButton,
     inputRender,
     invalidMessage,
@@ -193,6 +195,8 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
 
   const shouldUniteTags = getShouldUniteTags({ maxTags, value });
 
+  const checkBoxesRender = createCheckBoxesRender({ theme });
+
   return (
     <Wrapper
       className={wrapperClassNames}
@@ -259,7 +263,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
           highlightedSuggestion={highlightedSuggestion}
           isLoading={isLoading}
           isOpen={isNil(isOpen) ? isFocused : isOpen}
-          itemRender={itemRender}
+          itemRender={hasCheckBoxes ? checkBoxesRender : itemRender}
           listRender={listRender}
           noSuggestionsRender={noSuggestionsRender}
           onClick={handleSelect}

@@ -40,6 +40,7 @@ exports[`MultiSelect ATTRIBUTES should list isOpen 1`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -151,6 +152,7 @@ exports[`MultiSelect ATTRIBUTES should list isOpen 1`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -214,6 +216,7 @@ exports[`MultiSelect ATTRIBUTES should list isOpen 1`] = `
                       text="2"
                       theme={
                         Object {
+                          "checkBoxItem": "multiselect-check-box-item",
                           "clearIcon": "multiselect-clear-icon",
                           "container": "suggestion-wrapper",
                           "containerTop": "pos-top",
@@ -272,6 +275,7 @@ exports[`MultiSelect ATTRIBUTES should list isOpen 1`] = `
                       text="3"
                       theme={
                         Object {
+                          "checkBoxItem": "multiselect-check-box-item",
                           "clearIcon": "multiselect-clear-icon",
                           "container": "suggestion-wrapper",
                           "containerTop": "pos-top",
@@ -378,6 +382,7 @@ exports[`MultiSelect ATTRIBUTES should list loading 1`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -490,6 +495,7 @@ exports[`MultiSelect ATTRIBUTES should list loading 1`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -613,6 +619,7 @@ exports[`MultiSelect ATTRIBUTES should render noData template 1`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -724,6 +731,7 @@ exports[`MultiSelect ATTRIBUTES should render noData template 1`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -787,6 +795,7 @@ exports[`MultiSelect ATTRIBUTES should render noData template 1`] = `
                       text="2"
                       theme={
                         Object {
+                          "checkBoxItem": "multiselect-check-box-item",
                           "clearIcon": "multiselect-clear-icon",
                           "container": "suggestion-wrapper",
                           "containerTop": "pos-top",
@@ -845,6 +854,7 @@ exports[`MultiSelect ATTRIBUTES should render noData template 1`] = `
                       text="3"
                       theme={
                         Object {
+                          "checkBoxItem": "multiselect-check-box-item",
                           "clearIcon": "multiselect-clear-icon",
                           "container": "suggestion-wrapper",
                           "containerTop": "pos-top",
@@ -950,6 +960,7 @@ exports[`MultiSelect ATTRIBUTES should render noData template 2`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -1055,6 +1066,7 @@ exports[`MultiSelect ATTRIBUTES should render noData template 2`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -1171,6 +1183,7 @@ exports[`MultiSelect HANDLERS should test onBlur 1`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -1284,6 +1297,7 @@ exports[`MultiSelect HANDLERS should test onBlur 1`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -1394,6 +1408,7 @@ exports[`MultiSelect HANDLERS should test onBlur 2`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -1507,6 +1522,7 @@ exports[`MultiSelect HANDLERS should test onBlur 2`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -1596,6 +1612,7 @@ exports[`MultiSelect HANDLERS should test onChange 1`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -1745,6 +1762,7 @@ exports[`MultiSelect HANDLERS should test onChange 1`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -1809,6 +1827,7 @@ exports[`MultiSelect HANDLERS should test onChange 1`] = `
                       text="3"
                       theme={
                         Object {
+                          "checkBoxItem": "multiselect-check-box-item",
                           "clearIcon": "multiselect-clear-icon",
                           "container": "suggestion-wrapper",
                           "containerTop": "pos-top",
@@ -1917,6 +1936,7 @@ exports[`MultiSelect HANDLERS should test onDeselect 1`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -2098,6 +2118,7 @@ exports[`MultiSelect HANDLERS should test onDeselect 1`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -2216,6 +2237,7 @@ exports[`MultiSelect HANDLERS should test onDeselect 2`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -2329,6 +2351,7 @@ exports[`MultiSelect HANDLERS should test onDeselect 2`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -2392,6 +2415,7 @@ exports[`MultiSelect HANDLERS should test onDeselect 2`] = `
                       text="1"
                       theme={
                         Object {
+                          "checkBoxItem": "multiselect-check-box-item",
                           "clearIcon": "multiselect-clear-icon",
                           "container": "suggestion-wrapper",
                           "containerTop": "pos-top",
@@ -2450,6 +2474,7 @@ exports[`MultiSelect HANDLERS should test onDeselect 2`] = `
                       text="3"
                       theme={
                         Object {
+                          "checkBoxItem": "multiselect-check-box-item",
                           "clearIcon": "multiselect-clear-icon",
                           "container": "suggestion-wrapper",
                           "containerTop": "pos-top",
@@ -2559,6 +2584,7 @@ exports[`MultiSelect HANDLERS should test onDeselect by clear button 1`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -2717,6 +2743,7 @@ exports[`MultiSelect HANDLERS should test onDeselect by clear button 1`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -2781,6 +2808,7 @@ exports[`MultiSelect HANDLERS should test onDeselect by clear button 1`] = `
                       text="3"
                       theme={
                         Object {
+                          "checkBoxItem": "multiselect-check-box-item",
                           "clearIcon": "multiselect-clear-icon",
                           "container": "suggestion-wrapper",
                           "containerTop": "pos-top",
@@ -2909,6 +2937,7 @@ exports[`MultiSelect HANDLERS should test onFocus 1`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -3022,6 +3051,7 @@ exports[`MultiSelect HANDLERS should test onFocus 1`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -3085,6 +3115,7 @@ exports[`MultiSelect HANDLERS should test onFocus 1`] = `
                       text="2"
                       theme={
                         Object {
+                          "checkBoxItem": "multiselect-check-box-item",
                           "clearIcon": "multiselect-clear-icon",
                           "container": "suggestion-wrapper",
                           "containerTop": "pos-top",
@@ -3143,6 +3174,7 @@ exports[`MultiSelect HANDLERS should test onFocus 1`] = `
                       text="3"
                       theme={
                         Object {
+                          "checkBoxItem": "multiselect-check-box-item",
                           "clearIcon": "multiselect-clear-icon",
                           "container": "suggestion-wrapper",
                           "containerTop": "pos-top",
@@ -3247,6 +3279,7 @@ exports[`MultiSelect SNAPSHOTS should render basic usage 1`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -3358,6 +3391,7 @@ exports[`MultiSelect SNAPSHOTS should render basic usage 1`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -3444,6 +3478,7 @@ exports[`MultiSelect SNAPSHOTS should render data in controllable mode 1`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -3555,6 +3590,7 @@ exports[`MultiSelect SNAPSHOTS should render data in controllable mode 1`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -3650,6 +3686,7 @@ exports[`MultiSelect SNAPSHOTS should render data in controllable mode 2`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -3771,6 +3808,7 @@ exports[`MultiSelect SNAPSHOTS should render data in controllable mode 2`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -3857,6 +3895,7 @@ exports[`MultiSelect SNAPSHOTS should render value in controllable mode 1`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -3968,6 +4007,7 @@ exports[`MultiSelect SNAPSHOTS should render value in controllable mode 1`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",
@@ -4054,6 +4094,7 @@ exports[`MultiSelect SNAPSHOTS should render value in controllable mode 2`] = `
               onTagClick={[Function]}
               theme={
                 Object {
+                  "checkBoxItem": "multiselect-check-box-item",
                   "clearIcon": "multiselect-clear-icon",
                   "container": "suggestion-wrapper",
                   "containerTop": "pos-top",
@@ -4165,6 +4206,7 @@ exports[`MultiSelect SNAPSHOTS should render value in controllable mode 2`] = `
           shouldAllowEmpty={false}
           theme={
             Object {
+              "checkBoxItem": "multiselect-check-box-item",
               "clearIcon": "multiselect-clear-icon",
               "container": "suggestion-wrapper",
               "containerTop": "pos-top",

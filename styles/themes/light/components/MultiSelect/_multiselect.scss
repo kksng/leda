@@ -67,4 +67,20 @@
       color: $black-03;
     }
   }
+
+  &-check-box-item {
+    .checkbox-label {
+      &::before {
+        top: 1px;
+      }
+    }
+  }
+
+  &-check-box-item.selected {
+    .checkbox-label {
+      &::after {
+        top: 0px;
+      }
+    }
+  }
 }

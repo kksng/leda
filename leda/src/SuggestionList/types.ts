@@ -43,6 +43,7 @@ export interface SuggestionListProps {
 }
 
 export interface SuggestionElementProps {
+  children: React.ReactNode,
   className?: string,
   onClick?: CustomEventHandler<any>,
   ref?: React.Ref<any>,
