@@ -62,6 +62,11 @@ export const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<TabsRefC
     hasScroll && theme.scroll,
   );
 
+  const headingClassNames = getClassNames(
+    theme.tabsBar,
+    shouldScrollTabs && theme.scroll,
+  );
+
   if (!children) return null;
 
   return (
@@ -91,7 +96,7 @@ export const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<TabsRefC
           />
         )}
 
-        <Heading className={theme.tabsBar}>
+        <Heading className={headingClassNames}>
           <TabsContext.Provider value={tabsContext}>
             {React.Children.map(children, (child) => {
               if (!React.isValidElement(child)) return null;
