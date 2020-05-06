@@ -24,7 +24,8 @@ export const CheckBoxes = (args): React.ReactElement => {
         shouldKeepSuggestions
         sortSuggestions={(a, b) => a.text > b.text ? 1 : -1}
         shouldSelectedGoFirst
-        _width40
+        _width-40
+        hasClearButton
         onChange={ev => {
           console.log('ev.component.selectedValue', ev.component.selectedValue);
           console.log('ev.component.value', ev.component.value);
