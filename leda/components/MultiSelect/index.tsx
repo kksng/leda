@@ -70,6 +70,11 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     ...restProps
   } = useProps(props);
 
+  React.useEffect(() => {
+    // Warn user about possible misused props
+    if (hasCheckBoxes && !shouldKeepSuggestions) console.warn('Leda MultiSelect: you probably forgot using shouldKeepSuggestions with hasCheckBoxes prop.');
+  }, [hasCheckBoxes, shouldKeepSuggestions]);
+
   const [valueState, setValue] = React.useState<Value[]>(defaultValue || []);
 
   const [filterValue, setFilterValue] = React.useState<string>('');
