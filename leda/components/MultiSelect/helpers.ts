@@ -1,7 +1,8 @@
+import { difference } from 'lodash';
 import { filterSuggestionByRule, checkIsTheSameObject } from '../../utils';
 import { getText } from '../../src/SuggestionList/helpers';
 import {
-  FilterDataParams, MultiSelectProps, Value,
+  FilterDataParams, GetSortedSuggestionsProps, MultiSelectProps, Value,
 } from './types';
 
 
@@ -41,3 +42,26 @@ export const getValue = (valueProp: Value[] | null | undefined, valueState: Valu
 };
 
 export const getShouldUniteTags = ({ maxTags, value }: { maxTags?: number, value: Value[] }) => maxTags != null && value.length >= maxTags;
+
+export const getSortedSuggestions = ({
+  shouldSelectedGoFirst,
+  selectedSuggestions,
+  filteredData,
+  sortSuggestions,
+}: GetSortedSuggestionsProps) => {
+  const suggestions = filteredData ? filteredData.slice() : [];
+
+  if (shouldSelectedGoFirst && selectedSuggestions) {
+    const notSelectedSuggestions = selectedSuggestions ? difference(suggestions, selectedSuggestions) : suggestions;
+    if (sortSuggestions) {
+      notSelectedSuggestions.sort(sortSuggestions);
+    }
+
+    const sortedSelectedSuggestions = sortSuggestions ? [...selectedSuggestions].sort(sortSuggestions) : selectedSuggestions;
+    return [...sortedSelectedSuggestions, ...notSelectedSuggestions];
+  }
+
+  return sortSuggestions
+    ? suggestions.sort(sortSuggestions)
+    : suggestions;
+};

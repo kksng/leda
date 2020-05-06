@@ -82,6 +82,8 @@ export type ChangeEvent<T = Value> = MouseSelectEvent<T> | EnterSelectEvent<T> |
 export interface MultiSelectProps<T extends MultiSelectValue | null | undefined = MultiSelectValue | null | undefined> extends ValidationProps {
   /** Браузерное автозаполнение поля ввода, по умолчанию "off" */
   autoComplete?: string,
+  /** "Выбраать всё" в выпадающем списке */
+  canSelectAll?: boolean,
   /** Сравнение объектов по произвольному полю, а не по ссылке */
   compareObjectsBy?: T extends object ? ((suggestionListItems: SomeObject) => any) | string : never,
   /** Данные для отображения в списке.
@@ -135,7 +137,7 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   /** Выводить сначала выбранные значения в списке */
   shouldSelectedGoFirst?: boolean,
   /** Сортировка выпадающего списка */
-  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => number,
+  sortSuggestions?: (a: Value, b: Value) => number,
   /** Кастомный рендер тегов */
   tagRender?: CustomRender<MultiSelectProps, MultiSelectState, TagProps>,
   /** Кастомное сообщение об объединённых тегах */
@@ -221,4 +223,11 @@ export interface KeyDownData {
   setFocused: SetState<boolean>,
   setHighlightedSuggestion: SetState<Value>,
   value: MultiSelectValue,
+}
+
+export interface GetSortedSuggestionsProps {
+  shouldSelectedGoFirst?: boolean,
+  selectedSuggestions?: Value[],
+  filteredData?: Value[],
+  sortSuggestions: MultiSelectProps['sortSuggestions'],
 }

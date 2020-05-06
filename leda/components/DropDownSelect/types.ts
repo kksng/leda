@@ -3,7 +3,7 @@ import {
   CustomEventHandler, CustomRender, SomeObject,
 } from '../../commonTypes';
 import { COMPONENTS_NAMESPACES } from '../../constants';
-import { SuggestionItemComputedProps, SuggestionListProps } from '../../src/SuggestionList/types';
+import { SuggestionListProps } from '../../src/SuggestionList/types';
 import { GlobalDefaultTheme, PartialGlobalDefaultTheme } from '../../utils/useTheme';
 import { DivProps } from '../Div';
 import { SpanProps } from '../Span';
@@ -85,7 +85,7 @@ export interface DropDownSelectProps<T extends Value = Value> extends Validation
   shouldAllowEmpty?: boolean,
   shouldFilterValues?: boolean,
   /** Сортировка выпадающего списка */
-  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => number,
+  sortSuggestions?: (a: T, b: T) => number,
   textField?: T extends object ? string : never,
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.dropDownSelect],
   value?: T | null,

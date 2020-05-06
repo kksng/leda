@@ -1079,6 +1079,7 @@ exports[`MultiSelect ATTRIBUTES should render noData template 2`] = `
           </div>
         </Div>
         <SuggestionList
+          data={Array []}
           highlightedSuggestion={null}
           isOpen={true}
           onClick={[Function]}
@@ -2148,6 +2149,7 @@ exports[`MultiSelect HANDLERS should test onDeselect 1`] = `
           </div>
         </Div>
         <SuggestionList
+          data={Array []}
           highlightedSuggestion={null}
           isOpen={true}
           onClick={[Function]}

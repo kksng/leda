@@ -6,7 +6,7 @@ import { Li } from '../../components/Li';
 import { Ul } from '../../components/Ul';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { useAdaptivePosition, useElement, useTheme } from '../../utils';
-import { getSuggestionItemProps, scrollToSuggestion, sortSelectedFirst } from './helpers';
+import { getSuggestionItemProps, scrollToSuggestion } from './helpers';
 import { SuggestionItem } from './SuggestionItem';
 import { SuggestionListProps, GroupedSomeObject, Value } from './types';
 import { NoSuggestions } from './NoSuggestions';
@@ -29,8 +29,6 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
     onClick,
     placeholder,
     shouldAllowEmpty,
-    shouldSelectedGoFirst,
-    sortSuggestions,
     textField,
     theme: themeProp,
     value,
@@ -172,9 +170,6 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
 
     return suggestionItemComputedProps;
   });
-
-  if (sortSuggestions) suggestionItems.sort(sortSuggestions);
-  if (shouldSelectedGoFirst) suggestionItems.sort(sortSelectedFirst);
 
   return (
     <Div className={theme.container} onMouseDown={(ev) => ev.preventDefault()} ref={wrapperRef}>

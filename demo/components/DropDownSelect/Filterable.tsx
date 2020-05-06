@@ -35,6 +35,7 @@ export const Filterable = (args: SomeObject): React.ReactElement => {
         placeholder="Choose a city..."
         hasClearButton
         value={value}
+        sortSuggestions={(a, b) => (a > b) ? 1 : -1}
         onChange={(ev: L.DropDownSelectTypes.ChangeEvent<DataItem>) => {
           setValue(ev.component.value);
         }}

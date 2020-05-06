@@ -33,10 +33,6 @@ export interface SuggestionListProps {
   onClick?: CustomEventHandler<React.MouseEvent<HTMLElement> & SuggestionTarget>,
   placeholder?: string,
   shouldAllowEmpty: boolean,
-  /** Выводить сначала выбранные значения в списке */
-  shouldSelectedGoFirst?: boolean,
-  /** Сортировка выпадающего списка */
-  sortSuggestions?: (a: SuggestionItemComputedProps, b: SuggestionItemComputedProps) => number,
   textField?: string,
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.suggestionList],
   value: string | number | SomeObject | null | (string[] | number[] | SomeObject[]),
