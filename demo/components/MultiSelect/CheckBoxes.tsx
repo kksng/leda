@@ -22,7 +22,6 @@ export const CheckBoxes = (args: any): React.ReactElement => {
         ]}
         maxTags={3}
         shouldKeepSuggestions
-        // sortSuggestions={(a, b) => (a ?? 1) > (b ?? 0) ? 1 : -1}
         shouldSelectedGoFirst
         canSelectAll
         selectAllItem={<L.Span _txt-success>SelectAll</L.Span>}
