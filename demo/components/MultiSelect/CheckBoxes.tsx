@@ -24,11 +24,13 @@ export const CheckBoxes = (args: any): React.ReactElement => {
         shouldKeepSuggestions
         // sortSuggestions={(a, b) => (a ?? 1) > (b ?? 0) ? 1 : -1}
         shouldSelectedGoFirst
-        // canSelectAll
+        canSelectAll
+        selectAllItem={<L.Span _txt-success>SelectAll</L.Span>}
         _width-40
         hasClearButton
         onChange={ev => {
           console.log('ev.component.selectedValue', ev.component.selectedValue);
+          console.log('ev.component.deselectedValues', ev.component.deselectedValues);
           console.log('ev.component.value', ev.component.value);
           setValue(ev.component.value as string[]);
         }}

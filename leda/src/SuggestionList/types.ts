@@ -7,6 +7,7 @@ import { LiProps } from '../../components/Li';
 import { UlProps } from '../../components/Ul';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { GlobalDefaultTheme, PartialGlobalDefaultTheme } from '../../utils/useTheme';
+import { SelectedState } from '../../components/MultiSelect/constants';
 
 export type Value = SomeObject | string | number | null;
 
@@ -32,6 +33,8 @@ export interface SuggestionListProps {
   noSuggestionsRender?: CustomRender<SuggestionListProps, {}, NoSuggestionsProps>,
   onClick?: CustomEventHandler<React.MouseEvent<HTMLElement> & SuggestionTarget>,
   placeholder?: string,
+  selectAllItem?: React.ReactElement,
+  selectAllState?: SelectAllState,
   shouldAllowEmpty: boolean,
   textField?: string,
   theme?: PartialGlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.suggestionList],
@@ -50,6 +53,10 @@ export interface SuggestionItemProps {
   isPlaceholder: boolean,
   isHighlighted?: boolean,
   isSelected?: boolean,
+  isSelectAllItem?: boolean,
+  selectAllItem?: SuggestionListProps['selectAllItem'],
+  selectAllState?: SelectedState,
+  canSelectAll?: boolean,
   item: string | number | SomeObject | null,
   itemRender?: CustomRender<SuggestionItemProps, {}, SuggestionElementProps>,
   onClick?: CustomEventHandler<React.MouseEvent<HTMLElement> & SuggestionTarget>,
@@ -72,17 +79,22 @@ export interface GetSuggestionItemProps {
   compareObjectsBy?: ((suggestionListItem: SomeObject) => any) | string,
   highlightedSuggestion?: Value,
   placeholder?: string,
+  selectAllState?: SelectedState,
   selectedSuggestion?: Value | Value[],
   suggestion: Value,
   textField?: string,
 }
 
 export interface SuggestionItemComputedProps {
-  isScrollTarget: boolean,
-  isPlaceholder: boolean,
   isHighlighted?: boolean,
+  isPlaceholder: boolean,
+  isScrollTarget: boolean,
+  isSelectAllItem?: boolean,
   isSelected?: boolean,
+  selectAllState?: SelectedState,
   item: string | number | SomeObject | null,
   key: string,
   text: string | number,
 }
+
+export type SelectAllState = SelectedState | undefined;

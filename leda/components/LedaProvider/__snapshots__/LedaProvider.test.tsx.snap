@@ -176,6 +176,7 @@ exports[`LEDA THEME PROVIDER should be isOpen 1`] = `
                         isHighlighted={false}
                         isPlaceholder={false}
                         isScrollTarget={false}
+                        isSelectAllItem={false}
                         isSelected={false}
                         item={
                           Object {
@@ -240,6 +241,7 @@ exports[`LEDA THEME PROVIDER should be isOpen 1`] = `
                         isHighlighted={false}
                         isPlaceholder={false}
                         isScrollTarget={false}
+                        isSelectAllItem={false}
                         isSelected={false}
                         item={
                           Object {
@@ -304,6 +306,7 @@ exports[`LEDA THEME PROVIDER should be isOpen 1`] = `
                         isHighlighted={false}
                         isPlaceholder={false}
                         isScrollTarget={false}
+                        isSelectAllItem={false}
                         isSelected={false}
                         item={
                           Object {

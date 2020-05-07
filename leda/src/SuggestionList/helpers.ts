@@ -3,6 +3,7 @@ import { isArray, isObject } from 'lodash';
 import { SomeObject } from '../../commonTypes';
 import { GetSuggestionItemProps, SuggestionItemComputedProps } from './types';
 import { checkIsTheSameObject } from '../../utils';
+import { selectAllSuggestion } from '../../components/MultiSelect/constants';
 
 export const getText = (suggestion?: string | number | SomeObject | null, textField?: string): string => {
   if (!suggestion) return '';
@@ -44,6 +45,7 @@ export const getSuggestionItemProps = ({
   placeholder,
   highlightedSuggestion,
   selectedSuggestion,
+  selectAllState,
 }: GetSuggestionItemProps): SuggestionItemComputedProps => {
   const text = getText(suggestion, textField);
 
@@ -75,11 +77,15 @@ export const getSuggestionItemProps = ({
 
   const item = suggestion === placeholder ? null : suggestion;
 
+  const isSelectAllItem = suggestion === selectAllSuggestion;
+
   return {
     text,
     isHighlighted,
     isPlaceholder,
     isSelected,
+    selectAllState,
+    isSelectAllItem,
     isScrollTarget,
     key,
     item,

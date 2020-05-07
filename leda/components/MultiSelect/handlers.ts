@@ -7,13 +7,13 @@ import {
   KeyDownData,
   MouseDownData,
   MultiSelectProps,
-  ResetEvent,
   SelectData,
   Value,
 } from './types';
 import { CustomEventHandler, SetState, SomeObject } from '../../commonTypes';
 import { SuggestionTarget } from '../../src/SuggestionList/types';
 import { filterData, getShouldUniteTags } from './helpers';
+import { selectAllSuggestion } from './constants';
 
 export const createFocusHandler = (
   props: MultiSelectProps, extraData: FocusData,
@@ -70,7 +70,7 @@ export const createSelectHandler = (
   props: MultiSelectProps, extraData: SelectData,
 ): CustomEventHandler<React.MouseEvent<HTMLElement> & SuggestionTarget> => (ev) => {
   const {
-    onChange, name, value: valueProp, isDisabled, maxSelected,
+    data, onChange, name, value: valueProp, isDisabled, maxSelected,
   } = props;
 
   if (isDisabled) return;
@@ -81,13 +81,32 @@ export const createSelectHandler = (
 
   const shouldRemoveValue = (value as (string | number | SomeObject)[]).includes(ev.target.value);
 
+  const isSelectAllClicked = ev.target.value === selectAllSuggestion;
+
   const newValue = (() => {
+    if (isSelectAllClicked) {
+      if (data?.length === value.length) return [];
+      return [...data];
+    }
+
     if (shouldRemoveValue) {
       return (value as (string | number | SomeObject)[]).filter((item) => (item !== ev.target.value));
     }
 
     return [...value, ev.target.value];
   })() as (string[] | number[] | SomeObject[]);
+
+  const selectedValue = (() => {
+    if (isSelectAllClicked) return undefined; // todo: return correct selected value
+    return shouldRemoveValue ? undefined : ev.target.value;
+  })();
+
+  const deselectedValues = (() => {
+    if (isSelectAllClicked) {
+      return value.length === data?.length ? data : [];
+    }
+    return shouldRemoveValue ? [ev.target.value] as string[] | number[] | SomeObject[] : undefined;
+  })();
 
   if (!isNil(maxSelected) && newValue.length === maxSelected) {
     setFilterValue('');
@@ -101,8 +120,8 @@ export const createSelectHandler = (
       component: {
         value: newValue,
         name,
-        selectedValue: shouldRemoveValue ? undefined : ev.target.value,
-        deselectedValues: shouldRemoveValue ? [ev.target.value] as string[] | number[] | SomeObject[] : undefined,
+        selectedValue,
+        deselectedValues,
       },
     };
 

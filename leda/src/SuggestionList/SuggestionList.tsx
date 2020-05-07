@@ -20,7 +20,6 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
     groupLabelRender,
     groupWrapperRender,
     highlightedSuggestion,
-    selectedSuggestion,
     isLoading,
     isOpen,
     itemRender,
@@ -28,6 +27,9 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
     noSuggestionsRender,
     onClick,
     placeholder,
+    selectAllItem,
+    selectAllState,
+    selectedSuggestion,
     shouldAllowEmpty,
     textField,
     theme: themeProp,
@@ -128,6 +130,7 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
       <SuggestionItem
         itemRender={itemRender}
         onClick={onClick}
+        selectAllItem={selectAllItem}
         suggestionRef={suggestionRef}
         textField={textField}
         theme={theme}
@@ -166,6 +169,7 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
       selectedSuggestion,
       suggestion,
       textField,
+      selectAllState,
     });
 
     return suggestionItemComputedProps;
@@ -202,6 +206,7 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
             suggestionRef={suggestionRef}
             textField={textField}
             theme={theme}
+            selectAllItem={selectAllItem}
             {...suggestionItem}
           />
         ))}
