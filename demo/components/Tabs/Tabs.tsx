@@ -10,7 +10,7 @@ export const Tabs = (props: any) => {
         activeTabKey={selected}
         onChange={(ev) => setSelected(ev.component.value)}
       >
-        <L.Tab title="Tab 1" tabKey={0}>
+        <L.Tab title={<L.Div _txt-success>Tab 1</L.Div>} tabKey={0}>
           <L.Div _inner>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             Non sodales neque sodales ut etiam sit. Phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet. Morbi blandit cursus risus at.
@@ -19,7 +19,7 @@ export const Tabs = (props: any) => {
             malesuada fames. Non odio euismod lacinia at quis risus. Nibh nisl condimentum id venenatis a condimentum.
           </L.Div>
         </L.Tab>
-        <L.Tab title="Tab 2" tabKey={1}>
+        <L.Tab title={<div>Tab 2</div>} tabKey={1}>
           <L.Div _inner>
              Volutpat blandit aliquam etiam erat. Diam maecenas sed enim ut. Ornare massa eget egestas purus viverra accumsan in nisl nisi. Vitae auctor eu
              augue ut lectus. Consectetur adipiscing elit pellentesque habitant morbi tristique. Neque egestas congue quisque egestas diam. Aliquet enim

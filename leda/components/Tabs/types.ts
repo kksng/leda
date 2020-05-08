@@ -36,7 +36,7 @@ export interface TabsState {
   activeTabKey: string | number,
 }
 
-export type TabProps = React.HTMLAttributes<HTMLDivElement> & {
+export type TabProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> & {
   /** Вложенные элементы */
   children?: React.ReactNode,
   /** Делает вкладку неактивной */
