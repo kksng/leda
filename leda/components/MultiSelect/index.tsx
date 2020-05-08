@@ -61,7 +61,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
     onFocus,
     placeholder,
     requiredMessage,
-    selectAllItem,
+    selectAllItemRender,
     shouldHideInput,
     shouldKeepSuggestions,
     shouldSelectedGoFirst,
@@ -316,7 +316,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
           listRender={listRender}
           noSuggestionsRender={noSuggestionsRender}
           onClick={handleSelect}
-          selectAllItem={selectAllItem}
+          selectAllItemRender={selectAllItemRender}
           selectAllState={selectAllState}
           selectedSuggestion={selectedSuggestions}
           shouldAllowEmpty={false}

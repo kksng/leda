@@ -131,7 +131,7 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   /** Реф */
   ref?: React.Ref<MultiSelectRefCurrent>,
   /** Отображать компонент без фильтра */
-  selectAllItem?: SuggestionListProps['selectAllItem'],
+  selectAllItemRender?: SuggestionListProps['selectAllItemRender'],
   /** Отображать компонент без фильтра */
   shouldHideInput?: boolean,
   /** Постоянный список, элементы не исчезают при клике */

@@ -27,7 +27,7 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
     noSuggestionsRender,
     onClick,
     placeholder,
-    selectAllItem,
+    selectAllItemRender,
     selectAllState,
     selectedSuggestion,
     shouldAllowEmpty,
@@ -130,7 +130,7 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
       <SuggestionItem
         itemRender={itemRender}
         onClick={onClick}
-        selectAllItem={selectAllItem}
+        selectAllItemRender={selectAllItemRender}
         suggestionRef={suggestionRef}
         textField={textField}
         theme={theme}
@@ -206,7 +206,7 @@ export const SuggestionList = (props: SuggestionListProps): React.ReactElement |
             suggestionRef={suggestionRef}
             textField={textField}
             theme={theme}
-            selectAllItem={selectAllItem}
+            selectAllItemRender={selectAllItemRender}
             {...suggestionItem}
           />
         ))}

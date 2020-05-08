@@ -24,7 +24,7 @@ export const CheckBoxes = (args: any): React.ReactElement => {
         shouldKeepSuggestions
         shouldSelectedGoFirst
         canSelectAll
-        selectAllItem={<L.Span _txt-success>SelectAll</L.Span>}
+        selectAllItemRender={() => <L.Span _txt-success>Select all</L.Span>}
         _width-40
         hasClearButton
         onChange={ev => {
