@@ -8,21 +8,14 @@ export const Controlled = (componentProps: any) => {
   return (
     <L.Div _box _inner _demoBg>
       <L.FileUpload
-        form="fupload"
-        name="file"
-        isRequired
-        requiredMessage="Алоэ"
         allowedFiles=".jpg, .gif, .png"
         maxFileSize={1500000000}
         onChange={(ev) => {
-          console.log('ev.component', ev.component)
-        }}
-        onFileLoad={(ev) => {
-          console.log('Вы загрузили файл!', ev.component.value.acceptedFiles, ev.component.value.rejectedFiles);
+          console.log('ev.component', ev.component);
           setProps({ isLoading: true });
           setTimeout(() => {
             setProps({ isLoading: false });
-            alert(ev.component.value.acceptedFiles.length !== 0 ? 'Файл загружен!' : 'При загрузке возникла ошибка!');
+            alert(ev.component.error == null ? 'Файл загружен!' : 'При загрузке возникла ошибка!');
           }, 2000);
         }}
         {...props}
