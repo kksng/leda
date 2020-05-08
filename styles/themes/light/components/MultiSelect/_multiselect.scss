@@ -45,6 +45,13 @@
     }
   }
 
+  &-placeholder {
+    padding: 2px;
+    margin-right: 12px;
+    color: $black-04;
+    float: left;
+  }
+
   &-tags-union {
     align-self: flex-start;
     margin: 5px 10px;

@@ -230,13 +230,15 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
         )}
         {!shouldUniteTags && (
           <TagsContainer
-            value={value}
-            theme={theme}
-            onTagClick={handleSelect}
+            hasClearButton={hasClearButton}
             onClearIconClick={handleClear}
             onMouseDown={handleMouseDown}
+            onTagClick={handleSelect}
+            placeholder={placeholder}
+            shouldHideInput={shouldHideInput}
             textField={textField}
-            hasClearButton={hasClearButton}
+            theme={theme}
+            value={value}
           >
             <TagItem />
           </TagsContainer>

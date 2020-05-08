@@ -7,13 +7,14 @@ export const defaultMultiSelectTheme = {
   input:                     'multiselect-input',
   inputFocused:              'focused',
   inputWrapper:              'multiselect-input-wrapper',
-  inputWrapperFocused:       'focused',
   inputWrapperDisabled:      'disabled',
+  inputWrapperFocused:       'focused',
   inputWrapperInvalid:       'danger',
   inputWrapperRequired:      'required',
-  wrapper:                   'multiselect-wrapper',
+  placeholder:               'multiselect-placeholder',
   tagsContainer:             'multiselect-tags-container',
   tagsUnion:                 'multiselect-tags-union',
+  wrapper:                   'multiselect-wrapper',
   /** SuggestionList theme */
   ...defaultSuggestionListTheme,
 };

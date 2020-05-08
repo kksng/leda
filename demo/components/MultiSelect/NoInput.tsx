@@ -10,6 +10,8 @@ export const NoInput = (args: SomeObject): React.ReactElement => {
     <L.Div _box _inner _demo-bg>
       <L.MultiSelect
         shouldHideInput
+        placeholder="placeholder"
+        hasClearButton
         data={[
           'London',
           'Islamabad',

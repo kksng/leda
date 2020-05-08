@@ -162,6 +162,8 @@ export interface TagsContainerProps {
   onClearIconClick: React.MouseEventHandler<HTMLElement>,
   onMouseDown: React.MouseEventHandler<HTMLElement>,
   onTagClick: CustomEventHandler<React.MouseEvent<HTMLElement> & SuggestionTarget>,
+  placeholder?: MultiSelectProps['placeholder'],
+  shouldHideInput?: MultiSelectProps['shouldHideInput'],
   textField?: string,
   theme: GlobalDefaultTheme[typeof COMPONENTS_NAMESPACES.multiSelect],
   value: MultiSelectValue,

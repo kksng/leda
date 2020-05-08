@@ -7,8 +7,19 @@ import { SomeObject } from '../../commonTypes';
 
 export const TagsContainer = (props: TagsContainerProps): React.ReactElement | null => {
   const {
-    value, theme, onTagClick, onClearIconClick, onMouseDown, textField, hasClearButton, children,
+    value, theme, onTagClick, onClearIconClick, onMouseDown, textField, hasClearButton, children, shouldHideInput, placeholder,
   } = props;
+
+  if (value.length === 0 && shouldHideInput) {
+    return (
+      <Div
+        className={theme.tagsContainer}
+        onMouseDown={onMouseDown}
+      >
+        <Span className={theme.placeholder}>{placeholder}</Span>
+      </Div>
+    );
+  }
 
   if (value.length === 0) return null;
 
