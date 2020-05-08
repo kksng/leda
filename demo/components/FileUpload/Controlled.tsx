@@ -14,6 +14,9 @@ export const Controlled = (componentProps: any) => {
         requiredMessage="Алоэ"
         allowedFiles=".jpg, .gif, .png"
         maxFileSize={1500000000}
+        onChange={(ev) => {
+          console.log('ev.component', ev.component)
+        }}
         onFileLoad={(ev) => {
           console.log('Вы загрузили файл!', ev.component.value.acceptedFiles, ev.component.value.rejectedFiles);
           setProps({ isLoading: true });

@@ -3,12 +3,13 @@ import { CustomRender, CustomEventHandler } from '../../commonTypes';
 import { GlobalDefaultTheme, PartialGlobalDefaultTheme } from '../../utils/useTheme';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { ValidationProps } from '../Validation/types';
+import { FileErrorCodes } from '../../constants';
 
 export { FileErrorCodes } from '../../constants';
 
 export interface FileDropInnerError {
   /** Код ошибки, подробнее можно посмотреть в leda/constants.ts */
-  errorCode: number,
+  errorCode: FileErrorCodes,
   /** Сообщение об ошибке */
   errorMessage: string,
 }

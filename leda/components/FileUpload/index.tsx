@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { DropEvent, DropzoneRef, useDropzone } from 'react-dropzone';
+import { DropzoneRef, useDropzone } from 'react-dropzone';
 import { bindFunctionalRef, useProps } from '../../utils';
 import { MAX_FILE_SIZE, MIN_FILE_SIZE } from '../../constants';
 import { Div } from '../Div';
-import { createClickHandler, createLoadHandler } from './handlers';
+import { createChangeHandler, createClickHandler, createLoadHandler } from './handlers';
 import { FileUploadProps, FileUploadRefCurrent } from './types';
 import { useCustomElements } from './hooks';
 import { useValidation } from '../Validation';
@@ -16,6 +16,7 @@ export const FileUpload = React.forwardRef((props: FileUploadProps, ref: React.R
     isLoading,
     maxFileSize = MAX_FILE_SIZE,
     minFileSize = MIN_FILE_SIZE,
+    onChange,
     onClick,
     onFileLoad,
     ref: refProp, // exclude from restProps
@@ -36,6 +37,7 @@ export const FileUpload = React.forwardRef((props: FileUploadProps, ref: React.R
   const handleClick = createClickHandler({ ...props, fileUploadRef });
 
   const handleLoad = createLoadHandler(props);
+  const handleChange = createChangeHandler(props);
 
   const state = React.useMemo(() => ({ }), []);
 
@@ -51,6 +53,7 @@ export const FileUpload = React.forwardRef((props: FileUploadProps, ref: React.R
     onDrop: (acceptedFiles, rejectedFiles) => {
       const newValue = handleLoad(acceptedFiles, rejectedFiles);
       validateCurrent(newValue);
+      handleChange(acceptedFiles, rejectedFiles);
     },
   });
 

@@ -4,6 +4,7 @@ import { PartialGlobalDefaultTheme } from '../../utils/useTheme';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { globalDefaultTheme } from '../LedaProvider';
 import { ValidationProps } from '../Validation/types';
+import { FileErrorCodes } from '../../constants';
 
 export { FileErrorCodes } from '../../constants';
 
@@ -22,7 +23,7 @@ export interface DropZoneFileType extends File {
   path?: string,
   preview?: string,
   lastModified: number,
-  errorCode?: number,
+  errorCode?: FileErrorCodes,
 }
 
 export type FileType = ExternalFile | DropZoneFileType;
@@ -149,7 +150,7 @@ export interface DropZoneFilesProps {
 
 export interface DropZoneError {
   message: string,
-  errorCode: number,
+  errorCode: FileErrorCodes,
 }
 
 export interface RejectedFilesListProps {
