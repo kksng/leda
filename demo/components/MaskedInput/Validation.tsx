@@ -13,7 +13,7 @@ export const Validation = (): React.ReactElement => {
         form="valid-masked"
         value={MIValue}
         onChange={ev => {
-          const { target: { value, inputValue } } = ev;
+          const { component: { value, inputValue } } = ev;
           console.log('value', value);
           console.log('inputValue', inputValue);
           setMIValue(value);
@@ -85,6 +85,15 @@ export const Validation = (): React.ReactElement => {
           }}
         >
           Set +7 (123)-456-78
+        </L.Button>
+        {' '}
+        <L.Button
+          _danger
+          onClick={ev => {
+            setMIValue('');
+          }}
+        >
+          Set ''
         </L.Button>
       </L.Div>
     </L.Div>
