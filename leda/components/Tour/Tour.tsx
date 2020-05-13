@@ -52,7 +52,7 @@ export const Tour = (props: TourProps): React.ReactElement | null => {
         bodyScrollHeight <= window.innerHeight // высота body меньше, чем высота экрана, скролла нет
         || window.scrollY === shiftedDocumentOffsetTop // страница уже прокручена до элемента
         || neededToScrollAmount >= availableScrollLength // страница прокручена до конца и не может быть прокручена дальше
-      ) { // прокрутки нет - отображаем тур сразу
+      ) { // прокручивать не нужно - отображаем тур сразу
         setSvgPath(createOverlaySvgPath(activeItem?.element, borderRadius));
       } else { // иначе отобразим тур после скролла
         setIsScrolling(true);
