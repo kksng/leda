@@ -18,7 +18,7 @@ export const MaskedInputBase = React.forwardRef((props: MaskedInputBaseProps, re
   const {
     className,
     mask,
-    value = '',
+    value,
     placeholderChar = DEFAULT_PLACEHOLDER_CHAR,
     placeholder,
     isDisabled = false,
@@ -65,20 +65,6 @@ export const MaskedInputBase = React.forwardRef((props: MaskedInputBaseProps, re
   });
 
   React.useEffect((): void => {
-    const newValue = getValue({
-      valueProp: value,
-      mask,
-      inputValue,
-      placeholderChar,
-      isFocused,
-    });
-
-    if (inputRef.current && inputRef.current.value !== newValue) {
-      inputRef.current.value = newValue;
-    }
-  }, [inputValue, isFocused, mask, placeholderChar, value]);
-
-  React.useEffect((): void => {
     if (!value) return;
 
     const maskedValue = maskValue(value, mask, placeholderChar);
@@ -116,9 +102,6 @@ export const MaskedInputBase = React.forwardRef((props: MaskedInputBaseProps, re
 
         inputRef.current = component;
       }}
-      // значение устанавливается через реф, связано с ограничениями React
-      // https://github.com/facebook/react/issues/955
-      // value={value}
     />
   );
 }) as React.FC<MaskedInputBaseProps>;
