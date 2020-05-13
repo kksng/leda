@@ -43,26 +43,32 @@ export const Tour = (props: TourProps): React.ReactElement | null => {
       const documentOffsetTop = viewportOffsetTop + window.scrollY;
       const shiftedDocumentOffsetTop = documentOffsetTop > scrollOffsetTop ? documentOffsetTop - scrollOffsetTop : documentOffsetTop; // позиция элемента со смещением
       const bodyScrollHeight = document.body.scrollHeight;
-
-      window.scrollTo({ top: shiftedDocumentOffsetTop, left: 0, behavior: 'smooth' });
+      const availableScrollLength = bodyScrollHeight - (window.scrollY + window.innerHeight);
+      const neededToScrollAmount = shiftedDocumentOffsetTop - window.scrollY;
 
       document.body.style.overflow = 'hidden';
-      if (bodyScrollHeight <= window.innerHeight || window.scrollY === shiftedDocumentOffsetTop) { // прокрутки нет - отображаем тур сразу
+
+      if (
+        bodyScrollHeight <= window.innerHeight // высота body меньше, чем высота экрана, скролла нет
+        || window.scrollY === shiftedDocumentOffsetTop // страница уже прокручена до элемента
+        || neededToScrollAmount >= availableScrollLength // страница прокручена до конца и не может быть прокручена дальше
+      ) { // прокрутки нет - отображаем тур сразу
         setSvgPath(createOverlaySvgPath(activeItem?.element, borderRadius));
       } else { // иначе отобразим тур после скролла
         setIsScrolling(true);
         setSvgPath(createOverlaySvgPath(null, borderRadius));
 
-        const scrollHandler = () => {
+        const scrollHandler = debounce(() => {
           // прокрутка закончилась
-          if (window.scrollY === shiftedDocumentOffsetTop) {
-            setSvgPath(createOverlaySvgPath(activeItem?.element, borderRadius));
-            setIsScrolling(false);
-            window.removeEventListener('scroll', scrollHandler); // remove listener
-          }
-        };
+          setSvgPath(createOverlaySvgPath(activeItem?.element, borderRadius));
+          setIsScrolling(false);
+
+          window.removeEventListener('scroll', scrollHandler); // remove listener
+        }, 100);
 
         window.addEventListener('scroll', scrollHandler);
+
+        window.scrollTo({ top: shiftedDocumentOffsetTop, left: 0, behavior: 'smooth' });
       }
     } else {
       setSvgPath(createOverlaySvgPath(null, borderRadius));
