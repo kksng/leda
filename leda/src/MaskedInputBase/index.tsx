@@ -64,6 +64,17 @@ export const MaskedInputBase = React.forwardRef((props: MaskedInputBaseProps, re
     setInputValue,
   });
 
+  React.useEffect(() => {
+    // controlled value change
+    if (!isFocused) {
+      const newValue = value === ''
+        ? ''
+        : maskValue(value, mask, placeholderChar);
+
+      setInputValue(newValue);
+    }
+  }, [value]);
+
   React.useEffect((): void => {
     if (!value) return;
 
