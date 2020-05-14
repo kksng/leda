@@ -161,3 +161,7 @@ export interface FilterDataProps {
   filterRule?: FilterRules,
   searchFields?: string[],
 }
+
+export interface UseCustomElementsExtra {
+  inputSuggestion?: Value,
+}

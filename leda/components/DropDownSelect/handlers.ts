@@ -40,6 +40,7 @@ export const createChangeHandler = ({
       component: {
         value: getText(ev.target.value, textField),
         name,
+        suggestion: ev.target.value,
       },
     };
 
@@ -74,6 +75,7 @@ export const createBlurHandler = ({
       component: {
         name,
         value: getText(value, textField),
+        suggestion: value,
       },
     };
 
@@ -231,6 +233,7 @@ export const createKeyDownHandler = ({
         component: {
           name,
           value,
+          suggestion: highlightedSuggestion,
         },
       };
 
@@ -282,10 +285,10 @@ export const createKeyDownHandler = ({
 };
 
 export const createFilterChangeHandler = ({
-  props, mergeState,
+  props, mergeState, value,
 }: HandlerCreatorData): FilterChangeHandler => (ev) => {
   const {
-    onFilterChange, data, shouldFilterValues, name,
+    onFilterChange, data, shouldFilterValues, name, textField,
   } = props;
 
   if (isFunction(onFilterChange)) {
@@ -294,6 +297,7 @@ export const createFilterChangeHandler = ({
       component: {
         name,
         value: ev.target.value,
+        suggestion: getText(value, textField) === ev.target.value ? value : null,
       },
     };
 

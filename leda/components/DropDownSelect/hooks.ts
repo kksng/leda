@@ -5,7 +5,7 @@ import { Div } from '../Div';
 import { Span } from '../Span';
 import { filterData } from './helpers';
 import {
-  CustomElements, DropDownSelectProps, DropDownSelectState, Value,
+  CustomElements, DropDownSelectProps, DropDownSelectState, UseCustomElementsExtra, Value,
 } from './types';
 
 export const useSyncedHighlightedValue = ({
@@ -30,7 +30,11 @@ export const useSyncedHighlightedValue = ({
   }, [data, shouldFilterValues, filterValue, mergeState]);
 };
 
-export const useCustomElements = (props: DropDownSelectProps, state: DropDownSelectState): CustomElements => {
+export const useCustomElements = (
+  props: DropDownSelectProps,
+  state: DropDownSelectState,
+  { inputSuggestion }: UseCustomElementsExtra,
+): CustomElements => {
   const {
     wrapperRender, inputRender, iconRender,
   } = props;
@@ -47,7 +51,10 @@ export const useCustomElements = (props: DropDownSelectProps, state: DropDownSel
     'Input',
     'input' as unknown as React.FC<React.InputHTMLAttributes<HTMLInputElement>>,
     inputRender,
-    props,
+    {
+      ...props,
+      suggestion: inputSuggestion,
+    },
     state,
   );
 

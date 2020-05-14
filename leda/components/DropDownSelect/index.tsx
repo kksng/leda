@@ -23,6 +23,7 @@ import {
   DropDownSelectProps, DropDownSelectRefCurrent, DropDownSelectState, Value,
 } from './types';
 import { Span } from '../Span';
+import { getText } from '../../src/SuggestionList/helpers';
 
 export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref: React.Ref<DropDownSelectRefCurrent>): React.ReactElement | null => {
   const {
@@ -79,11 +80,13 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     value: defaultValue,
   });
 
-  // выбираем между контролируемым режимом и неконтролируемым
   const { isFocused, highlightedSuggestion, selectedSuggestion } = state;
   const isOpen = isNil(isOpenProp) ? state.isOpen : isOpenProp;
   const value = valueProp === undefined ? state.value : valueProp;
   const filterValue = isNil(filterValueProp) ? state.filterValue : filterValueProp;
+
+  const inputValue = getInputValue(value, filterValue, shouldFilterValues, textField);
+  const inputSuggestion = getText(value, textField) === inputValue ? value : null;
 
   const theme = useTheme(themeProp, COMPONENTS_NAMESPACES.dropDownSelect);
 
@@ -129,7 +132,7 @@ export const DropDownSelect = React.forwardRef((props: DropDownSelectProps, ref:
     Wrapper,
     Input,
     Icon,
-  } = useCustomElements(props, state);
+  } = useCustomElements(props, state, { inputSuggestion });
 
   const shouldRenderClearIcon = !isDisabled && hasClearButton && (value !== null || filterValue !== null);
 
