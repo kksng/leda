@@ -80,6 +80,8 @@ export interface FocusEvent<T = Value> extends React.FocusEvent<HTMLInputElement
 export type ChangeEvent<T = Value> = MouseSelectEvent<T> | EnterSelectEvent<T> | ClearEvent<T> | ResetEvent<T>;
 
 export interface MultiSelectProps<T extends MultiSelectValue | null | undefined = MultiSelectValue | null | undefined> extends ValidationProps {
+  /** Браузерное автозаполнение поля ввода, по умолчанию "off" */
+  autoComplete?: string,
   /** Сравнение объектов по произвольному полю, а не по ссылке */
   compareObjectsBy?: T extends object ? ((suggestionListItems: SomeObject) => any) | string : never,
   /** Данные для отображения в списке.

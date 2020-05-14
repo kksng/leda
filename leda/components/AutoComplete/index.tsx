@@ -35,6 +35,7 @@ import { LedaContext } from '../LedaProvider';
 
 export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: React.Ref<AutoCompleteRefCurrent>): React.ReactElement | null => {
   const {
+    autoComplete = 'off',
     className,
     compareObjectsBy,
     data,
@@ -208,6 +209,7 @@ export const AutoComplete = React.forwardRef((props: AutoCompleteProps, ref: Rea
           {...restProps}
           aria-invalid={!isValid}
           aria-required={isRequired}
+          autoComplete={autoComplete}
           className={theme.input}
           disabled={isDisabled}
           form={form}

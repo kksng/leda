@@ -27,6 +27,7 @@ import { Span } from '../Span';
 
 export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React.Ref<MultiSelectRefCurrent>): React.ReactElement => {
   const {
+    autoComplete = 'off',
     className,
     compareObjectsBy,
     data,
@@ -245,22 +246,22 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
         )}
         <Input
           {...restProps}
-          className={theme.input}
-          aria-required={isRequired}
           aria-invalid={!isValid}
-          placeholder={placeholder}
+          aria-required={isRequired}
+          autoComplete={autoComplete}
+          className={theme.input}
           disabled={isDisabled}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          name={name}
-          ref={inputRef}
           form={form}
-          value={filterValue}
+          name={name}
+          onBlur={handleBlur}
           onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
             if (shouldHideInput) return;
             setFilterValue(ev.target.value);
           }}
+          onFocus={handleFocus}
           onKeyDown={handleKeyDown}
+          placeholder={placeholder}
+          ref={inputRef}
           style={(isMaxItemsSelected || shouldHideInput)
             ? {
               position: 'absolute',
@@ -269,6 +270,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
               width: 0,
             }
             : undefined}
+          value={filterValue}
         />
       </Div>
       {!isMaxItemsSelected && (

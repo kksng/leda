@@ -10,6 +10,7 @@ exports[`AutoComplete SNAPSHOTS basic usage 1`] = `
     >
       <input
         aria-invalid="false"
+        autocomplete="off"
         class="autocomplete-input"
         value="value"
       />
@@ -28,6 +29,7 @@ exports[`AutoComplete SNAPSHOTS should render different component states loading
     >
       <input
         aria-invalid="false"
+        autocomplete="off"
         class="autocomplete-input"
         value="value"
       />
@@ -61,6 +63,7 @@ exports[`AutoComplete SNAPSHOTS should render different component states opened 
     >
       <input
         aria-invalid="false"
+        autocomplete="off"
         class="autocomplete-input"
         value="value"
       />
@@ -97,6 +100,7 @@ exports[`AutoComplete SNAPSHOTS should render different component states readonl
     >
       <input
         aria-invalid="false"
+        autocomplete="off"
         class="autocomplete-input"
         readonly=""
         value="value"
@@ -116,6 +120,7 @@ exports[`AutoComplete SNAPSHOTS should render multi-type attributes data 1`] = `
     >
       <input
         aria-invalid="false"
+        autocomplete="off"
         class="autocomplete-input"
         value="value"
       />
@@ -152,6 +157,7 @@ exports[`AutoComplete SNAPSHOTS should render multi-type attributes data 2`] = `
     >
       <input
         aria-invalid="false"
+        autocomplete="off"
         class="autocomplete-input"
         value="value0"
       />
@@ -184,6 +190,7 @@ exports[`AutoComplete SNAPSHOTS should render validation required validation 1`]
       <input
         aria-invalid="true"
         aria-required="true"
+        autocomplete="off"
         class="autocomplete-input"
         form="form"
         name="name"
@@ -213,6 +220,7 @@ exports[`AutoComplete SNAPSHOTS should render validation validation 1`] = `
     >
       <input
         aria-invalid="true"
+        autocomplete="off"
         class="autocomplete-input"
         form="form"
         name="name"
@@ -242,6 +250,7 @@ exports[`AutoComplete SNAPSHOTS value in controllable mode 1`] = `
     >
       <input
         aria-invalid="false"
+        autocomplete="off"
         class="autocomplete-input"
         value="value"
       />

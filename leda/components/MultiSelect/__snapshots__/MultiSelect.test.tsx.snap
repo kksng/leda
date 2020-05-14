@@ -121,6 +121,7 @@ exports[`MultiSelect ATTRIBUTES should list isOpen 1`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               onBlur={[Function]}
               onChange={[Function]}
@@ -130,6 +131,7 @@ exports[`MultiSelect ATTRIBUTES should list isOpen 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -467,6 +469,7 @@ exports[`MultiSelect ATTRIBUTES should list loading 1`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               onBlur={[Function]}
               onChange={[Function]}
@@ -476,6 +479,7 @@ exports[`MultiSelect ATTRIBUTES should list loading 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -706,6 +710,7 @@ exports[`MultiSelect ATTRIBUTES should render noData template 1`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               onBlur={[Function]}
               onChange={[Function]}
@@ -715,6 +720,7 @@ exports[`MultiSelect ATTRIBUTES should render noData template 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -1051,6 +1057,7 @@ exports[`MultiSelect ATTRIBUTES should render noData template 2`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               onBlur={[Function]}
               onChange={[Function]}
@@ -1060,6 +1067,7 @@ exports[`MultiSelect ATTRIBUTES should render noData template 2`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -1276,6 +1284,7 @@ exports[`MultiSelect HANDLERS should test onBlur 1`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               name="auto"
               onBlur={[Function]}
@@ -1286,6 +1295,7 @@ exports[`MultiSelect HANDLERS should test onBlur 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 name="auto"
                 onBlur={[Function]}
@@ -1503,6 +1513,7 @@ exports[`MultiSelect HANDLERS should test onBlur 2`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               name="auto"
               onBlur={[Function]}
@@ -1513,6 +1524,7 @@ exports[`MultiSelect HANDLERS should test onBlur 2`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 name="auto"
                 onBlur={[Function]}
@@ -1746,6 +1758,7 @@ exports[`MultiSelect HANDLERS should test onChange 1`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               name="auto"
               onBlur={[Function]}
@@ -1756,6 +1769,7 @@ exports[`MultiSelect HANDLERS should test onChange 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 name="auto"
                 onBlur={[Function]}
@@ -2110,6 +2124,7 @@ exports[`MultiSelect HANDLERS should test onDeselect 1`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               name="auto"
               onBlur={[Function]}
@@ -2120,6 +2135,7 @@ exports[`MultiSelect HANDLERS should test onDeselect 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 name="auto"
                 onBlur={[Function]}
@@ -2339,6 +2355,7 @@ exports[`MultiSelect HANDLERS should test onDeselect 2`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               name="auto"
               onBlur={[Function]}
@@ -2349,6 +2366,7 @@ exports[`MultiSelect HANDLERS should test onDeselect 2`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 name="auto"
                 onBlur={[Function]}
@@ -2736,6 +2754,7 @@ exports[`MultiSelect HANDLERS should test onDeselect by clear button 1`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               name="auto"
               onBlur={[Function]}
@@ -2746,6 +2765,7 @@ exports[`MultiSelect HANDLERS should test onDeselect by clear button 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 name="auto"
                 onBlur={[Function]}
@@ -3046,6 +3066,7 @@ exports[`MultiSelect HANDLERS should test onFocus 1`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               name="auto"
               onBlur={[Function]}
@@ -3056,6 +3077,7 @@ exports[`MultiSelect HANDLERS should test onFocus 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 name="auto"
                 onBlur={[Function]}
@@ -3392,6 +3414,7 @@ exports[`MultiSelect SNAPSHOTS should render basic usage 1`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               onBlur={[Function]}
               onChange={[Function]}
@@ -3401,6 +3424,7 @@ exports[`MultiSelect SNAPSHOTS should render basic usage 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -3593,6 +3617,7 @@ exports[`MultiSelect SNAPSHOTS should render data in controllable mode 1`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               onBlur={[Function]}
               onChange={[Function]}
@@ -3602,6 +3627,7 @@ exports[`MultiSelect SNAPSHOTS should render data in controllable mode 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -3803,6 +3829,7 @@ exports[`MultiSelect SNAPSHOTS should render data in controllable mode 2`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               onBlur={[Function]}
               onChange={[Function]}
@@ -3812,6 +3839,7 @@ exports[`MultiSelect SNAPSHOTS should render data in controllable mode 2`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -4014,6 +4042,7 @@ exports[`MultiSelect SNAPSHOTS should render value in controllable mode 1`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               onBlur={[Function]}
               onChange={[Function]}
@@ -4023,6 +4052,7 @@ exports[`MultiSelect SNAPSHOTS should render value in controllable mode 1`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -4215,6 +4245,7 @@ exports[`MultiSelect SNAPSHOTS should render value in controllable mode 2`] = `
             </TagsContainer>
             <Input
               aria-invalid={false}
+              autoComplete="off"
               className="multiselect-input"
               onBlur={[Function]}
               onChange={[Function]}
@@ -4224,6 +4255,7 @@ exports[`MultiSelect SNAPSHOTS should render value in controllable mode 2`] = `
             >
               <input
                 aria-invalid={false}
+                autoComplete="off"
                 className="multiselect-input"
                 onBlur={[Function]}
                 onChange={[Function]}

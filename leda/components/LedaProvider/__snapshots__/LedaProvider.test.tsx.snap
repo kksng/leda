@@ -58,6 +58,7 @@ exports[`LEDA THEME PROVIDER should be isOpen 1`] = `
               <Input
                 aria-invalid={false}
                 aria-required={false}
+                autoComplete="off"
                 className="custom-input-class"
                 disabled={false}
                 onBlur={[Function]}
@@ -71,6 +72,7 @@ exports[`LEDA THEME PROVIDER should be isOpen 1`] = `
                 <input
                   aria-invalid={false}
                   aria-required={false}
+                  autoComplete="off"
                   className="custom-input-class"
                   disabled={false}
                   onBlur={[Function]}

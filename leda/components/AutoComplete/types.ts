@@ -96,6 +96,9 @@ export interface BlurEvent extends React.FocusEvent<HTMLInputElement> {
 }
 
 export interface AutoCompleteProps<T extends Suggestion = Suggestion> extends ValidationProps {
+  /** Браузерное автозаполнение поля ввода, по умолчанию "off" */
+  autoComplete?: string,
+  /** Сравнение объектов по произвольному полю, а не по ссылке */
   compareObjectsBy?: T extends object ? ((suggestionListItem: T) => any) | string : never,
   /** Данные для отображения в выпадающем списке */
   data: T[],
