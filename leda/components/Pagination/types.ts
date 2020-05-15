@@ -11,7 +11,7 @@ export interface ChangeEvent {
 
 export interface PageSizeChangeEvent {
   component: {
-    value: string,
+    value: number,
   },
 }
 

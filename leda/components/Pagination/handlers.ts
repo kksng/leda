@@ -29,18 +29,16 @@ export const createPageSizeChangeHandler = (
 ): CustomEventHandler<PageSizeChangeEvent> => (event) => {
   const { value } = event.component;
 
-  const newPageSize = parseInt(value as string, 10);
-
-  if (!value) {
+  if (value == null || value === 0) {
     setPageSizeState(totalItems);
   } else {
-    const newTotalPages = Math.ceil(totalItems / newPageSize);
+    const newTotalPages = Math.ceil(totalItems / value);
 
     if (currentPage > newTotalPages) {
       setCurrentPageState(newTotalPages);
     }
 
-    setPageSizeState(newPageSize);
+    setPageSizeState(value);
   }
 
   if (isFunction(onPageSizeChange)) {

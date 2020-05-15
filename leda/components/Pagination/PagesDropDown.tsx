@@ -15,8 +15,12 @@ export const PagesDropDown = (props: PagesDropDownProps): React.ReactElement => 
     theme,
   } = props;
 
-  const handleChange = (ev: L.DropDownSelectTypes.ChangeEvent) => {
-    handlePageSizeChange(ev as PageSizeChangeEvent);
+  const handleChange = (ev: L.DropDownSelectTypes.ChangeEvent<string>) => {
+    handlePageSizeChange({
+      component: {
+        value: parseInt(ev.component.value, 10),
+      },
+    });
   };
 
   return (
