@@ -33,19 +33,27 @@ export const escapeRegexp = (string: string): string => string.replace(/[.*+?^${
 *  regardless of their order
 *
 *  e.g.
-*  hay: 'Saint Petersburg is the capital of Russia'
+*  sentence: 'Saint Petersburg is the capital of Russia'
 *  words: 'russia saint'
 *  => true
 *
-*  hay: 'Saint Petersburg is the capital of Russia'
+*  sentence: 'Saint Petersburg is the capital of Russia'
 *  words: 'russia moscow'
 *  => false
 *
-*  hay: 'Saint Petersburg is the capital of Russia'
+*  sentence: 'Saint Petersburg is the capital of Russia'
 *  words: 'peter'
 *  => true
+*
+* sentence is a string containing words, one or more spaces and other symbols
+* words is a string containing spaces and other symbols, a word is a set of symbols bounded by spaces or string boundaries
 */
-export const hasAllWords = (hay: string, words: string): boolean => {
+
+export const getIsSentenceIncludingWords = (sentence: string, words: string): boolean => {
+  if (words === '') return true;
+  if (/^\s+$/.test(words)) return false;
+  if (sentence.trim() === '') return false;
+
   const isMultiWord = /\s+/.test(words);
 
   if (isMultiWord) {
@@ -53,10 +61,10 @@ export const hasAllWords = (hay: string, words: string): boolean => {
     const regExpCore = wordsArr.map((el) => `(?=.*${escapeRegexp(el)})`).join('');
     const needle = new RegExp(`^${regExpCore}.*$`, 'gi');
 
-    return needle.test(hay);
+    return needle.test(sentence);
   }
 
-  return hay.toLowerCase().includes(words.toLowerCase());
+  return sentence.toLowerCase().includes(words.toLowerCase());
 };
 
 export const filterSuggestionByRule = (suggestion: string, value: string, filterRule?: keyof typeof FILTER_RULES): boolean => {
@@ -64,7 +72,7 @@ export const filterSuggestionByRule = (suggestion: string, value: string, filter
     case FILTER_RULES.smart:
       // "умный" поиск. Фильтрует строки, которые содержат все значения в строке из инпута.
       // Возвращает "true" если в строке присутствуют все значения из инпута, не смотря на положение значений.
-      return hasAllWords(suggestion, value);
+      return getIsSentenceIncludingWords(suggestion, value);
 
     case FILTER_RULES.startsWith:
       // фильтрует строки, которые начинаются со строки в инпуте
@@ -74,6 +82,6 @@ export const filterSuggestionByRule = (suggestion: string, value: string, filter
       // фильтрует строки, которые содержат строку из инпута, независимо от её положения
       return filterByIncludes(suggestion, value);
     default:
-      return hasAllWords(suggestion, value);
+      return getIsSentenceIncludingWords(suggestion, value);
   }
 };

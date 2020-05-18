@@ -14,5 +14,5 @@ module.exports = {
   snapshotSerializers: [
     'enzyme-to-json/serializer',
   ],
-  testRegex: '\\.test\\.tsx$',
+  testRegex: '\\.test\\.tsx?$',
 };

@@ -17,7 +17,7 @@ export {
 } from './helpers';
 
 export {
-  filterByIncludes, hasAllWords, filterSuggestionByRule, filterByStartsWith, FILTER_RULES,
+  filterByIncludes, getIsSentenceIncludingWords, filterSuggestionByRule, filterByStartsWith, FILTER_RULES,
 } from './filterStrHelpers';
 
 export { bytesSizeToUnitsSize, getSizeInBytes } from './fileSizeTransformers';
