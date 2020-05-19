@@ -49,8 +49,8 @@ export const DropDownSelect = (args: SomeObject): React.ReactElement => {
     return (
       <Element
         {...elementProps}
-        _txt-success={item.region === 'Asia'}
-        _txt-Bold={item.region === 'Europe'}
+        _txtSuccess={item.region === 'Asia'}
+        _txtBold={item.region === 'Europe'}
       >
         {item[textField]} (region: {item.region})
       </Element>
