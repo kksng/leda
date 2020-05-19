@@ -29,11 +29,11 @@ describe('DropDownSelect', () => {
         .parent()
         .parent()
         .find('.suggestion-item.placeholder')
-        .should('be.visible')      
+        .should('be.visible')
         .should('have.text', 'Choose a city...')
         .click()
     });
-    
+
     it('should render SuggestionList when isOpen', () => {
       cy.get('button')
         .contains('Toggle isOpen')
@@ -80,7 +80,7 @@ describe('DropDownSelect', () => {
         .find('.suggestion-wrapper.visible')
         .should('have.text', 'Ничего не скажу по этому поводу');
     });
-    
+
     it('should allow an empty message', () => {
       cy.name('DDSonBlur')
         .clear()
@@ -171,7 +171,7 @@ describe('DropDownSelect', () => {
         .click()
     });
   });
- 
+
 
   describe('FilterRule', () => {
     it('smart', () => {
@@ -285,7 +285,7 @@ describe('DropDownSelect', () => {
           expect(lastConsole.component.value).to.have.property('city', 'Moscow');
         });
     });
-    
+
     it('onFilterChange', () => {
       cy.name('DDSDisabled')
         .focus()
@@ -295,7 +295,7 @@ describe('DropDownSelect', () => {
           expect(stub).to.be.called;
           expect(lastConsole).to.have.property('type', 'keydown');
           expect(lastConsole.component).to.have.property('name', 'DDSDisabled');
-          expect(lastConsole.component).to.have.property('value','Washington');
+          expect(lastConsole.component).to.have.property('value', 'Washington');
         });
     });
 
@@ -314,7 +314,7 @@ describe('DropDownSelect', () => {
         .get('[name=DDSBoundingContainerRef]')
         .should('have.value', '');
     });
-  }); 
+  });
   it('compareObjectsBy', () => {
     cy.name('DDSCompareObjectsBy')
       .click()
