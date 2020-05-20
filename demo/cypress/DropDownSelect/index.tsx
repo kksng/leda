@@ -57,10 +57,12 @@ export const DropDownSelect = (args: SomeObject): React.ReactElement => {
     );
   }
   const sort = (suggestion1, suggestion2) => {
-    return suggestion2.item.population - suggestion1.item.population
+    return suggestion2.population - suggestion1.population;
   }
+
   const noSuggestionsRender = () => <L.Div _txtCenter _inner>Ничего не скажу по этому поводу</L.Div>;
   const noSuggestionsRenderNull = () => null;
+
   return (
     <>
       <L.Div
