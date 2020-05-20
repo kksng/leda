@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SomeObject } from '../../../leda/commonTypes';
 import * as L from '../../../leda';
-import { StateButtonGroup } from "../../../../leda/demo/components/StateButtonGroup";
+import { StateButtonGroup } from '../../../demo/components';
 const data = [
   { id: 0, city: 'Moscow' },
   { id: 0, city: 'Minsk' },
@@ -17,7 +17,7 @@ export const DropDownSelect = (args: SomeObject): React.ReactElement => {
   const containerRef = React.useRef(null);
   const [value2, setValue2] = React.useState<SomeObject>({ id: 1, city: 'London' });
   const [props1, setProps1] = React.useState({});
-  const [value3, setValue3] = React.useState<string>(null);
+  const [value3, setValue3] = React.useState<string | null>(null);
   const [props2, setProps2] = React.useState<any>({});
   const [value4, setValue4] = React.useState<string>('Berlin');
   const [value5, setValue5] = React.useState(null);
