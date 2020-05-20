@@ -62,6 +62,7 @@ export const getSuggestionItemProps = ({
       return selectAllState === SelectedState.All || selectAllState === SelectedState.Some;
     }
 
+    // MultiSelect mode
     if (isArray(selectedSuggestion)) {
       return selectedSuggestion.some((selected) => checkIsTheSameObject({
         compareObjectsBy,
@@ -78,7 +79,11 @@ export const getSuggestionItemProps = ({
   })();
 
   // является ли текущий элемент целью scrollToSuggestion
-  const isScrollTarget = highlightedSuggestion ? isHighlighted : isSelected;
+  const isScrollTarget = (() => {
+    if (highlightedSuggestion) return isHighlighted;
+    if (isArray(selectedSuggestion)) return false; // do not scroll to selected items in MultiSelect mode
+    return isSelected;
+  })();
 
   const key = isObject(suggestion) ? JSON.stringify(suggestion) : suggestion as string;
 
