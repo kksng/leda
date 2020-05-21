@@ -82,7 +82,7 @@ export type ChangeEvent<T = Value> = MouseSelectEvent<T> | EnterSelectEvent<T> |
 export interface MultiSelectProps<T extends MultiSelectValue | null | undefined = MultiSelectValue | null | undefined> extends ValidationProps {
   /** Браузерное автозаполнение поля ввода, по умолчанию "off" */
   autoComplete?: string,
-  /** "Выбраать всё" в выпадающем списке */
+  /** "Выбраать все" в выпадающем списке */
   canSelectAll?: boolean,
   /** Сравнение объектов по произвольному полю, а не по ссылке */
   compareObjectsBy?: T extends object ? ((suggestionListItems: SomeObject) => any) | string : never,
@@ -130,7 +130,7 @@ export interface MultiSelectProps<T extends MultiSelectValue | null | undefined 
   placeholder?: string,
   /** Реф */
   ref?: React.Ref<MultiSelectRefCurrent>,
-  /** Отображать компонент без фильтра */
+  /** Кастомизация текста "Выбрать все" в выпадающем списке */
   selectAllItemRender?: SuggestionListProps['selectAllItemRender'],
   /** Отображать компонент без фильтра */
   shouldHideInput?: boolean,
