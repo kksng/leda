@@ -5,7 +5,7 @@ import { PREDEFINED_VALIDATORS } from './predefinedValidators';
 import {
   AddFieldData,
   Field,
-  Form, NormalizedValidatorObject,
+  Form, FormGetField, NormalizedValidatorObject,
   PredefinedValidator, RemoveFieldOptions, UpdateFieldData,
   Validator,
   ValidatorObject,
@@ -400,4 +400,27 @@ export const getValidators = (
   if (Array.isArray(validator)) return getArrayValidator(validator, invalidMessage);
 
   throw new Error(`L.Validation: type of validator ${JSON.stringify(validator)} is incorrect!`);
+};
+
+export const getFieldValidState = (formName: string, fieldName: string): FormGetField | undefined => {
+  const rawField = getField(formName, fieldName);
+  if (rawField == null) return undefined;
+
+  const {
+    name, value, validators, isRequired,
+  } = rawField;
+
+  const isFilled = checkIsFilled(value);
+  const isValid = (() => {
+    if (isRequired && !isFilled) return false;
+    return !validators.some((validator) => !validator.validator(value));
+  })();
+
+  return {
+    name,
+    value,
+    isFilled,
+    isRequired,
+    isValid,
+  };
 };

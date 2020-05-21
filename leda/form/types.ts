@@ -1,5 +1,5 @@
 import {
-  Form, Field, PredefinedValidator,
+  Form, Field, PredefinedValidator, FormGetField,
 } from '../components/Validation/types';
 
 export {
@@ -25,14 +25,14 @@ export interface ExternalValidator {
 }
 
 export interface FormFieldHelpers {
-  get: () => Field | undefined,
+  get: () => FormGetField | undefined,
   remove: () => void,
   reset: () => boolean,
   validate: (warpedValidator?: ExternalValidator | ExternalValidator[]) => Field | undefined,
 }
 
 export interface FormFieldsHelpers {
-  get: () => Field[],
+  get: () => FormGetField[],
   remove: () => void,
   reset: () => boolean,
   validate: () => Field[],

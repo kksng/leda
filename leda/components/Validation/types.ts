@@ -43,18 +43,26 @@ export interface ValidationResult {
   InvalidMessage: React.FC<{}>,
 }
 
-export interface Field {
-  name: string,
+export interface FormGetField {
+  isFilled: boolean,
+  isRequired: boolean,
   isValid: boolean,
+  name: string,
   value: any,
-  shouldValidateUnmounted: boolean,
+}
+
+export interface Field {
+  invalidMessages?: string[],
+  isRequired: boolean,
+  isValid: boolean,
+  name: string,
+  requiredMessage?: string,
+  reset: () => void,
   setIsValid: SetState<boolean>,
   setMessages: SetState<string[] | undefined>,
+  shouldValidateUnmounted: boolean,
   validators: NormalizedValidatorObject[],
-  invalidMessages?: string[],
-  requiredMessage?: string,
-  isRequired: boolean,
-  reset: () => void,
+  value: any,
 }
 
 export interface Form {
