@@ -82,7 +82,7 @@ export type ChangeEvent<T = Value> = MouseSelectEvent<T> | EnterSelectEvent<T> |
 export interface MultiSelectProps<T extends MultiSelectValue | null | undefined = MultiSelectValue | null | undefined> extends ValidationProps {
   /** Браузерное автозаполнение поля ввода, по умолчанию "off" */
   autoComplete?: string,
-  /** "Выбраать все" в выпадающем списке */
+  /** "Выбрать все" в выпадающем списке */
   canSelectAll?: boolean,
   /** Сравнение объектов по произвольному полю, а не по ссылке */
   compareObjectsBy?: T extends object ? ((suggestionListItems: SomeObject) => any) | string : never,
