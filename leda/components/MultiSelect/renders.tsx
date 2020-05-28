@@ -9,7 +9,7 @@ import { COMPONENTS_NAMESPACES } from '../../constants';
 import { LedaContext } from '../LedaProvider';
 import { Span } from '../Span';
 
-export const createCheckBoxesRender = ({ theme }: { theme: typeof defaultMultiSelectTheme }): SuggestionListProps['itemRender'] => ({ componentProps, Element, elementProps }) => {
+export const createCheckBoxesRender = ({ theme, itemRender }: { theme: typeof defaultMultiSelectTheme, itemRender: SuggestionListProps['itemRender'] }): SuggestionListProps['itemRender'] => ({ componentProps, Element, elementProps }) => {
   const {
     isSelected, isSelectAllItem, selectAllState, selectAllItemRender,
   } = componentProps;
@@ -30,6 +30,14 @@ export const createCheckBoxesRender = ({ theme }: { theme: typeof defaultMultiSe
     Span,
     selectAllItemRender || multiSelectRenders.selectAllItemRender,
     {},
+    {},
+  );
+
+  const ItemContent = useElement(
+    'ItemContent',
+    Span,
+    itemRender || multiSelectRenders.itemRender,
+    componentProps,
     {},
   );
 
@@ -54,7 +62,11 @@ export const createCheckBoxesRender = ({ theme }: { theme: typeof defaultMultiSe
           {selectAllSuggestion.text}
         </SelectAllItem>
       )}
-      {!isSelectAllItem && elementProps.children}
+      {!isSelectAllItem && (
+        <ItemContent>
+          {elementProps.children}
+        </ItemContent>
+      )}
     </Element>
   );
 };

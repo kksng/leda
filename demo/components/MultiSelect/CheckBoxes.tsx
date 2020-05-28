@@ -35,21 +35,16 @@ export const CheckBoxes = (args: any): React.ReactElement => {
         }}
         isOpen
         hasCheckBoxes
-        // itemRender={({ componentProps, Element, elementProps }) => {
-        //   const { onClick } = elementProps;
-        //   const { isSelected } = componentProps;
-        //   return (
-        //     <L.Div _flex-row onClick={onClick}>
-        //       <L.CheckBox
-        //         _margin-left
-        //         value={!!isSelected}
-        //         // заменить label на div, чтобы при клике на чекбокс фокус не переходил из мультиселекта и не закрывался список
-        //         labelRender={({ elementProps }) => <div {...elementProps} />}
-        //       />
-        //       <Element {...elementProps} _width-100/>
-        //     </L.Div>
-        //   )
-        // }}
+        itemRender={({ componentProps, Element, elementProps }) => {
+          const { isSelected } = componentProps;
+          console.log('elementProps', elementProps)
+          console.log('componentProps', componentProps)
+          return (
+            <L.Span _txt-bold={isSelected}>
+              <Element {...elementProps} _width-100/>
+            </L.Span>
+          )
+        }}
         tagsUnionRender={({ elementProps, componentProps, Element }) => {
           const { value } = componentProps;
           const word = getWordEnding({ count: value?.length ?? 0, one: 'раз', two: 'раза', five: 'раз' });

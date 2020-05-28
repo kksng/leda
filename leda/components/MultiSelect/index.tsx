@@ -210,7 +210,7 @@ export const MultiSelect = React.forwardRef((props: MultiSelectProps, ref: React
 
   const shouldUniteTags = getShouldUniteTags({ maxTags, value });
 
-  const checkBoxesRender = createCheckBoxesRender({ theme });
+  const checkBoxesRender = createCheckBoxesRender({ itemRender, theme });
 
   const selectAllState = (() => {
     if (canSelectAll == null) return undefined;
