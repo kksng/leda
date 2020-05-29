@@ -1,148 +1,146 @@
 // @ts-nocheck
 import React from 'react';
-import toJson from 'enzyme-to-json';
-import { mount } from 'enzyme';
+import {
+  render,
+  fireEvent,
+} from '@testing-library/react';
 import { Button } from './index';
 import { Input } from '../Input';
 
-describe('Button SNAPSHOTS', () => {
-  it('should render', () => {
-    const wrapper = mount(<Button>test</Button>);
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+describe('Check Button snapshots collection', () => {
+  test('is Button with basic pros render right?', () => {
+    const wrapper = render((
+      <Button>test</Button>
+    ));
+    expect(wrapper.container)
+      .toMatchSnapshot();
   });
-
-  it('should render disabled state', () => {
-    const wrapper = mount(<Button isDisabled>test</Button>);
-
-    expect(toJson(wrapper)).toMatchSnapshot();
+  test('is Button with isLoading attributes render right?', () => {
+    const wrapper = render((
+      <Button isLoading>test</Button>
+    ));
+    expect(wrapper.container)
+      .toMatchSnapshot();
   });
-
-  it('should render isLoading state', () => {
-    const wrapper = mount(<Button isLoading>test</Button>);
-
-    expect(toJson(wrapper)).toMatchSnapshot();
+  test('is Button with isDisabled attributes render right?', () => {
+    const wrapper = render((
+      <Button isDisabled>test</Button>
+    ));
+    expect(wrapper.container)
+      .toMatchSnapshot();
   });
-
-  it('should render with validation', () => {
-    const wrapper = mount(
+  test('is Button with Form and onClick props render right?', () => {
+    const wrapper = render((
       <div>
         <Input form="test" name="in" isRequired />
-        <Button onClick={jest.fn()} form="test">test</Button>
-      </div>,
-    );
-
-    wrapper.find('button').props().onClick({ preventDefault() { } });
-
-
-    expect(toJson(wrapper)).toMatchSnapshot();
-
-    wrapper.unmount();
-  });
-});
-
-describe('Button HANDLERS', () => {
-  it('should trigger onClick', () => {
-    const onClick = jest.fn();
-    const mockObj = { preventDefault: () => {} };
-    const wrapper = mount(<Button href="http://google.com" onClick={onClick}>example</Button>);
-
-    wrapper.find('button').props().onClick(mockObj);
-
-    expect(onClick).toHaveBeenCalledWith(mockObj);
-  });
-});
-
-describe('Button ATTRIBUTES', () => {
-  it('should have className', () => {
-    const wrapper = mount(<Button>default</Button>);
-
-    expect(wrapper.find('button').hasClass('button-wrapper')).toBeTruthy();
-
-
-    wrapper.setProps({ _success: true });
-
-    wrapper.update();
-
-    expect(wrapper.find('button').hasClass('success')).toBeTruthy();
-
-
-    wrapper.setProps({ download: true });
-
-    wrapper.update();
-
-    expect(wrapper.prop('download')).toBeTruthy();
-  });
-
-  it('should have isDisabled prop', () => {
-    const wrapper = mount(<Button onClick={jest.fn()} isDisabled>test</Button>);
-
-    wrapper.find('button').props().onClick({ preventDefault() { } });
-
-    expect(wrapper.find('Button').props().onClick).not.toHaveBeenCalled();
-
-    expect(wrapper.find('Button').props().isDisabled).toBeTruthy();
-  });
-
-  it('should have isLoading prop', () => {
-    const wrapper = mount(<Button onClick={jest.fn()} isLoading>test</Button>);
-
-    wrapper.find('button').props().onClick({ preventDefault() { } });
-
-    expect(wrapper.find('Button').props().onClick).not.toHaveBeenCalled();
-
-    expect(wrapper.find('Button').props().isLoading).toBeTruthy();
-  });
-
-  it('should have children prop', () => {
-    const wrapper = mount(<Button><div className="lvl1"><span className="lvl2">TEXT</span></div></Button>);
-
-    expect(wrapper.props().children).toBeDefined();
-
-    expect(wrapper.props().children.type).toEqual('div');
-
-    expect(wrapper.props().children.props.className).toEqual('lvl1');
-
-    expect(wrapper.props().children.props.children.type).toEqual('span');
-
-    expect(wrapper.props().children.props.children.props.className).toEqual('lvl2');
-
-    expect(wrapper.props().children.props.children.props.children).toEqual('TEXT');
-  });
-});
-
-describe('Button VALIDATION', () => {
-  it('should not call onClick if form is invalid', () => {
-    const onClick = jest.fn();
-    const form = (
-      <div>
-        <Input form="test" isRequired name="input" />
-        <Button onClick={onClick} form="test">test</Button>
+        <Button onClick={jest.fn()} form="test" isDisabled>test</Button>
       </div>
-    );
-    const wrapper = mount(form);
-
-    wrapper.find('button').props().onClick({ preventDefault: () => {} });
-
-    expect(onClick).not.toHaveBeenCalled();
-
-    wrapper.unmount();
+    ));
+    expect(wrapper.container)
+      .toMatchSnapshot();
   });
+});
+describe('Check Button condition set collection', () => {
+  test('is Button attributes set right?', () => {
+    const { container, rerender, debug } = render(<Button _primary>test</Button>);
 
-  it('should call onClick if form is valid', () => {
-    const onClick = jest.fn();
-    const form = (
-      <span>
-        <Input form="test" isRequired name="input" value="test" />
-        <Button onClick={onClick} form="test">test</Button>
-      </span>
-    );
-    const wrapper = mount(form);
+    expect(container.querySelectorAll('button.primary')[0])
+      .toBeInTheDocument();
 
-    wrapper.find('button').props().onClick({ preventDefault: () => {} });
+    rerender(<Button _secondary>test</Button>);
 
-    expect(onClick).toHaveBeenCalled();
+    expect(container.querySelectorAll('button.secondary')[0])
+      .toBeInTheDocument();
 
-    wrapper.unmount();
+    rerender(<Button _success>test</Button>);
+
+    expect(container.querySelectorAll('button.success')[0])
+      .toBeInTheDocument();
+
+    rerender(<Button _warning>test</Button>);
+
+    expect(container.querySelectorAll('button.warning')[0])
+      .toBeInTheDocument();
+
+    rerender(<Button _danger>test</Button>);
+
+    expect(container.querySelectorAll('button.danger')[0])
+      .toBeInTheDocument();
+
+    rerender(<Button _small>test</Button>);
+
+    expect(container.querySelectorAll('button.small')[0])
+      .toBeInTheDocument();
+
+    rerender(<Button _large>test</Button>);
+
+    expect(container.querySelectorAll('button.large')[0])
+      .toBeInTheDocument();
+
+    rerender(<Button _block>test</Button>);
+
+    expect(container.querySelectorAll('button.block')[0])
+      .toBeInTheDocument();
+  });
+  test('is Button isDisabled property work right?', () => {
+    const onClickHandler = jest.fn();
+    const { container, debug } = render(<Button isDisabled onClick={onClickHandler}>test</Button>);
+    const button = container.querySelectorAll('button')[0];
+
+    expect(container.querySelectorAll('button.disabled')[0])
+      .toBeInTheDocument();
+
+    fireEvent.click(button);
+
+    expect(onClickHandler)
+      .not
+      .toHaveBeenCalled();
+  });
+  test('is Button isLoading property work right?', () => {
+    const onClickHandler = jest.fn();
+    const { container } = render(<Button isLoading onClick={onClickHandler}>test</Button>);
+    const button = container.querySelectorAll('button')[0];
+
+    expect(container.querySelectorAll('button.loading')[0])
+      .toBeInTheDocument();
+
+    fireEvent.click(button);
+
+    expect(onClickHandler)
+      .not
+      .toHaveBeenCalled();
+  });
+});
+describe('Check Button form validation test collection', () => {
+  test('is Button with form attributes submit Form with valid value right?', () => {
+    const onSubmitValid = jest.fn();
+    const onSubmitInvalid = jest.fn();
+    const email = 'some@email.ru';
+    const { getByText } = render((
+      <div>
+        <Input form="test" name="email" invalidMessage="error" isRequired validator="email" value={email} />
+        <Button onClick={onSubmitValid} onValidationFail={onSubmitInvalid} form="test">test</Button>
+      </div>
+    ));
+
+    fireEvent.click(getByText('test'));
+    expect(onSubmitValid).toBeCalledTimes(1);
+    expect(onSubmitInvalid).toBeCalledTimes(0);
+  });
+  test('is Button with form attributes submit Form with invalid value right?', () => {
+    const onSubmitValid = jest.fn();
+    const onSubmitInvalid = jest.fn();
+    const email = '-----';
+    const { getByText } = render((
+      <div>
+        <Input form="test" name="email" invalidMessage="error" isRequired validator="email" value={email} />
+        <Button onClick={onSubmitValid} onValidationFail={onSubmitInvalid} form="test">test</Button>
+      </div>
+    ));
+
+    fireEvent.click(getByText('test'));
+    expect(onSubmitValid).toBeCalledTimes(0);
+    expect(onSubmitInvalid).toBeCalledTimes(1);
   });
 });

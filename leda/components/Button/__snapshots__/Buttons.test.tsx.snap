@@ -1,120 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button SNAPSHOTS should render 1`] = `
-<Button>
-  <button
-    className="button-wrapper"
-    onClick={[Function]}
-    type="button"
-  >
-    test
-  </button>
-</Button>
-`;
-
-exports[`Button SNAPSHOTS should render disabled state 1`] = `
-<Button
-  isDisabled={true}
->
-  <button
-    className="button-wrapper disabled"
-    onClick={[Function]}
-    type="button"
-  >
-    test
-  </button>
-</Button>
-`;
-
-exports[`Button SNAPSHOTS should render isLoading state 1`] = `
-<Button
-  isLoading={true}
->
-  <button
-    className="button-wrapper loading"
-    onClick={[Function]}
-    type="button"
-  >
-    test
-  </button>
-</Button>
-`;
-
-exports[`Button SNAPSHOTS should render with validation 1`] = `
+exports[`Check Button snapshots collection is Button with Form and onClick props render right? 1`] = `
 <div>
-  <Input
-    form="test"
-    isRequired={true}
-    name="in"
-  >
-    <Wrapper
-      className="input-wrapper"
+  <div>
+    <div
+      class="input-wrapper"
     >
-      <Div
-        className="input-wrapper"
+      <div
+        class="input-element-wrapper required"
       >
-        <div
-          className="input-wrapper"
-        >
-          <Div
-            className="input-element-wrapper required"
-          >
-            <div
-              className="input-element-wrapper required"
-            >
-              <Input
-                aria-invalid={false}
-                aria-required={true}
-                className="input-element"
-                form="test"
-                name="in"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                value=""
-              >
-                <input
-                  aria-invalid={false}
-                  aria-required={true}
-                  className="input-element"
-                  form="test"
-                  name="in"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  value=""
-                />
-              </Input>
-            </div>
-          </Div>
-          <InvalidMessageWrapper>
-            <InvalidMessage
-              isValid={true}
-              messages={Array []}
-            >
-              <Component
-                isValid={true}
-                messages={Array []}
-              />
-            </InvalidMessage>
-          </InvalidMessageWrapper>
-        </div>
-      </Div>
-    </Wrapper>
-  </Input>
-  <Button
-    form="test"
-    onClick={[MockFunction]}
-  >
+        <input
+          aria-invalid="false"
+          aria-required="true"
+          class="input-element"
+          form="test"
+          name="in"
+          value=""
+        />
+      </div>
+    </div>
     <button
-      className="button-wrapper"
-      onClick={[Function]}
+      class="button-wrapper disabled"
       type="button"
     >
       test
     </button>
-  </Button>
+  </div>
+</div>
+`;
+
+exports[`Check Button snapshots collection is Button with basic pros render right? 1`] = `
+<div>
+  <button
+    class="button-wrapper"
+    type="button"
+  >
+    test
+  </button>
+</div>
+`;
+
+exports[`Check Button snapshots collection is Button with isDisabled attributes render right? 1`] = `
+<div>
+  <button
+    class="button-wrapper disabled"
+    type="button"
+  >
+    test
+  </button>
+</div>
+`;
+
+exports[`Check Button snapshots collection is Button with isLoading attributes render right? 1`] = `
+<div>
+  <button
+    class="button-wrapper loading"
+    type="button"
+  >
+    test
+  </button>
 </div>
 `;
