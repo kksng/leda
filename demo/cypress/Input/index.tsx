@@ -11,7 +11,7 @@ export const Input = (attrs: any) => {
     const handleChange = (ev) => { setValue2(ev.component.value); };
     const testFunction = (event: {}) => {
         console.log(event);
-      };
+    };
     const inputRender = ({ Element, elementProps }) => (
         <>
             <L.Span
@@ -19,7 +19,7 @@ export const Input = (attrs: any) => {
                 onClick={console.log}
             >
                 from
-            </L.Span>
+        </L.Span>
             <Element {...elementProps} />
             <L.Span
                 style={{ display: 'inline-block', padding: '5px' }}
@@ -27,7 +27,7 @@ export const Input = (attrs: any) => {
                 onClick={console.log}
             >
                 €
-            </L.Span>
+        </L.Span>
         </>
     );
 
@@ -123,7 +123,7 @@ export const Input = (attrs: any) => {
                 onValidationFail={(ev) => console.log('awesome form fail ev', ev)}
             >
                 Validate an awesome input
-            </L.Button>
+    </L.Button>
             <br />
             <L.Input
                 name="DisabledInput"
@@ -143,7 +143,7 @@ export const Input = (attrs: any) => {
             <L.Button form='OneInputForm'
             >
                 Validate OneInputForm
-            </L.Button>
+    </L.Button>
 
         </L.Div>
     );

@@ -285,6 +285,7 @@ describe('DropDownSelect', () => {
           expect(lastConsole.component.value).to.have.property('city', 'Moscow');
         });
     });
+
     it('onFilterChange', () => {
       cy.name('DDSDisabled')
         .focus()
@@ -314,6 +315,7 @@ describe('DropDownSelect', () => {
         .should('have.value', '');
     });
   });
+
   it('compareObjectsBy', () => {
     cy.name('DDSCompareObjectsBy')
       .click()
