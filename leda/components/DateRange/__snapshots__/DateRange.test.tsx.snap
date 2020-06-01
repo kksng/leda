@@ -1,159 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DateRange ATTRIBUTES should show different requiredMessage when isRequired and invalid 1`] = `
-<div>
+exports[`Check DateRange snapshots collection is DateRange render right? 1`] = `
+<div
+  class="daterange-wrapper"
+>
   <div
-    class="daterange-wrapper"
+    class="datepicker-wrapper"
   >
     <div
-      class="datepicker-wrapper"
+      class="datepicker-input-wrapper"
     >
-      <div
-        class="datepicker-input-wrapper danger required"
-      >
-        <input
-          aria-invalid="true"
-          aria-required="true"
-          class="datepicker-input"
-          form="form"
-          maxlength="11"
-          name="name-from"
-          value=""
-        />
-        <span
-          class="datepicker-icons-wrapper"
-        >
-          <span
-            class="datepicker-calendar-icon"
-          />
-        </span>
-      </div>
+      <input
+        aria-invalid="false"
+        class="datepicker-input"
+        maxlength="11"
+        name="test-from"
+        value=""
+      />
       <span
-        class="invalid-message-list"
+        class="datepicker-icons-wrapper"
       >
         <span
-          class="invalid-message-item"
-        >
-          one
-        </span>
-      </span>
-    </div>
-    <span
-      class="daterange-delimiter"
-    >
-      —
-    </span>
-    <div
-      class="datepicker-wrapper"
-    >
-      <div
-        class="datepicker-input-wrapper danger required"
-      >
-        <input
-          aria-invalid="true"
-          aria-required="true"
-          class="datepicker-input"
-          form="form"
-          maxlength="11"
-          name="name-to"
-          value=""
+          class="datepicker-calendar-icon"
         />
-        <span
-          class="datepicker-icons-wrapper"
-        >
-          <span
-            class="datepicker-calendar-icon"
-          />
-        </span>
-      </div>
-      <span
-        class="invalid-message-list"
-      >
-        <span
-          class="invalid-message-item"
-        >
-          two
-        </span>
       </span>
     </div>
   </div>
-</div>
-`;
-
-exports[`DateRange ATTRIBUTES should show requiredMessage when isRequired and invalid 1`] = `
-<div>
+  <span
+    class="daterange-delimiter"
+  >
+    —
+  </span>
   <div
-    class="daterange-wrapper"
+    class="datepicker-wrapper"
   >
     <div
-      class="datepicker-wrapper"
+      class="datepicker-input-wrapper"
     >
-      <div
-        class="datepicker-input-wrapper danger required"
-      >
-        <input
-          aria-invalid="true"
-          aria-required="true"
-          class="datepicker-input"
-          form="form"
-          maxlength="11"
-          name="name-from"
-          value=""
-        />
-        <span
-          class="datepicker-icons-wrapper"
-        >
-          <span
-            class="datepicker-calendar-icon"
-          />
-        </span>
-      </div>
+      <input
+        aria-invalid="false"
+        class="datepicker-input"
+        maxlength="11"
+        name="test-to"
+        value=""
+      />
       <span
-        class="invalid-message-list"
+        class="datepicker-icons-wrapper"
       >
         <span
-          class="invalid-message-item"
-        >
-          REQUIRED
-        </span>
-      </span>
-    </div>
-    <span
-      class="daterange-delimiter"
-    >
-      —
-    </span>
-    <div
-      class="datepicker-wrapper"
-    >
-      <div
-        class="datepicker-input-wrapper danger required"
-      >
-        <input
-          aria-invalid="true"
-          aria-required="true"
-          class="datepicker-input"
-          form="form"
-          maxlength="11"
-          name="name-to"
-          value=""
+          class="datepicker-calendar-icon"
         />
-        <span
-          class="datepicker-icons-wrapper"
-        >
-          <span
-            class="datepicker-calendar-icon"
-          />
-        </span>
-      </div>
-      <span
-        class="invalid-message-list"
-      >
-        <span
-          class="invalid-message-item"
-        >
-          REQUIRED
-        </span>
       </span>
     </div>
   </div>

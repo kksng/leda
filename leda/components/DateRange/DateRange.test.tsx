@@ -1,184 +1,270 @@
-// @ts-nocheck
 import React from 'react';
-import toJson from 'enzyme-to-json';
-import { mount } from 'enzyme';
 import {
   render,
+  fireEvent,
 } from '@testing-library/react';
+
+import userEvent from '@testing-library/user-event';
 import { DateRange } from './index';
-import { fixJSON } from '../../utils';
 
-describe.skip('DateRange SNAPSHOTS', () => {
-  it('should render', () => {
-    const wrapper = mount(<DateRange name="range" onRangeChange={jest.fn()} />);
-    const wrapperJSON = toJson(wrapper);
-    expect(fixJSON(wrapperJSON)).toMatchSnapshot();
-  });
+describe('Check DateRange snapshots collection', () => {
+  test('is DateRange render right?', () => {
+    const { container } = render(<DateRange name="test" />);
 
-  it('should render controllable mode', () => {
-    const wrapper = mount(<DateRange
-      fromValue={new Date('1995-10-31T20:00:00.000Z')}
-      toValue={new Date('1998-03-16T20:00:00.000Z')}
-      onRangeChange={jest.fn()}
-    />);
-
-    const getFromTime = (Wrapper) => Wrapper.props().fromValue.getTime();
-
-    const getToTime = (Wrapper) => Wrapper.props().toValue.getTime();
-
-    const getWrapperJSON = (Wrapper) => toJson(Wrapper);
-
-    expect(wrapper.props().fromValue.getTime()).toEqual(getFromTime(wrapper));
-
-    expect(wrapper.props().toValue.getTime()).toEqual(getToTime(wrapper));
-
-    expect(wrapper.find('input').first().props().value).toEqual('31.10.1995');
-
-    expect(wrapper.find('input').last().props().value).toEqual('16.03.1998');
-
-    expect(fixJSON(getWrapperJSON(wrapper))).toMatchSnapshot();
-
-    wrapper.setProps({ fromValue: new Date('2000-02-05'), toValue: new Date('2007-07-19') });
-
-    wrapper.update();
-
-    expect(wrapper.props().fromValue.getTime()).toEqual(getFromTime(wrapper));
-
-    expect(wrapper.props().toValue.getTime()).toEqual(getToTime(wrapper));
-
-    expect(wrapper.find('input').first().props().value).toEqual('05.02.2000');
-
-    expect(wrapper.find('input').last().props().value).toEqual('19.07.2007');
+    expect(container.firstChild)
+      .toMatchSnapshot();
   });
 });
+describe('Check DateRange value set test collection', () => {
+  test('is DateRange render right if value set as String', () => {
+    const dateValue = ['10.10.2010', '12.12.2010'];
+    const { getAllByRole } = render(<DateRange name="test" value={['10.10.2010', '12.12.2010']} />);
 
-describe.skip('DateRange HANDLERS', () => {
-  it('should call onFromChange if first DatePicker has changed, set toMin and fromValue', () => {
-    const wrapper = mount(<DateRange onRangeChange={jest.fn()} />);
+    expect(getAllByRole('textbox'))
+      .toHaveLength(2);
 
-    wrapper.find('DatePicker').first().props().onChange({ value: new Date('1995-10-31T20:00:00.000Z') });
+    getAllByRole('textbox').forEach((input, index) => {
+      expect(input)
+        .toHaveAttribute('value');
 
-    expect(wrapper.state().toMin).toEqual(new Date('1995-10-31T20:00:00.000Z'));
-    expect(wrapper.state().fromValue).toEqual(new Date('1995-10-31T20:00:00.000Z'));
+      expect(input)
+        .toHaveValue(dateValue[index]);
+    });
   });
+  test('is DateRange render right if value set as Date', () => {
+    const dateValue = ['10.10.2010', '12.12.2010'];
+    const { getAllByRole } = render(<DateRange name="test" value={[new Date('10.10.2010'), new Date('12.12.2010')]} />);
 
-  it('should call onToChange if second DatePicker has changed, set fromMax and toValue', () => {
-    const wrapper = mount(<DateRange onRangeChange={jest.fn()} />);
+    expect(getAllByRole('textbox'))
+      .toHaveLength(2);
 
-    wrapper.find('DatePicker').at(2).props().onChange({ value: new Date('1995-10-31T20:00:00.000Z') });
+    getAllByRole('textbox').forEach((input, index) => {
+      expect(input)
+        .toHaveAttribute('value');
 
-    expect(wrapper.state().fromMax).toEqual(new Date('1995-10-31T20:00:00.000Z'));
-    expect(wrapper.state().toValue).toEqual(new Date('1995-10-31T20:00:00.000Z'));
+      expect(input)
+        .toHaveValue(dateValue[index]);
+    });
   });
+  test('is DateRange render right if value set as Null', () => {
+    const dateValue = ['', ''];
+    const { getAllByRole } = render(<DateRange name="test" value={[null, null]} />);
 
-  it('should call onRangeChange if any DatePicker has changed', () => {
-    const onRangeChangeHandler = jest.fn();
-    const wrapper = mount(<DateRange onRangeChange={onRangeChangeHandler} />);
+    expect(getAllByRole('textbox'))
+      .toHaveLength(2);
 
-    wrapper.find('DatePicker').first().props().onChange({ value: new Date('1995-10-31T20:00:00.000Z') });
+    getAllByRole('textbox').forEach((input, index) => {
+      expect(input)
+        .toHaveAttribute('value');
 
-    expect(onRangeChangeHandler).toHaveBeenCalled();
-
-    wrapper.find('DatePicker').at(2).props().onChange({ value: new Date('1998-03-16T20:00:00.000Z') });
-
-    expect(onRangeChangeHandler).toHaveBeenCalledTimes(2);
-
-    expect(wrapper.state().fromValue).toEqual(new Date('1995-10-31T20:00:00.000Z'));
-
-    expect(wrapper.state().toValue).toEqual(new Date('1998-03-16T20:00:00.000Z'));
-  });
-
-  it('should have correct event format', () => {
-    const onRangeChangeHandler = jest.fn();
-    const wrapper = mount(<DateRange name="Ranger" onRangeChange={onRangeChangeHandler} />);
-
-    wrapper.find('DatePicker').first().props().onChange({ value: new Date('1998-03-16T20:00:00.000Z') });
-
-    expect(onRangeChangeHandler).toHaveBeenCalled();
-
-    wrapper.find('DatePicker').at(2).props().onChange({ value: new Date('2005-11-03T20:00:00.000Z') });
-
-    expect(onRangeChangeHandler).toHaveBeenCalledTimes(2);
-
-    const [, [event]] = onRangeChangeHandler.mock.calls;
-
-    expect(event.from).toBeDefined();
-
-    expect(event.from).toEqual(new Date('1998-03-16T20:00:00.000Z'));
-
-    expect(event.to).toBeDefined();
-
-    expect(event.to).toEqual(new Date('2005-11-03T20:00:00.000Z'));
-
-    expect(event.target.name).toEqual('Ranger');
+      expect(input)
+        .toHaveValue(dateValue[index]);
+    });
   });
 });
+describe('Check DateRange attributes test collection', () => {
+  test('is DateRange placeholder set right?', () => {
+    const placeholder = ['от', 'до'];
+    const { getAllByRole } = render(<DateRange placeholder={['от', 'до']} />);
 
-describe('DateRange ATTRIBUTES', () => {
-  it.skip('should convert rangeMin to fromMin and toMin', () => {
-    const wrapper = mount(<DateRange rangeMin={new Date('1998-03-16T20:00:00.000Z')} onRangeChange={jest.fn()} />);
+    expect(getAllByRole('textbox'))
+      .toHaveLength(2);
 
-    expect(wrapper.find('DatePicker').first().props().min).toEqual(new Date('1998-03-16T20:00:00.000Z'));
+    getAllByRole('textbox').forEach((input, index) => {
+      expect(input)
+        .toHaveAttribute('placeholder');
 
-    expect(wrapper.find('DatePicker').at(2).props().min).toEqual(new Date('1998-03-16T20:00:00.000Z'));
+      expect(input)
+        .toHaveProperty('placeholder', placeholder[index]);
+    });
   });
+  test('is DateRange minMax set attributes work right?', () => {
+    const min = new Date('01.02.2018');
+    const max = new Date('05.25.2020');// mm-dd-YYYY
+    const valueForCheck = '26';
+    const { getAllByText } = render(<DateRange value={['25.05.2020', '25.05.2020']} isOpen min={min} max={max} />);
 
-  it.skip('should convert rangeMax to fromMax and toMax', () => {
-    const wrapper = mount(<DateRange rangeMax={new Date('1998-03-16T20:00:00.000Z')} onRangeChange={jest.fn()} />);
-
-    expect(wrapper.find('DatePicker').first().props().max).toEqual(new Date('1998-03-16T20:00:00.000Z'));
-
-    expect(wrapper.find('DatePicker').at(2).props().max).toEqual(new Date('1998-03-16T20:00:00.000Z'));
+    getAllByText(valueForCheck).forEach((el) => {
+      expect(el)
+        .toHaveClass('calendar-date-cell disabled-date');
+    });
   });
+  test('is DateRange isDisabled attributes work right?', () => {
+    const onChange = jest.fn();
+    const { container } = render(<DateRange isDisabled value={['15.05.2020', '25.05.2020']} onChange={onChange} />);
+    const iconA = container.querySelectorAll('.datepicker-icons-wrapper')[0];
+    const iconB = container.querySelectorAll('.datepicker-icons-wrapper')[1];
+    const inputA = container.querySelectorAll('input.datepicker-input')[0];
+    const inputB = container.querySelectorAll('input.datepicker-input')[1];
 
-  it('should show requiredMessage when isRequired and invalid', async () => {
-    const { container, findAllByText } = render(
-      <DateRange
-        form="form"
-        name="name"
-        isRequired
-        requiredMessage="REQUIRED"
-      />,
-    );
+    fireEvent.click(iconA);
 
-    const [inputFrom, inputTo] = document.querySelectorAll('input');
+    expect(inputA)
+      .toHaveAttribute('disabled');
 
-    expect(inputFrom).toBeDefined();
-    expect(inputTo).toBeDefined();
+    fireEvent.click(iconB);
 
-    await inputFrom.focus();
-    await inputTo.focus();
-    await inputTo.blur();
+    expect(inputB)
+      .toHaveAttribute('disabled');
 
-    const query = await findAllByText('REQUIRED');
-
-    expect(query).toHaveLength(2);
-
-    expect(container).toMatchSnapshot();
+    expect(onChange)
+      .toHaveBeenCalledTimes(0);
   });
+  test('is DateRange isOpen attribute work right?', () => {
+    const onChange = jest.fn();
+    const { container, rerender } = render(<DateRange isOpen value={['15.05.2020', '25.05.2020']} onChange={onChange} />);
+    const iconA = container.querySelectorAll('.datepicker-icons-wrapper')[0];
+    const inputA = container.querySelectorAll('input.datepicker-input')[0];
+    const popupA = container.querySelectorAll('.calendar-wrapper.visible')[0];
+    const iconB = container.querySelectorAll('.datepicker-icons-wrapper')[1];
+    const inputB = container.querySelectorAll('input.datepicker-input')[1];
+    const popupB = container.querySelectorAll('.calendar-wrapper.visible')[1];
 
-  it('should show different requiredMessage when isRequired and invalid', async () => {
-    const { container, findByText } = render(
-      <DateRange
-        form="form"
-        name="name"
-        isRequired
-        requiredMessage={['one', 'two']}
-      />,
-    );
+    expect(iconA)
+      .toBeInTheDocument();
 
-    const [inputFrom, inputTo] = document.querySelectorAll('input');
+    expect(iconB)
+      .toBeInTheDocument();
 
-    expect(inputFrom).toBeDefined();
-    expect(inputTo).toBeDefined();
+    expect(inputA)
+      .toBeInTheDocument();
 
-    await inputFrom.focus();
-    await inputTo.focus();
-    await inputTo.blur();
+    expect(inputB)
+      .toBeInTheDocument();
 
-    await findByText('one');
-    await findByText('two');
+    expect(popupA)
+      .toBeInTheDocument();
 
-    expect(container).toMatchSnapshot();
+    expect(popupB)
+      .toBeInTheDocument();
+
+    rerender(<DateRange value={['05.05.2020', '25.05.2020']} onChange={onChange} />);
+
+    expect(container.querySelectorAll('.calendar-wrapper.visible')[0])
+      .not
+      .toBeDefined();
+
+    expect(container.querySelectorAll('.calendar-wrapper.visible')[1])
+      .not
+      .toBeDefined();
+  });
+  test('is DateRange date format input work right?', () => {
+    const onChange = jest.fn();
+    const validFormat = 'dd.MM.yyyy';
+    const invalidFormat = 'yyyy-MM-dd';
+    const validValue = '15.05.2020';
+    const invalidValue = '2010-10-10';
+    const { container, rerender, debug } = render(<DateRange format={validFormat} value={['15.05.2020', '15.05.2020']} onChange={onChange} />);
+    const inputA = container.querySelectorAll('input.datepicker-input')[0];
+    const inputB = container.querySelectorAll('input.datepicker-input')[1];
+
+    expect(inputA)
+      .toHaveValue(validValue);
+
+    expect(inputB)
+      .toHaveValue(validValue);
+
+    rerender(<DateRange format={invalidFormat} value={['2010-10-10', '2010-10-10']} onChange={onChange} />);
+
+    expect(inputA)
+      .toHaveValue(invalidValue);
+
+    expect(inputB)
+      .toHaveValue(invalidValue);
+  });
+});
+describe('Check DateRange event listeners test collection', () => {
+  test('is DateRange onBlur event listener work right?', () => {
+    const validDate = '05-05-2020';
+    const validName = 'test';
+    const onBlur = jest.fn();
+    const { container } = render(<DateRange name={validName} format="MM-dd-yyyy" value={['05-05-2020', '06-05-2020']} onBlur={onBlur} />);
+    const input = container.querySelectorAll('input.datepicker-input')[0];
+
+    fireEvent.blur(input);
+
+    expect(input)
+      .not
+      .toHaveFocus();
+
+    expect(onBlur)
+      .toBeCalledTimes(1);
+
+    expect(onBlur)
+      .lastCalledWith(expect.objectContaining({
+        component: expect.objectContaining({
+          name: 'test-from', // from First datePicker input [from, to]
+          value: validDate,
+        }),
+      }));
+  });
+  test('is DateRange onChange event listener work right?', () => {
+    const validFormat = 'dd.MM.yyyy';
+    const validValueA = '11.10.2010';
+    const validValueB = '11.11.2010';
+    const validName = 'test';
+    const onChange = jest.fn();
+    const { container } = render(<DateRange format={validFormat} value={['10.10.2010', '10.10.2020']} name={validName} onChange={onChange} />);
+    const inputA = container.querySelectorAll('input.datepicker-input')[0];
+    const inputB = container.querySelectorAll('input.datepicker-input')[1];
+
+    fireEvent.change(inputA, validValueA);
+
+    userEvent.type(inputA, validValueA);
+
+    expect(onChange)
+      .toBeCalled();
+
+    expect(onChange)
+      .lastCalledWith(expect.objectContaining({
+        component: expect.objectContaining({
+          name: validName,
+        }),
+      }));
+
+    userEvent.type(inputB, validValueB);
+
+    expect(onChange)
+      .toBeCalled();
+
+    expect(onChange)
+      .lastCalledWith(expect.objectContaining({
+        component: expect.objectContaining({
+          name: validName,
+        }),
+      }));
+  });
+  test('is DateRange onPressEnter event listener work right?', () => {
+    const onEnterPress = jest.fn();
+    const { container } = render(<DateRange value={['10.10.2010', '10.10.2020']} onEnterPress={onEnterPress} />);
+    const inputA = container.querySelectorAll('input.datepicker-input')[0];
+    const inputB = container.querySelectorAll('input.datepicker-input')[1];
+
+    fireEvent.keyDown(inputA, {
+      charCode: 13,
+      code: 13,
+      key: 'Enter',
+      keyCode: 13,
+    });
+
+    fireEvent.keyDown(inputB, {
+      charCode: 13,
+      code: 13,
+      key: 'Enter',
+      keyCode: 13,
+    });
+
+    expect(onEnterPress)
+      .toBeCalled();
+  });
+  test('is DateRange onFocus event listener work right?', () => {
+    const onFocus = jest.fn();
+    const { container } = render(<DateRange value={['10.10.2010', '10.10.2020']} onFocus={onFocus} />);
+    const input = container.querySelectorAll('input.datepicker-input')[0];
+
+    fireEvent.focus(input);
+
+    expect(onFocus)
+      .toHaveBeenCalled();
   });
 });
