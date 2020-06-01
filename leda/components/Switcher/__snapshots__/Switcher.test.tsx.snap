@@ -1,219 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Switcher SNAPSHOTS should render 1`] = `
-<Switcher>
-  <Wrapper>
-    <Span>
-      <span>
-        <Base
-          className="switcher-wrapper"
-          onClick={[Function]}
-        >
-          <Div
-            className="switcher-wrapper"
-            onClick={[Function]}
-          >
-            <div
-              className="switcher-wrapper"
-              onClick={[Function]}
-            >
-              <Icon
-                className="switcher-handle"
-              >
-                <Div
-                  className="switcher-handle"
-                >
-                  <div
-                    className="switcher-handle"
-                  />
-                </Div>
-              </Icon>
-            </div>
-          </Div>
-        </Base>
-        <Label
-          className="switcher-label"
-          onClick={[Function]}
-        >
-          <Span
-            className="switcher-label"
-            onClick={[Function]}
-          >
-            <span
-              className="switcher-label"
-              onClick={[Function]}
-            >
-              Switch me!
-            </span>
-          </Span>
-        </Label>
-      </span>
-    </Span>
-  </Wrapper>
-</Switcher>
+exports[`Check Switcher spanpshot collection is Switcher render right if value set True and False? 1`] = `
+<span>
+  <div
+    class="switcher-wrapper active"
+  >
+    <div
+      class="switcher-handle"
+    />
+  </div>
+  <span
+    class="switcher-label"
+  >
+    Switch
+  </span>
+</span>
 `;
 
-exports[`Switcher SNAPSHOTS should render controllable mode 1`] = `
-<Switcher
-  value={true}
->
-  <Wrapper>
-    <Span>
-      <span>
-        <Base
-          className="switcher-wrapper active"
-          onClick={[Function]}
-        >
-          <Div
-            className="switcher-wrapper active"
-            onClick={[Function]}
-          >
-            <div
-              className="switcher-wrapper active"
-              onClick={[Function]}
-            >
-              <Icon
-                className="switcher-handle"
-              >
-                <Div
-                  className="switcher-handle"
-                >
-                  <div
-                    className="switcher-handle"
-                  />
-                </Div>
-              </Icon>
-            </div>
-          </Div>
-        </Base>
-        <Label
-          className="switcher-label"
-          onClick={[Function]}
-        >
-          <Span
-            className="switcher-label"
-            onClick={[Function]}
-          >
-            <span
-              className="switcher-label"
-              onClick={[Function]}
-            >
-              Switch me!
-            </span>
-          </Span>
-        </Label>
-      </span>
-    </Span>
-  </Wrapper>
-</Switcher>
+exports[`Check Switcher spanpshot collection is Switcher render right if value set True and False? 2`] = `
+<span>
+  <div
+    class="switcher-wrapper"
+  >
+    <div
+      class="switcher-handle"
+    />
+  </div>
+  <span
+    class="switcher-label"
+  >
+    Switch
+  </span>
+</span>
 `;
 
-exports[`Switcher SNAPSHOTS should render controllable mode 2`] = `
-<Switcher
-  value={false}
->
-  <Wrapper>
-    <Span>
-      <span>
-        <Base
-          className="switcher-wrapper"
-          onClick={[Function]}
-        >
-          <Div
-            className="switcher-wrapper"
-            onClick={[Function]}
-          >
-            <div
-              className="switcher-wrapper"
-              onClick={[Function]}
-            >
-              <Icon
-                className="switcher-handle"
-              >
-                <Div
-                  className="switcher-handle"
-                >
-                  <div
-                    className="switcher-handle"
-                  />
-                </Div>
-              </Icon>
-            </div>
-          </Div>
-        </Base>
-        <Label
-          className="switcher-label"
-          onClick={[Function]}
-        >
-          <Span
-            className="switcher-label"
-            onClick={[Function]}
-          >
-            <span
-              className="switcher-label"
-              onClick={[Function]}
-            >
-              Switch me!
-            </span>
-          </Span>
-        </Label>
-      </span>
-    </Span>
-  </Wrapper>
-</Switcher>
-`;
-
-exports[`Switcher SNAPSHOTS should render disabled state 1`] = `
-<Switcher
-  isDisabled={true}
->
-  <Wrapper>
-    <Span>
-      <span>
-        <Base
-          className="switcher-wrapper disabled"
-          onClick={[Function]}
-        >
-          <Div
-            className="switcher-wrapper disabled"
-            onClick={[Function]}
-          >
-            <div
-              className="switcher-wrapper disabled"
-              onClick={[Function]}
-            >
-              <Icon
-                className="switcher-handle"
-              >
-                <Div
-                  className="switcher-handle"
-                >
-                  <div
-                    className="switcher-handle"
-                  />
-                </Div>
-              </Icon>
-            </div>
-          </Div>
-        </Base>
-        <Label
-          className="switcher-label"
-          onClick={[Function]}
-        >
-          <Span
-            className="switcher-label"
-            onClick={[Function]}
-          >
-            <span
-              className="switcher-label"
-              onClick={[Function]}
-            >
-              Switch me!
-            </span>
-          </Span>
-        </Label>
-      </span>
-    </Span>
-  </Wrapper>
-</Switcher>
+exports[`Check Switcher spanpshot collection is Switcher render right? 1`] = `
+<span>
+  <div
+    class="switcher-wrapper"
+  >
+    <div
+      class="switcher-handle"
+    />
+  </div>
+  <span
+    class="switcher-label"
+  >
+    Switch
+  </span>
+</span>
 `;
