@@ -8,7 +8,6 @@ export const SuccessComponent = (props: SuccessComponentProps) => {
   const {
     theme,
     downloadLink,
-    handleRetry,
     SuccessItem,
     combinedButtonClassNames,
     isDisabled,
@@ -26,7 +25,6 @@ export const SuccessComponent = (props: SuccessComponentProps) => {
       </Span>
       <Button
         className={combinedButtonClassNames}
-        onClick={handleRetry}
         isDisabled={isDisabled}
       >
         <Span className={theme.retryIcon} />

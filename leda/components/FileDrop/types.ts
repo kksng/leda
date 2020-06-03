@@ -132,7 +132,6 @@ export interface SingleFileViewProps extends FileDropProps {
   LoadingItem: React.FC<CustomItemProps>,
   SuccessItem: React.FC<CustomItemProps>,
   DefaultItem: React.FC<CustomItemProps>,
-  handleRetry: CustomEventHandler<React.MouseEvent<HTMLElement>>,
 }
 
 export interface ErrorComponentProps extends SingleFileViewProps {
