@@ -3,6 +3,7 @@ import { CustomRender } from '../../commonTypes';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { GlobalDefaultTheme, PartialGlobalDefaultTheme } from '../../utils/useTheme';
 import { SuggestionElementProps, SuggestionItemProps } from '../../src/SuggestionList/types';
+import { DropDownSelectProps } from '../DropDownSelect/types';
 
 export interface ChangeEvent {
   component: {
@@ -37,6 +38,8 @@ export interface PaginationProps {
   pagesDropDownRender?: CustomRender<PaginationProps, PaginationState, PagesDropDownProps>,
   /** Количество элементов на странице */
   pageSize?: number,
+  /** Кастомизация поля ввода выпадающего списка с выбором количества записей на странице */
+  pageSizeInputRender?: CustomRender<DropDownSelectProps<number>, {}, React.InputHTMLAttributes<HTMLInputElement>>,
   /** Кастомизация элементов выпадающего списка с выбором количества записей на странице */
   pageSizeItemRender?: CustomRender<SuggestionItemProps, {}, SuggestionElementProps>,
   /** Выбор вариантов количества элементов на странице, если передан, то появляется выпадающий список */
@@ -63,6 +66,8 @@ export interface PagesDropDownProps {
   isPageSizeChangeable: boolean,
   /** Количество элементов на странице */
   pageSize: number,
+  /** Кастомизация поля ввода выпадающего списка с выбором количества записей на странице */
+  pageSizeInputRender: PaginationProps['pageSizeInputRender'],
   /** Кастомизация элементов выпадающего списка с выбором количества записей на странице */
   pageSizeItemRender: PaginationProps['pageSizeItemRender'],
   /** Варианты количества элементов на странице */

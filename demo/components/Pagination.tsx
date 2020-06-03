@@ -16,7 +16,11 @@ export const Pagination = (): React.ReactElement => {
         pageSize={pageSize}
         pageSizeOptions={[5, 10, 20, 50, total]}
         pageSizeItemRender={({ elementProps, componentProps, Element }) => {
-          if (componentProps.item === total) return <Element {...elementProps} >Все</Element>;
+          if (componentProps.item === total) return <Element {...elementProps}>Все</Element>;
+          return <Element {...elementProps} />;
+        }}
+        pageSizeInputRender={({ elementProps, componentProps, Element }) => {
+          if (componentProps.value === total) return <Element {...elementProps} value={'Все'} />;
           return <Element {...elementProps} />;
         }}
         totalItems={total}

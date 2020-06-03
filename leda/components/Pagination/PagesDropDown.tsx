@@ -11,6 +11,7 @@ export const PagesDropDown = (props: PagesDropDownProps): React.ReactElement => 
     handlePageSizeChange,
     isPageSizeChangeable,
     pageSize,
+    pageSizeInputRender,
     pageSizeItemRender,
     pageSizeOptions,
     theme,
@@ -44,6 +45,7 @@ export const PagesDropDown = (props: PagesDropDownProps): React.ReactElement => 
             value={pageSize}
             onChange={handleChange}
             placeholder="Все"
+            inputRender={pageSizeInputRender}
             itemRender={pageSizeItemRender}
           />
           Показать на странице
