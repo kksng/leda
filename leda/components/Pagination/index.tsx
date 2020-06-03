@@ -20,6 +20,7 @@ export const Pagination = React.forwardRef((props: PaginationProps, ref: React.R
     pageSize: pageSizeProp,
     defaultPageSize,
     currentPage: currentPageProp,
+    pageSizeItemRender,
     pageSizeOptions,
     totalItems = 0,
     isLoading = false,
@@ -172,6 +173,7 @@ export const Pagination = React.forwardRef((props: PaginationProps, ref: React.R
         handlePageSizeChange={handlePageSizeChange}
         isPageSizeChangeable={isPageSizeChangeable}
         pageSize={pageSize}
+        pageSizeItemRender={pageSizeItemRender}
         pageSizeOptions={pageSizeOptions}
         theme={theme}
       />

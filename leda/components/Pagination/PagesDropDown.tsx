@@ -1,5 +1,5 @@
 import React from 'react';
-import { isNil } from 'lodash';
+import { isNumber, isString } from 'lodash';
 import * as L from '../../index';
 import {
   DropDownSelect,
@@ -11,14 +11,26 @@ export const PagesDropDown = (props: PagesDropDownProps): React.ReactElement => 
     handlePageSizeChange,
     isPageSizeChangeable,
     pageSize,
+    pageSizeItemRender,
     pageSizeOptions,
     theme,
   } = props;
 
-  const handleChange = (ev: L.DropDownSelectTypes.ChangeEvent<string>) => {
+  const handleChange = (ev: L.DropDownSelectTypes.ChangeEvent) => {
+    const { value } = ev.component;
+
+    const newPageSize = (() => {
+      if (isNumber(value)) return value;
+      if (isString(value)) {
+        const parsedNumber = parseInt(value, 10);
+        if (isNumber(parsedNumber)) return parsedNumber;
+      }
+      throw new Error('L.Pagination: pageSizeOptions must be an array of numbers.');
+    })();
+
     handlePageSizeChange({
       component: {
-        value: parseInt(ev.component.value, 10),
+        value: newPageSize,
       },
     });
   };
@@ -28,10 +40,11 @@ export const PagesDropDown = (props: PagesDropDownProps): React.ReactElement => 
       { isPageSizeChangeable && (
         <>
           <DropDownSelect
-            data={pageSizeOptions && pageSizeOptions.map((item) => item.toString())}
-            value={isNil(pageSize) ? pageSize : pageSize.toString()}
+            data={pageSizeOptions && pageSizeOptions.map((item) => item)}
+            value={pageSize}
             onChange={handleChange}
             placeholder="Все"
+            itemRender={pageSizeItemRender}
           />
           Показать на странице
         </>

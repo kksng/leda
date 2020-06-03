@@ -2,6 +2,7 @@ import * as React from 'react';
 import { CustomRender } from '../../commonTypes';
 import { COMPONENTS_NAMESPACES } from '../../constants';
 import { GlobalDefaultTheme, PartialGlobalDefaultTheme } from '../../utils/useTheme';
+import { SuggestionElementProps, SuggestionItemProps } from '../../src/SuggestionList/types';
 
 export interface ChangeEvent {
   component: {
@@ -36,6 +37,8 @@ export interface PaginationProps {
   pagesDropDownRender?: CustomRender<PaginationProps, PaginationState, PagesDropDownProps>,
   /** Количество элементов на странице */
   pageSize?: number,
+  /** Кастомизация элементов выпадающего списка с выбором количества записей на странице */
+  pageSizeItemRender?: CustomRender<SuggestionItemProps, {}, SuggestionElementProps>,
   /** Выбор вариантов количества элементов на странице, если передан, то появляется выпадающий список */
   pageSizeOptions?: number[],
   /** Reference */
@@ -60,6 +63,8 @@ export interface PagesDropDownProps {
   isPageSizeChangeable: boolean,
   /** Количество элементов на странице */
   pageSize: number,
+  /** Кастомизация элементов выпадающего списка с выбором количества записей на странице */
+  pageSizeItemRender: PaginationProps['pageSizeItemRender'],
   /** Варианты количества элементов на странице */
   pageSizeOptions?: number[],
   /** Тема компонента */
