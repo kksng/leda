@@ -123,7 +123,7 @@ export const Input = (attrs: any) => {
                 onValidationFail={(ev) => console.log('awesome form fail ev', ev)}
             >
                 Validate an awesome input
-    </L.Button>
+            </L.Button>
             <br />
             <L.Input
                 name="DisabledInput"
@@ -143,7 +143,7 @@ export const Input = (attrs: any) => {
             <L.Button form='OneInputForm'
             >
                 Validate OneInputForm
-    </L.Button>
+            </L.Button>
 
         </L.Div>
     );
