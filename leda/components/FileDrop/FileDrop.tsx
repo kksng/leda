@@ -5,7 +5,7 @@ import {
 } from '../../utils';
 import { MAX_FILE_SIZE } from '../../constants';
 import { Div } from '../Div';
-import { createChangeHandler, createClickHandler, createRetryHandler } from './handlers';
+import { createChangeHandler, createClickHandler } from './handlers';
 import {
   FileDropProps, FileDropRefCurrent,
 } from './types';
@@ -69,8 +69,6 @@ export const FileDrop = React.forwardRef((props: FileDropProps, ref: React.Ref<F
 
   const rootProps = getRootProps();
 
-  const handleRetry = createRetryHandler(props);
-
   const restProps = useFileDropRestProps(props);
 
   const inputProps = { ...getInputProps(), ...restProps };
@@ -98,7 +96,6 @@ export const FileDrop = React.forwardRef((props: FileDropProps, ref: React.Ref<F
             {...props}
             theme={theme}
             value={value}
-            handleRetry={handleRetry}
             UploadButton={UploadButton}
             ErrorItem={ErrorItem}
             LoadingItem={LoadingItem}

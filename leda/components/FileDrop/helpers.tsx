@@ -22,10 +22,10 @@ export const compareFiles = (firstFile: File, secondFile: File): boolean => {
 };
 
 // Проверка не добавлен ли уже один из выбранных файлов
-export const checkForAddedFile = (props: FileDropProps, file: File): boolean => {
+export const checkHasThisFileAlreadyBeenLoaded = (props: FileDropProps, file: File): boolean => {
   const { value } = props;
   // Если файл найден по имени, то проверяем равен по размеру и дате последнего изменения
-  return !!value && !compareFiles(value, file);
+  return !!value && compareFiles(value, file);
 };
 
 export const getErrorCode = (props: FileDropProps, file: File): number => {
@@ -38,7 +38,7 @@ export const getErrorCode = (props: FileDropProps, file: File): number => {
   } = props;
 
   // Ошибка - файл уже существует
-  if (checkForAddedFile(props, file)) return FileErrorCodes.AlreadyLoaded;
+  if (checkHasThisFileAlreadyBeenLoaded(props, file)) return FileErrorCodes.AlreadyLoaded;
 
   // Ошибка типа
   if (allowedFiles) {
@@ -117,7 +117,8 @@ export const checkFiles = (
 
   const acceptedFile = accepted[0];
 
-  const errorCode = acceptedFile && getErrorCode(props, acceptedFile);
+  // if props.value exists, a file had been loaded
+  const errorCode = !props.value && getErrorCode(props, acceptedFile);
 
   // если ошибок нет errorCode равен 0
   if (errorCode && errorCode !== 0) {

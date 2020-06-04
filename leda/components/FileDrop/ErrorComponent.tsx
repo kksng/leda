@@ -5,7 +5,7 @@ import { ErrorComponentProps } from './types';
 
 export const ErrorComponent = (props: ErrorComponentProps) => {
   const {
-    theme, handleRetry, errorMessage, ErrorItem, isDisabled, combinedButtonClassNames,
+    theme, errorMessage, ErrorItem, isDisabled, combinedButtonClassNames,
   } = props;
 
   return (
@@ -17,7 +17,6 @@ export const ErrorComponent = (props: ErrorComponentProps) => {
       </Span>
       <Button
         className={combinedButtonClassNames}
-        onClick={handleRetry}
         isDisabled={isDisabled}
       >
         <Span className={theme.retryIcon} />

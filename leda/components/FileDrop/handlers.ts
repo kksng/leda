@@ -40,20 +40,3 @@ export const createChangeHandler = (
 
   return { file, error };
 };
-
-export const createRetryHandler = (props: FileDropProps) => (ev: React.MouseEvent<HTMLElement>): void => {
-  const { name, onChange } = props;
-
-  ev.stopPropagation();
-
-  const customEvent = {
-    ...ev,
-    component: {
-      error: null,
-      name,
-      value: null,
-    },
-  };
-
-  onChange?.(customEvent);
-};
