@@ -36,8 +36,10 @@ export const MaskedInput = (): React.ReactElement => {
         onFocus={testFunction}
         onEnterPress={testFunction}
         onBlur={testFunction}
-        onChange={(ev) => {
-          setPhoneValue(ev.component.value);}}
+        onChange={(event) => {
+          setPhoneValue(event.component.value);
+          testFunction(event);
+        }}
         wrapperRender={wrapperRender}
         inputRender={inputRender}
       />
@@ -50,7 +52,7 @@ export const MaskedInput = (): React.ReactElement => {
         placeholderChar="$" 
         onChange={(event) => setCardValue(event.component.value)}
       />
-      <L.Span>Номер телефона (контролируемый)</L.Span>
+      <L.Span>Номер телефона (неконтролируемый)</L.Span>
       <L.MaskedInput
         name="DisabledMask"
         mask="+7 (###)-###-##-##"

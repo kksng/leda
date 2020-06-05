@@ -3,6 +3,8 @@ import { globalDefaultTheme } from '../../../leda/components/LedaProvider';
 const theme = globalDefaultTheme.maskedInput;
 
 describe('MaskedInput', () => {
+  let lastConsole;
+  let stub;
   beforeEach(() => {
     cy.visit('http://localhost:9000/cypress/masked-input');
   });
@@ -104,6 +106,75 @@ describe('MaskedInput', () => {
         .type('ABC!@#$%^&*)_=+?/.<>,БЛА')
         .should('have.value', '+7 (___)-___-__-__');
     });
-  
+  });
+
+  describe('Events', () => {
+    beforeEach(() => {
+      cy.visit('http://localhost:9000/cypress/masked-input', {
+        onBeforeLoad(win) {
+          stub = cy.stub(win.console, 'log', (ev) => { lastConsole = ev; });
+        },
+      });
+    });
+
+    it('onEnterPress', () => {
+      cy.name('PhoneMask')
+        .clear()
+        .type('7')
+        .type('{enter}')
+        .then(() => {
+          expect(stub).to.be.called;
+          expect(lastConsole).to.have.property('type', 'keydown');
+          expect(lastConsole).to.have.property('key', 'Enter');
+          expect(lastConsole.component).to.have.property('name', "PhoneMask");
+          expect(lastConsole.component).to.have.property('value', '');
+          expect(lastConsole.component).to.have.property('inputValue', "+7 (7__)-___-__-__");
+        });
+    });
+
+    it('onFocus', () => {
+      cy.name('PhoneMask')
+        .focus()
+        .then(() => {
+          expect(stub).to.be.called;
+          expect(lastConsole).to.have.property('type', 'focus');
+          expect(lastConsole.component).to.have.property('name', "PhoneMask");
+          expect(lastConsole.component).to.have.property('value', "8005553535");
+        });
+    });
+
+    it('onBlur', () => {
+      cy.name('PhoneMask')
+        .focus()
+        .blur()
+        .then(() => {
+          expect(stub).to.be.called;
+          expect(lastConsole).to.have.property('type', 'blur');
+          expect(lastConsole.component).to.have.property('name', "PhoneMask");
+          expect(lastConsole.component).to.have.property('isValid', true);
+        });
+    });
+
+    it('onChange', () => {
+      cy.name('PhoneMask')
+        .clear()
+        .type('7')
+        .then(() => {
+          expect(stub).to.be.called;
+          expect(lastConsole).to.have.property('type', 'change');
+          expect(lastConsole.target).to.have.property('name', "PhoneMask");
+          expect(lastConsole.component).to.have.property('value', '');
+          expect(lastConsole.component).to.have.property('inputValue', "+7 (7__)-___-__-__");
+        })
+        .clear()
+        .type('8005556363')
+        .then(() => {
+          expect(stub).to.be.called;
+          expect(lastConsole).to.have.property('type', 'change');
+          expect(lastConsole.target).to.have.property('name', "PhoneMask");
+          expect(lastConsole.component).to.have.property('value', '8005556363');
+          expect(lastConsole.component).to.have.property('inputValue', "+7 (800)-555-63-63");
+        })
+    });
   });
 });
