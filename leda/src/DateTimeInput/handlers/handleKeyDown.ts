@@ -227,30 +227,33 @@ const handleDownKeyPress = (payload: UpDownKeyPressPayload): void => {
   }
 };
 
+/**
+ * Обработчик нажатия клавиш
+ * @param payload {EnterKyePressPayload}
+ */
 const handleEnterKeyPress = (payload: EnterKeyPressPayload): void => {
   const {
-    isOpen, onEnterPress, ev, name, date, value, viewType,
-    viewDate, type, dateShorthand, min, max, format = 'dd.MM.yyyy', dispatch, onChange, maskedInputRef,
+    isOpen, 
+    onEnterPress, 
+    ev, 
+    name, 
+    date, 
+    value, 
+    viewType,
+    viewDate, 
+    type, 
+    dateShorthand, 
+    min, 
+    max, 
+    format = 'dd.MM.yyyy', 
+    dispatch, 
+    onChange, 
+    maskedInputRef,
   } = payload;
 
   const {
     year, month,
   } = dateShorthand;
-  // если календарь закрыт - вызывать onEnterPress
-  if (!isOpen) {
-    if (isFunction(onEnterPress)) {
-      onEnterPress({
-        ...ev,
-        component: {
-          date,
-          name,
-          value,
-        },
-      });
-    }
-
-    return;
-  }
 
   const updateDate = (newDate: Date): void => {
     // неконтролируемый режим
@@ -430,8 +433,22 @@ export const createKeyDownHandler = ({
     }
     case KEYS.ENTER: {
       handleEnterKeyPress({
-        dateShorthand, ev, isOpen, max, min, viewType, onEnterPress, name, date, type, value, viewDate,
-        dispatch, format, onChange, maskedInputRef,
+        dateShorthand, 
+        ev, 
+        isOpen, 
+        max, 
+        min, 
+        viewType, 
+        onEnterPress, 
+        name, 
+        date, 
+        type, 
+        value, 
+        viewDate,
+        dispatch, 
+        format, 
+        onChange, 
+        maskedInputRef,
       });
       break;
     }

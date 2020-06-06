@@ -85,6 +85,18 @@ describe.skip('DatePicker HANDLERS', () => {
     expect(event.target.name).toEqual(wrapper.props().name);
   });
 
+  it('should call onChange if the DatePicker is showen and an enter event was called on the callendar', () => {
+    const onChangeHandler = jest.fn();
+    const wrapper = mount(<DatePicker show />);
+
+    wrapper.setProps({ value: new Date('1985-10-31') });
+    wrapper.update();
+    wrapper.find('Icon').simulate('onclick');
+    wrapper.find({title: '30'}).first().simulate('onkeydown', {key: 'Enter', code: 'Enter'});
+
+    expect(onChangeHandler).toHaveBeenCalled();
+  });
+
   it('should call onFocus from inside', () => {
     const onFocusHandler = jest.fn();
     const wrapper = mount(<DatePicker name="pipicker" onFocus={onFocusHandler} />);
