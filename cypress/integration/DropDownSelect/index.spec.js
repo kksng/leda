@@ -315,6 +315,7 @@ describe('DropDownSelect', () => {
         .should('have.value', '');
     });
   });
+
   it('compareObjectsBy', () => {
     cy.name('DDSCompareObjectsBy')
       .click()

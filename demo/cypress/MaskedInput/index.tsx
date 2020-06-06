@@ -8,49 +8,61 @@ export const MaskedInput = (): React.ReactElement => {
 
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
 
+  const testFunction = (event: {}) => {
+    console.log(event);
+  };
+
+  const inputRender = ({ elementProps, Element }) => (
+    <>
+      <L.Span style={{ padding: '5px' }}>телефон</L.Span>
+      <Element {...elementProps} />
+    </>
+  ); 
+
+  const wrapperRender = ({ elementProps, Element }) => (
+    <Element {...elementProps} 
+    data-some-attribute="hello world"
+    style={{ border: '4px solid green' }} />
+  ); 
+
   return (
     <L.Div _demoStory>
-      <L.Span>Номер телефона (не контролируемый с валидацией)</L.Span>
+      <L.Span>Номер телефона (не контролируемый)</L.Span>
       <L.MaskedInput
+        defaultValue="8005553535"
         mask="+7 (###)-###-##-##"
-        isDisabled={isDisabled}
-        placeholder="+7 (___)-___-__-__"
-        isRequired
-        requiredMessage="Обязательное поле!"
-        name="mamasekd"
-        form="my-form"
+        name="PhoneMask"
+        placeholder="введи" 
+        onFocus={testFunction}
+        onEnterPress={testFunction}
+        onBlur={testFunction}
+        onChange={(event) => {
+          setPhoneValue(event.component.value);
+          testFunction(event);
+        }}
+        wrapperRender={wrapperRender}
+        inputRender={inputRender}
       />
       <L.Span>СНИЛС (контролируемый)</L.Span>
       <L.MaskedInput
+        name="CardMask"
         mask="###-###-### ##"
         placeholder="___-___-___ __"
         value={cardValue}
+        placeholderChar="$" 
         onChange={(event) => setCardValue(event.component.value)}
       />
-      <L.Span>Номер телефона (контролируемый)</L.Span>
+      <L.Span>Номер телефона (неконтролируемый)</L.Span>
       <L.MaskedInput
+        name="DisabledMask"
         mask="+7 (###)-###-##-##"
-        placeholder="+7 (___)-___-__-__"
-        value={phoneValue}
+        placeholderChar="$" 
+        defaultValue="9876543210"
         onChange={(event) => setPhoneValue(event.component.value)}
-      />
-      <L.Span>Номер машины (не контролируемый)</L.Span>
-      <L.MaskedInput
-        mask="LL##LL####"
-        placeholder="Car number"
-      />
-      <L.Span>Номер кредитки (не контролируемый с начальным значением)</L.Span>
-      <L.MaskedInput
-        mask="####-####-####-####"
-        placeholder="####-####-####-####"
-        defaultValue="6666777788889999"
+        isDisabled={isDisabled}
       />
       <br />
       <br />
-      <L.Button onClick={() => setPhoneValue(null)}>Clear Value</L.Button>
-      {' '}
-      <L.Button onClick={() => setPhoneValue('9818862798')}>Set Value</L.Button>
-      {' '}
       <L.Switcher value={isDisabled} onChange={(event) => setIsDisabled(event.component.value)}>
         Toggle isDisabled
       </L.Switcher>

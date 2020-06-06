@@ -3,44 +3,50 @@ import { globalDefaultTheme } from '../../../leda/components/LedaProvider';
 const theme = globalDefaultTheme.maskedInput;
 
 describe('MaskedInput', () => {
+  let lastConsole;
+  let stub;
   beforeEach(() => {
     cy.visit('http://localhost:9000/cypress/masked-input');
   });
 
   describe('Display', () => {
-    describe('Placeholder', () => {
-      it.skip('should render masked input with placeholder', () => {
-        cy.get(`.${theme.wrapper} input`)
-          .eq(0)
-          .focusMasked()
-          .clear()
-          .should('have.attr', 'placeholder', '+7 (___)-___-__-__')
-          .should('have.value', '+7 (___)-___-__-__')
-          .type('9818862798')
-          .should('have.value', '+7 (981)-886-27-98')
-          .clear()
-          .should('have.value', '+7 (___)-___-__-__')
-          .get(`.${theme.inputWrapper}`)
-          .eq(0)
-          .should('have.class', theme.inputWrapperFocused)
-          .get(`.${theme.input}`)
-          .eq(0)
-          .blur()
-          .should('have.value', '')
-          .should('have.attr', 'placeholder', '+7 (___)-___-__-__')
-          .get(`.${theme.inputWrapper}`)
-          .eq(0)
-          .should('not.have.class', theme.inputWrapperFocused);
-      });
+    it('should display placeholder', () => {
+      cy.name('PhoneMask')
+        .clear()
+        .should('have.attr', 'placeholder', 'введи')
+        .blur()
+        .should('have.attr', 'value', '')
     });
 
+    it('should display mask', () => {
+      cy.name('PhoneMask')
+        .clear()
+        .should('have.attr', 'value', '+7 (___)-___-__-__')
+    });
+
+    it('should display defaultValue', () => {
+      cy.name('PhoneMask')
+        .should('have.attr', 'value', '+7 (800)-555-35-35')
+    });
+
+    it('InputRender should customize Input', () => {
+      cy.name('PhoneMask')
+        .siblings()
+        .contains('телефон')
+    })
+
+    it('WrapperRender should customize Wrapper', () => {
+      cy.name('PhoneMask')
+        .parent()
+        .parent()
+        .should('have.attr', 'data-some-attribute', 'hello world')
+    })
+
     describe('isDisabled', () => {
-      it.skip('should be disabled', () => {
+      it('should be disabled', () => {
         cy.contains('Toggle isDisabled')
           .click()
-          .closest('.demo-story')
-          .find('input')
-          .eq(0)
+          .name('DisabledMask')
           .should('be.disabled')
           .closest('.masked-input-wrapper')
           .should('have.class', 'disabled')
@@ -51,150 +57,124 @@ describe('MaskedInput', () => {
     });
   });
 
-  describe('Interaction', () => {
-    describe('Input', () => {
-      it('should clear one char per backspace press', () => {
-        cy.get(`.${theme.wrapper}`)
-          .eq(0)
-          .get(`.${theme.input}`)
-          .eq(0)
-          .focusMasked()
-          .clear()
-          .type('9818862798')
-          .should('have.value', '+7 (981)-886-27-98')
-          .type('{backspace}'.repeat(5))
-          .should('have.value', '+7 (981)-886-__-__')
-          .type('{backspace}'.repeat(9))
-          .should('have.value', '+7 (___)-___-__-__')
-          .type('9818862798')
-          .should('have.value', '+7 (981)-886-27-98')
-          .type('{leftarrow}'.repeat(5))
-          .type('{selectall}')
-          .type('{del}')
-          .should('have.value', '+7 (___)-___-__-__')
-          .type('{selectall}')
-          .type('{backspace}')
-          .type('9818862798')
-          .should('have.value', '+7 (981)-886-27-98')
-          .type('{selectall}')
-          .type('{backspace}')
-          .should('have.value', '+7 (___)-___-__-__');
-      });
-
-      it('should fill different masks', () => {
-        cy.get(`.${theme.wrapper} input`)
-          .eq(2)
-          .should('have.value', '+7 (800)-200-06-00')
-          .focusMasked()
-          .clear()
-          .clear()
-          .type('9818862798')
-          .should('have.value', '+7 (981)-886-27-98')
-          .closest('.demo-story')
-          .find('input')
-          .eq(1)
-          .should('have.attr', 'placeholder', '___-___-___ __')
-          .focusMasked()
-          .clear()
-          .type('12345678901')
-          .should('have.value', '123-456-789 01')
-          .closest('.demo-story')
-          .find('input')
-          .eq(3)
-          .should('have.attr', 'placeholder', 'Car number')
-          .focusMasked()
-          .type('AA12BB3456')
-          .should('have.value', 'AA12BB3456')
-          .closest('.demo-story')
-          .find('input')
-          .eq(4)
-          .should('have.value', '6666-7777-8888-9999')
-          .focusMasked()
-          .clear()
-          .type('1234123412341234')
-          .should('have.value', '1234-1234-1234-1234');
-      });
-
-      it('should forbid non-mask chars', () => {
-        cy.get(`.${theme.wrapper} input`)
-          .eq(0)
-          .focusMasked()
-          .should('have.value', '+7 (___)-___-__-__')
-          .type('ABC!@#$%^&*)_=+?/.<>,БЛА')
-          .should('have.value', '+7 (___)-___-__-__');
-      });
-
-      it.skip('should allow only completed values', () => {
-        cy.get(`.${theme.wrapper} input`)
-          .eq(0)
-          .focusMasked()
-          .should('have.value', '+7 (___)-___-__-__')
-          .type('7777')
-          .should('have.value', '+7 (777)-7__-__-__')
-          .blur()
-          .should('have.value', '');
-      });
+  describe('InputInteraction', () => {
+    it('should clear one char per backspace press', () => {
+      cy.name('PhoneMask')
+        .focusMasked()
+        .clear()
+        .type('9818862798')
+        .should('have.value', '+7 (981)-886-27-98')
+        .type('{backspace}'.repeat(5))
+        .should('have.value', '+7 (981)-886-__-__')
+        .type('{backspace}'.repeat(9))
+        .should('have.value', '+7 (___)-___-__-__')
+        .type('9818862798')
+        .should('have.value', '+7 (981)-886-27-98')
+        .type('{leftarrow}'.repeat(7))
+        .type('{backspace}'.repeat(3))
+        .type('{rightarrow}')
+        .type('22')
+        .should('have.value', '+7 (981)-226-27-98')
+        .type('{selectall}')
+        .type('{del}')
+        .should('have.value', '+7 (___)-___-__-__')
+        .type('9818862798')
+        .should('have.value', '+7 (981)-886-27-98')
+        .type('{selectall}')
+        .type('{backspace}')
+        .should('have.value', '+7 (___)-___-__-__');
     });
 
-    describe('Validation', () => {
-      it('should be invalid when isRequired and value is empty', () => {
-        cy.get(`.${theme.wrapper} input`)
-          .eq(0)
-          .focusMasked()
-          .blur()
-          .closest(`.${theme.inputWrapper}`)
-          .should('have.class', theme.inputWrapperInvalid)
-          .next()
-          .should('contain', 'Обязательное поле!');
-      });
+    it('should fill different masks', () => {
+      cy.name('DisabledMask')
+        .should('have.value', '+7 (987)-654-32-10')
+        .focusMasked()
+        .clear()
+        .type('9818862798')
+        .should('have.value', '+7 (981)-886-27-98')
+        .name('CardMask')
+        .should('have.attr', 'placeholder', '___-___-___ __')
+        .focusMasked()
+        .type('12345678901')
+        .should('have.value', '123-456-789 01')
+    });
 
-      it('should be invalid when isRequired and value is not complete', () => {
-        cy.get(`.${theme.wrapper} input`)
-          .eq(0)
-          .focusMasked()
-          .type('1234')
-          .blur()
-          .closest(`.${theme.inputWrapper}`)
-          .should('have.class', theme.inputWrapperInvalid)
-          .next()
-          .should('contain', 'Обязательное поле!');
-      });
-
-      it('should be valid when isRequired and value is complete', () => {
-        cy.get(`.${theme.wrapper} input`)
-          .eq(0)
-          .focusMasked()
-          .type('9818862798')
-          .blur()
-          .closest(`.${theme.inputWrapper}`)
-          .should('not.have.class', theme.inputWrapperInvalid)
-          .next()
-          .should('not.exist');
-      });
+    it('should forbid non-mask chars', () => {
+      cy.name('PhoneMask')
+        .focusMasked()
+        .should('have.value', '+7 (___)-___-__-__')
+        .type('ABC!@#$%^&*)_=+?/.<>,БЛА')
+        .should('have.value', '+7 (___)-___-__-__');
     });
   });
 
-  describe('Rest', () => {
-    describe('Controlled mode', () => {
-      it('should clear and set value', () => {
-        cy.get(`.${theme.wrapper} input`)
-          .eq(2)
-          .should('have.value', '+7 (800)-200-06-00')
-          .closest('.demo-story')
-          .contains('Clear Value')
-          .click()
-          .closest('.demo-story')
-          .get(`.${theme.wrapper} input`)
-          .eq(2)
-          .should('not.have.value')
-          .closest('.demo-story')
-          .contains('Set Value')
-          .click()
-          .closest('.demo-story')
-          .get(`.${theme.wrapper} input`)
-          .eq(2)
-          .should('have.value', '+7 (981)-886-27-98');
+  describe('Events', () => {
+    beforeEach(() => {
+      cy.visit('http://localhost:9000/cypress/masked-input', {
+        onBeforeLoad(win) {
+          stub = cy.stub(win.console, 'log', (ev) => { lastConsole = ev; });
+        },
       });
+    });
+
+    it('onEnterPress', () => {
+      cy.name('PhoneMask')
+        .clear()
+        .type('7')
+        .type('{enter}')
+        .then(() => {
+          expect(stub).to.be.called;
+          expect(lastConsole).to.have.property('type', 'keydown');
+          expect(lastConsole).to.have.property('key', 'Enter');
+          expect(lastConsole.component).to.have.property('name', "PhoneMask");
+          expect(lastConsole.component).to.have.property('value', '');
+          expect(lastConsole.component).to.have.property('inputValue', "+7 (7__)-___-__-__");
+        });
+    });
+
+    it('onFocus', () => {
+      cy.name('PhoneMask')
+        .focus()
+        .then(() => {
+          expect(stub).to.be.called;
+          expect(lastConsole).to.have.property('type', 'focus');
+          expect(lastConsole.component).to.have.property('name', "PhoneMask");
+          expect(lastConsole.component).to.have.property('value', "8005553535");
+        });
+    });
+
+    it('onBlur', () => {
+      cy.name('PhoneMask')
+        .focus()
+        .blur()
+        .then(() => {
+          expect(stub).to.be.called;
+          expect(lastConsole).to.have.property('type', 'blur');
+          expect(lastConsole.component).to.have.property('name', "PhoneMask");
+          expect(lastConsole.component).to.have.property('isValid', true);
+        });
+    });
+
+    it('onChange', () => {
+      cy.name('PhoneMask')
+        .clear()
+        .type('7')
+        .then(() => {
+          expect(stub).to.be.called;
+          expect(lastConsole).to.have.property('type', 'change');
+          expect(lastConsole.target).to.have.property('name', "PhoneMask");
+          expect(lastConsole.component).to.have.property('value', '');
+          expect(lastConsole.component).to.have.property('inputValue', "+7 (7__)-___-__-__");
+        })
+        .clear()
+        .type('8005556363')
+        .then(() => {
+          expect(stub).to.be.called;
+          expect(lastConsole).to.have.property('type', 'change');
+          expect(lastConsole.target).to.have.property('name', "PhoneMask");
+          expect(lastConsole.component).to.have.property('value', '8005556363');
+          expect(lastConsole.component).to.have.property('inputValue', "+7 (800)-555-63-63");
+        })
     });
   });
 });

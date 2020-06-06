@@ -1,89 +1,150 @@
-/* eslint-disable no-alert */
 import * as React from 'react';
 import * as L from '../../../leda';
+import { useEventSpy } from '../../useEventSpy';
 
+export const Input = (attrs: any) => {
+    const [value, setValue] = React.useState('');
+    const [value1, setValue1] = React.useState('');
+    const [value2, setValue2] = React.useState('');
+    const { update, EventInfo } = useEventSpy();
+    const [count, setCount] = React.useState<number>(0);
+    const handleChange = (ev) => { setValue2(ev.component.value); };
+    const testFunction = (event: {}) => {
+        console.log(event);
+    };
+    const inputRender = ({ Element, elementProps }) => (
+        <>
+            <L.Span
+                style={{ display: 'inline-block', padding: '5px' }}
+                onClick={console.log}
+            >
+                from
+        </L.Span>
+            <Element {...elementProps} />
+            <L.Span
+                style={{ display: 'inline-block', padding: '5px' }}
+                _txt-success
+                onClick={console.log}
+            >
+                €
+        </L.Span>
+        </>
+    );
 
-export const Input = (): React.ReactElement => (
-  <L.Div>
-    <L.Span>Введите числа</L.Span>
-    <L.Input
-      id="only-numbers"
-      placeholder="only numbers"
-      allowedSymbols="numbers"
-    />
-    <L.Span>Введите латинские символы</L.Span>
-    <L.Input
-      id="only-Latin-symbols"
-      placeholder="only Latin symbols"
-      allowedSymbols={/([A-Za-z]|\s)/}
-    />
-    <L.Span>Компонент неактивный</L.Span>
-    <L.Input
-      id="isDisabled"
-      placeholder="isDisabled"
-      isDisabled
-    />
-    <L.Span>Меняет регистр на верхний</L.Span>
-    <L.Input
-      id="changeToUpperCase"
-      placeholder="Changes the register to upper case"
-      letterCase="upper"
-    />
-    <L.Span>Меняет регистр на нижний</L.Span>
-    <L.Input
-      id="changeToLowerCase"
-      placeholder="Changes the register to lower case"
-      letterCase="lower"
-    />
-    <L.Span>Только 5 символов</L.Span>
-    <L.Input
-      id="only5Characters"
-      placeholder="Only 5 characters"
-      maxLength={5}
-    />
-    <L.Span>Проверка корректности ввода</L.Span>
-    <L.Input
-      id="corr-Input"
-      placeholder="Checking the correctness of input"
-    />
-    <L.Span>Проверка обязательности input</L.Span>
-    <L.P>
-      <L.Input
-        id="checkDangerClass"
-        isRequired
-        placeholder="Checking the mandatory input"
-        form="requiredForm"
-        name="Input"
-      />
-    </L.P>
-    <L.Button
-      form="requiredForm"
-    >
-    Submit
-    </L.Button>
+    const wrapperRender = ({ Element, elementProps }) => (
+        <Element
+            {...elementProps}
+            data-some-attribute="hello world"
+        />
+    );
 
-    <L.P>
-      <L.Span>Проверка на вывод сообщения, если валидатор выдал ошибку + проверка работоспособности валидатора</L.Span>
-      <L.Input
-        id="checkDangerClassValid"
-        name="field1"
-        form="myForm"
-        validator={/^\w+\s\w+$/}
-        isRequired
-        invalidMessage="Введите два слова латиницей через пробел"
-      />
-    </L.P>
-    {' '}
-    <L.P>
-      <L.Span>requiredMessage должен выводить сообщение, при потере фокуса с пустого обязательного поля</L.Span>
-      <L.Input
-        id="checkMessageDangerClass"
-        name="field2"
-        form="myForm"
-        isRequired
-        requiredMessage="Поле обязательно!"
-        placeholder="Пользовательское сообщение"
-      />
-    </L.P>
-  </L.Div>
-);
+    return (
+        <L.Div _box _inner _demoBg>
+            <br />
+            <L.Input
+                _width30
+                placeholder="Type only capitals..."
+                hasClearButton
+                value={value}
+                onChange={(event) => {
+                    update('Change', event);
+                    setValue(event.component.value);
+                    console.log(event.currentTarget?.value);
+                    testFunction(event);
+                }}
+                form="form1"
+                invalidMessage={`Email`}
+                name="UpperInput"
+                letterCase="upper"
+                forbiddenSymbols='numbers'
+                maxLength={count}
+                validator='email'
+            />
+            <br />
+            <br />
+            <br />
+            <L.Button onClick={() => setCount(count + 1)}>+ 1, сейчас: {count}</L.Button>
+            <L.Button onClick={() => setCount(count - 1)}>- 1, сейчас {count}</L.Button>
+            <br />
+
+            <L.Input
+                _width30
+                name="LowerInput"
+                form="AwesomeInput"
+                value={value1}
+                forbiddenSymbols={/[s-z]/}
+                invalidMessage="invalidMessage"
+                requiredMessage="requiredMessage"
+                onChange={(ev) => {
+                    setValue1(ev.component.value);
+                }}
+                placeholder="Type lowercase email"
+                hasClearButton
+                letterCase="lower"
+                onFocus={testFunction}
+                onEnterPress={testFunction}
+                onBlur={testFunction}
+                isRequired
+                validator={[
+                    {
+                        validator: 'email',
+                    },
+                    {
+                        validator: /[p-s]/,
+                        invalidMessage: 'Wrong chars',
+                    },
+                    {
+                        validator: (val: string | number) => (val.toString().length > 10),
+                        invalidMessage: 'Minimum 10 symbols',
+                    },
+                ]}
+            />
+            <br />
+            <br />
+            <L.Input
+                name="RegExpInput"
+                form="AwesomeInput"
+                allowedSymbols={/[A-S]/}
+                isRequired
+            />
+            <br />
+            <br />
+            <L.Input
+                name="PredefinedSymbolsInput"
+                allowedSymbols="numbers"
+                form="AwesomeInput"
+                wrapperRender={wrapperRender}
+                inputRender={inputRender}
+            />
+            <br />
+            <L.Button
+                form="AwesomeInput"
+                onClick={(ev) => console.log('awesome form submit ev', ev)}
+                onValidationFail={(ev) => console.log('awesome form fail ev', ev)}
+            >
+                Validate an awesome input
+            </L.Button>
+            <br />
+            <L.Input
+                name="DisabledInput"
+                form="AwesomeInput"
+                defaultValue="Wow, u r so gud"
+                isDisabled
+            />
+            <br />
+            <L.Input
+                form='OneInputForm'
+                name='BasicInput'
+                isRequired
+                onChange={handleChange}
+                value={value2}
+            />
+            <br />
+            <L.Button form='OneInputForm'
+            >
+                Validate OneInputForm
+            </L.Button>
+
+        </L.Div>
+    );
+};
