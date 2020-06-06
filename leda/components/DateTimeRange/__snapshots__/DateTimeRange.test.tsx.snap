@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Check DateRange snapshots collection is DateRange render right? 1`] = `
+exports[`Check DateTimeRange snapshots collection is DateTimeRange render right? 1`] = `
 <div
   class="daterange-wrapper"
 >
@@ -13,7 +13,7 @@ exports[`Check DateRange snapshots collection is DateRange render right? 1`] = `
       <input
         aria-invalid="false"
         class="datepicker-input"
-        maxlength="11"
+        maxlength="17"
         name="test-from"
         value=""
       />
@@ -40,7 +40,7 @@ exports[`Check DateRange snapshots collection is DateRange render right? 1`] = `
       <input
         aria-invalid="false"
         class="datepicker-input"
-        maxlength="11"
+        maxlength="17"
         name="test-to"
         value=""
       />

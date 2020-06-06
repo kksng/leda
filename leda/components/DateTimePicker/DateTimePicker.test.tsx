@@ -1,236 +1,244 @@
-// @ts-nocheck
-import { mount } from 'enzyme';
 import React from 'react';
-import toJson from 'enzyme-to-json';
+import {
+  render,
+  fireEvent,
+} from '@testing-library/react';
+
+import userEvent from '@testing-library/user-event';
 import { DateTimePicker } from './index';
-import { fixJSON } from '../../utils';
-import { Button } from '../Button';
 
-describe.skip('DateTimePicker SNAPSHOTS', () => {
-  it('should render', () => {
-    const wrapper = mount(<DateTimePicker />);
+describe('Check DateTimePicker snapshots collection', () => {
+  test('is DateTimePicker render right?', () => {
+    const { container } = render(<DateTimePicker name="test" />);
 
-    const wrapperJSON = toJson(wrapper);
-
-    expect(fixJSON(wrapperJSON)).toMatchSnapshot();
-  });
-
-  it('should render controllable mode', () => {
-    const wrapper = mount(<DateTimePicker value={new Date('1998-03-16T04:20z')} />);
-    let wrapperJSON = toJson(wrapper);
-
-    expect(wrapper.state().value).toEqual(new Date('1998-03-16T04:20z'));
-
-    expect(wrapper.find('DateTimePicker').last().props().value).toEqual(new Date('1998-03-16T04:20z'));
-
-    expect(fixJSON(wrapperJSON)).toMatchSnapshot();
-
-    wrapper.setProps({ value: new Date('1985-10-31T04:20z') });
-
-    expect(wrapper.state().value).toEqual(new Date('1985-10-31T04:20z'));
-
-    expect(wrapper.find('DateTimePicker').last().props().value).toEqual(new Date('1985-10-31T04:20z'));
-
-    wrapperJSON = toJson(wrapper);
-
-    expect(fixJSON(wrapperJSON)).toMatchSnapshot();
+    expect(container.firstChild)
+      .toMatchSnapshot();
   });
 });
+describe('Check DateTimePicker value set test collection', () => {
+  test('is DateTimePicker render right if value set as String', () => {
+    const dateValue = '10.10.2010 10:10';
+    const {
+      getAllByRole,
+      getByRole,
+    } = render(<DateTimePicker name="test" value={dateValue} />);
 
-describe.skip('DateTimePicker HANDLERS', () => {
-  it('should call onChange from inside, should change event', () => {
-    const onChangeHandler = jest.fn();
-    const wrapper = mount(<DateTimePicker name="pipicker" onChange={onChangeHandler} />);
+    expect(getByRole('textbox'))
+      .toHaveAttribute('value');
 
-    wrapper.find('DateTimePicker').last().props().change({ sender: { value: () => (new Date('1998-03-16T04:20z')) } });
+    expect(getAllByRole('textbox'))
+      .toHaveLength(1);
 
-    expect(onChangeHandler).toHaveBeenCalledWith({ target: { value: new Date('1998-03-16T04:20z'), name: 'pipicker' } });
+    expect(getByRole('textbox'))
+      .toHaveValue(dateValue);
   });
+  test('is DateTimePicker render right if value set as Date', () => {
+    const dateValue = new Date('10.10.2010 10:10');
+    const {
+      getAllByRole,
+      getByRole,
+    } = render(<DateTimePicker name="test" value={dateValue} />);
 
-  it('should call onBlur from inside, should change event', () => {
-    const onBlurHandler = jest.fn();
-    const wrapper = mount(<DateTimePicker name="pipicker" value={new Date('1998-03-16T04:20z')} onBlur={onBlurHandler} />);
+    expect(getByRole('textbox'))
+      .toHaveAttribute('value');
 
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
+    expect(getAllByRole('textbox'))
+      .toHaveLength(1);
 
-    const [[event]] = onBlurHandler.mock.calls;
-
-    expect(event.target.value).toEqual('16.03.1998 7:20');
-
-    expect(event.target.name).toEqual('pipicker');
+    expect(getByRole('textbox'))
+      .toHaveValue('10.10.2010 10:10');
   });
+  test('is DateTimePicker render right if value set as Null', () => {
+    const dateValue = null;
+    const {
+      getAllByRole,
+      getByRole,
+    } = render(<DateTimePicker name="test" value={dateValue} />);
 
-  it('should call onOpen from inside, should change event', () => {
-    const onOpenHandler = jest.fn();
-    const wrapper = mount(<DateTimePicker name="pipicker" onOpen={onOpenHandler} />);
+    expect(getByRole('textbox'))
+      .toHaveAttribute('value');
 
-    wrapper.find('DateTimePicker').last().props().open({ sender: { value: () => (new Date('1998-03-16T04:20z')) } });
+    expect(getAllByRole('textbox'))
+      .toHaveLength(1);
 
-    expect(onOpenHandler).toHaveBeenCalled();
-  });
-
-  it('should call onClose from inside, should change event', () => {
-    const onCloseHandler = jest.fn();
-    const wrapper = mount(<DateTimePicker name="pipicker" onClose={onCloseHandler} />);
-
-    wrapper.find('DateTimePicker').last().props().close({ sender: { value: () => (new Date('1998-03-16T04:20z')) } });
-
-    expect(onCloseHandler).toHaveBeenCalled();
+    expect(getByRole('textbox'))
+      .toHaveValue('');
   });
 });
+describe('Check DateTimePicker attributes test collection', () => {
+  test('is DateTimePicker placeholder set right?', () => {
+    const validPlaceholder = 'text';
+    const { getByRole } = render(<DateTimePicker placeholder={validPlaceholder} />);
 
-describe.skip('DateTimePicker ATTRIBUTES', () => {
-  describe('className prop', () => {
-    const wrapper = mount(<DateTimePicker _box>default</DateTimePicker>);
+    expect(getByRole('textbox'))
+      .toHaveAttribute('placeholder');
 
-    it('should have className', () => {
-      expect(wrapper.find('DateTimePicker').last().hasClass('box')).toBeTruthy();
-    });
-
-    it('should change classes through props', () => {
-      wrapper.setProps({ active: true, box: false });
-
-      expect(wrapper.find('DateTimePicker').last().hasClass('box')).toBeFalsy();
-
-      expect(wrapper.find('DateTimePicker').last().hasClass('active')).toBeTruthy();
-    });
-
-    it('className should not change prop-classes', () => {
-      wrapper.setProps({ className: 'testClass' });
-
-      expect(wrapper.find('DateTimePicker').last().hasClass('box')).toBeFalsy();
-
-      expect(wrapper.find('DateTimePicker').last().hasClass('active')).toBeTruthy();
-
-      expect(wrapper.find('DateTimePicker').first().hasClass('testClass')).toBeTruthy();
-    });
+    expect(getByRole('textbox'))
+      .toHaveProperty('placeholder', validPlaceholder);
   });
+  test('is DateTimePicker minMax set attributes work right?', () => {
+    const min = new Date('01.02.2018 10:10');
+    const max = new Date('05.25.2020 10:10');// mm-dd-YYYY
+    const validValue = '25.05.2020 10:10';
+    const valueForCheck = '26';
+    const { getByText } = render(<DateTimePicker value={validValue} isOpen min={min} max={max} />);
 
-  describe('format prop', () => {
-    it('should accept different formats', () => {
-      const wrapper = mount(<DateTimePicker format="dd.MM.yyyy h:mm" timeFormat="h:mm" value={new Date('2018-11-02T04:20z')} />);
-
-      let wrapperJSON = toJson(wrapper);
-
-      expect(wrapper.find('input').getDOMNode().value).toEqual('02.11.2018 7:20');
-
-      expect(fixJSON(wrapperJSON)).toMatchSnapshot();
-
-      wrapper.setProps({ format: 'dd h:mm:ss', timeFormat: 'hh:mm:ss' });
-
-      expect(wrapper.find('input').getDOMNode().value).toEqual('02 7:20:00');
-
-      wrapperJSON = toJson(wrapper);
-
-      expect(fixJSON(wrapperJSON)).toMatchSnapshot();
-
-      wrapper.setProps({ format: 'dd.MM hh:mm' });
-
-      expect(wrapper.find('input').getDOMNode().value).toEqual('02.11 07:20');
-
-      wrapperJSON = toJson(wrapper);
-
-      expect(fixJSON(wrapperJSON)).toMatchSnapshot();
-
-      wrapper.setProps({ format: 'MM h:mm' });
-
-      expect(wrapper.find('input').getDOMNode().value).toEqual('11 7:20');
-
-      wrapperJSON = toJson(wrapper);
-
-      expect(fixJSON(wrapperJSON)).toMatchSnapshot();
-
-      wrapper.setProps({ format: 'yyyy, hh:mm' });
-
-      expect(wrapper.find('input').getDOMNode().value).toEqual('2018, 07:20');
-
-      wrapperJSON = toJson(wrapper);
-
-      expect(fixJSON(wrapperJSON)).toMatchSnapshot();
-
-      wrapper.setProps({ format: 'yyyy h:mm' });
-
-      expect(wrapper.find('input').getDOMNode().value).toEqual('2018 7:20');
-
-      wrapperJSON = toJson(wrapper);
-
-      expect(fixJSON(wrapperJSON)).toMatchSnapshot();
-
-      wrapper.setProps({ format: 'dd.MM.yy, hh:mm' });
-
-      expect(wrapper.find('input').getDOMNode().value).toEqual('02.11.18, 07:20');
-
-      wrapperJSON = toJson(wrapper);
-
-      expect(fixJSON(wrapperJSON)).toMatchSnapshot();
-    });
+    expect(getByText(valueForCheck))
+      .toHaveClass('calendar-date-cell disabled-date');
   });
+  test('is DateTimePicker isDisabled attributes work right?', () => {
+    const onChange = jest.fn();
+    const { container, debug } = render(<DateTimePicker isDisabled value="10.10.2010 10:10" onChange={onChange} />);
+    const icon = container.querySelectorAll('.datepicker-icons-wrapper')[0];
+    const input = container.querySelectorAll('input.datepicker-input')[0];
 
-  /** todo: невозможно протестировать, реакт видит только пустой input, протестировать другим тестинговым фреймворком
-  it('should disable dates in calendar', () => {
+    fireEvent.click(icon);
+
+    expect(container.querySelectorAll('.disabled-state'))
+      .toHaveLength(1);
+
+    expect(input)
+      .toHaveAttribute('disabled');
+
+    expect(onChange)
+      .toHaveBeenCalledTimes(0);
   });
+  test('is DateTimePicker isOpen attribute work right?', () => {
+    const onChange = jest.fn();
+    const { container, rerender } = render(<DateTimePicker isOpen value="10.10.2010 10:10" onChange={onChange} />);
+    const icon = container.querySelectorAll('.datepicker-icons-wrapper')[0];
+    const input = container.querySelectorAll('input.datepicker-input')[0];
+    const popup = container.querySelectorAll('.calendar-wrapper.visible')[0];
 
-  it('should display time with intervals in timer', () => {
+    expect(icon)
+      .toBeInTheDocument();
+
+    expect(input)
+      .toBeInTheDocument();
+
+    expect(popup)
+      .toBeInTheDocument();
+
+    rerender(<DateTimePicker value="10.10.2010 10:10" onChange={onChange} />);
+
+    expect(container.querySelectorAll('.calendar-wrapper.visible')[0])
+      .not
+      .toBeDefined();
   });
+  test('is DateTimePicker date format input work right?', () => {
+    const onChange = jest.fn();
+    const validFormat = 'dd.MM.yyyy hh:mm';
+    const invalidFormat = 'yyyy-MM-dd hh:mm';
+    const validValue = '10.10.2010 10:10';
+    const invalidValue = '2010-10-10 10:10';
+    const { container, rerender } = render(<DateTimePicker format={validFormat} value={validValue} onChange={onChange} />);
+    const icon = container.querySelectorAll('.datepicker-icons-wrapper')[0];
+    const input = container.querySelectorAll('input.datepicker-input')[0];
 
-  it('should have min value in calendar', () => {
+    fireEvent.click(icon);
+
+    expect(input)
+      .toHaveValue(validValue);
+
+    rerender(<DateTimePicker format={invalidFormat} value={invalidValue} onChange={onChange} />);
+
+    fireEvent.click(icon);
+
+    expect(input)
+      .toHaveValue(invalidValue);
   });
-
-  it('should have max value in calendar', () => {
-  });
-
-  it('should accept start prop in calendar', () => {
-  });
-
-  it('should display weekNumber in calendar', () => {
-
-  });
-*/
 });
+describe('Check DateTimePicker event listeners test collection', () => {
+  test('is DateTimePicker onBlur event listener work right?', () => {
+    const validDate = '10.10.2010 10:10';
+    const validName = 'test';
+    const onBlur = jest.fn();
+    const { container } = render(<DateTimePicker value={validDate} name={validName} onBlur={onBlur} />);
+    const input = container.querySelectorAll('input.datepicker-input')[0];
 
+    fireEvent.blur(input);
 
-describe.skip('DateTimePicker VALIDATION', () => {
-  it('should be invalid if isRequired and empty', async () => {
-    const onBlurHandler = jest.fn();
-    const wrapper = mount(<DateTimePicker form="test" name="tiny" onBlur={onBlurHandler} isRequired />);
+    expect(input)
+      .not
+      .toHaveFocus();
 
-    expect(wrapper.state().isValid).toBeTruthy();
+    expect(onBlur)
+      .toBeCalledTimes(1);
 
-    wrapper.find('input').getDOMNode().dispatchEvent(new Event('blur'));
-
-    // так как onBlur в валидации работает ассинхронно, нужно подождать
-    await new Promise((resolve) => setTimeout(resolve, 0));
-
-    expect(onBlurHandler).toHaveBeenCalled();
-
-    const [[event]] = onBlurHandler.mock.calls;
-
-    expect(event.target.value).toEqual('');
-
-    expect(event.target.name).toEqual('tiny');
-
-    expect(event.target.isValid).toBeFalsy();
-
-    expect(wrapper.state().isValid).toBeFalsy();
-
-    const [dateTimePicker] = wrapper.instance().dateTimeRef.current.widgetInstance.wrapper;
-
-    expect(dateTimePicker.classList).toContain('danger');
+    expect(onBlur)
+      .lastCalledWith(expect.objectContaining({
+        component: expect.objectContaining({
+          name: validName,
+          value: validDate,
+        }),
+      }));
   });
+  test('is DateTimePicker onChange event listener work right?', () => {
+    const validFormat = 'dd.MM.yyyy hh:mm';
+    const validValue = '10.10.2010 10:10';
+    const validValueWithotComma = '101020101010';
+    const invalidValue = '11.10.2010 10:10';
+    const validName = 'test';
+    const onChange = jest.fn();
+    const { container } = render(<DateTimePicker value={invalidValue} format={validFormat} name={validName} onChange={onChange} />);
+    const input = container.querySelectorAll('input.datepicker-input')[0];
 
-  it('should be invalid if isRequired and empty when submit', () => {
-    const form = (
-      <div>
-        <DateTimePicker form="test" name="picker" onBlur={jest.fn()} isRequired />
-        <Button form="test">Submit</Button>
-      </div>
-    );
-    const wrapper = mount(form);
+    userEvent.type(input, validValue);
 
-    wrapper.find('a').props().onClick({ preventDefault: () => {} });
+    expect(onChange)
+      .toBeCalledTimes(validValue.length);
 
-    const [dateTimePicker] = wrapper.instance().children;
+    expect(onChange)
+      .lastCalledWith(expect.objectContaining({
+        component: expect.objectContaining({
+          name: validName,
+          value: validValueWithotComma,
+        }),
+      }));
+  });
+  test('is DateTimePicker onPressEnter event listener work right?', () => {
+    const validName = 'test';
+    const validValue = '10.10.2010 10:10';
+    const onEnterPress = jest.fn();
+    const { container } = render(<DateTimePicker name={validName} value={validValue} onEnterPress={onEnterPress} />);
+    const input = container.querySelectorAll('input.datepicker-input')[0];
 
-    expect(dateTimePicker.classList).toContain('danger');
+    fireEvent.keyDown(input, {
+      charCode: 13,
+      code: 13,
+      key: 'Enter',
+      keyCode: 13,
+    });
+
+    expect(onEnterPress)
+      .toHaveBeenCalled();
+
+    expect(onEnterPress)
+      .lastCalledWith(expect.objectContaining({
+        component: expect.objectContaining({
+          name: validName,
+          value: '', // Ошибка! Как исправится, нужно будет добаивть
+        }),
+      }));
+  });
+  test('is DateTimePicker onFocus event listener work right?', () => {
+    const validName = 'test';
+    const validValue = '10.10.2010 10:10';
+    const onFocus = jest.fn();
+    const { container } = render(<DateTimePicker name={validName} value={validValue} onFocus={onFocus} />);
+    const input = container.querySelectorAll('input.datepicker-input')[0];
+
+    fireEvent.focus(input);
+
+    expect(onFocus)
+      .toHaveBeenCalled();
+
+    expect(onFocus)
+      .lastCalledWith(expect.objectContaining({
+        component: expect.objectContaining({
+          name: validName,
+          value: validValue,
+        }),
+      }));
   });
 });
