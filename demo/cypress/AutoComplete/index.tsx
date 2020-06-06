@@ -128,7 +128,6 @@ export const AutoComplete = (): React.ReactElement => {
           name="AutoComplete5"
           onChange={(event) => setStringValue5(event.component.value)}
           isDisabled
-
           filterRule="startsWith"
           hasClearButton
           isOpen={isOpen}
