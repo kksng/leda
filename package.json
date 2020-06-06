@@ -18,6 +18,7 @@
     "build": "npm run clean && npm run tsc && npm run sass",
     "lint": "eslint --color --ext .ts,.tsx leda",
     "test": "jest --color --silent",
+    "test:watch": "jest --color --silent --watch",
     "tsc": "tsc",
     "jest": "jest",
     "cypress": "start-test wds 9000 cypress:open",

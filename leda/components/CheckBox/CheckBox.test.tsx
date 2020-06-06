@@ -118,33 +118,55 @@ describe('CheckBox HANDLERS', () => {
 });
 
 describe('CheckBox ATTRIBUTES', () => {
-  describe(', should add classname "semi" to wrapper', () => {
-    it('should have className', () => {
-      const { container } = render(<CheckBox _semi />);
 
+  describe('the basic behavior', () => {
+    it('should contains an input element with checkbox-input class', () => {
+      const { container } = render(<CheckBox />);
       expect(container.querySelector('input')).toHaveClass('checkbox-input');
+    });
+
+    it('should contains a label elemtn with checkbox-label class', () => {
+      const { container } = render(<CheckBox />);
 
       expect(container.querySelector('label')).toHaveClass('checkbox-label');
-
-      expect(container.querySelector('label.checkbox-label')).toHaveClass('semi');
-    });
-
-    it(', should convert props to classes', () => {
-      const { container } = render(<CheckBox _active />);
-
-      expect(container.querySelector('.checkbox-label.box')).toBeNull();
-
-      expect(container.querySelector('.checkbox-label.active')).toBeInTheDocument();
-    });
-
-    it('classes passed through className should not override prop-classes', () => {
-      const { container } = render(<CheckBox className="test" _active />);
-
-      expect(container.querySelector('.checkbox-label.test')).toBeInTheDocument();
-
-      expect(container.querySelector('.checkbox-label.active')).toBeInTheDocument();
     });
   });
+
+
+  describe('converete _props to classes', () => {
+    it('should converte a _semi prop to the semi class name and add it to the wrapper', () => {
+      const { container } = render(<CheckBox _semi />);
+
+      expect(container.querySelector('span')).toHaveClass('semi');
+    });
+
+    it('should combine _prop and className value in valid style classes', () => {
+      const { container } = render(<CheckBox _active className="test" />);
+
+      expect(container.querySelector('span')).toHaveClass('active');
+      expect(container.querySelector('span')).toHaveClass('test');
+    });
+  });
+
+  describe('visual states', () => {
+    it('should not add the semi class to the label by default', () => {
+      const { container } = render(<CheckBox />);
+
+      expect(container.querySelector('label')!.classList.contains('semi')).toBe(false);
+    });
+
+    it('should not add the semi class to the label if an isSemi prop defined as false', () => {
+      const { container } = render(<CheckBox isSemi={false} />);
+
+      expect(container.querySelector('label')!.classList.contains('semi')).toBe(false);
+    });
+
+    it('should add the semi class to the label if an isSemi prop is defined', () => {
+      const {container} = render(<CheckBox isSemi />);
+
+      expect(container.querySelector('label')!.classList.contains('semi')).toBe(true);
+    });
+  })
 
   describe('children prop', () => {
     it('children should have correct className', () => {

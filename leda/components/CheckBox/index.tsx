@@ -17,6 +17,7 @@ export const CheckBox = React.forwardRef((props: CheckBoxProps, ref?: React.Ref<
     id,
     inputRender,
     isDisabled,
+    isSemi,
     labelRender,
     name,
     onChange,
@@ -53,7 +54,9 @@ export const CheckBox = React.forwardRef((props: CheckBoxProps, ref?: React.Ref<
     props,
   );
 
-  const labelClassNames = getClassNames(theme.label, className);
+  const wrapperClassName = getClassNames(className)
+
+  const labelClassNames = getClassNames(theme.label, isSemi ? 'semi' : null);
 
   const checkBoxId = id || `checkbox-${generateId()}`;
 
@@ -61,6 +64,7 @@ export const CheckBox = React.forwardRef((props: CheckBoxProps, ref?: React.Ref<
 
   return (
     <Wrapper
+      className={wrapperClassName}
       ref={ref && ((component) => {
         const wrapper = component ? (component.wrapper || component as unknown as HTMLElement) : null;
 

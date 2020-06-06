@@ -21,6 +21,10 @@ export interface CheckBoxProps {
   inputRender?: CustomRender<CheckBoxProps, {}, React.InputHTMLAttributes<HTMLInputElement>>,
   /** Отключение чекбокса */
   isDisabled?: boolean,
+  
+  /** Флаг частичного выбора */
+  isSemi?: boolean,
+
   /** Кастомизация элемента label */
   labelRender?: CustomRender<CheckBoxProps, {}, React.LabelHTMLAttributes<any>>,
   /** Имя компонента */
