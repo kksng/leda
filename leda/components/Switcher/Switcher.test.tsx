@@ -1,127 +1,102 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
-import toJson from 'enzyme-to-json';
-import { mount } from 'enzyme';
+import {
+  render,
+  fireEvent,
+} from '@testing-library/react';
+
+import userEvent from '@testing-library/user-event';
 import { Switcher } from './index';
 
-describe('Switcher SNAPSHOTS', () => {
-  it('should render', () => {
-    const wrapper = mount(<Switcher>Switch me!</Switcher>);
 
-    expect(wrapper.find('div.switcher-wrapper')).toHaveLength(1);
-    expect(wrapper.find('div.switcher-handle')).toHaveLength(1);
+describe('Check Switcher spanpshot collection', () => {
+  test('is Switcher render right?', () => {
+    const { container, getByText } = render(<Switcher>Switch</Switcher>);
+    const wrapper = container.querySelectorAll('.switcher-wrapper')[0];
+    const handler = container.querySelectorAll('.switcher-handle')[0];
+    const label = container.querySelectorAll('.switcher-label')[0];
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(wrapper)
+      .toBeInTheDocument();
+
+    expect(handler)
+      .toBeInTheDocument();
+
+    expect(label)
+      .toBeInTheDocument();
+
+    expect(getByText('Switch'))
+      .toBeInTheDocument();
+
+    expect(container.firstChild)
+      .toMatchSnapshot();
   });
+  test('is Switcher render right if value set True and False?', () => {
+    const enabled = true;
+    const disabled = false;
+    const { container, rerender } = render(<Switcher value={enabled}>Switch</Switcher>);
+    const wrapper = container.querySelectorAll('.switcher-wrapper')[0];
 
-  it('should render controllable mode', () => {
-    const wrapper = mount(<Switcher value>Switch me!</Switcher>);
+    expect(wrapper)
+      .toBeInTheDocument();
 
-    expect(wrapper.find('div.switcher-wrapper').props().className).toEqual('switcher-wrapper active');
+    expect(wrapper)
+      .toHaveClass('active');
 
-    expect(toJson(wrapper)).toMatchSnapshot();
+    expect(container.firstChild)
+      .toMatchSnapshot();
 
-    wrapper.setProps({ value: false });
+    rerender(<Switcher value={disabled}>Switch</Switcher>);
 
-    expect(wrapper.find('div.switcher-wrapper').props().className).toEqual('switcher-wrapper');
+    expect(wrapper)
+      .not
+      .toHaveClass('active');
 
-    expect(toJson(wrapper)).toMatchSnapshot();
-  });
-
-  it('should render disabled state', () => {
-    const wrapper = mount(<Switcher isDisabled>Switch me!</Switcher>);
-
-    expect(wrapper.find('div.switcher-wrapper').props().className).toEqual('switcher-wrapper disabled');
-
-    expect(toJson(wrapper)).toMatchSnapshot();
-  });
-});
-
-describe('Switcher HANDLERS', () => {
-  it('should trigger onClick', () => {
-    const onClick = jest.fn();
-    const wrapper = mount(<Switcher onClick={onClick}>example</Switcher>);
-
-    expect(wrapper.find('div.switcher-wrapper').hasClass('active')).toBeFalsy();
-
-    act(() => {
-      // @ts-ignore
-      wrapper.find('div.switcher-wrapper').props().onClick();
-    });
-
-    expect(onClick).toHaveBeenCalled();
-
-    wrapper.update();
-
-    expect(wrapper.find('div.switcher-wrapper').hasClass('active')).toBeTruthy();
-  });
-
-  it('should trigger onChange', () => {
-    const onClick = jest.fn();
-    const onChange = jest.fn();
-    const wrapper = mount(<Switcher name="Switchy" onChange={onChange} onClick={onClick}>example</Switcher>);
-
-    expect(wrapper.find('div.switcher-wrapper').hasClass('active')).toBeFalsy();
-
-    act(() => {
-      // @ts-ignore
-      wrapper.find('div.switcher-wrapper').props().onClick({ component: { } });
-    });
-
-    expect(onClick).toHaveBeenCalled();
-
-    expect(onChange).toHaveBeenCalled();
-
-    wrapper.update();
-
-    expect(wrapper.find('div.switcher-wrapper').hasClass('active')).toBeTruthy();
-  });
-
-  it('should have correct event format', () => {
-    const onClick = jest.fn();
-    const onChange = jest.fn();
-
-    const wrapper = mount(<Switcher name="Switchy" onChange={onChange} value={false} onClick={onClick}>example</Switcher>);
-
-    act(() => {
-      // @ts-ignore
-      wrapper.find('div.switcher-wrapper').props().onClick({ component: { } });
-    });
-
-    expect(onClick).toHaveBeenCalled();
-
-    expect(onChange).toHaveBeenCalled();
-
-    wrapper.update();
-
-    const [[event]] = onChange.mock.calls;
-
-    expect(event.component.value).toBeTruthy();
-
-    expect(event.component.name).toEqual('Switchy');
+    expect(container.firstChild)
+      .toMatchSnapshot();
   });
 });
+describe('Check Switcher attributes test collection', () => {
+  test('is Switcher with isDisabled work right?', () => {
+    const { container } = render(<Switcher isDisabled>Switch</Switcher>);
+    const wrapper = container.querySelectorAll('.switcher-wrapper')[0];
 
-describe('Switcher ATTRIBUTES', () => {
-  it('should have children in label', () => {
-    const wrapper = mount(<Switcher><div className="lvl1"><span className="lvl2">TEXT</span></div></Switcher>);
+    expect(wrapper)
+      .toHaveClass('disabled');
+  });
+  test('is Switcher with children elements render right?', () => {
+    const { container, debug } = render(<Switcher><div className="lvl1"><span className="lvl2">Switch</span></div></Switcher>);
+    const childrenA = container.querySelectorAll('div.lvl1');
+    const childrenB = container.querySelectorAll('span.lvl2');
 
-    const label = wrapper.find('span.switcher-label');
+    expect(childrenA)
+      .toHaveLength(1);
 
-    const div = label.children('div');
+    expect(childrenB)
+      .toHaveLength(1);
+  });
+});
+describe('Check Switcher event handler collection', () => {
+  test('is Switcher onChange event handler work right?', () => {
+    const validName = 'switcher';
+    const onChange = jest.fn();
+    const disabled = false;
+    const enabled = true;
+    const { container } = render(<Switcher name={validName} value={disabled} onChange={onChange}>Switcher</Switcher>);
+    const wrapper = container.querySelectorAll('.switcher-wrapper')[0];    
+    const label = container.querySelectorAll('.switcher-label')[0];
 
-    const span = div.find('span');
+    expect(label)
+      .not
+      .toHaveClass('active');
 
-    expect(label.props().children).toBeDefined();
+    fireEvent.click(wrapper);
 
-    expect(div.type()).toEqual('div');
-
-    expect(div.props().className).toEqual('lvl1');
-
-    expect(span.type()).toEqual('span');
-
-    expect(span.props().className).toEqual('lvl2');
-
-    expect(span.text()).toEqual('TEXT');
+    expect(onChange)
+      .lastCalledWith(expect.objectContaining({
+        component: expect.objectContaining({
+          name: validName,
+          value: enabled,
+        }),
+      }));
   });
 });
