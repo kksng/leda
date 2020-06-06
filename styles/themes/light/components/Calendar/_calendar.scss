@@ -163,14 +163,12 @@
         border-radius: 50%;
 
         &.different-month-date {
+          color: $black-04;
+          
           &:hover {
             background-color: $primary-05;
             color: $black-01;
           }
-        }
-
-        &.day-off {
-
         }
 
         &.today {
